@@ -58,6 +58,8 @@ Small native-install registries are committed for tools that support that route.
 
 ## Skills (cross-harness)
 
+> **Auto-use:** Selalu gunakan skills yang relevan dari `plugins/*/skills/` dan `.agents/skills/` sesuai deskripsi `SKILL.md` (progressive disclosure). Jika `skills-lock.json` ada tapi `.agents/skills/` kosong, jalankan `npx skills experimental_install` dulu untuk restore 256 skills paket berbobot — cukup bilang "gunakan skills yang kamu butuhkan" maka agent akan memilih skill yang tepat otomatis.
+
 188 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
 
 - **Claude Code**: auto-discovery via Anthropic's SKILL.md spec
