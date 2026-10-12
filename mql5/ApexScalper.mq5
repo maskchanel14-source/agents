@@ -60,13 +60,13 @@ input double           InpMaxDistFromEMA_ATR = 1.2;        // Max entry distance
 //+------------------------------------------------------------------+
 //| --------------------- STOP LOSS / TAKE PROFIT ------------------- |
 //+------------------------------------------------------------------+
-input double           InpSL_ATR             = 2.2;        // Stop loss distance (x ATR)
+input double           InpSL_ATR             = 1.5;        // Stop loss distance (x ATR)
 input double           InpRR                 = 1.5;        // Take profit = risk x R:R
 input bool             InpUseSwingSL         = true;       // Use swing high/low for stop loss
 input int              InpSwingLookback      = 12;         // Swing lookback (bars)
-input double           InpSwingBufferATR     = 0.40;       // Swing buffer (x ATR)
-input double           InpSL_MinATR          = 1.2;        // Minimum stop distance (x ATR)
-input double           InpSL_MaxATR          = 5.0;        // Max stop distance (x ATR) - skip if wider
+input double           InpSwingBufferATR     = 0.25;       // Swing buffer (x ATR)
+input double           InpSL_MinATR          = 0.80;       // Minimum stop distance (x ATR)
+input double           InpSL_MaxATR          = 3.00;       // Max stop distance (x ATR) - skip if wider
 
 //+------------------------------------------------------------------+
 //| ------------------------ MONEY MANAGEMENT ----------------------- |
@@ -86,17 +86,17 @@ input double           InpEquityFloorPct     = 50.0;       // Stop trading if eq
 //+------------------------------------------------------------------+
 input bool             InpUseTrailing        = true;        // Enable trailing stop
 input ENUM_TRAIL_MODE  InpTrailMode          = TRAIL_ATR;   // Trailing distance mode
-input double           InpTrailStartATR      = 1.2;         // Start trailing at profit (x ATR)
-input double           InpTrailDistATR       = 1.2;         // Trailing distance (x ATR) if ATR mode
+input double           InpTrailStartATR      = 0.80;        // Start trailing at profit (x ATR)
+input double           InpTrailDistATR       = 0.70;        // Trailing distance (x ATR) if ATR mode
 input int              InpTrailDistPoints    = 200;         // Trailing distance (points) if points mode
 input double           InpTrailStepATR       = 0.05;        // Min improvement (x ATR) before modifying
 input bool             InpUseTrailTighten    = true;        // Tighten the trail deep in profit
-input double           InpTightenStartATR    = 3.0;         // Tighten trigger at profit (x ATR)
-input double           InpTightenDistATR     = 0.8;         // Tightened trail distance (x ATR)
+input double           InpTightenStartATR    = 1.60;        // Tighten trigger at profit (x ATR)
+input double           InpTightenDistATR     = 0.45;        // Tightened trail distance (x ATR)
 input bool             InpDebugTrailing      = false;       // Log every trailing decision (troubleshooting)
 input int              InpDebugSeconds       = 5;           // Debug log throttle (seconds)
 input bool             InpUseBreakeven       = true;        // Move to breakeven
-input double           InpBE_StartATR        = 1.0;         // Breakeven trigger at profit (x ATR)
+input double           InpBE_StartATR        = 0.60;        // Breakeven trigger at profit (x ATR)
 input double           InpBE_OffsetATR       = 0.10;        // Breakeven offset (x ATR, covers spread+costs)
 
 //+------------------------------------------------------------------+
@@ -106,11 +106,12 @@ input int              InpATR_Period         = 14;          // ATR period
 input double           InpATR_MinPct         = 0.020;       // Min ATR as % of price (dead market)
 input double           InpATR_MaxPct         = 0.500;       // Max ATR as % of price (chaos)
 input int              InpMaxSpreadPoints    = 0;           // Max spread (points), 0 = auto
+input double           InpMaxSpreadATR       = 0.10;        // Max spread as a fraction of ATR (0 = off)
 input bool             InpUseSessionFilter   = true;        // Use trading session filter
 input int              InpSessionStartHour   = 7;           // Session start (server time, hour)
 input int              InpSessionEndHour     = 20;          // Session end (server time, hour)
 input bool             InpTradeFriday        = true;        // Allow trading on Friday
-input int              InpMaxHoldBars        = 8;           // Time stop: max bars in trade (0 = off)
+input int              InpMaxHoldBars        = 12;          // Time stop: max bars in trade (0 = off)
 input int              InpCooldownBars       = 1;           // Bars to wait after a trade closes
 
 //+------------------------------------------------------------------+
@@ -141,6 +142,32 @@ datetime g_lastDbgTime      = 0;      // trailing debug log throttle
 datetime g_lastEntryBarTime = 0;      // signal bar time of the last entry (cooldown)
 double   g_dayStartEquity   = 0.0;
 double   g_peakEquity       = 0.0;    // high water mark, for the drawdown breaker
+
+//--- exit statistics. This is the diagnostic that separates "the entries
+//--- are bad" from "the targets are unreachable". MT5's own report does
+//--- not break results down by exit reason, and without it every tuning
+//--- attempt is a guess.
+int      g_cntTP            = 0;
+int      g_cntSL            = 0;
+int      g_cntTime          = 0;
+int      g_cntOther         = 0;
+double   g_sumTP            = 0.0;
+double   g_sumSL            = 0.0;
+double   g_sumTime          = 0.0;
+double   g_sumOther         = 0.0;
+ulong    g_seenDeals[];               // deal tickets already examined
+int      g_seenCount        = 0;
+double   g_openRiskMoney    = 0.0;    // money at risk on the open trade
+
+//--- R multiple buckets. Exit REASON alone is misleading: a trailed stop
+//--- and a genuine stop out both report DEAL_REASON_SL. R tells them apart.
+int      g_rBigLoss         = 0;      // R <= -0.5
+int      g_rLoss            = 0;      // -0.5 < R <= -0.1
+int      g_rScratch         = 0;      // -0.1 < R < 0.1
+int      g_rWin             = 0;      // 0.1 <= R < 1.0
+int      g_rBigWin          = 0;      // R >= 1.0
+double   g_sumR             = 0.0;
+int      g_rCount           = 0;
 double   g_startEquity      = 0.0;    // equity at load, for the equity floor
 int      g_dayStamp         = -1;
 int      g_tradesToday      = 0;
@@ -624,6 +651,22 @@ int CheckEntry(double &slDistance)
    if(close1 <= 0.0 || a <= 0.0)
       return(0);
 
+   //--- Spread measured against ATR. This is the filter that actually
+   //--- matters, and a fixed point limit is not a substitute: 20 points
+   //--- is fine when ATR is 80 points and fatal when ATR is 30. Cost has
+   //--- to be judged against the volatility being traded. Simulation says
+   //--- spread is the single largest term in the result.
+   if(InpMaxSpreadATR > 0.0)
+     {
+      long spr = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
+      if(spr > 0)
+        {
+         double spreadPrice = (double)spr * _Point;
+         if(spreadPrice / a > InpMaxSpreadATR)
+            return(0);
+        }
+     }
+
    //--- volatility filter: ATR as a percentage of price
    double atrPct = (a / close1) * 100.0;
    if(atrPct < InpATR_MinPct || atrPct > InpATR_MaxPct)
@@ -768,6 +811,134 @@ int CheckEntry(double &slDistance)
   }
 
 //+------------------------------------------------------------------+
+//| Tally closed trades by exit reason                                |
+//|                                                                   |
+//| Read the result like this:                                        |
+//|   TIME dominates -> targets are unreachable inside the hold window|
+//|                     (exit geometry, not signal quality)           |
+//|   SL dominates   -> entries are wrong, or stops are too tight     |
+//|   TP dominates but net is negative -> costs (spread/commission)   |
+//|                     are eating the edge                           |
+//+------------------------------------------------------------------+
+void TallyExits()
+  {
+   if(!HistorySelect(0, TimeCurrent()))
+      return;
+
+   int total = HistoryDealsTotal();
+
+   for(int i = 0; i < total; i++)
+     {
+      ulong dt = HistoryDealGetTicket(i);
+      if(dt == 0)
+         continue;
+
+      //--- already examined on an earlier pass?
+      bool seen = false;
+      for(int k = 0; k < g_seenCount; k++)
+        {
+         if(g_seenDeals[k] == dt)
+           {
+            seen = true;
+            break;
+           }
+        }
+      if(seen)
+         continue;
+
+      //--- remember it whether or not we tally it, so each deal is
+      //--- examined exactly once and this stays cheap
+      g_seenCount++;
+      ArrayResize(g_seenDeals, g_seenCount);
+      g_seenDeals[g_seenCount - 1] = dt;
+
+      if((ulong)HistoryDealGetInteger(dt, DEAL_MAGIC) != InpMagic)
+         continue;
+      if(HistoryDealGetInteger(dt, DEAL_ENTRY) != DEAL_ENTRY_OUT)
+         continue;
+
+      double p = HistoryDealGetDouble(dt, DEAL_PROFIT)
+               + HistoryDealGetDouble(dt, DEAL_COMMISSION)
+               + HistoryDealGetDouble(dt, DEAL_SWAP);
+
+      //--- score the exit in R (profit / initial risk). This is the number
+      //--- that decides whether the system works, and it is what the MT5
+      //--- report does not give you.
+      if(g_openRiskMoney > 0.0)
+        {
+         double r = p / g_openRiskMoney;
+         g_sumR   += r;
+         g_rCount++;
+         if(r <= -0.5)       g_rBigLoss++;
+         else if(r <= -0.1)  g_rLoss++;
+         else if(r <  0.1)   g_rScratch++;
+         else if(r <  1.0)   g_rWin++;
+         else                g_rBigWin++;
+         g_openRiskMoney = 0.0;      // consumed; wait for the next entry
+        }
+
+      long reason = HistoryDealGetInteger(dt, DEAL_REASON);
+
+      if(reason == DEAL_REASON_TP)
+        {
+         g_cntTP++;
+         g_sumTP += p;
+        }
+      else
+         if(reason == DEAL_REASON_SL)
+           {
+            g_cntSL++;
+            g_sumSL += p;
+           }
+         else
+            if(reason == DEAL_REASON_EXPERT)   // our own time stop
+              {
+               g_cntTime++;
+               g_sumTime += p;
+              }
+            else
+              {
+               g_cntOther++;
+               g_sumOther += p;
+              }
+     }
+  }
+
+//+------------------------------------------------------------------+
+//| Print the exit breakdown                                          |
+//+------------------------------------------------------------------+
+void PrintExitStats(string where)
+  {
+   int n = g_cntTP + g_cntSL + g_cntTime + g_cntOther;
+   if(n == 0)
+      return;
+
+   PrintFormat("--- EXIT STATS (%s) ---", where);
+   PrintFormat("  TP   : %4d trades  net %+.2f", g_cntTP,   g_sumTP);
+   PrintFormat("  SL   : %4d trades  net %+.2f", g_cntSL,   g_sumSL);
+   PrintFormat("  TIME : %4d trades  net %+.2f", g_cntTime, g_sumTime);
+   PrintFormat("  OTHER: %4d trades  net %+.2f", g_cntOther, g_sumOther);
+   PrintFormat("  total: %4d trades  net %+.2f", n,
+               g_sumTP + g_sumSL + g_sumTime + g_sumOther);
+   PrintFormat("  TIME share: %.1f%% of exits", (double)g_cntTime / n * 100.0);
+
+   if(g_rCount > 0)
+     {
+      PrintFormat("  R avg: %+.3f over %d scored trades", g_sumR / g_rCount, g_rCount);
+      PrintFormat("  R dist: bigLoss %d | loss %d | scratch %d | win %d | bigWin %d",
+                  g_rBigLoss, g_rLoss, g_rScratch, g_rWin, g_rBigWin);
+      PrintFormat("  R dist: bigLoss %.1f%% | loss %.1f%% | scratch %.1f%% | win %.1f%% | bigWin %.1f%%",
+                  (double)g_rBigLoss / g_rCount * 100.0,
+                  (double)g_rLoss    / g_rCount * 100.0,
+                  (double)g_rScratch / g_rCount * 100.0,
+                  (double)g_rWin     / g_rCount * 100.0,
+                  (double)g_rBigWin  / g_rCount * 100.0);
+      Print("  Read: if scratch+win dominates but net is negative, spread is");
+      Print("        eating the edge. If bigLoss dominates, entries are wrong.");
+     }
+  }
+
+//+------------------------------------------------------------------+
 //| Open a market position                                            |
 //+------------------------------------------------------------------+
 void OpenTrade(int dir, double stopPriceDistance)
@@ -826,6 +997,11 @@ void OpenTrade(int dir, double stopPriceDistance)
       double curTP = PositionGetDouble(POSITION_TP);
       if(curSL == 0.0 || curTP == 0.0)
          trade.PositionModify(ticket, sl, tp);
+
+      //--- money at risk on this trade, so exits can be scored in R
+      g_openRiskMoney = dist * PointValuePerLot() * lots;
+      if(g_openRiskMoney <= 0.0)
+         g_openRiskMoney = 0.0;
 
       g_tradesToday++;
       g_lastEntryBarTime = iTime(_Symbol, InpSignalTF, 0);
@@ -1128,6 +1304,15 @@ void UpdatePanel()
       sRisk = "HALTED";
 
    txt += "Risk guard    : " + sRisk + "   DD from peak: " + sDD + "   equity: " + sFloor + "\n";
+
+   //--- exit breakdown: the fastest way to see whether trades are dying
+   //--- on the time stop instead of reaching their target
+   int nExits = g_cntTP + g_cntSL + g_cntTime + g_cntOther;
+   if(nExits > 0)
+      txt += "Exits         : TP " + IntegerToString(g_cntTP) +
+             "   SL " + IntegerToString(g_cntSL) +
+             "   TIME " + IntegerToString(g_cntTime) +
+             "   other " + IntegerToString(g_cntOther) + "\n";
    txt += "Position      : " + sPos + "\n";
 
    Comment(txt);
@@ -1341,6 +1526,8 @@ int OnInit()
 //+------------------------------------------------------------------+
 void OnDeinit(const int reason)
   {
+   TallyExits();
+   PrintExitStats("OnDeinit");
    if(g_hATR       != INVALID_HANDLE) IndicatorRelease(g_hATR);
    if(g_hEMAPull   != INVALID_HANDLE) IndicatorRelease(g_hEMAPull);
    if(g_hEMAFast   != INVALID_HANDLE) IndicatorRelease(g_hEMAFast);
@@ -1369,6 +1556,7 @@ void OnTick()
       return;
 
    CheckTimeExit();
+   TallyExits();
    UpdatePanel();
 
    if(!InSession())

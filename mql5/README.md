@@ -314,6 +314,92 @@ Lot minimum adalah musuh akun kecil. Urut yang aman:
 
 ---
 
+---
+
+## 6c. Diagnosa: kenapa hasilnya tetap jelek (dan apa yang TIDAK bisa diselesaikan dengan tuning)
+
+Bagian ini penting, karena kesimpulannya **berlawanan dengan apa yang
+kelihatannya salah**.
+
+### Hipotesis yang salah, dan kenapa salah
+
+Dugaan awal: **time stop membunuh trade** — target 3.3 ATR tidak mungkin
+tercapai dalam 8 bar (40 menit), jadi semua trade mati kena time stop.
+
+Ini **salah**, dan simulasi Monte Carlo membuktikannya:
+
+```
+OLD  SL2.2 RR1.5 hold8  arm1.2 tr1.2 BE1.0 -> TP  9.5%  SL 76.7%  TIME 13.9%
+NEW  SL1.5 RR1.5 hold12 arm0.8 tr0.7 BE0.6 -> TP  9.6%  SL 90.4%  TIME  0.0%
+```
+
+Time stop cuma kena **0-14%** trade. Yang dominan adalah **SL/trailing
+(77-90%)**. Jadi time stop bukan masalahnya.
+
+### Masalah yang sebenarnya: spread
+
+Simulasi yang sama, tapi sekarang **spread dihitung sebagai biaya**
+(random walk tanpa drift = entri tanpa edge, jadi ini baseline yang jujur):
+
+| Konfigurasi | sp=0 | sp=0.05 | sp=0.10 | sp=0.15 | sp=0.20 | sp=0.30 |
+|---|---|---|---|---|---|---|
+| OLD sl2.2 arm1.2 tr1.2 | +0.058 | -0.002 | -0.068 | **-0.111** | -0.149 | -0.258 |
+| NEW sl1.5 arm0.8 tr0.7 | +0.058 | -0.001 | -0.047 | **-0.096** | -0.149 | -0.243 |
+| ALT1 sl1.5 arm1.0 tr0.5 | +0.061 | +0.005 | -0.038 | **-0.084** | -0.141 | -0.246 |
+
+(satuan: ATR per trade. Spread ~0.10-0.20 ATR itu normal untuk EURUSD M5
+di akun retail.)
+
+**Bacanya:**
+
+1. **Semua konfigurasi rugi begitu spread >= 0.10 ATR.**
+2. Selisih antar konfigurasi cuma **~0.03 ATR**, sementara biaya spread
+   **0.10-0.26 ATR**. Artinya: **tuning geometri exit itu bukan tuasnya.**
+3. Dengan entri yang tanpa edge, sistem rugi ~0.1 ATR per trade
+   **berapapun** setting SL/TP/trail-nya.
+
+Kesimpulannya: **tidak ada setting exit yang bisa menyelamatkan EA ini.**
+Entri harus ngasih edge nyata yang **lebih besar dari ~0.15 ATR per trade**.
+Itu yang harus dikejar, bukan SL/TP.
+
+### Yang sudah dilakukan berdasarkan data ini
+
+1. **`InpMaxSpreadATR = 0.10` (BARU)** — tolak entry kalau spread lebih
+   dari 10% ATR. Ini perbaikan paling bernilai di ronde ini.
+   Filter spread lama (`InpMaxSpreadPoints`) pakai **points**, yang tidak
+   ada artinya: 20 points itu murah kalau ATR 80 points, tapi mematikan
+   kalau ATR 30 points. Biaya harus diukur terhadap volatilitas yang
+   ditradingkan.
+2. **Geometri exit disesuaikan** — SL 2.2->1.5 ATR, trail 1.2->0.7 ATR,
+   BE 1.0->0.6 ATR, hold 8->12 bar, tighten 3.0->1.6 ATR.
+   Ini **perbaikan nyata tapi kecil** (-0.123 -> -0.091 ATR per trade).
+   Jangan berharap ini yang bikin profit.
+3. **Instrumentasi exit-by-reason + R-multiple (BARU)** — EA sekarang
+   ngitung dan nge-print **`R avg`** dan distribusi R di log, plus baris
+   `Exits: TP / SL / TIME / other` di panel. MT5 report **tidak** ngasih
+   ini, padahal ini satu-satunya cara ngebedain "entri yang jelek" dari
+   "biaya yang makan edge".
+
+### Cara baca output R
+
+```
+--- EXIT STATS (OnDeinit) ---
+  TP   :   12 trades  net +145.20
+  SL   :  198 trades  net -310.40
+  TIME :    3 trades  net   +2.10
+  R avg: -0.041 over 213 scored trades
+  R dist: bigLoss  8.5% | loss 22.1% | scratch 38.0% | win 27.2% | bigWin  4.2%
+```
+
+- **`scratch + win` dominan, tapi net negatif** -> spread/commission makan
+  edge. Turunkan `InpMaxSpreadATR`, atau cari pair/sesi dengan spread lebih
+  kecil.
+- **`bigLoss` dominan** -> entri salah, atau SL terlalu ketat.
+- **`R avg` negatif tapi `bigWin` lumayan** -> ada edge, tapi exit-nya
+  nge-potong terlalu cepat. Longgarin `InpTrailDistATR`.
+- **`TIME` tinggi (>30%)** -> target tidak tercapai dalam `InpMaxHoldBars`.
+  Naikin `InpMaxHoldBars`, atau kecilkan `InpRR`.
+
 ## 7. Troubleshooting: "trailing gak jalan"
 
 Kalau posisi sudah profit tapi SL-nya diam, urutan cek-nya:
