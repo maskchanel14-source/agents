@@ -738,6 +738,22 @@ int CheckEntry(double &slDistance)
    bool biasOKShort = (InpUseTrendFilter ? (bias == -1) : true);
    if(InpUseTrendFilter && bias == 0) f_noBias++;
 
+   //--- Periodic sample log: shows the actual values the EA sees on each
+   //--- bar, so the user can tell whether the filters are the problem or
+   //--- the entry conditions themselves. First 5 bars + every 200th bar.
+   static int s_barCount = 0;
+   s_barCount++;
+   if(s_barCount <= 5 || s_barCount % 200 == 0)
+     {
+      long spr = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
+      double spreadPrice = (spr > 0) ? (double)spr * _Point : 0.0;
+      PrintFormat("SAMPLE bar#%d: close=%.5f atr=%.5f atrPct=%.4f%% spread=%dpts(%.5f, %.3fATR) "
+                  "adx=%.1f rsi=%.1f bias=%d stackUp=%d stackDown=%d notChasing=%d",
+                  s_barCount, close1, a, atrPct, spr, spreadPrice,
+                  (a > 0 ? spreadPrice/a : 0.0),
+                  adx[i], rsi[i], bias, (int)stackUp, (int)stackDown, (int)notChasing);
+     }
+
    double range1 = r[i].high - r[i].low;
 
    //====================== SETUP A: PULLBACK & REJECT ==================
@@ -1502,7 +1518,19 @@ int OnInit()
    if(InpMaxSpreadPoints > 0)
       g_maxSpreadPoints = InpMaxSpreadPoints;
    else
-      g_maxSpreadPoints = (digits == 5 || digits == 6) ? 20 : 3;
+     {
+      //--- When the ATR-based spread filter is active, the points filter is
+      //--- redundant and harmful: its auto-setting uses a fixed digit
+      //--- heuristic (3 points for 2-digit symbols) that is far below the
+      //--- actual spread on instruments like XAUUSD (20-35 points on a
+      //--- 2-digit broker). Disable the points filter and let InpMaxSpreadATR
+      //--- handle spread control, since it adapts to the instrument's own
+      //--- volatility.
+      if(InpMaxSpreadATR > 0.0)
+         g_maxSpreadPoints = 0;
+      else
+         g_maxSpreadPoints = (digits == 5 || digits == 6) ? 20 : 3;
+     }
 
    int maxSlippage = InpMaxSlippagePoints;
    if(maxSlippage <= 0)
