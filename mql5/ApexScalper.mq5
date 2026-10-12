@@ -589,7 +589,10 @@ void OpenTrade(int dir, double stopPriceDistance)
 
       g_tradesToday++;
       g_lastEntryBarTime = iTime(_Symbol, InpSignalTF, 0);
-      Print("OPEN ", (dir > 0 ? "BUY " : "SELL"), " lots=", DoubleToString(lots, 2),
+      string sDir = "SELL";
+      if(dir > 0)
+         sDir = "BUY";
+      Print("OPEN ", sDir, " lots=", DoubleToString(lots, 2),
             " entry=", DoubleToString(PositionGetDouble(POSITION_PRICE_OPEN), digits),
             " sl=", DoubleToString(sl, digits), " tp=", DoubleToString(tp, digits));
      }
@@ -747,14 +750,36 @@ void UpdatePanel()
       return;
 
    long   spread = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
-   string sSpread = (spread >= 0) ? IntegerToString(spread) : "n/a";
+   string sSpread;
+   if(spread >= 0)
+      sSpread = IntegerToString(spread);
+   else
+      sSpread = "n/a";
 
+   //--- Resolve every boolean to a plain string BEFORE it is concatenated.
+   //--- In MQL5 "text" + (cond ? "A" : "B") is a precedence trap: + binds
+   //--- tighter than ?:, so a missing grouping parses as ("text" + bool)
+   //--- and silently coerces the bool into a string.
    string sBias = "OFF";
    if(InpUseTrendFilter)
      {
       int b = GetTrendBias();
-      sBias = (b > 0) ? "UP" : (b < 0 ? "DOWN" : "FLAT");
+      if(b > 0)      sBias = "UP";
+      else if(b < 0) sBias = "DOWN";
+      else           sBias = "FLAT";
      }
+
+   string sSession = "CLOSED";
+   if(InSession())
+      sSession = "OPEN";
+
+   string sGuard = "BLOCKED";
+   if(DailyGuardOK())
+      sGuard = "OK";
+
+   string sPos = "none";
+   if(HasOpenPosition())
+      sPos = "OPEN";
 
    string txt = "";
    txt += "=== ApexScalper v1.00 ===\n";
@@ -762,9 +787,9 @@ void UpdatePanel()
    txt += "Signal TF     : " + EnumToString(InpSignalTF) + "\n";
    txt += "Trend TF      : " + EnumToString(InpTrendTF) + "   bias: " + sBias + "\n";
    txt += "Spread        : " + sSpread + " pts  (max " + IntegerToString(g_maxSpreadPoints) + ")\n";
-   txt += "Session       : " + (InSession() ? "OPEN" : "CLOSED") + "\n";
-   txt += "Daily guard   : " + (DailyGuardOK() ? "OK" : "BLOCKED") + "   trades today: " + IntegerToString(g_tradesToday) + "\n";
-   txt += "Position      : " + (HasOpenPosition() ? "OPEN" : "none") + "\n";
+   txt += "Session       : " + sSession + "\n";
+   txt += "Daily guard   : " + sGuard + "   trades today: " + IntegerToString(g_tradesToday) + "\n";
+   txt += "Position      : " + sPos + "\n";
 
    Comment(txt);
   }
@@ -846,15 +871,24 @@ int OnInit()
    double tickSize  = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
    double tickValue = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_VALUE);
 
+   //--- resolve to plain strings first, see the note in UpdatePanel()
+   string sDigitsNote = "standard";
+   if(digits == 3)
+      sDigitsNote = "3-DIGIT BROKER detected";
+
+   string sTrailing = "OFF";
+   if(InpUseTrailing)
+      sTrailing = "ON";
+
    PrintFormat("ApexScalper v1.00 initialized on %s", _Symbol);
    PrintFormat("  digits=%d  point=%.8f  digits-aware: %s",
-               digits, _Point, (digits == 3 ? "3-DIGIT BROKER detected" : "standard"));
+               digits, _Point, sDigitsNote);
    PrintFormat("  tick size=%.8f  tick value=%.4f  value per 1.0 price move/lot=%.2f",
                tickSize, tickValue, PointValuePerLot());
    PrintFormat("  signal TF=%s  trend TF=%s  max spread=%d points",
                EnumToString(InpSignalTF), EnumToString(InpTrendTF), g_maxSpreadPoints);
    PrintFormat("  risk=%.2f%%  SL=%.2fx ATR  R:R=1:%.2f  trailing=%s",
-               InpRiskPercent, InpSL_ATR, InpRR, (InpUseTrailing ? "ON" : "OFF"));
+               InpRiskPercent, InpSL_ATR, InpRR, sTrailing);
 
    g_initOK      = true;
    g_lastBarTime = iTime(_Symbol, InpSignalTF, 0);
