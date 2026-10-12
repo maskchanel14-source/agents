@@ -88,3 +88,11 @@ cast) and from clutter (charger, papers, mug, remote, folded blanket), not from 
 - That the damage prior behaves identically across models. It was observed on one generator;
   the source skill reports it was tuned on a different one. Treat the mechanism as likely
   general and the exact wording as needing per-model tuning.
+
+## A second case series
+
+The same cat returned for three more generations under a frozen identity block, testing
+type-versus-individual anchoring and the repair path: text-only regeneration kept the type and
+lost the individual; a base-image edit kept both and showed repair creep. Recorded in
+`skills/identity-lock/references/case-series.md`, with its failure classes filed under
+`failure-modes.md` §8 and §9.

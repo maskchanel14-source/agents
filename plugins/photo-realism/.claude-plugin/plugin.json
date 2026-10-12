@@ -1,7 +1,7 @@
 {
   "name": "photo-realism",
-  "version": "1.0.0",
-  "description": "Make generated images read as real photographs instead of AI renders: device-and-shooting-logic prompting, failure-mode word substitutions, versioned visual briefs, and 9-stage prompt reconstruction from reference images.",
+  "version": "1.1.0",
+  "description": "Make generated images read as real photographs instead of AI renders: device-and-shooting-logic prompting, failure-mode word substitutions, identity locking across generations, versioned visual briefs, and 9-stage prompt reconstruction from reference images.",
   "author": {
     "name": "maskchanel14-source",
     "url": "https://github.com/maskchanel14-source"

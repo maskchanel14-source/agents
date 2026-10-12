@@ -279,6 +279,33 @@ For phone realism use `natural` or `muted desaturated`. `vintage kodak` and `fad
 
 `change hair` · `change makeup` · `add effect` · `custom`
 
+## AI-tells checklist (inspection)
+
+Run this over the returned pixels before accepting a generation. Each tell names where its fix
+lives. Grouped by what the eye catches first.
+
+| Tell | What it means | Fix lives in |
+|---|---|---|
+| Waxy, airbrushed skin with no pores | beauty prior smoothing | `failure-modes.md` §7 |
+| Round orange blush patches, over-saturated pink-orange glow | beauty prior coloring | §7 positive texture + flush language |
+| Glassy doll-like eyes, oversized catchlights | render-default eyes | §7 (`small natural catchlights`) |
+| Mirror-symmetric facial features | model default symmetry | §7 asymmetry lever; `identity-lock` |
+| Dreamy bloom haze, over-bright rim light | aesthetic pull toward glamour | §7 light row; cut `cinematic` |
+| Every plane separately lit | studio lighting invented for a candid scene | shooting logic: available light only |
+| Creamy large-aperture bokeh on a phone premise | device logic ignored | `SKILL.md` device-plus-shooting-logic |
+| Floating objects, missing contact shadows | physics evidence absent | state contact: `pressing the cloth slightly, casting soft contact shadows` |
+| Hair or fabric ends curling up against gravity | stylized rendering of draped elements | gravity language: `hangs straight down obeying gravity, one continuous flow` |
+| Perfect timing, centered subject, level horizon | composed-by-default frame | shooting logic; `visual-brief` locks |
+| No residual white-balance difference under mixed light | auto-white-balance erased too much | `residual color-temperature difference` between sources |
+| Whole frame slightly brighter/cleaner after an edit | repair creep | `failure-modes.md` §8 |
+| Same type, different individual across a series | text-only identity anchor | `skills/identity-lock` |
+
+The checklist is a prompt audit in reverse: every tell corresponds to a missing or discounted
+field, so a tell tells you which field to fix — one per iteration.
+
+Vocabulary sources for the skin and face rows: practitioner skin-texture guides (2026) and
+`beatra-ai/ai-image-realism-skill` (MIT-0).
+
 ## See also
 
 - `references/era-grading.md` — era table and the five realism presets
