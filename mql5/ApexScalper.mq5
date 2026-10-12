@@ -367,7 +367,8 @@ int GetTrendBias()
    if(!InpUseTrendFilter)
       return(0);
 
-   double fast[1], slow[1];
+   double fast[];
+   double slow[];
    if(!FillBuffer(g_hTrendFast, 0, 1, fast))
       return(0);
    if(!FillBuffer(g_hTrendSlow, 0, 1, slow))
@@ -411,7 +412,7 @@ int CheckEntry(double &slDistance)
 
    MqlRates r[];
    ArraySetAsSeries(r, true);
-   if(CopyRates(_Symbol, InpSignalTF, 0, barsNeeded) < barsNeeded)
+   if(CopyRates(_Symbol, InpSignalTF, 0, barsNeeded, r) < barsNeeded)
       return(0);
 
    double atr[];
