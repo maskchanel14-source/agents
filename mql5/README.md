@@ -214,7 +214,79 @@ Jangan langsung optimasi semua parameter (overfitting). Urutan yang aman:
 
 ---
 
-## 7. Disclaimer
+## 7. Troubleshooting: "trailing gak jalan"
+
+Kalau posisi sudah profit tapi SL-nya diam, urutan cek-nya:
+
+### A. Paling sering: minimum jarak stop broker lebih lebar dari jarak trail
+
+**Ini jebakan utama akun 3 digit.** EA memanggil:
+
+```mq5
+trailDist = MathMax(trailDist, minStp);   // minStp = SYMBOL_TRADE_STOPS_LEVEL x _Point
+```
+
+Broker menolak SL yang terlalu dekat dengan harga. Di akun 3 digit,
+`_Point = 0.001`, jadi kalau `SYMBOL_TRADE_STOPS_LEVEL = 10`, maka
+`minStp = 0.010`. Sementara ATR EURUSD cuma ≈ `0.0008`, jadi
+`1.2 × ATR = 0.00096` — **jauh lebih kecil dari minimum broker**.
+
+Akibatnya: SL tidak boleh diletakkan lebih dekat dari `0.010`, dan trailing
+baru bisa jalan setelah profit Anda melewati `0.010` itu sendiri.
+Bukan bug EA — ini aturan broker, dan EA **wajib** mematuhinya.
+
+Cara cek: lihat log saat EA di-load.
+
+```
+ATR(14)=0.00080000   broker min stop distance=0.01000000 (10.0 points)
+broker min stop distance = 12.50 x ATR
+WARNING: broker min stop 0.01000000 is WIDER than trail distance 0.00096000
+```
+
+Kalau muncul `WARNING` itu, berarti trailing ATR tidak realistis di broker itu.
+Pilihannya:
+
+1. **Pakai mode points** (`InpTrailMode = TRAIL_POINTS`) dan set
+   `InpTrailDistPoints` **di atas** minimum broker (mis. 12–15 kalau min 10).
+2. Atau cari broker dengan `SYMBOL_TRADE_STOPS_LEVEL` lebih kecil.
+3. Atau terima bahwa trailing baru aktif di profit besar, dan andalkan
+   **breakeven** (`InpBE_StartATR`) sebagai pengaman utama.
+
+### B. Magic number tidak cocok
+
+EA **hanya** mengelola posisi dengan `InpMagic` yang sama. Posisi yang dibuka
+manual atau oleh EA lain **tidak akan disentuh** — ini disengaja.
+
+### C. File `.set` lama menimpa parameter baru
+
+Kalau Anda pernah save `.set` dari versi lama, nilai lama (`InpSL_ATR = 1.5`
+dan seterusnya) akan menimpa default baru. Cek di tab Inputs, atau hapus
+`.set`-nya dan pakai default EA.
+
+### D. Belum recompile
+
+Fitur ratchet (`InpUseTrailTighten`) dan SL lebar baru ada di versi terbaru.
+Kalau di tab Inputs **tidak ada** `InpUseTrailTighten`, berarti yang jalan
+masih versi lama.
+
+### Cara diagnosis cepat
+
+Set `InpDebugTrailing = true`, lalu lihat tab **Experts** di terminal.
+Setiap beberapa detik EA mencetak:
+
+```
+TRAILDBG ticket=123 BUY open=1.10000 price=1.10100 curSL=1.09700
+ | profit=0.00100 (1.25xATR) | atr=0.00080 armAt=0.01000 (12.50xATR)
+ trailDist=0.01000 minStp=0.01000 (12.50xATR) | newSL=1.10000  <== NOT ARMED
+```
+
+Perhatikan `armAt` dan `minStp`: kalau keduanya jauh lebih besar dari `atr`,
+berarti kasus **A**. Kalau barisnya malah
+`no position matches magic ...`, berarti kasus **B**.
+
+---
+
+## 8. Disclaimer
 
 Trading forex/CFD berisiko tinggi. Hasil backtest **bukan janji hasil live**:
 tidak mengikutsertakan slippage nyata, requote, komisi penuh, dan perubahan kondisi pasar.

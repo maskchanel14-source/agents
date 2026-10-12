@@ -82,6 +82,8 @@ input double           InpTrailStepATR       = 0.05;        // Min improvement (
 input bool             InpUseTrailTighten    = true;        // Tighten the trail deep in profit
 input double           InpTightenStartATR    = 3.0;         // Tighten trigger at profit (x ATR)
 input double           InpTightenDistATR     = 0.8;         // Tightened trail distance (x ATR)
+input bool             InpDebugTrailing      = false;       // Log every trailing decision (troubleshooting)
+input int              InpDebugSeconds       = 5;           // Debug log throttle (seconds)
 input bool             InpUseBreakeven       = true;        // Move to breakeven
 input double           InpBE_StartATR        = 1.0;         // Breakeven trigger at profit (x ATR)
 input double           InpBE_OffsetATR       = 0.10;        // Breakeven offset (x ATR, covers spread+costs)
@@ -124,6 +126,7 @@ int      g_hTrendFast = INVALID_HANDLE;
 int      g_hTrendSlow = INVALID_HANDLE;
 
 datetime g_lastBarTime      = 0;      // last processed signal bar
+datetime g_lastDbgTime      = 0;      // trailing debug log throttle
 datetime g_lastEntryBarTime = 0;      // signal bar time of the last entry (cooldown)
 double   g_dayStartEquity   = 0.0;
 int      g_dayStamp         = -1;
@@ -649,6 +652,22 @@ void OpenTrade(int dir, double stopPriceDistance)
   }
 
 //+------------------------------------------------------------------+
+//| Throttled diagnostics for the trailing logic                      |
+//| Turn InpDebugTrailing on when a stop is not moving and you need   |
+//| to see which gate is blocking it.                                 |
+//+------------------------------------------------------------------+
+void TrailDebug(string msg)
+  {
+   if(!InpDebugTrailing)
+      return;
+   datetime now = TimeCurrent();
+   if(InpDebugSeconds > 0 && g_lastDbgTime != 0 && (long)(now - g_lastDbgTime) < (long)InpDebugSeconds)
+      return;
+   g_lastDbgTime = now;
+   Print("TRAILDBG ", msg);
+  }
+
+//+------------------------------------------------------------------+
 //| Trailing stop + breakeven (runs on every tick)                    |
 //+------------------------------------------------------------------+
 void ManageTrailing()
@@ -658,9 +677,34 @@ void ManageTrailing()
 
    ulong ticket = GetOurPositionTicket();
    if(ticket == 0)
+     {
+      //--- Nothing matched. Most often a magic number mismatch: the position
+      //--- was opened manually or by another EA, so this EA deliberately
+      //--- leaves it alone. List what actually IS on the symbol.
+      int    onSym = 0;
+      string found = "";
+      for(int k = PositionsTotal() - 1; k >= 0; k--)
+        {
+         ulong tk = PositionGetTicket(k);
+         if(tk == 0)
+            continue;
+         if(!PositionSelectByTicket(tk))
+            continue;
+         if(PositionGetString(POSITION_SYMBOL) != _Symbol)
+            continue;
+         onSym++;
+         found += IntegerToString(PositionGetInteger(POSITION_MAGIC)) + " ";
+        }
+      TrailDebug("no position matches magic " + IntegerToString(InpMagic)
+                 + " | open on " + _Symbol + " = " + IntegerToString(onSym)
+                 + " | magic(s) found: " + found);
       return;
+     }
    if(!PositionSelectByTicket(ticket))
+     {
+      TrailDebug("ticket found but PositionSelectByTicket failed");
       return;
+     }
 
    int    digits  = (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS);
    long   type    = PositionGetInteger(POSITION_TYPE);
@@ -698,9 +742,11 @@ void ManageTrailing()
      }
 
    //---------------------- TRAILING ---------------------------------
+   double trailDist = 0.0;
+   double armAt     = 0.0;
+
    if(InpUseTrailing)
      {
-      double trailDist;
       if(InpTrailMode == TRAIL_ATR)
         {
          trailDist = InpTrailDistATR * a;
@@ -723,7 +769,7 @@ void ManageTrailing()
       //--- BELOW the entry price. With a wide initial stop that snaps the
       //--- stop from several ATR away to just under entry and the trade
       //--- dies on the next ordinary retrace.
-      double armAt = MathMax(InpTrailStartATR * a, trailDist);
+      armAt = MathMax(InpTrailStartATR * a, trailDist);
 
       if(profitDist >= armAt)
         {
@@ -732,6 +778,23 @@ void ManageTrailing()
             newSL = cand;
         }
      }
+
+   TrailDebug("ticket=" + IntegerToString(ticket)
+              + " " + ((type == POSITION_TYPE_BUY) ? "BUY" : "SELL")
+              + " open=" + DoubleToString(open, digits)
+              + " price=" + DoubleToString(price, digits)
+              + " curSL=" + DoubleToString(curSL, digits)
+              + " | profit=" + DoubleToString(profitDist, digits)
+              + " (" + DoubleToString(profitDist / a, 2) + "xATR)"
+              + " | atr=" + DoubleToString(a, digits)
+              + " armAt=" + DoubleToString(armAt, digits)
+              + " (" + DoubleToString(armAt / a, 2) + "xATR)"
+              + " trailDist=" + DoubleToString(trailDist, digits)
+              + " minStp=" + DoubleToString(minStp, digits)
+              + " (" + DoubleToString(minStp / a, 2) + "xATR)"
+              + " | newSL=" + DoubleToString(newSL, digits)
+              + (profitDist < armAt ? "  <== NOT ARMED" : "  <== armed")
+              + (minStp > trailDist ? "  <== BROKER MINIMUM OVERRODE TRAIL DISTANCE" : ""));
 
    if(newSL == curSL)
       return;
@@ -990,6 +1053,33 @@ int OnInit()
 
    PrintFormat("  trailing=%s  start=%.1fx ATR  dist=%.1fx ATR  tighten=%s",
                sTrailing, InpTrailStartATR, InpTrailDistATR, sTighten);
+
+   //--- Broker minimum stop distance vs our ATR scaled distances. On a
+   //--- 3 digit broker this is the usual reason a trailing stop appears to
+   //--- do nothing: if the broker refuses stops closer than N points and
+   //--- that floor is wider than the ATR distance we asked for, the trail
+   //--- cannot arm until profit exceeds the broker minimum.
+   double atrNow[];
+   double atrVal = 0.0;
+   if(FillBuffer(g_hATR, 0, 2, atrNow))
+      atrVal = atrNow[1];
+
+   double initMinStp = MinStopDistance();
+   PrintFormat("  ATR(%d)=%.8f   broker min stop distance=%.8f (%.1f points)",
+               InpATR_Period, atrVal, initMinStp, initMinStp / _Point);
+
+   if(atrVal > 0.0)
+     {
+      PrintFormat("  broker min stop distance = %.2f x ATR", initMinStp / atrVal);
+
+      if(initMinStp > InpTrailDistATR * atrVal)
+         PrintFormat("  WARNING: broker min stop %.8f is WIDER than trail distance %.8f",
+                     initMinStp, InpTrailDistATR * atrVal);
+
+      if(initMinStp > InpSL_MinATR * atrVal)
+         PrintFormat("  WARNING: broker min stop %.8f is WIDER than InpSL_MinATR %.8f",
+                     initMinStp, InpSL_MinATR * atrVal);
+     }
 
    g_initOK      = true;
    g_lastBarTime = iTime(_Symbol, InpSignalTF, 0);
