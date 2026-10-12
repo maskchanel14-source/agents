@@ -1,0 +1,1820 @@
+[
+  {
+    "name": "quant-analyst",
+    "category": "trading",
+    "one_liner": "Build financial models, backtest trading strategies, and analyze market data.",
+    "when_to_use": "Use PROACTIVELY for quantitative finance, trading algorithms, or risk analysis.",
+    "plugin": "quantitative-trading",
+    "model": "inherit",
+    "path": "plugins/quantitative-trading/agents/quant-analyst.md"
+  },
+  {
+    "name": "risk-manager",
+    "category": "trading",
+    "one_liner": "Monitor portfolio risk, R-multiples, and position limits.",
+    "when_to_use": "Use PROACTIVELY for risk assessment, trade tracking, or portfolio protection.",
+    "plugin": "quantitative-trading",
+    "model": "inherit",
+    "path": "plugins/quantitative-trading/agents/risk-manager.md"
+  },
+  {
+    "name": "agent-orchestration-context-manager",
+    "category": "coding",
+    "one_liner": "Elite AI context engineering specialist mastering dynamic context management, vector databases, knowledge graphs, and intelligent memory systems.",
+    "when_to_use": "Use PROACTIVELY for complex AI orchestration.",
+    "plugin": "agent-orchestration",
+    "model": "inherit",
+    "path": "plugins/agent-orchestration/agents/context-manager.md"
+  },
+  {
+    "name": "architect",
+    "category": "coding",
+    "one_liner": "Architect agent.",
+    "when_to_use": "Use when you need an agent that reads orchestrator-output.md, AGENTS.md, and project-doc.md to produce a numbered step-by-step implementation plan.",
+    "plugin": "ship-mate",
+    "model": "inherit",
+    "path": "plugins/ship-mate/agents/architect.md"
+  },
+  {
+    "name": "arm-cortex-expert",
+    "category": "coding",
+    "one_liner": "Senior embedded software engineer specializing in firmware and driver development for ARM Cortex-M microcontrollers (Teensy, STM32, nRF52, SAMD).",
+    "when_to_use": "Use when you need an agent that decades of experience writing reliable, optimized, and maintainable embedded code with deep expertise in memory barriers, DMA/cache coherency, interrupt-driven I/O, and peripheral drivers.",
+    "plugin": "arm-cortex-microcontrollers",
+    "model": "inherit",
+    "path": "plugins/arm-cortex-microcontrollers/agents/arm-cortex-expert.md"
+  },
+  {
+    "name": "backend-development-tdd-orchestrator",
+    "category": "coding",
+    "one_liner": "Master TDD orchestrator specializing in red-green-refactor discipline, multi-agent workflow coordination, and comprehensive test-driven development practices.",
+    "when_to_use": "Use PROACTIVELY for TDD implementation and governance.",
+    "plugin": "backend-development",
+    "model": "opus",
+    "path": "plugins/backend-development/agents/tdd-orchestrator.md"
+  },
+  {
+    "name": "backend-development-test-automator",
+    "category": "coding",
+    "one_liner": "Create comprehensive test suites including unit, integration, and E2E tests.",
+    "when_to_use": "Use for test creation during feature development.",
+    "plugin": "backend-development",
+    "model": "sonnet",
+    "path": "plugins/backend-development/agents/test-automator.md"
+  },
+  {
+    "name": "c-pro",
+    "category": "coding",
+    "one_liner": "Write efficient C code with proper memory management, pointer arithmetic, and system calls.",
+    "when_to_use": "Use PROACTIVELY for C optimization, memory issues, or system programming.",
+    "plugin": "systems-programming",
+    "model": "opus",
+    "path": "plugins/systems-programming/agents/c-pro.md"
+  },
+  {
+    "name": "code-documentation-code-reviewer",
+    "category": "coding",
+    "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+    "when_to_use": "Use PROACTIVELY for code quality assurance.",
+    "plugin": "code-documentation",
+    "model": "opus",
+    "path": "plugins/code-documentation/agents/code-reviewer.md"
+  },
+  {
+    "name": "code-refactoring-code-reviewer",
+    "category": "coding",
+    "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+    "when_to_use": "Use PROACTIVELY for code quality assurance.",
+    "plugin": "code-refactoring",
+    "model": "opus",
+    "path": "plugins/code-refactoring/agents/code-reviewer.md"
+  },
+  {
+    "name": "code-refactoring-legacy-modernizer",
+    "category": "coding",
+    "one_liner": "Refactor legacy codebases, migrate outdated frameworks, and implement gradual modernization.",
+    "when_to_use": "Use PROACTIVELY for legacy system updates, framework migrations, or technical debt reduction.",
+    "plugin": "code-refactoring",
+    "model": "sonnet",
+    "path": "plugins/code-refactoring/agents/legacy-modernizer.md"
+  },
+  {
+    "name": "code-review-preshipment",
+    "category": "coding",
+    "one_liner": "Comprehensive pre-ship review of all changes since the last deploy or a specified commit.",
+    "when_to_use": "Use after any sprint and always before deploying.",
+    "plugin": "operating-kit",
+    "model": "sonnet",
+    "path": "plugins/operating-kit/agents/code-review-preshipment.md"
+  },
+  {
+    "name": "codebase-cleanup-code-reviewer",
+    "category": "coding",
+    "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+    "when_to_use": "Use PROACTIVELY for code quality assurance.",
+    "plugin": "codebase-cleanup",
+    "model": "opus",
+    "path": "plugins/codebase-cleanup/agents/code-reviewer.md"
+  },
+  {
+    "name": "codebase-cleanup-test-automator",
+    "category": "coding",
+    "one_liner": "Master AI-powered test automation with modern frameworks, self-healing tests, and comprehensive quality engineering.",
+    "when_to_use": "Use PROACTIVELY for testing automation or quality assurance.",
+    "plugin": "codebase-cleanup",
+    "model": "sonnet",
+    "path": "plugins/codebase-cleanup/agents/test-automator.md"
+  },
+  {
+    "name": "comprehensive-review-architect-review",
+    "category": "coding",
+    "one_liner": "Master software architect specializing in modern architecture patterns, clean architecture, microservices, event-driven systems, and DDD.",
+    "when_to_use": "Use PROACTIVELY for architectural decisions.",
+    "plugin": "comprehensive-review",
+    "model": "opus",
+    "path": "plugins/comprehensive-review/agents/architect-review.md"
+  },
+  {
+    "name": "comprehensive-review-code-reviewer",
+    "category": "coding",
+    "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+    "when_to_use": "Use PROACTIVELY for code quality assurance.",
+    "plugin": "comprehensive-review",
+    "model": "opus",
+    "path": "plugins/comprehensive-review/agents/code-reviewer.md"
+  },
+  {
+    "name": "conductor-validator",
+    "category": "coding",
+    "one_liner": "Validates Conductor project artifacts for completeness, consistency, and correctness.",
+    "when_to_use": "Use after setup, when diagnosing issues, or before implementation to verify project context.",
+    "plugin": "conductor",
+    "model": "opus",
+    "path": "plugins/conductor/agents/conductor-validator.md"
+  },
+  {
+    "name": "context-management-context-manager",
+    "category": "coding",
+    "one_liner": "Elite AI context engineering specialist mastering dynamic context management, vector databases, knowledge graphs, and intelligent memory systems.",
+    "when_to_use": "Use PROACTIVELY for complex AI orchestration.",
+    "plugin": "context-management",
+    "model": "inherit",
+    "path": "plugins/context-management/agents/context-manager.md"
+  },
+  {
+    "name": "cpp-pro",
+    "category": "coding",
+    "one_liner": "Write idiomatic C++ code with modern features, RAII, smart pointers, and STL algorithms.",
+    "when_to_use": "Use PROACTIVELY for C++ refactoring, memory safety, or complex C++ patterns.",
+    "plugin": "systems-programming",
+    "model": "opus",
+    "path": "plugins/systems-programming/agents/cpp-pro.md"
+  },
+  {
+    "name": "csharp-pro",
+    "category": "coding",
+    "one_liner": "Write modern C# code with advanced features like records, pattern matching, and async/await.",
+    "when_to_use": "Use PROACTIVELY for C# refactoring, performance optimization, or complex .NET solutions.",
+    "plugin": "jvm-languages",
+    "model": "inherit",
+    "path": "plugins/jvm-languages/agents/csharp-pro.md"
+  },
+  {
+    "name": "debugging-toolkit-debugger",
+    "category": "coding",
+    "one_liner": "Debugging specialist for errors, test failures, and unexpected behavior.",
+    "when_to_use": "Use proactively when encountering any issues.",
+    "plugin": "debugging-toolkit",
+    "model": "sonnet",
+    "path": "plugins/debugging-toolkit/agents/debugger.md"
+  },
+  {
+    "name": "debugging-toolkit-dx-optimizer",
+    "category": "coding",
+    "one_liner": "Developer Experience specialist.",
+    "when_to_use": "Use PROACTIVELY when setting up new projects, after team feedback, or when development friction is noticed.",
+    "plugin": "debugging-toolkit",
+    "model": "sonnet",
+    "path": "plugins/debugging-toolkit/agents/dx-optimizer.md"
+  },
+  {
+    "name": "dependency-management-legacy-modernizer",
+    "category": "coding",
+    "one_liner": "Refactor legacy codebases, migrate outdated frameworks, and implement gradual modernization.",
+    "when_to_use": "Use PROACTIVELY for legacy system updates, framework migrations, or technical debt reduction.",
+    "plugin": "dependency-management",
+    "model": "sonnet",
+    "path": "plugins/dependency-management/agents/legacy-modernizer.md"
+  },
+  {
+    "name": "distributed-debugging-error-detective",
+    "category": "coding",
+    "one_liner": "Search logs and codebases for error patterns, stack traces, and anomalies.",
+    "when_to_use": "Use PROACTIVELY when debugging issues, analyzing logs, or investigating production errors.",
+    "plugin": "distributed-debugging",
+    "model": "sonnet",
+    "path": "plugins/distributed-debugging/agents/error-detective.md"
+  },
+  {
+    "name": "elixir-pro",
+    "category": "coding",
+    "one_liner": "Write idiomatic Elixir code with OTP patterns, supervision trees, and Phoenix LiveView.",
+    "when_to_use": "Use PROACTIVELY for Elixir refactoring, OTP design, or complex BEAM optimizations.",
+    "plugin": "functional-programming",
+    "model": "inherit",
+    "path": "plugins/functional-programming/agents/elixir-pro.md"
+  },
+  {
+    "name": "error-debugging-debugger",
+    "category": "coding",
+    "one_liner": "Debugging specialist for errors, test failures, and unexpected behavior.",
+    "when_to_use": "Use proactively when encountering any issues.",
+    "plugin": "error-debugging",
+    "model": "sonnet",
+    "path": "plugins/error-debugging/agents/debugger.md"
+  },
+  {
+    "name": "error-debugging-error-detective",
+    "category": "coding",
+    "one_liner": "Search logs and codebases for error patterns, stack traces, and anomalies.",
+    "when_to_use": "Use PROACTIVELY when debugging issues, analyzing logs, or investigating production errors.",
+    "plugin": "error-debugging",
+    "model": "sonnet",
+    "path": "plugins/error-debugging/agents/error-detective.md"
+  },
+  {
+    "name": "error-diagnostics-debugger",
+    "category": "coding",
+    "one_liner": "Debugging specialist for errors, test failures, and unexpected behavior.",
+    "when_to_use": "Use proactively when encountering any issues.",
+    "plugin": "error-diagnostics",
+    "model": "sonnet",
+    "path": "plugins/error-diagnostics/agents/debugger.md"
+  },
+  {
+    "name": "error-diagnostics-error-detective",
+    "category": "coding",
+    "one_liner": "Search logs and codebases for error patterns, stack traces, and anomalies.",
+    "when_to_use": "Use PROACTIVELY when debugging issues, analyzing logs, or investigating production errors.",
+    "plugin": "error-diagnostics",
+    "model": "sonnet",
+    "path": "plugins/error-diagnostics/agents/error-detective.md"
+  },
+  {
+    "name": "eval-judge",
+    "category": "coding",
+    "one_liner": "LLM judge for plugin quality assessment.",
+    "when_to_use": "Use when you need an agent that scores skills on triggering accuracy, orchestration fitness, output quality, and scope calibration using anchored rubrics.",
+    "plugin": "plugin-eval",
+    "model": "sonnet",
+    "path": "plugins/plugin-eval/agents/eval-judge.md"
+  },
+  {
+    "name": "eval-orchestrator",
+    "category": "coding",
+    "one_liner": "Orchestrates plugin quality evaluation.",
+    "when_to_use": "Use PROACTIVELY when evaluating, scoring, or certifying plugin quality.",
+    "plugin": "plugin-eval",
+    "model": "opus",
+    "path": "plugins/plugin-eval/agents/eval-orchestrator.md"
+  },
+  {
+    "name": "framework-migration-architect-review",
+    "category": "coding",
+    "one_liner": "Master software architect specializing in modern architecture patterns, clean architecture, microservices, event-driven systems, and DDD.",
+    "when_to_use": "Use PROACTIVELY for architectural decisions.",
+    "plugin": "framework-migration",
+    "model": "opus",
+    "path": "plugins/framework-migration/agents/architect-review.md"
+  },
+  {
+    "name": "framework-migration-legacy-modernizer",
+    "category": "coding",
+    "one_liner": "Refactor legacy codebases, migrate outdated frameworks, and implement gradual modernization.",
+    "when_to_use": "Use PROACTIVELY for legacy system updates, framework migrations, or technical debt reduction.",
+    "plugin": "framework-migration",
+    "model": "fable",
+    "path": "plugins/framework-migration/agents/legacy-modernizer.md"
+  },
+  {
+    "name": "full-stack-orchestration-test-automator",
+    "category": "coding",
+    "one_liner": "Master AI-powered test automation with modern frameworks, self-healing tests, and comprehensive quality engineering.",
+    "when_to_use": "Use PROACTIVELY for testing automation or quality assurance.",
+    "plugin": "full-stack-orchestration",
+    "model": "sonnet",
+    "path": "plugins/full-stack-orchestration/agents/test-automator.md"
+  },
+  {
+    "name": "git-pr-workflows-code-reviewer",
+    "category": "coding",
+    "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+    "when_to_use": "Use PROACTIVELY for code quality assurance.",
+    "plugin": "git-pr-workflows",
+    "model": "opus",
+    "path": "plugins/git-pr-workflows/agents/code-reviewer.md"
+  },
+  {
+    "name": "golang-pro",
+    "category": "coding",
+    "one_liner": "Master Go 1.21+ with modern patterns, advanced concurrency, performance optimization, and production-ready microservices.",
+    "when_to_use": "Use PROACTIVELY for Go development, architecture design, or performance optimization.",
+    "plugin": "systems-programming",
+    "model": "opus",
+    "path": "plugins/systems-programming/agents/golang-pro.md"
+  },
+  {
+    "name": "haskell-pro",
+    "category": "coding",
+    "one_liner": "Expert Haskell engineer specializing in advanced type systems, pure functional design, and high-reliability software.",
+    "when_to_use": "Use PROACTIVELY for type-level programming, concurrency, and architecture guidance.",
+    "plugin": "functional-programming",
+    "model": "sonnet",
+    "path": "plugins/functional-programming/agents/haskell-pro.md"
+  },
+  {
+    "name": "implement",
+    "category": "coding",
+    "one_liner": "Developer agent.",
+    "when_to_use": "Use when you need an agent that implements the architect plan step-by-step, guided by AGENTS.md guardrails.",
+    "plugin": "ship-mate",
+    "model": "sonnet",
+    "path": "plugins/ship-mate/agents/implement.md"
+  },
+  {
+    "name": "incident-response-code-reviewer",
+    "category": "coding",
+    "one_liner": "Reviews code for logic flaws, type safety gaps, error handling issues, architectural concerns, and similar vulnerability patterns.",
+    "when_to_use": "Use when you need an agent that provides fix design recommendations.",
+    "plugin": "incident-response",
+    "model": "sonnet",
+    "path": "plugins/incident-response/agents/code-reviewer.md"
+  },
+  {
+    "name": "incident-response-debugger",
+    "category": "coding",
+    "one_liner": "Performs deep root cause analysis through code path tracing, git bisect automation, dependency analysis, and systematic hypothesis testing for production bugs.",
+    "when_to_use": "Use when you need an agent that performs deep root cause analysis through code path tracing, git bisect automation, dependency analysis, and systematic hypothesis testing for production bugs.",
+    "plugin": "incident-response",
+    "model": "sonnet",
+    "path": "plugins/incident-response/agents/debugger.md"
+  },
+  {
+    "name": "incident-response-error-detective",
+    "category": "coding",
+    "one_liner": "Analyzes error traces, logs, and observability data to identify error signatures, reproduction steps, user impact, and timeline context for production issues.",
+    "when_to_use": "Use when you need an agent that analyzes error traces, logs, and observability data to identify error signatures, reproduction steps, user impact, and timeline context for production issues.",
+    "plugin": "incident-response",
+    "model": "sonnet",
+    "path": "plugins/incident-response/agents/error-detective.md"
+  },
+  {
+    "name": "incident-response-test-automator",
+    "category": "coding",
+    "one_liner": "Creates comprehensive test suites including unit, integration, regression, and security tests.",
+    "when_to_use": "Use when you need an agent that validates fixes with full coverage and cross-environment testing.",
+    "plugin": "incident-response",
+    "model": "sonnet",
+    "path": "plugins/incident-response/agents/test-automator.md"
+  },
+  {
+    "name": "java-pro",
+    "category": "coding",
+    "one_liner": "Master Java 21+ with modern features like virtual threads, pattern matching, and Spring Boot 3.x.",
+    "when_to_use": "Use PROACTIVELY for Java development, microservices architecture, or performance optimization.",
+    "plugin": "jvm-languages",
+    "model": "opus",
+    "path": "plugins/jvm-languages/agents/java-pro.md"
+  },
+  {
+    "name": "javascript-pro",
+    "category": "coding",
+    "one_liner": "Master modern JavaScript with ES6+, async patterns, and Node.js APIs.",
+    "when_to_use": "Use PROACTIVELY for JavaScript optimization, async debugging, or complex JS patterns.",
+    "plugin": "javascript-typescript",
+    "model": "inherit",
+    "path": "plugins/javascript-typescript/agents/javascript-pro.md"
+  },
+  {
+    "name": "minecraft-bukkit-pro",
+    "category": "coding",
+    "one_liner": "Master Minecraft server plugin development with Bukkit, Spigot, and Paper APIs.",
+    "when_to_use": "Use PROACTIVELY for plugin architecture, gameplay mechanics, server-side features, or cross-version compatibility.",
+    "plugin": "game-development",
+    "model": "opus",
+    "path": "plugins/game-development/agents/minecraft-bukkit-pro.md"
+  },
+  {
+    "name": "monorepo-architect",
+    "category": "coding",
+    "one_liner": "Expert in monorepo architecture, build systems, and dependency management at scale.",
+    "when_to_use": "Use PROACTIVELY for monorepo setup, build optimization, or scaling development workflows across teams.",
+    "plugin": "developer-essentials",
+    "model": "opus",
+    "path": "plugins/developer-essentials/agents/monorepo-architect.md"
+  },
+  {
+    "name": "orchestrate",
+    "category": "coding",
+    "one_liner": "Product Orchestrator agent.",
+    "when_to_use": "Use when you need an agent that reads the active story file, asks clarifying product questions one at a time, confirms task type (FRONTEND/BACKEND), and produces a complete unambiguous spec in orchestrator-output.md.",
+    "plugin": "ship-mate",
+    "model": "sonnet",
+    "path": "plugins/ship-mate/agents/orchestrate.md"
+  },
+  {
+    "name": "performance-testing-review-test-automator",
+    "category": "coding",
+    "one_liner": "Master AI-powered test automation with modern frameworks, self-healing tests, and comprehensive quality engineering.",
+    "when_to_use": "Use PROACTIVELY for testing automation or quality assurance.",
+    "plugin": "performance-testing-review",
+    "model": "sonnet",
+    "path": "plugins/performance-testing-review/agents/test-automator.md"
+  },
+  {
+    "name": "php-pro",
+    "category": "coding",
+    "one_liner": "Write idiomatic PHP code with generators, iterators, SPL data structures, and modern OOP features.",
+    "when_to_use": "Use PROACTIVELY for high-performance PHP applications.",
+    "plugin": "web-scripting",
+    "model": "inherit",
+    "path": "plugins/web-scripting/agents/php-pro.md"
+  },
+  {
+    "name": "python-pro",
+    "category": "coding",
+    "one_liner": "Master Python 3.12+ with modern features, async programming, performance optimization, and production-ready practices.",
+    "when_to_use": "Use PROACTIVELY for Python development, optimization, or advanced Python patterns.",
+    "plugin": "python-development",
+    "model": "opus",
+    "path": "plugins/python-development/agents/python-pro.md"
+  },
+  {
+    "name": "qa",
+    "category": "coding",
+    "one_liner": "QA Agent.",
+    "when_to_use": "Use when you need an agent that tests all acceptance criteria and edge cases from orchestrator-output.md.",
+    "plugin": "ship-mate",
+    "model": "sonnet",
+    "path": "plugins/ship-mate/agents/qa.md"
+  },
+  {
+    "name": "review",
+    "category": "coding",
+    "one_liner": "PR Reviewer agent.",
+    "when_to_use": "Use when you need an agent that reviews implemented code using a 3-tier taxonomy (🔴 Critical / 🟡 Should Fix / 💡 Consider).",
+    "plugin": "ship-mate",
+    "model": "inherit",
+    "path": "plugins/ship-mate/agents/review.md"
+  },
+  {
+    "name": "ruby-pro",
+    "category": "coding",
+    "one_liner": "Write idiomatic Ruby code with metaprogramming, Rails patterns, and performance optimization.",
+    "when_to_use": "Use PROACTIVELY for Ruby refactoring, optimization, or complex Ruby features.",
+    "plugin": "web-scripting",
+    "model": "inherit",
+    "path": "plugins/web-scripting/agents/ruby-pro.md"
+  },
+  {
+    "name": "rust-pro",
+    "category": "coding",
+    "one_liner": "Master Rust 1.75+ with modern async patterns, advanced type system features, and production-ready systems programming.",
+    "when_to_use": "Use PROACTIVELY for Rust development, performance optimization, or systems programming.",
+    "plugin": "systems-programming",
+    "model": "opus",
+    "path": "plugins/systems-programming/agents/rust-pro.md"
+  },
+  {
+    "name": "scala-pro",
+    "category": "coding",
+    "one_liner": "Master enterprise-grade Scala development with functional programming, distributed systems, and big data processing.",
+    "when_to_use": "Use PROACTIVELY for Scala system design, performance optimization, or enterprise integration.",
+    "plugin": "jvm-languages",
+    "model": "inherit",
+    "path": "plugins/jvm-languages/agents/scala-pro.md"
+  },
+  {
+    "name": "tdd-workflows-code-reviewer",
+    "category": "coding",
+    "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+    "when_to_use": "Use PROACTIVELY for code quality assurance.",
+    "plugin": "tdd-workflows",
+    "model": "opus",
+    "path": "plugins/tdd-workflows/agents/code-reviewer.md"
+  },
+  {
+    "name": "tdd-workflows-tdd-orchestrator",
+    "category": "coding",
+    "one_liner": "Master TDD orchestrator specializing in red-green-refactor discipline, multi-agent workflow coordination, and comprehensive test-driven development practices.",
+    "when_to_use": "Use PROACTIVELY for TDD implementation and governance.",
+    "plugin": "tdd-workflows",
+    "model": "opus",
+    "path": "plugins/tdd-workflows/agents/tdd-orchestrator.md"
+  },
+  {
+    "name": "team-collaboration-dx-optimizer",
+    "category": "coding",
+    "one_liner": "Developer Experience specialist.",
+    "when_to_use": "Use PROACTIVELY when setting up new projects, after team feedback, or when development friction is noticed.",
+    "plugin": "team-collaboration",
+    "model": "sonnet",
+    "path": "plugins/team-collaboration/agents/dx-optimizer.md"
+  },
+  {
+    "name": "team-debugger",
+    "category": "coding",
+    "one_liner": "Hypothesis-driven debugging investigator that investigates one assigned hypothesis, gathering evidence to confirm or falsify it with file:line citations and confidence levels.",
+    "when_to_use": "Use when debugging complex issues with multiple potential root causes.",
+    "plugin": "agent-teams",
+    "model": "opus",
+    "path": "plugins/agent-teams/agents/team-debugger.md"
+  },
+  {
+    "name": "team-implementer",
+    "category": "coding",
+    "one_liner": "Parallel feature builder that implements components within strict file ownership boundaries, coordinating at integration points via messaging.",
+    "when_to_use": "Use when building features in parallel across multiple agents with file ownership coordination.",
+    "plugin": "agent-teams",
+    "model": "opus",
+    "path": "plugins/agent-teams/agents/team-implementer.md"
+  },
+  {
+    "name": "team-lead",
+    "category": "coding",
+    "one_liner": "Team orchestrator that decomposes work into parallel tasks with file ownership boundaries, manages team lifecycle, and synthesizes results.",
+    "when_to_use": "Use when coordinating multi-agent teams, decomposing complex tasks, or managing parallel workstreams.",
+    "plugin": "agent-teams",
+    "model": "fable",
+    "path": "plugins/agent-teams/agents/team-lead.md"
+  },
+  {
+    "name": "team-reviewer",
+    "category": "coding",
+    "one_liner": "Multi-dimensional code reviewer that operates on one assigned review dimension (security, performance, architecture, testing, or accessibility) with structured finding format.",
+    "when_to_use": "Use when performing parallel code reviews across multiple quality dimensions.",
+    "plugin": "agent-teams",
+    "model": "opus",
+    "path": "plugins/agent-teams/agents/team-reviewer.md"
+  },
+  {
+    "name": "typescript-pro",
+    "category": "coding",
+    "one_liner": "Master TypeScript with advanced types, generics, and strict type safety.",
+    "when_to_use": "Use PROACTIVELY for TypeScript architecture, type inference optimization, or advanced typing patterns.",
+    "plugin": "javascript-typescript",
+    "model": "opus",
+    "path": "plugins/javascript-typescript/agents/typescript-pro.md"
+  },
+  {
+    "name": "unit-testing-debugger",
+    "category": "coding",
+    "one_liner": "Debugging specialist for errors, test failures, and unexpected behavior.",
+    "when_to_use": "Use proactively when encountering any issues.",
+    "plugin": "unit-testing",
+    "model": "sonnet",
+    "path": "plugins/unit-testing/agents/debugger.md"
+  },
+  {
+    "name": "unit-testing-test-automator",
+    "category": "coding",
+    "one_liner": "Master AI-powered test automation with modern frameworks, self-healing tests, and comprehensive quality engineering.",
+    "when_to_use": "Use PROACTIVELY for testing automation or quality assurance.",
+    "plugin": "unit-testing",
+    "model": "sonnet",
+    "path": "plugins/unit-testing/agents/test-automator.md"
+  },
+  {
+    "name": "unity-developer",
+    "category": "coding",
+    "one_liner": "Build Unity games with optimized C# scripts, efficient rendering, and proper asset management.",
+    "when_to_use": "Use PROACTIVELY for Unity performance issues, game mechanics, or cross-platform builds.",
+    "plugin": "game-development",
+    "model": "opus",
+    "path": "plugins/game-development/agents/unity-developer.md"
+  },
+  {
+    "name": "accessibility-expert",
+    "category": "frontend",
+    "one_liner": "Expert accessibility specialist ensuring WCAG compliance, inclusive design, and assistive technology compatibility.",
+    "when_to_use": "Use PROACTIVELY when auditing accessibility, remediating a11y issues, building accessible components, or ensuring inclusive user experiences.",
+    "plugin": "ui-design",
+    "model": "inherit",
+    "path": "plugins/ui-design/agents/accessibility-expert.md"
+  },
+  {
+    "name": "application-performance-frontend-developer",
+    "category": "frontend",
+    "one_liner": "Build React components, implement responsive layouts, and handle client-side state management.",
+    "when_to_use": "Use PROACTIVELY when creating UI components or fixing frontend issues.",
+    "plugin": "application-performance",
+    "model": "inherit",
+    "path": "plugins/application-performance/agents/frontend-developer.md"
+  },
+  {
+    "name": "design-system-architect",
+    "category": "frontend",
+    "one_liner": "Expert design system architect specializing in design tokens, component libraries, theming infrastructure, and scalable design operations.",
+    "when_to_use": "Use PROACTIVELY when building design systems, creating token architectures, implementing theming, or establishing component libraries.",
+    "plugin": "ui-design",
+    "model": "inherit",
+    "path": "plugins/ui-design/agents/design-system-architect.md"
+  },
+  {
+    "name": "flutter-expert",
+    "category": "frontend",
+    "one_liner": "Master Flutter development with Dart 3, advanced widgets, and multi-platform deployment.",
+    "when_to_use": "Use PROACTIVELY for Flutter architecture, UI implementation, or cross-platform features.",
+    "plugin": "multi-platform-apps",
+    "model": "inherit",
+    "path": "plugins/multi-platform-apps/agents/flutter-expert.md"
+  },
+  {
+    "name": "frontend-mobile-development-frontend-developer",
+    "category": "frontend",
+    "one_liner": "Build React components, implement responsive layouts, and handle client-side state management.",
+    "when_to_use": "Use PROACTIVELY when creating UI components or fixing frontend issues.",
+    "plugin": "frontend-mobile-development",
+    "model": "inherit",
+    "path": "plugins/frontend-mobile-development/agents/frontend-developer.md"
+  },
+  {
+    "name": "frontend-mobile-development-mobile-developer",
+    "category": "frontend",
+    "one_liner": "Develop React Native, Flutter, or native mobile apps with modern architecture patterns.",
+    "when_to_use": "Use PROACTIVELY for mobile features, cross-platform code, or app optimization.",
+    "plugin": "frontend-mobile-development",
+    "model": "inherit",
+    "path": "plugins/frontend-mobile-development/agents/mobile-developer.md"
+  },
+  {
+    "name": "frontend-mobile-security-frontend-developer",
+    "category": "frontend",
+    "one_liner": "Build React components, implement responsive layouts, and handle client-side state management.",
+    "when_to_use": "Use PROACTIVELY when creating UI components or fixing frontend issues.",
+    "plugin": "frontend-mobile-security",
+    "model": "inherit",
+    "path": "plugins/frontend-mobile-security/agents/frontend-developer.md"
+  },
+  {
+    "name": "gallery-researcher",
+    "category": "frontend",
+    "one_liner": "Gallery search and inspiration agent.",
+    "when_to_use": "Delegates here when user wants to find references, explore styles, build a mood board, or needs inspiration before deciding what to generate.",
+    "plugin": "meigen-ai-design",
+    "model": "haiku",
+    "path": "plugins/meigen-ai-design/agents/gallery-researcher.md"
+  },
+  {
+    "name": "image-generator",
+    "category": "frontend",
+    "one_liner": "Image generation executor agent.",
+    "when_to_use": "Delegates here for ALL generate_image calls to keep the main conversation context clean.",
+    "plugin": "meigen-ai-design",
+    "model": "inherit",
+    "path": "plugins/meigen-ai-design/agents/image-generator.md"
+  },
+  {
+    "name": "ios-developer",
+    "category": "frontend",
+    "one_liner": "Develop native iOS applications with Swift/SwiftUI.",
+    "when_to_use": "Use PROACTIVELY for iOS-specific features, App Store optimization, or native iOS development.",
+    "plugin": "multi-platform-apps",
+    "model": "inherit",
+    "path": "plugins/multi-platform-apps/agents/ios-developer.md"
+  },
+  {
+    "name": "multi-platform-apps-frontend-developer",
+    "category": "frontend",
+    "one_liner": "Build React components, implement responsive layouts, and handle client-side state management.",
+    "when_to_use": "Use PROACTIVELY when creating UI components or fixing frontend issues.",
+    "plugin": "multi-platform-apps",
+    "model": "inherit",
+    "path": "plugins/multi-platform-apps/agents/frontend-developer.md"
+  },
+  {
+    "name": "multi-platform-apps-mobile-developer",
+    "category": "frontend",
+    "one_liner": "Develop React Native, Flutter, or native mobile apps with modern architecture patterns.",
+    "when_to_use": "Use PROACTIVELY for mobile features, cross-platform code, or app optimization.",
+    "plugin": "multi-platform-apps",
+    "model": "inherit",
+    "path": "plugins/multi-platform-apps/agents/mobile-developer.md"
+  },
+  {
+    "name": "playwright",
+    "category": "frontend",
+    "one_liner": "Playwright testing agent.",
+    "when_to_use": "Use when you need an agent that only runs for FRONTEND tasks.",
+    "plugin": "ship-mate",
+    "model": "sonnet",
+    "path": "plugins/ship-mate/agents/playwright.md"
+  },
+  {
+    "name": "prompt-crafter",
+    "category": "frontend",
+    "one_liner": "Batch prompt writing agent.",
+    "when_to_use": "Delegates here when you need to write multiple distinct prompts at once — for parallel image generation (e.g., \"5 logo concepts\"), serial-to-parallel workflows (e.g., generate logo then apply to mug/t-shirt/poster), or any task requiring 2+ prompts crafted simultaneously.",
+    "plugin": "meigen-ai-design",
+    "model": "haiku",
+    "path": "plugins/meigen-ai-design/agents/prompt-crafter.md"
+  },
+  {
+    "name": "ui-designer",
+    "category": "frontend",
+    "one_liner": "Expert UI designer specializing in component creation, layout systems, and visual design implementation.",
+    "when_to_use": "Use PROACTIVELY when building UI components, designing layouts, creating mockups, or implementing visual designs.",
+    "plugin": "ui-design",
+    "model": "inherit",
+    "path": "plugins/ui-design/agents/ui-designer.md"
+  },
+  {
+    "name": "ui-ux-designer",
+    "category": "frontend",
+    "one_liner": "Create interface designs, wireframes, and design systems.",
+    "when_to_use": "Use PROACTIVELY for design systems, user flows, or interface optimization.",
+    "plugin": "multi-platform-apps",
+    "model": "sonnet",
+    "path": "plugins/multi-platform-apps/agents/ui-ux-designer.md"
+  },
+  {
+    "name": "ui-visual-validator",
+    "category": "frontend",
+    "one_liner": "Rigorous visual validation expert specializing in UI testing, design system compliance, and accessibility verification.",
+    "when_to_use": "Use PROACTIVELY to verify UI modifications have achieved their intended goals through comprehensive visual analysis.",
+    "plugin": "accessibility-compliance",
+    "model": "sonnet",
+    "path": "plugins/accessibility-compliance/agents/ui-visual-validator.md"
+  },
+  {
+    "name": "api-scaffolding-backend-architect",
+    "category": "backend",
+    "one_liner": "Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems.",
+    "when_to_use": "Use PROACTIVELY when creating new backend services or APIs.",
+    "plugin": "api-scaffolding",
+    "model": "inherit",
+    "path": "plugins/api-scaffolding/agents/backend-architect.md"
+  },
+  {
+    "name": "api-scaffolding-django-pro",
+    "category": "backend",
+    "one_liner": "Master Django 5.x with async views, DRF, Celery, and Django Channels.",
+    "when_to_use": "Use PROACTIVELY for Django development, ORM optimization, or complex Django patterns.",
+    "plugin": "api-scaffolding",
+    "model": "opus",
+    "path": "plugins/api-scaffolding/agents/django-pro.md"
+  },
+  {
+    "name": "api-scaffolding-fastapi-pro",
+    "category": "backend",
+    "one_liner": "Build high-performance async APIs with FastAPI, SQLAlchemy 2.0, and Pydantic V2.",
+    "when_to_use": "Use PROACTIVELY for FastAPI development, async optimization, or API architecture.",
+    "plugin": "api-scaffolding",
+    "model": "opus",
+    "path": "plugins/api-scaffolding/agents/fastapi-pro.md"
+  },
+  {
+    "name": "api-scaffolding-graphql-architect",
+    "category": "backend",
+    "one_liner": "Master modern GraphQL with federation, performance optimization, and enterprise security.",
+    "when_to_use": "Use PROACTIVELY for GraphQL architecture or performance optimization.",
+    "plugin": "api-scaffolding",
+    "model": "opus",
+    "path": "plugins/api-scaffolding/agents/graphql-architect.md"
+  },
+  {
+    "name": "backend-api-security-backend-architect",
+    "category": "backend",
+    "one_liner": "Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems.",
+    "when_to_use": "Use PROACTIVELY when creating new backend services or APIs.",
+    "plugin": "backend-api-security",
+    "model": "inherit",
+    "path": "plugins/backend-api-security/agents/backend-architect.md"
+  },
+  {
+    "name": "backend-development-backend-architect",
+    "category": "backend",
+    "one_liner": "Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems.",
+    "when_to_use": "Use PROACTIVELY when creating new backend services or APIs.",
+    "plugin": "backend-development",
+    "model": "inherit",
+    "path": "plugins/backend-development/agents/backend-architect.md"
+  },
+  {
+    "name": "backend-development-graphql-architect",
+    "category": "backend",
+    "one_liner": "Master modern GraphQL with federation, performance optimization, and enterprise security.",
+    "when_to_use": "Use PROACTIVELY for GraphQL architecture or performance optimization.",
+    "plugin": "backend-development",
+    "model": "opus",
+    "path": "plugins/backend-development/agents/graphql-architect.md"
+  },
+  {
+    "name": "blockchain-developer",
+    "category": "backend",
+    "one_liner": "Build production-ready Web3 applications, smart contracts, and decentralized systems.",
+    "when_to_use": "Use PROACTIVELY for smart contracts, Web3 apps, DeFi protocols, or blockchain infrastructure.",
+    "plugin": "blockchain-web3",
+    "model": "opus",
+    "path": "plugins/blockchain-web3/agents/blockchain-developer.md"
+  },
+  {
+    "name": "data-engineering-backend-architect",
+    "category": "backend",
+    "one_liner": "Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems.",
+    "when_to_use": "Use PROACTIVELY when creating new backend services or APIs.",
+    "plugin": "data-engineering",
+    "model": "inherit",
+    "path": "plugins/data-engineering/agents/backend-architect.md"
+  },
+  {
+    "name": "database-admin",
+    "category": "backend",
+    "one_liner": "Expert database administrator specializing in modern cloud databases, automation, and reliability engineering.",
+    "when_to_use": "Use PROACTIVELY for database architecture, operations, or reliability engineering.",
+    "plugin": "database-migrations",
+    "model": "sonnet",
+    "path": "plugins/database-migrations/agents/database-admin.md"
+  },
+  {
+    "name": "database-cloud-optimization-backend-architect",
+    "category": "backend",
+    "one_liner": "Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems.",
+    "when_to_use": "Use PROACTIVELY when creating new backend services or APIs.",
+    "plugin": "database-cloud-optimization",
+    "model": "inherit",
+    "path": "plugins/database-cloud-optimization/agents/backend-architect.md"
+  },
+  {
+    "name": "database-cloud-optimization-database-architect",
+    "category": "backend",
+    "one_liner": "Expert database architect specializing in data layer design from scratch, technology selection, schema modeling, and scalable database architectures.",
+    "when_to_use": "Use PROACTIVELY for database architecture, technology selection, or data modeling decisions.",
+    "plugin": "database-cloud-optimization",
+    "model": "inherit",
+    "path": "plugins/database-cloud-optimization/agents/database-architect.md"
+  },
+  {
+    "name": "database-cloud-optimization-database-optimizer",
+    "category": "backend",
+    "one_liner": "Expert database optimizer specializing in modern performance tuning, query optimization, and scalable architectures.",
+    "when_to_use": "Use PROACTIVELY for database optimization, performance issues, or scalability challenges.",
+    "plugin": "database-cloud-optimization",
+    "model": "inherit",
+    "path": "plugins/database-cloud-optimization/agents/database-optimizer.md"
+  },
+  {
+    "name": "database-design-database-architect",
+    "category": "backend",
+    "one_liner": "Expert database architect specializing in data layer design from scratch, technology selection, schema modeling, and scalable database architectures.",
+    "when_to_use": "Use PROACTIVELY for database architecture, technology selection, or data modeling decisions.",
+    "plugin": "database-design",
+    "model": "opus",
+    "path": "plugins/database-design/agents/database-architect.md"
+  },
+  {
+    "name": "database-migrations-database-optimizer",
+    "category": "backend",
+    "one_liner": "Expert database optimizer specializing in modern performance tuning, query optimization, and scalable architectures.",
+    "when_to_use": "Use PROACTIVELY for database optimization, performance issues, or scalability challenges.",
+    "plugin": "database-migrations",
+    "model": "inherit",
+    "path": "plugins/database-migrations/agents/database-optimizer.md"
+  },
+  {
+    "name": "dotnet-architect",
+    "category": "backend",
+    "one_liner": "Expert .NET backend architect specializing in C#, ASP.NET Core, Entity Framework, Dapper, and enterprise application patterns.",
+    "when_to_use": "Use PROACTIVELY for .NET API development, code review, or architecture decisions.",
+    "plugin": "dotnet-contribution",
+    "model": "sonnet",
+    "path": "plugins/dotnet-contribution/agents/dotnet-architect.md"
+  },
+  {
+    "name": "event-sourcing-architect",
+    "category": "backend",
+    "one_liner": "Expert in event sourcing, CQRS, and event-driven architecture patterns.",
+    "when_to_use": "Use PROACTIVELY for event-sourced systems, audit trail requirements, or complex domain modeling with temporal queries.",
+    "plugin": "backend-development",
+    "model": "inherit",
+    "path": "plugins/backend-development/agents/event-sourcing-architect.md"
+  },
+  {
+    "name": "multi-platform-apps-backend-architect",
+    "category": "backend",
+    "one_liner": "Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems.",
+    "when_to_use": "Use PROACTIVELY when creating new backend services or APIs.",
+    "plugin": "multi-platform-apps",
+    "model": "inherit",
+    "path": "plugins/multi-platform-apps/agents/backend-architect.md"
+  },
+  {
+    "name": "observability-monitoring-database-optimizer",
+    "category": "backend",
+    "one_liner": "Expert database optimizer specializing in modern performance tuning, query optimization, and scalable architectures.",
+    "when_to_use": "Use PROACTIVELY for database optimization, performance issues, or scalability challenges.",
+    "plugin": "observability-monitoring",
+    "model": "inherit",
+    "path": "plugins/observability-monitoring/agents/database-optimizer.md"
+  },
+  {
+    "name": "payment-integration",
+    "category": "backend",
+    "one_liner": "Integrate Stripe, PayPal, and payment processors.",
+    "when_to_use": "Use PROACTIVELY when implementing payments, billing, or subscription features.",
+    "plugin": "payment-processing",
+    "model": "sonnet",
+    "path": "plugins/payment-processing/agents/payment-integration.md"
+  },
+  {
+    "name": "python-development-django-pro",
+    "category": "backend",
+    "one_liner": "Master Django 5.x with async views, DRF, Celery, and Django Channels.",
+    "when_to_use": "Use PROACTIVELY for Django development, ORM optimization, or complex Django patterns.",
+    "plugin": "python-development",
+    "model": "opus",
+    "path": "plugins/python-development/agents/django-pro.md"
+  },
+  {
+    "name": "python-development-fastapi-pro",
+    "category": "backend",
+    "one_liner": "Build high-performance async APIs with FastAPI, SQLAlchemy 2.0, and Pydantic V2.",
+    "when_to_use": "Use PROACTIVELY for FastAPI development, async optimization, or API architecture.",
+    "plugin": "python-development",
+    "model": "opus",
+    "path": "plugins/python-development/agents/fastapi-pro.md"
+  },
+  {
+    "name": "temporal-python-pro",
+    "category": "backend",
+    "one_liner": "Master Temporal workflow orchestration with Python SDK.",
+    "when_to_use": "Use PROACTIVELY for workflow design, microservice orchestration, or long-running processes.",
+    "plugin": "backend-development",
+    "model": "inherit",
+    "path": "plugins/backend-development/agents/temporal-python-pro.md"
+  },
+  {
+    "name": "backend-api-security-backend-security-coder",
+    "category": "security",
+    "one_liner": "Expert in secure backend coding practices specializing in input validation, authentication, and API security.",
+    "when_to_use": "Use PROACTIVELY for backend security implementations or security code reviews.",
+    "plugin": "backend-api-security",
+    "model": "sonnet",
+    "path": "plugins/backend-api-security/agents/backend-security-coder.md"
+  },
+  {
+    "name": "backend-development-security-auditor",
+    "category": "security",
+    "one_liner": "Review code and architecture for security vulnerabilities, OWASP Top 10, auth flaws, and compliance issues.",
+    "when_to_use": "Use for security review during feature development.",
+    "plugin": "backend-development",
+    "model": "sonnet",
+    "path": "plugins/backend-development/agents/security-auditor.md"
+  },
+  {
+    "name": "comprehensive-review-security-auditor",
+    "category": "security",
+    "one_liner": "Expert security auditor specializing in DevSecOps, comprehensive cybersecurity, and compliance frameworks.",
+    "when_to_use": "Use PROACTIVELY for security audits, DevSecOps, or compliance implementation.",
+    "plugin": "comprehensive-review",
+    "model": "opus",
+    "path": "plugins/comprehensive-review/agents/security-auditor.md"
+  },
+  {
+    "name": "data-validation-suite-backend-security-coder",
+    "category": "security",
+    "one_liner": "Expert in secure backend coding practices specializing in input validation, authentication, and API security.",
+    "when_to_use": "Use PROACTIVELY for backend security implementations or security code reviews.",
+    "plugin": "data-validation-suite",
+    "model": "sonnet",
+    "path": "plugins/data-validation-suite/agents/backend-security-coder.md"
+  },
+  {
+    "name": "firmware-analyst",
+    "category": "security",
+    "one_liner": "Expert firmware analyst specializing in embedded systems, IoT security, and hardware reverse engineering.",
+    "when_to_use": "Use PROACTIVELY for firmware security audits, IoT penetration testing, or embedded systems research.",
+    "plugin": "reverse-engineering",
+    "model": "opus",
+    "path": "plugins/reverse-engineering/agents/firmware-analyst.md"
+  },
+  {
+    "name": "frontend-security-coder",
+    "category": "security",
+    "one_liner": "Expert in secure frontend coding practices specializing in XSS prevention, output sanitization, and client-side security patterns.",
+    "when_to_use": "Use PROACTIVELY for frontend security implementations or client-side security code reviews.",
+    "plugin": "frontend-mobile-security",
+    "model": "sonnet",
+    "path": "plugins/frontend-mobile-security/agents/frontend-security-coder.md"
+  },
+  {
+    "name": "full-stack-orchestration-security-auditor",
+    "category": "security",
+    "one_liner": "Expert security auditor specializing in DevSecOps, comprehensive cybersecurity, and compliance frameworks.",
+    "when_to_use": "Use PROACTIVELY for security audits, DevSecOps, or compliance implementation.",
+    "plugin": "full-stack-orchestration",
+    "model": "opus",
+    "path": "plugins/full-stack-orchestration/agents/security-auditor.md"
+  },
+  {
+    "name": "malware-analyst",
+    "category": "security",
+    "one_liner": "Expert malware analyst specializing in defensive malware research, threat intelligence, and incident response.",
+    "when_to_use": "Use PROACTIVELY for malware triage, threat hunting, incident response, or security research.",
+    "plugin": "reverse-engineering",
+    "model": "opus",
+    "path": "plugins/reverse-engineering/agents/malware-analyst.md"
+  },
+  {
+    "name": "mobile-security-coder",
+    "category": "security",
+    "one_liner": "Expert in secure mobile coding practices specializing in input validation, WebView security, and mobile-specific security patterns.",
+    "when_to_use": "Use PROACTIVELY for mobile security implementations or mobile security code reviews.",
+    "plugin": "frontend-mobile-security",
+    "model": "sonnet",
+    "path": "plugins/frontend-mobile-security/agents/mobile-security-coder.md"
+  },
+  {
+    "name": "policy-enforcer",
+    "category": "security",
+    "one_liner": "Cedar policy author and reviewer for Claude Code tool calls.",
+    "when_to_use": "Use when you need declarative, formally verifiable rules for what an AI agent can and cannot do in a project.",
+    "plugin": "protect-mcp",
+    "model": "opus",
+    "path": "plugins/protect-mcp/agents/policy-enforcer.md"
+  },
+  {
+    "name": "receipt-verifier",
+    "category": "security",
+    "one_liner": "Expert in Ed25519 signed receipts, JCS canonicalization, and offline verification.",
+    "when_to_use": "Use when you need to verify receipt authenticity, audit a receipts file, detect tampering, or explain why verification failed.",
+    "plugin": "protect-mcp",
+    "model": "sonnet",
+    "path": "plugins/protect-mcp/agents/receipt-verifier.md"
+  },
+  {
+    "name": "reverse-engineer",
+    "category": "security",
+    "one_liner": "Expert reverse engineer specializing in binary analysis, disassembly, decompilation, and software analysis.",
+    "when_to_use": "Use PROACTIVELY for binary analysis, CTF challenges, security research, or understanding undocumented software.",
+    "plugin": "reverse-engineering",
+    "model": "opus",
+    "path": "plugins/reverse-engineering/agents/reverse-engineer.md"
+  },
+  {
+    "name": "review-policy-author",
+    "category": "security",
+    "one_liner": "Cedar policy author specialized in gating AI agent review actions (PR comments, reviews, merges, CI edits) behind human approval.",
+    "when_to_use": "Use when writing, auditing, or extending a review-governance.cedar policy for review-bot governance.",
+    "plugin": "review-agent-governance",
+    "model": "sonnet",
+    "path": "plugins/review-agent-governance/agents/review-policy-author.md"
+  },
+  {
+    "name": "security-compliance-security-auditor",
+    "category": "security",
+    "one_liner": "Expert security auditor specializing in DevSecOps, comprehensive cybersecurity, and compliance frameworks.",
+    "when_to_use": "Use PROACTIVELY for security audits, DevSecOps, or compliance implementation.",
+    "plugin": "security-compliance",
+    "model": "opus",
+    "path": "plugins/security-compliance/agents/security-auditor.md"
+  },
+  {
+    "name": "security-scanning-security-auditor",
+    "category": "security",
+    "one_liner": "Expert security auditor specializing in DevSecOps, comprehensive cybersecurity, and compliance frameworks.",
+    "when_to_use": "Use PROACTIVELY for security audits, DevSecOps, or compliance implementation.",
+    "plugin": "security-scanning",
+    "model": "opus",
+    "path": "plugins/security-scanning/agents/security-auditor.md"
+  },
+  {
+    "name": "threat-modeling-expert",
+    "category": "security",
+    "one_liner": "Expert in threat modeling methodologies, security architecture review, and risk assessment.",
+    "when_to_use": "Use PROACTIVELY for security architecture reviews, threat identification, or building secure-by-design systems.",
+    "plugin": "security-scanning",
+    "model": "opus",
+    "path": "plugins/security-scanning/agents/threat-modeling-expert.md"
+  },
+  {
+    "name": "content-marketer",
+    "category": "marketing",
+    "one_liner": "Elite content marketing strategist specializing in AI-powered content creation, omnichannel distribution, SEO optimization, and data-driven performance marketing.",
+    "when_to_use": "Use PROACTIVELY for comprehensive content marketing.",
+    "plugin": "content-marketing",
+    "model": "haiku",
+    "path": "plugins/content-marketing/agents/content-marketer.md"
+  },
+  {
+    "name": "sales-automator",
+    "category": "marketing",
+    "one_liner": "Draft cold emails, follow-ups, and proposal templates.",
+    "when_to_use": "Use PROACTIVELY for sales outreach or lead nurturing.",
+    "plugin": "customer-sales-automation",
+    "model": "haiku",
+    "path": "plugins/customer-sales-automation/agents/sales-automator.md"
+  },
+  {
+    "name": "search-specialist",
+    "category": "marketing",
+    "one_liner": "Expert web researcher using advanced search techniques and synthesis.",
+    "when_to_use": "Use PROACTIVELY for deep research, information gathering, or trend analysis.",
+    "plugin": "content-marketing",
+    "model": "haiku",
+    "path": "plugins/content-marketing/agents/search-specialist.md"
+  },
+  {
+    "name": "seo-authority-builder",
+    "category": "marketing",
+    "one_liner": "Analyzes content for E-E-A-T signals and suggests improvements to build authority and trust.",
+    "when_to_use": "Use PROACTIVELY for YMYL topics.",
+    "plugin": "seo-analysis-monitoring",
+    "model": "sonnet",
+    "path": "plugins/seo-analysis-monitoring/agents/seo-authority-builder.md"
+  },
+  {
+    "name": "seo-cannibalization-detector",
+    "category": "marketing",
+    "one_liner": "Analyzes multiple provided pages to identify keyword overlap and potential cannibalization issues.",
+    "when_to_use": "Use PROACTIVELY when reviewing similar content.",
+    "plugin": "seo-analysis-monitoring",
+    "model": "haiku",
+    "path": "plugins/seo-analysis-monitoring/agents/seo-cannibalization-detector.md"
+  },
+  {
+    "name": "seo-content-auditor",
+    "category": "marketing",
+    "one_liner": "Analyzes provided content for quality, E-E-A-T signals, and SEO best practices.",
+    "when_to_use": "Use PROACTIVELY for content review.",
+    "plugin": "seo-content-creation",
+    "model": "sonnet",
+    "path": "plugins/seo-content-creation/agents/seo-content-auditor.md"
+  },
+  {
+    "name": "seo-content-planner",
+    "category": "marketing",
+    "one_liner": "Creates comprehensive content outlines and topic clusters for SEO.",
+    "when_to_use": "Use PROACTIVELY for content strategy and planning.",
+    "plugin": "seo-content-creation",
+    "model": "haiku",
+    "path": "plugins/seo-content-creation/agents/seo-content-planner.md"
+  },
+  {
+    "name": "seo-content-refresher",
+    "category": "marketing",
+    "one_liner": "Identifies outdated elements in provided content and suggests updates to maintain freshness.",
+    "when_to_use": "Use PROACTIVELY for older content.",
+    "plugin": "seo-analysis-monitoring",
+    "model": "haiku",
+    "path": "plugins/seo-analysis-monitoring/agents/seo-content-refresher.md"
+  },
+  {
+    "name": "seo-content-writer",
+    "category": "marketing",
+    "one_liner": "Writes SEO-optimized content based on provided keywords and topic briefs.",
+    "when_to_use": "Use PROACTIVELY for content creation tasks.",
+    "plugin": "seo-content-creation",
+    "model": "sonnet",
+    "path": "plugins/seo-content-creation/agents/seo-content-writer.md"
+  },
+  {
+    "name": "seo-keyword-strategist",
+    "category": "marketing",
+    "one_liner": "Analyzes keyword usage in provided content, calculates density, suggests semantic variations and LSI keywords based on the topic.",
+    "when_to_use": "Use PROACTIVELY for content optimization.",
+    "plugin": "seo-technical-optimization",
+    "model": "haiku",
+    "path": "plugins/seo-technical-optimization/agents/seo-keyword-strategist.md"
+  },
+  {
+    "name": "seo-meta-optimizer",
+    "category": "marketing",
+    "one_liner": "Creates optimized meta titles, descriptions, and URL suggestions based on character limits and best practices.",
+    "when_to_use": "Use PROACTIVELY for new content.",
+    "plugin": "seo-technical-optimization",
+    "model": "haiku",
+    "path": "plugins/seo-technical-optimization/agents/seo-meta-optimizer.md"
+  },
+  {
+    "name": "seo-snippet-hunter",
+    "category": "marketing",
+    "one_liner": "Formats content to be eligible for featured snippets and SERP features.",
+    "when_to_use": "Use PROACTIVELY for question-based content.",
+    "plugin": "seo-technical-optimization",
+    "model": "haiku",
+    "path": "plugins/seo-technical-optimization/agents/seo-snippet-hunter.md"
+  },
+  {
+    "name": "seo-structure-architect",
+    "category": "marketing",
+    "one_liner": "Analyzes and optimizes content structure including header hierarchy, suggests schema markup, and internal linking opportunities.",
+    "when_to_use": "Use PROACTIVELY for content structuring.",
+    "plugin": "seo-technical-optimization",
+    "model": "haiku",
+    "path": "plugins/seo-technical-optimization/agents/seo-structure-architect.md"
+  },
+  {
+    "name": "social-publishing-publisher",
+    "category": "marketing",
+    "one_liner": "Agent-first social media publishing specialist.",
+    "when_to_use": "Use this agent to schedule and publish posts across 13 platforms (X, LinkedIn, Instagram, Facebook Pages, TikTok, Discord, Telegram, YouTube, Reddit, WordPress, Pinterest) via the SocialClaw API.",
+    "plugin": "social-publishing",
+    "model": "haiku",
+    "path": "plugins/social-publishing/agents/social-publishing-publisher.md"
+  },
+  {
+    "name": "ai-engineer",
+    "category": "data",
+    "one_liner": "Build production-ready LLM applications, advanced RAG systems, and intelligent agents.",
+    "when_to_use": "Use PROACTIVELY for LLM features, chatbots, AI agents, or AI-powered applications.",
+    "plugin": "llm-application-dev",
+    "model": "inherit",
+    "path": "plugins/llm-application-dev/agents/ai-engineer.md"
+  },
+  {
+    "name": "data-engineer",
+    "category": "data",
+    "one_liner": "Build scalable data pipelines, modern data warehouses, and real-time streaming architectures.",
+    "when_to_use": "Use PROACTIVELY for data pipeline design, analytics infrastructure, or modern data stack implementation.",
+    "plugin": "data-engineering",
+    "model": "opus",
+    "path": "plugins/data-engineering/agents/data-engineer.md"
+  },
+  {
+    "name": "data-scientist",
+    "category": "data",
+    "one_liner": "Expert data scientist for advanced analytics, machine learning, and statistical modeling.",
+    "when_to_use": "Use PROACTIVELY for data analysis tasks, ML modeling, statistical analysis, and data-driven insights.",
+    "plugin": "machine-learning-ops",
+    "model": "inherit",
+    "path": "plugins/machine-learning-ops/agents/data-scientist.md"
+  },
+  {
+    "name": "julia-pro",
+    "category": "data",
+    "one_liner": "Master Julia 1.10+ with modern features, performance optimization, multiple dispatch, and production-ready practices.",
+    "when_to_use": "Use PROACTIVELY for Julia development, optimization, or advanced Julia patterns.",
+    "plugin": "julia-development",
+    "model": "sonnet",
+    "path": "plugins/julia-development/agents/julia-pro.md"
+  },
+  {
+    "name": "llm-finetuning-architect",
+    "category": "data",
+    "one_liner": "Fine-tuning strategist who owns the eval gate and method/model selection.",
+    "when_to_use": "Use PROACTIVELY when a user wants to fine-tune a model, before any training configuration exists.",
+    "plugin": "llm-finetuning",
+    "model": "opus",
+    "path": "plugins/llm-finetuning/agents/llm-finetuning-architect.md"
+  },
+  {
+    "name": "llm-finetuning-eval-engineer",
+    "category": "data",
+    "one_liner": "Evaluation gatekeeper for fine-tuning — builds golden sets and graders, calibrates judges, baselines base models, and issues checkpoint promotion verdicts.",
+    "when_to_use": "Use when constructing an eval harness before training or gating a trained checkpoint.",
+    "plugin": "llm-finetuning",
+    "model": "sonnet",
+    "path": "plugins/llm-finetuning/agents/llm-finetuning-eval-engineer.md"
+  },
+  {
+    "name": "llm-finetuning-training-engineer",
+    "category": "data",
+    "one_liner": "Fine-tuning implementation workhorse — prepares datasets, generates Unsloth-first training scripts, launches and monitors runs, and exports artifacts.",
+    "when_to_use": "Use after a training brief exists, for dataset preparation, training execution, or model export.",
+    "plugin": "llm-finetuning",
+    "model": "sonnet",
+    "path": "plugins/llm-finetuning/agents/llm-finetuning-training-engineer.md"
+  },
+  {
+    "name": "ml-engineer",
+    "category": "data",
+    "one_liner": "Build production ML systems with PyTorch 2.x, TensorFlow, and modern ML frameworks.",
+    "when_to_use": "Use PROACTIVELY for ML model deployment, inference optimization, or production ML infrastructure.",
+    "plugin": "machine-learning-ops",
+    "model": "inherit",
+    "path": "plugins/machine-learning-ops/agents/ml-engineer.md"
+  },
+  {
+    "name": "mlops-engineer",
+    "category": "data",
+    "one_liner": "Build comprehensive ML pipelines, experiment tracking, and model registries with MLflow, Kubeflow, and modern MLOps tools.",
+    "when_to_use": "Use PROACTIVELY for ML infrastructure, experiment management, or pipeline automation.",
+    "plugin": "machine-learning-ops",
+    "model": "inherit",
+    "path": "plugins/machine-learning-ops/agents/mlops-engineer.md"
+  },
+  {
+    "name": "prompt-engineer",
+    "category": "data",
+    "one_liner": "Expert prompt engineer specializing in advanced prompting techniques, LLM optimization, and AI system design.",
+    "when_to_use": "Use when building AI features, improving agent performance, or crafting system prompts.",
+    "plugin": "llm-application-dev",
+    "model": "inherit",
+    "path": "plugins/llm-application-dev/agents/prompt-engineer.md"
+  },
+  {
+    "name": "sql-pro",
+    "category": "data",
+    "one_liner": "Master modern SQL with cloud-native databases, OLTP/OLAP optimization, and advanced query techniques.",
+    "when_to_use": "Use PROACTIVELY for database optimization or complex analysis.",
+    "plugin": "database-design",
+    "model": "inherit",
+    "path": "plugins/database-design/agents/sql-pro.md"
+  },
+  {
+    "name": "vector-database-engineer",
+    "category": "data",
+    "one_liner": "Expert in vector databases, embedding strategies, and semantic search implementation.",
+    "when_to_use": "Use PROACTIVELY for vector search implementation, embedding optimization, or semantic retrieval systems.",
+    "plugin": "llm-application-dev",
+    "model": "inherit",
+    "path": "plugins/llm-application-dev/agents/vector-database-engineer.md"
+  },
+  {
+    "name": "application-performance-observability-engineer",
+    "category": "devops",
+    "one_liner": "Build production-ready monitoring, logging, and tracing systems.",
+    "when_to_use": "Use PROACTIVELY for monitoring infrastructure, performance optimization, or production reliability.",
+    "plugin": "application-performance",
+    "model": "inherit",
+    "path": "plugins/application-performance/agents/observability-engineer.md"
+  },
+  {
+    "name": "application-performance-performance-engineer",
+    "category": "devops",
+    "one_liner": "Expert performance engineer specializing in modern observability, application optimization, and scalable system performance.",
+    "when_to_use": "Use PROACTIVELY for performance optimization, observability, or scalability challenges.",
+    "plugin": "application-performance",
+    "model": "inherit",
+    "path": "plugins/application-performance/agents/performance-engineer.md"
+  },
+  {
+    "name": "backend-development-performance-engineer",
+    "category": "devops",
+    "one_liner": "Profile and optimize application performance including response times, memory usage, query efficiency, and scalability.",
+    "when_to_use": "Use for performance review during feature development.",
+    "plugin": "backend-development",
+    "model": "sonnet",
+    "path": "plugins/backend-development/agents/performance-engineer.md"
+  },
+  {
+    "name": "bash-pro",
+    "category": "devops",
+    "one_liner": "Master of defensive Bash scripting for production automation, CI/CD pipelines, and system utilities.",
+    "when_to_use": "Use when you need an agent that expert in safe, portable, and testable shell scripts.",
+    "plugin": "shell-scripting",
+    "model": "sonnet",
+    "path": "plugins/shell-scripting/agents/bash-pro.md"
+  },
+  {
+    "name": "cicd-automation-cloud-architect",
+    "category": "devops",
+    "one_liner": "Expert cloud architect specializing in AWS/Azure/GCP/OCI multi-cloud infrastructure design, advanced IaC (Terraform/OpenTofu/CDK), FinOps cost optimization, and modern architectural patterns.",
+    "when_to_use": "Use PROACTIVELY for cloud architecture, cost optimization, migration planning, or multi-cloud strategies.",
+    "plugin": "cicd-automation",
+    "model": "opus",
+    "path": "plugins/cicd-automation/agents/cloud-architect.md"
+  },
+  {
+    "name": "cicd-automation-deployment-engineer",
+    "category": "devops",
+    "one_liner": "Expert deployment engineer specializing in modern CI/CD pipelines, GitOps workflows, and advanced deployment automation.",
+    "when_to_use": "Use PROACTIVELY for CI/CD design, GitOps implementation, or deployment automation.",
+    "plugin": "cicd-automation",
+    "model": "haiku",
+    "path": "plugins/cicd-automation/agents/deployment-engineer.md"
+  },
+  {
+    "name": "cicd-automation-devops-troubleshooter",
+    "category": "devops",
+    "one_liner": "Expert DevOps troubleshooter specializing in rapid incident response, advanced debugging, and modern observability.",
+    "when_to_use": "Use PROACTIVELY for debugging, incident response, or system troubleshooting.",
+    "plugin": "cicd-automation",
+    "model": "sonnet",
+    "path": "plugins/cicd-automation/agents/devops-troubleshooter.md"
+  },
+  {
+    "name": "cicd-automation-kubernetes-architect",
+    "category": "devops",
+    "one_liner": "Expert Kubernetes architect specializing in cloud-native infrastructure, advanced GitOps workflows (ArgoCD/Flux), and enterprise container orchestration.",
+    "when_to_use": "Use PROACTIVELY for K8s architecture, GitOps implementation, or cloud-native platform design.",
+    "plugin": "cicd-automation",
+    "model": "opus",
+    "path": "plugins/cicd-automation/agents/kubernetes-architect.md"
+  },
+  {
+    "name": "cicd-automation-terraform-specialist",
+    "category": "devops",
+    "one_liner": "Expert Terraform/OpenTofu specialist mastering advanced IaC automation, state management, and enterprise infrastructure patterns.",
+    "when_to_use": "Use PROACTIVELY for advanced IaC, state management, or infrastructure automation.",
+    "plugin": "cicd-automation",
+    "model": "opus",
+    "path": "plugins/cicd-automation/agents/terraform-specialist.md"
+  },
+  {
+    "name": "cloud-infrastructure-cloud-architect",
+    "category": "devops",
+    "one_liner": "Expert cloud architect specializing in AWS/Azure/GCP/OCI multi-cloud infrastructure design, advanced IaC (Terraform/OpenTofu/CDK), FinOps cost optimization, and modern architectural patterns.",
+    "when_to_use": "Use PROACTIVELY for cloud architecture, cost optimization, migration planning, or multi-cloud strategies.",
+    "plugin": "cloud-infrastructure",
+    "model": "opus",
+    "path": "plugins/cloud-infrastructure/agents/cloud-architect.md"
+  },
+  {
+    "name": "cloud-infrastructure-deployment-engineer",
+    "category": "devops",
+    "one_liner": "Expert deployment engineer specializing in modern CI/CD pipelines, GitOps workflows, and advanced deployment automation.",
+    "when_to_use": "Use PROACTIVELY for CI/CD design, GitOps implementation, or deployment automation.",
+    "plugin": "cloud-infrastructure",
+    "model": "haiku",
+    "path": "plugins/cloud-infrastructure/agents/deployment-engineer.md"
+  },
+  {
+    "name": "cloud-infrastructure-kubernetes-architect",
+    "category": "devops",
+    "one_liner": "Expert Kubernetes architect specializing in cloud-native infrastructure, advanced GitOps workflows (ArgoCD/Flux), and enterprise container orchestration.",
+    "when_to_use": "Use PROACTIVELY for K8s architecture, GitOps implementation, or cloud-native platform design.",
+    "plugin": "cloud-infrastructure",
+    "model": "opus",
+    "path": "plugins/cloud-infrastructure/agents/kubernetes-architect.md"
+  },
+  {
+    "name": "cloud-infrastructure-network-engineer",
+    "category": "devops",
+    "one_liner": "Expert network engineer specializing in modern cloud networking, security architectures, and performance optimization.",
+    "when_to_use": "Use PROACTIVELY for network design, connectivity issues, or performance optimization.",
+    "plugin": "cloud-infrastructure",
+    "model": "sonnet",
+    "path": "plugins/cloud-infrastructure/agents/network-engineer.md"
+  },
+  {
+    "name": "cloud-infrastructure-terraform-specialist",
+    "category": "devops",
+    "one_liner": "Expert Terraform/OpenTofu specialist mastering advanced IaC automation, state management, and enterprise infrastructure patterns.",
+    "when_to_use": "Use PROACTIVELY for advanced IaC, state management, or infrastructure automation.",
+    "plugin": "cloud-infrastructure",
+    "model": "opus",
+    "path": "plugins/cloud-infrastructure/agents/terraform-specialist.md"
+  },
+  {
+    "name": "database-cloud-optimization-cloud-architect",
+    "category": "devops",
+    "one_liner": "Expert cloud architect specializing in AWS/Azure/GCP/OCI multi-cloud infrastructure design, advanced IaC (Terraform/OpenTofu/CDK), FinOps cost optimization, and modern architectural patterns.",
+    "when_to_use": "Use PROACTIVELY for cloud architecture, cost optimization, migration planning, or multi-cloud strategies.",
+    "plugin": "database-cloud-optimization",
+    "model": "sonnet",
+    "path": "plugins/database-cloud-optimization/agents/cloud-architect.md"
+  },
+  {
+    "name": "deploy-with-verification",
+    "category": "devops",
+    "one_liner": "Use when deploying to production.",
+    "when_to_use": "Use when deploying to production.",
+    "plugin": "operating-kit",
+    "model": "sonnet",
+    "path": "plugins/operating-kit/agents/deploy-with-verification.md"
+  },
+  {
+    "name": "deployment-strategies-deployment-engineer",
+    "category": "devops",
+    "one_liner": "Expert deployment engineer specializing in modern CI/CD pipelines, GitOps workflows, and advanced deployment automation.",
+    "when_to_use": "Use PROACTIVELY for CI/CD design, GitOps implementation, or deployment automation.",
+    "plugin": "deployment-strategies",
+    "model": "haiku",
+    "path": "plugins/deployment-strategies/agents/deployment-engineer.md"
+  },
+  {
+    "name": "deployment-strategies-terraform-specialist",
+    "category": "devops",
+    "one_liner": "Expert Terraform/OpenTofu specialist mastering advanced IaC automation, state management, and enterprise infrastructure patterns.",
+    "when_to_use": "Use PROACTIVELY for advanced IaC, state management, or infrastructure automation.",
+    "plugin": "deployment-strategies",
+    "model": "opus",
+    "path": "plugins/deployment-strategies/agents/terraform-specialist.md"
+  },
+  {
+    "name": "deployment-validation-cloud-architect",
+    "category": "devops",
+    "one_liner": "Expert cloud architect specializing in AWS/Azure/GCP/OCI multi-cloud infrastructure design, advanced IaC (Terraform/OpenTofu/CDK), FinOps cost optimization, and modern architectural patterns.",
+    "when_to_use": "Use PROACTIVELY for cloud architecture, cost optimization, migration planning, or multi-cloud strategies.",
+    "plugin": "deployment-validation",
+    "model": "sonnet",
+    "path": "plugins/deployment-validation/agents/cloud-architect.md"
+  },
+  {
+    "name": "dgx-spark-ops-engineer",
+    "category": "devops",
+    "one_liner": "NVIDIA DGX Spark environment doctor for GB10/aarch64/CUDA-13 systems.",
+    "when_to_use": "Use PROACTIVELY when preparing or debugging any training or inference workload on DGX Spark hardware.",
+    "plugin": "dgx-spark-ops",
+    "model": "sonnet",
+    "path": "plugins/dgx-spark-ops/agents/dgx-spark-ops-engineer.md"
+  },
+  {
+    "name": "distributed-debugging-devops-troubleshooter",
+    "category": "devops",
+    "one_liner": "Expert DevOps troubleshooter specializing in rapid incident response, advanced debugging, and modern observability.",
+    "when_to_use": "Use PROACTIVELY for debugging, incident response, or system troubleshooting.",
+    "plugin": "distributed-debugging",
+    "model": "sonnet",
+    "path": "plugins/distributed-debugging/agents/devops-troubleshooter.md"
+  },
+  {
+    "name": "full-stack-orchestration-deployment-engineer",
+    "category": "devops",
+    "one_liner": "Expert deployment engineer specializing in modern CI/CD pipelines, GitOps workflows, and advanced deployment automation.",
+    "when_to_use": "Use PROACTIVELY for CI/CD design, GitOps implementation, or deployment automation.",
+    "plugin": "full-stack-orchestration",
+    "model": "haiku",
+    "path": "plugins/full-stack-orchestration/agents/deployment-engineer.md"
+  },
+  {
+    "name": "full-stack-orchestration-performance-engineer",
+    "category": "devops",
+    "one_liner": "Expert performance engineer specializing in modern observability, application optimization, and scalable system performance.",
+    "when_to_use": "Use PROACTIVELY for performance optimization, observability, or scalability challenges.",
+    "plugin": "full-stack-orchestration",
+    "model": "inherit",
+    "path": "plugins/full-stack-orchestration/agents/performance-engineer.md"
+  },
+  {
+    "name": "hybrid-cloud-architect",
+    "category": "devops",
+    "one_liner": "Expert hybrid cloud architect specializing in complex multi-cloud solutions across AWS/Azure/GCP/OCI and private clouds (OpenStack/VMware).",
+    "when_to_use": "Use PROACTIVELY for hybrid architecture, multi-cloud strategy, or complex infrastructure integration.",
+    "plugin": "cloud-infrastructure",
+    "model": "opus",
+    "path": "plugins/cloud-infrastructure/agents/hybrid-cloud-architect.md"
+  },
+  {
+    "name": "incident-responder",
+    "category": "devops",
+    "one_liner": "Expert SRE incident responder specializing in rapid problem resolution, modern observability, and comprehensive incident management.",
+    "when_to_use": "Use IMMEDIATELY for production incidents or SRE practices.",
+    "plugin": "incident-response",
+    "model": "sonnet",
+    "path": "plugins/incident-response/agents/incident-responder.md"
+  },
+  {
+    "name": "incident-response-devops-troubleshooter",
+    "category": "devops",
+    "one_liner": "Expert DevOps troubleshooter specializing in rapid incident response, advanced debugging, and modern observability.",
+    "when_to_use": "Use PROACTIVELY for debugging, incident response, or system troubleshooting.",
+    "plugin": "incident-response",
+    "model": "sonnet",
+    "path": "plugins/incident-response/agents/devops-troubleshooter.md"
+  },
+  {
+    "name": "kubernetes-operations-kubernetes-architect",
+    "category": "devops",
+    "one_liner": "Expert Kubernetes architect specializing in cloud-native infrastructure, advanced GitOps workflows (ArgoCD/Flux), and enterprise container orchestration.",
+    "when_to_use": "Use PROACTIVELY for K8s architecture, GitOps implementation, or cloud-native platform design.",
+    "plugin": "kubernetes-operations",
+    "model": "opus",
+    "path": "plugins/kubernetes-operations/agents/kubernetes-architect.md"
+  },
+  {
+    "name": "observability-monitoring-network-engineer",
+    "category": "devops",
+    "one_liner": "Expert network engineer specializing in modern cloud networking, security architectures, and performance optimization.",
+    "when_to_use": "Use PROACTIVELY for network design, connectivity issues, or performance optimization.",
+    "plugin": "observability-monitoring",
+    "model": "sonnet",
+    "path": "plugins/observability-monitoring/agents/network-engineer.md"
+  },
+  {
+    "name": "observability-monitoring-observability-engineer",
+    "category": "devops",
+    "one_liner": "Build production-ready monitoring, logging, and tracing systems.",
+    "when_to_use": "Use PROACTIVELY for monitoring infrastructure, performance optimization, or production reliability.",
+    "plugin": "observability-monitoring",
+    "model": "inherit",
+    "path": "plugins/observability-monitoring/agents/observability-engineer.md"
+  },
+  {
+    "name": "observability-monitoring-performance-engineer",
+    "category": "devops",
+    "one_liner": "Expert performance engineer specializing in modern observability, application optimization, and scalable system performance.",
+    "when_to_use": "Use PROACTIVELY for performance optimization, observability, or scalability challenges.",
+    "plugin": "observability-monitoring",
+    "model": "inherit",
+    "path": "plugins/observability-monitoring/agents/performance-engineer.md"
+  },
+  {
+    "name": "performance-testing-review-performance-engineer",
+    "category": "devops",
+    "one_liner": "Expert performance engineer specializing in modern observability, application optimization, and scalable system performance.",
+    "when_to_use": "Use PROACTIVELY for performance optimization, observability, or scalability challenges.",
+    "plugin": "performance-testing-review",
+    "model": "inherit",
+    "path": "plugins/performance-testing-review/agents/performance-engineer.md"
+  },
+  {
+    "name": "posix-shell-pro",
+    "category": "devops",
+    "one_liner": "Expert in strict POSIX sh scripting for maximum portability across Unix-like systems.",
+    "when_to_use": "Use when you need an agent that specializes in shell scripts that run on any POSIX-compliant shell (dash, ash, sh, bash --posix).",
+    "plugin": "shell-scripting",
+    "model": "sonnet",
+    "path": "plugins/shell-scripting/agents/posix-shell-pro.md"
+  },
+  {
+    "name": "prod-logs-health-check",
+    "category": "devops",
+    "one_liner": "Pulls recent production logs filtered for errors, warnings, and anomalies.",
+    "when_to_use": "Use after any deploy, after a load test, or any time you suspect something is going wrong.",
+    "plugin": "operating-kit",
+    "model": "haiku",
+    "path": "plugins/operating-kit/agents/prod-logs-health-check.md"
+  },
+  {
+    "name": "service-mesh-expert",
+    "category": "devops",
+    "one_liner": "Expert service mesh architect specializing in Istio, Linkerd, and cloud-native networking patterns.",
+    "when_to_use": "Use PROACTIVELY for service mesh architecture, zero-trust networking, or microservices communication patterns.",
+    "plugin": "cloud-infrastructure",
+    "model": "opus",
+    "path": "plugins/cloud-infrastructure/agents/service-mesh-expert.md"
+  },
+  {
+    "name": "session-end",
+    "category": "devops",
+    "one_liner": "Use at the end of every significant work session.",
+    "when_to_use": "Use at the end of every significant work session.",
+    "plugin": "operating-kit",
+    "model": "haiku",
+    "path": "plugins/operating-kit/agents/session-end.md"
+  },
+  {
+    "name": "session-start",
+    "category": "devops",
+    "one_liner": "Use at the start of every work session.",
+    "when_to_use": "Use at the start of every work session.",
+    "plugin": "operating-kit",
+    "model": "haiku",
+    "path": "plugins/operating-kit/agents/session-start.md"
+  },
+  {
+    "name": "api-testing-observability-api-documenter",
+    "category": "docs",
+    "one_liner": "Master API documentation with OpenAPI 3.1, AI-powered tools, and modern developer experience practices.",
+    "when_to_use": "Use PROACTIVELY for API documentation or developer portal creation.",
+    "plugin": "api-testing-observability",
+    "model": "sonnet",
+    "path": "plugins/api-testing-observability/agents/api-documenter.md"
+  },
+  {
+    "name": "c4-code",
+    "category": "docs",
+    "one_liner": "Expert C4 Code-level documentation specialist.",
+    "when_to_use": "Use when documenting code at the lowest C4 level for individual directories and code modules.",
+    "plugin": "c4-architecture",
+    "model": "haiku",
+    "path": "plugins/c4-architecture/agents/c4-code.md"
+  },
+  {
+    "name": "c4-component",
+    "category": "docs",
+    "one_liner": "Expert C4 Component-level documentation specialist.",
+    "when_to_use": "Use when synthesizing code-level documentation into logical components.",
+    "plugin": "c4-architecture",
+    "model": "sonnet",
+    "path": "plugins/c4-architecture/agents/c4-component.md"
+  },
+  {
+    "name": "c4-container",
+    "category": "docs",
+    "one_liner": "Expert C4 Container-level documentation specialist.",
+    "when_to_use": "Use when synthesizing components into deployment containers and documenting system deployment architecture.",
+    "plugin": "c4-architecture",
+    "model": "sonnet",
+    "path": "plugins/c4-architecture/agents/c4-container.md"
+  },
+  {
+    "name": "c4-context",
+    "category": "docs",
+    "one_liner": "Expert C4 Context-level documentation specialist.",
+    "when_to_use": "Use when creating the highest-level C4 system context documentation.",
+    "plugin": "c4-architecture",
+    "model": "sonnet",
+    "path": "plugins/c4-architecture/agents/c4-context.md"
+  },
+  {
+    "name": "code-documentation-docs-architect",
+    "category": "docs",
+    "one_liner": "Creates comprehensive technical documentation from existing codebases.",
+    "when_to_use": "Use PROACTIVELY for system documentation, architecture guides, or technical deep-dives.",
+    "plugin": "code-documentation",
+    "model": "sonnet",
+    "path": "plugins/code-documentation/agents/docs-architect.md"
+  },
+  {
+    "name": "code-documentation-tutorial-engineer",
+    "category": "docs",
+    "one_liner": "Creates step-by-step tutorials and educational content from code.",
+    "when_to_use": "Use PROACTIVELY for onboarding guides, feature tutorials, or concept explanations.",
+    "plugin": "code-documentation",
+    "model": "sonnet",
+    "path": "plugins/code-documentation/agents/tutorial-engineer.md"
+  },
+  {
+    "name": "documentation-generation-api-documenter",
+    "category": "docs",
+    "one_liner": "Master API documentation with OpenAPI 3.1, AI-powered tools, and modern developer experience practices.",
+    "when_to_use": "Use PROACTIVELY for API documentation or developer portal creation.",
+    "plugin": "documentation-generation",
+    "model": "sonnet",
+    "path": "plugins/documentation-generation/agents/api-documenter.md"
+  },
+  {
+    "name": "documentation-generation-docs-architect",
+    "category": "docs",
+    "one_liner": "Creates comprehensive technical documentation from existing codebases.",
+    "when_to_use": "Use PROACTIVELY for system documentation, architecture guides, or technical deep-dives.",
+    "plugin": "documentation-generation",
+    "model": "sonnet",
+    "path": "plugins/documentation-generation/agents/docs-architect.md"
+  },
+  {
+    "name": "documentation-generation-tutorial-engineer",
+    "category": "docs",
+    "one_liner": "Creates step-by-step tutorials and educational content from code.",
+    "when_to_use": "Use PROACTIVELY for onboarding guides, feature tutorials, or concept explanations.",
+    "plugin": "documentation-generation",
+    "model": "sonnet",
+    "path": "plugins/documentation-generation/agents/tutorial-engineer.md"
+  },
+  {
+    "name": "mermaid-expert",
+    "category": "docs",
+    "one_liner": "Create Mermaid diagrams for flowcharts, sequences, ERDs, and architectures.",
+    "when_to_use": "Use PROACTIVELY for visual documentation, system diagrams, or process flows.",
+    "plugin": "documentation-generation",
+    "model": "haiku",
+    "path": "plugins/documentation-generation/agents/mermaid-expert.md"
+  },
+  {
+    "name": "pptx-deck-creation-builder",
+    "category": "docs",
+    "one_liner": "Use when creating, repairing, or auditing a production-ready editable PowerPoint (PPTX) deck from a brief, source material, or reference deck.",
+    "when_to_use": "Use when creating, repairing, or auditing a production-ready editable PowerPoint (PPTX) deck from a brief, source material, or reference deck.",
+    "plugin": "pptx-deck-creation",
+    "model": "inherit",
+    "path": "plugins/pptx-deck-creation/agents/pptx-deck-creation-builder.md"
+  },
+  {
+    "name": "reference-builder",
+    "category": "docs",
+    "one_liner": "Creates exhaustive technical references and API documentation.",
+    "when_to_use": "Use PROACTIVELY for API docs, configuration references, or complete technical specifications.",
+    "plugin": "documentation-generation",
+    "model": "haiku",
+    "path": "plugins/documentation-generation/agents/reference-builder.md"
+  },
+  {
+    "name": "business-analyst",
+    "category": "business",
+    "one_liner": "Master modern business analysis with AI-powered analytics, real-time dashboards, and data-driven insights.",
+    "when_to_use": "Use PROACTIVELY for business intelligence or strategic analysis.",
+    "plugin": "business-analytics",
+    "model": "sonnet",
+    "path": "plugins/business-analytics/agents/business-analyst.md"
+  },
+  {
+    "name": "customer-support",
+    "category": "business",
+    "one_liner": "Elite AI-powered customer support specialist mastering conversational AI, automated ticketing, sentiment analysis, and omnichannel support experiences.",
+    "when_to_use": "Use PROACTIVELY for comprehensive customer experience management.",
+    "plugin": "customer-sales-automation",
+    "model": "haiku",
+    "path": "plugins/customer-sales-automation/agents/customer-support.md"
+  },
+  {
+    "name": "hr-pro",
+    "category": "business",
+    "one_liner": "Professional, ethical HR partner for hiring, onboarding/offboarding, PTO and leave, performance, compliant policies, and employee relations.",
+    "when_to_use": "Use when you need an agent that ask for jurisdiction and company context before advising; produce structured, bias-mitigated, lawful templates.",
+    "plugin": "hr-legal-compliance",
+    "model": "sonnet",
+    "path": "plugins/hr-legal-compliance/agents/hr-pro.md"
+  },
+  {
+    "name": "legal-advisor",
+    "category": "business",
+    "one_liner": "Draft privacy policies, terms of service, disclaimers, and legal notices.",
+    "when_to_use": "Use PROACTIVELY for legal documentation, compliance texts, or regulatory requirements.",
+    "plugin": "hr-legal-compliance",
+    "model": "sonnet",
+    "path": "plugins/hr-legal-compliance/agents/legal-advisor.md"
+  },
+  {
+    "name": "startup-analyst",
+    "category": "business",
+    "one_liner": "Expert startup business analyst specializing in market sizing, financial modeling, competitive analysis, and strategic planning for early-stage companies.",
+    "when_to_use": "Use PROACTIVELY when the user asks about market opportunity, TAM/SAM/SOM, financial projections, unit economics, competitive landscape, team planning, startup metrics, or business strategy for pre-seed through Series A startups.",
+    "plugin": "startup-business-analyst",
+    "model": "inherit",
+    "path": "plugins/startup-business-analyst/agents/startup-analyst.md"
+  }
+]

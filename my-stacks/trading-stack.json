@@ -1,0 +1,150 @@
+{
+  "stack": "xauusd-mql5",
+  "version": 1,
+  "generated_from": "AGENT_CATALOG.json",
+  "symbol": "XAUUSD",
+  "platform": "MetaTrader 5 (MQL5)",
+  "selection_criteria": [
+    "direct relevance to quant/trading or MQL5 (C++-family) engineering",
+    "coverage of every xauusd-factory pipeline stage",
+    "production safety (security, risk, debugging) over breadth",
+    "prefer one representative when the catalog has namespaced duplicates"
+  ],
+  "agents": [
+    {
+      "rank": 1,
+      "name": "quant-analyst",
+      "category": "trading",
+      "factory_stage": "quant-analyst",
+      "why": "Core edge design: signal statistics, expectancy, walk-forward plan, overfitting guards for gold.",
+      "one_liner": "Build financial models, backtest trading strategies, and analyze market data.",
+      "path": "plugins/quantitative-trading/agents/quant-analyst.md"
+    },
+    {
+      "rank": 2,
+      "name": "risk-manager",
+      "category": "trading",
+      "factory_stage": "quant-analyst",
+      "why": "Position sizing from equity risk %, R-multiples, daily loss cap and equity kill-switch rules.",
+      "one_liner": "Monitor portfolio risk, R-multiples, and position limits.",
+      "path": "plugins/quantitative-trading/agents/risk-manager.md"
+    },
+    {
+      "rank": 3,
+      "name": "search-specialist",
+      "category": "marketing",
+      "factory_stage": "market-researcher",
+      "why": "Gold market structure research: USD/real-yield drivers, session behaviour, news calendar, broker spread/contract specs.",
+      "one_liner": "Expert web researcher using advanced search techniques and synthesis.",
+      "path": "plugins/content-marketing/agents/search-specialist.md"
+    },
+    {
+      "rank": 4,
+      "name": "data-scientist",
+      "category": "data",
+      "factory_stage": "quant-analyst",
+      "why": "Regime detection, volatility clustering checks, sample-size sanity and statistical validation of backtest output.",
+      "one_liner": "Expert data scientist for advanced analytics, machine learning, and statistical modeling.",
+      "path": "plugins/machine-learning-ops/agents/data-scientist.md"
+    },
+    {
+      "rank": 5,
+      "name": "cpp-pro",
+      "category": "coding",
+      "factory_stage": "mql5-pro",
+      "why": "MQL5 is C++-derived; idiomatic structure, RAII-style handle lifecycle, safe arithmetic and performance-aware OnTick code.",
+      "one_liner": "Write idiomatic C++ code with modern features, RAII, smart pointers, and STL algorithms.",
+      "path": "plugins/systems-programming/agents/cpp-pro.md"
+    },
+    {
+      "rank": 6,
+      "name": "c-pro",
+      "category": "coding",
+      "factory_stage": "mql5-pro",
+      "why": "Low-level correctness review: integer/double conversions, array bounds, memory-free hot path in OnTick.",
+      "one_liner": "Write efficient C code with proper memory management, pointer arithmetic, and system calls.",
+      "path": "plugins/systems-programming/agents/c-pro.md"
+    },
+    {
+      "rank": 7,
+      "name": "backend-development-security-auditor",
+      "category": "security",
+      "factory_stage": "security-auditor",
+      "why": "Audit EA attack surface: no DLL/WebRequest, input validation, credential hygiene, safe failure modes.",
+      "one_liner": "Review code and architecture for security vulnerabilities, OWASP Top 10, auth flaws, and compliance issues.",
+      "path": "plugins/backend-development/agents/security-auditor.md"
+    },
+    {
+      "rank": 8,
+      "name": "threat-modeling-expert",
+      "category": "security",
+      "factory_stage": "security-auditor",
+      "why": "Threat model for live trading: broker execution risk, slippage/requotes, runaway order loops, VPS compromise.",
+      "one_liner": "Expert in threat modeling methodologies, security architecture review, and risk assessment.",
+      "path": "plugins/security-scanning/agents/threat-modeling-expert.md"
+    },
+    {
+      "rank": 9,
+      "name": "comprehensive-review-code-reviewer",
+      "category": "coding",
+      "factory_stage": "security-auditor",
+      "why": "Production-reliability code review of the .mq5 before any live deployment.",
+      "one_liner": "Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability.",
+      "path": "plugins/comprehensive-review/agents/code-reviewer.md"
+    },
+    {
+      "rank": 10,
+      "name": "debugging-toolkit-debugger",
+      "category": "coding",
+      "factory_stage": "mql5-pro",
+      "why": "Diagnose MetaEditor compile errors and Strategy Tester journal failures (retcodes, invalid stops).",
+      "one_liner": "Debugging specialist for errors, test failures, and unexpected behavior.",
+      "path": "plugins/debugging-toolkit/agents/debugger.md"
+    },
+    {
+      "rank": 11,
+      "name": "error-debugging-error-detective",
+      "category": "coding",
+      "factory_stage": "backtest-analyst",
+      "why": "Parse Experts/Journal logs for recurring trade errors and anomaly patterns across test runs.",
+      "one_liner": "Search logs and codebases for error patterns, stack traces, and anomalies.",
+      "path": "plugins/error-debugging/agents/error-detective.md"
+    },
+    {
+      "rank": 12,
+      "name": "python-pro",
+      "category": "coding",
+      "factory_stage": "backtest-analyst",
+      "why": "Lightweight offline analysis: parse Strategy Tester CSV/HTML reports, proxy backtests without tick data.",
+      "one_liner": "Master Python 3.12+ with modern features, async programming, performance optimization, and production-ready practices.",
+      "path": "plugins/python-development/agents/python-pro.md"
+    },
+    {
+      "rank": 13,
+      "name": "unit-testing-test-automator",
+      "category": "coding",
+      "factory_stage": "backtest-analyst",
+      "why": "Regression test harness for the strategy logic port and reproducible tester configs.",
+      "one_liner": "Master AI-powered test automation with modern frameworks, self-healing tests, and comprehensive quality engineering.",
+      "path": "plugins/unit-testing/agents/test-automator.md"
+    },
+    {
+      "rank": 14,
+      "name": "backend-development-performance-engineer",
+      "category": "devops",
+      "factory_stage": "mql5-pro",
+      "why": "Keep OnTick cheap: new-bar gating, cached indicator handles, minimal history scans.",
+      "one_liner": "Profile and optimize application performance including response times, memory usage, query efficiency, and scalability.",
+      "path": "plugins/backend-development/agents/performance-engineer.md"
+    },
+    {
+      "rank": 15,
+      "name": "code-documentation-docs-architect",
+      "category": "docs",
+      "factory_stage": "trading-strategist",
+      "why": "Turn strategy spec + audit + backtest into README and operator documentation.",
+      "one_liner": "Creates comprehensive technical documentation from existing codebases.",
+      "path": "plugins/code-documentation/agents/docs-architect.md"
+    }
+  ]
+}

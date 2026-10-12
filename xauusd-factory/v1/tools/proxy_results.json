@@ -1,0 +1,669 @@
+{
+  "params": {
+    "ema_signal": 20,
+    "atr_period": 14,
+    "rsi_period": 14,
+    "ema_fast_regime": 50,
+    "ema_slow_regime": 200,
+    "adx_period": 14,
+    "adx_min": 20.0,
+    "slope_bars": 3,
+    "pullback_bars": 6,
+    "touch_atr": 0.25,
+    "max_chase_atr": 1.0,
+    "atr_avg_bars": 100,
+    "vol_ratio_min": 0.6,
+    "vol_ratio_max": 2.5,
+    "sl_buffer_atr": 0.25,
+    "sl_min_atr": 1.0,
+    "sl_max_atr": 2.5,
+    "tp_rr": 2.0,
+    "be_trigger_r": 1.0,
+    "be_buffer_r": 0.1,
+    "trail_start_r": 1.5,
+    "trail_atr": 1.0,
+    "max_bars_in_trade": 48,
+    "session_start_gmt": 7,
+    "session_end_gmt": 20,
+    "friday_last_entry_gmt": 18,
+    "friday_close_gmt": 20,
+    "max_spread_atr": 0.15,
+    "risk_pct": 0.5,
+    "max_trades_day": 3,
+    "daily_loss_pct": 2.0,
+    "kill_dd_pct": 15.0
+  },
+  "samples": {
+    "h1_2024": {
+      "meta": {
+        "id": "h1_2024",
+        "repo": "SandileJ/Analysing_GOLD",
+        "path": "DATA/XAUUSD60.csv",
+        "fmt": "mt_csv",
+        "tf_min": 60,
+        "regime_tf_min": 240,
+        "gmt_offset": 3,
+        "spread": 0.3
+      },
+      "runs": {
+        "default": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 31,
+          "longs": 31,
+          "shorts": 0,
+          "win_rate_pct": 45.2,
+          "profit_factor": 1.02,
+          "expectancy_r": 0.011,
+          "net_return_pct": 0.12,
+          "max_dd_pct": 3.08,
+          "exit_reasons": {
+            "sl": 25,
+            "friday": 1,
+            "tp": 5
+          },
+          "blocked_bars": {
+            "session": 836,
+            "spread": 0,
+            "vol": 48,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "spread x1.5": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 31,
+          "longs": 31,
+          "shorts": 0,
+          "win_rate_pct": 45.2,
+          "profit_factor": 1.01,
+          "expectancy_r": 0.008,
+          "net_return_pct": 0.07,
+          "max_dd_pct": 3.09,
+          "exit_reasons": {
+            "sl": 25,
+            "friday": 1,
+            "tp": 5
+          },
+          "blocked_bars": {
+            "session": 836,
+            "spread": 17,
+            "vol": 32,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "pullback_bars 4": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 31,
+          "longs": 31,
+          "shorts": 0,
+          "win_rate_pct": 48.4,
+          "profit_factor": 1.14,
+          "expectancy_r": 0.074,
+          "net_return_pct": 1.09,
+          "max_dd_pct": 2.96,
+          "exit_reasons": {
+            "sl": 24,
+            "friday": 1,
+            "tp": 6
+          },
+          "blocked_bars": {
+            "session": 837,
+            "spread": 0,
+            "vol": 48,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "pullback_bars 8": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 30,
+          "longs": 30,
+          "shorts": 0,
+          "win_rate_pct": 46.7,
+          "profit_factor": 1.08,
+          "expectancy_r": 0.045,
+          "net_return_pct": 0.62,
+          "max_dd_pct": 2.6,
+          "exit_reasons": {
+            "sl": 24,
+            "friday": 1,
+            "tp": 5
+          },
+          "blocked_bars": {
+            "session": 835,
+            "spread": 0,
+            "vol": 48,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "tp_rr 1.5": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 31,
+          "longs": 31,
+          "shorts": 0,
+          "win_rate_pct": 45.2,
+          "profit_factor": 1.09,
+          "expectancy_r": 0.051,
+          "net_return_pct": 0.74,
+          "max_dd_pct": 2.96,
+          "exit_reasons": {
+            "sl": 18,
+            "friday": 1,
+            "tp": 12
+          },
+          "blocked_bars": {
+            "session": 848,
+            "spread": 0,
+            "vol": 48,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "tp_rr 2.5": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 30,
+          "longs": 30,
+          "shorts": 0,
+          "win_rate_pct": 43.3,
+          "profit_factor": 0.95,
+          "expectancy_r": -0.026,
+          "net_return_pct": -0.44,
+          "max_dd_pct": 3.57,
+          "exit_reasons": {
+            "sl": 26,
+            "friday": 1,
+            "tp": 3
+          },
+          "blocked_bars": {
+            "session": 836,
+            "spread": 0,
+            "vol": 48,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "adx_min 15": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 36,
+          "longs": 35,
+          "shorts": 1,
+          "win_rate_pct": 44.4,
+          "profit_factor": 1.07,
+          "expectancy_r": 0.038,
+          "net_return_pct": 0.61,
+          "max_dd_pct": 4.05,
+          "exit_reasons": {
+            "tp": 7,
+            "sl": 28,
+            "friday": 1
+          },
+          "blocked_bars": {
+            "session": 796,
+            "spread": 0,
+            "vol": 45,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "adx_min 25": {
+          "bars": 2923,
+          "from": "2024-04-30 11:00:00",
+          "to": "2024-10-25 01:00:00",
+          "trades": 27,
+          "longs": 27,
+          "shorts": 0,
+          "win_rate_pct": 51.9,
+          "profit_factor": 1.34,
+          "expectancy_r": 0.163,
+          "net_return_pct": 2.17,
+          "max_dd_pct": 2.11,
+          "exit_reasons": {
+            "sl": 21,
+            "friday": 1,
+            "tp": 5
+          },
+          "blocked_bars": {
+            "session": 866,
+            "spread": 0,
+            "vol": 49,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        }
+      }
+    },
+    "m15_2025_12": {
+      "meta": {
+        "id": "m15_2025_12",
+        "repo": "Aleckqhie/quant_learning-journey-",
+        "path": "data/raw/XAUUSD15(1).csv",
+        "fmt": "mt_csv",
+        "tf_min": 15,
+        "regime_tf_min": 60,
+        "gmt_offset": 2,
+        "spread": 0.4
+      },
+      "runs": {
+        "default": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 20,
+          "longs": 20,
+          "shorts": 0,
+          "win_rate_pct": 45.0,
+          "profit_factor": 1.12,
+          "expectancy_r": 0.065,
+          "net_return_pct": 0.61,
+          "max_dd_pct": 2.48,
+          "exit_reasons": {
+            "tp": 6,
+            "sl": 14
+          },
+          "blocked_bars": {
+            "session": 527,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "spread x1.5": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 20,
+          "longs": 20,
+          "shorts": 0,
+          "win_rate_pct": 45.0,
+          "profit_factor": 1.12,
+          "expectancy_r": 0.065,
+          "net_return_pct": 0.61,
+          "max_dd_pct": 2.48,
+          "exit_reasons": {
+            "tp": 6,
+            "sl": 14
+          },
+          "blocked_bars": {
+            "session": 527,
+            "spread": 5,
+            "vol": 65,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "pullback_bars 4": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 20,
+          "longs": 20,
+          "shorts": 0,
+          "win_rate_pct": 45.0,
+          "profit_factor": 1.12,
+          "expectancy_r": 0.065,
+          "net_return_pct": 0.61,
+          "max_dd_pct": 2.48,
+          "exit_reasons": {
+            "tp": 6,
+            "sl": 14
+          },
+          "blocked_bars": {
+            "session": 527,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "pullback_bars 8": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 20,
+          "longs": 20,
+          "shorts": 0,
+          "win_rate_pct": 45.0,
+          "profit_factor": 1.05,
+          "expectancy_r": 0.029,
+          "net_return_pct": 0.25,
+          "max_dd_pct": 2.48,
+          "exit_reasons": {
+            "tp": 5,
+            "sl": 15
+          },
+          "blocked_bars": {
+            "session": 527,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "tp_rr 1.5": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 20,
+          "longs": 20,
+          "shorts": 0,
+          "win_rate_pct": 45.0,
+          "profit_factor": 0.97,
+          "expectancy_r": -0.015,
+          "net_return_pct": -0.18,
+          "max_dd_pct": 2.48,
+          "exit_reasons": {
+            "tp": 7,
+            "sl": 13
+          },
+          "blocked_bars": {
+            "session": 542,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "tp_rr 2.5": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 20,
+          "longs": 20,
+          "shorts": 0,
+          "win_rate_pct": 45.0,
+          "profit_factor": 1.08,
+          "expectancy_r": 0.046,
+          "net_return_pct": 0.42,
+          "max_dd_pct": 2.48,
+          "exit_reasons": {
+            "sl": 17,
+            "tp": 3
+          },
+          "blocked_bars": {
+            "session": 524,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "adx_min 15": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 22,
+          "longs": 22,
+          "shorts": 0,
+          "win_rate_pct": 40.9,
+          "profit_factor": 0.95,
+          "expectancy_r": -0.032,
+          "net_return_pct": -0.4,
+          "max_dd_pct": 2.96,
+          "exit_reasons": {
+            "sl": 16,
+            "tp": 6
+          },
+          "blocked_bars": {
+            "session": 511,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 8
+          },
+          "kill_switch_hit": false
+        },
+        "adx_min 25": {
+          "bars": 2048,
+          "from": "2025-12-24 17:30:00",
+          "to": "2026-01-28 09:30:00",
+          "trades": 16,
+          "longs": 16,
+          "shorts": 0,
+          "win_rate_pct": 50.0,
+          "profit_factor": 1.29,
+          "expectancy_r": 0.144,
+          "net_return_pct": 1.12,
+          "max_dd_pct": 1.49,
+          "exit_reasons": {
+            "tp": 5,
+            "sl": 11
+          },
+          "blocked_bars": {
+            "session": 531,
+            "spread": 0,
+            "vol": 70,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        }
+      }
+    },
+    "m15_2026_08": {
+      "meta": {
+        "id": "m15_2026_08",
+        "repo": "ripper7375/trading-alerts-saas-public",
+        "path": "davintrade-stack-d-and-e/engine-1-5-new/OHLCV_XAUUSD_M15.txt",
+        "fmt": "tsv_unix_cohl",
+        "tf_min": 15,
+        "regime_tf_min": 60,
+        "gmt_offset": 0,
+        "spread": 0.45
+      },
+      "runs": {
+        "default": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 20,
+          "longs": 7,
+          "shorts": 13,
+          "win_rate_pct": 40.0,
+          "profit_factor": 0.92,
+          "expectancy_r": -0.046,
+          "net_return_pct": -0.5,
+          "max_dd_pct": 1.99,
+          "exit_reasons": {
+            "sl": 17,
+            "tp": 3
+          },
+          "blocked_bars": {
+            "session": 907,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "spread x1.5": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 21,
+          "longs": 7,
+          "shorts": 14,
+          "win_rate_pct": 38.1,
+          "profit_factor": 0.85,
+          "expectancy_r": -0.095,
+          "net_return_pct": -1.03,
+          "max_dd_pct": 2.25,
+          "exit_reasons": {
+            "sl": 18,
+            "tp": 3
+          },
+          "blocked_bars": {
+            "session": 907,
+            "spread": 1,
+            "vol": 36,
+            "day_limit": 2
+          },
+          "kill_switch_hit": false
+        },
+        "pullback_bars 4": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 20,
+          "longs": 7,
+          "shorts": 13,
+          "win_rate_pct": 40.0,
+          "profit_factor": 0.94,
+          "expectancy_r": -0.034,
+          "net_return_pct": -0.37,
+          "max_dd_pct": 1.99,
+          "exit_reasons": {
+            "sl": 17,
+            "tp": 3
+          },
+          "blocked_bars": {
+            "session": 909,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "pullback_bars 8": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 20,
+          "longs": 7,
+          "shorts": 13,
+          "win_rate_pct": 35.0,
+          "profit_factor": 0.91,
+          "expectancy_r": -0.056,
+          "net_return_pct": -0.59,
+          "max_dd_pct": 1.99,
+          "exit_reasons": {
+            "sl": 16,
+            "tp": 3,
+            "friday": 1
+          },
+          "blocked_bars": {
+            "session": 905,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "tp_rr 1.5": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 20,
+          "longs": 7,
+          "shorts": 13,
+          "win_rate_pct": 40.0,
+          "profit_factor": 0.88,
+          "expectancy_r": -0.07,
+          "net_return_pct": -0.73,
+          "max_dd_pct": 2.2,
+          "exit_reasons": {
+            "sl": 13,
+            "tp": 7
+          },
+          "blocked_bars": {
+            "session": 913,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "tp_rr 2.5": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 20,
+          "longs": 7,
+          "shorts": 13,
+          "win_rate_pct": 40.0,
+          "profit_factor": 0.9,
+          "expectancy_r": -0.062,
+          "net_return_pct": -0.65,
+          "max_dd_pct": 1.99,
+          "exit_reasons": {
+            "sl": 19,
+            "tp": 1
+          },
+          "blocked_bars": {
+            "session": 894,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        },
+        "adx_min 15": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 24,
+          "longs": 11,
+          "shorts": 13,
+          "win_rate_pct": 37.5,
+          "profit_factor": 0.74,
+          "expectancy_r": -0.16,
+          "net_return_pct": -1.94,
+          "max_dd_pct": 2.68,
+          "exit_reasons": {
+            "sl": 21,
+            "tp": 3
+          },
+          "blocked_bars": {
+            "session": 893,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 18
+          },
+          "kill_switch_hit": false
+        },
+        "adx_min 25": {
+          "bars": 3000,
+          "from": "2026-08-05 04:30:00",
+          "to": "2026-09-18 20:45:00",
+          "trades": 13,
+          "longs": 4,
+          "shorts": 9,
+          "win_rate_pct": 46.2,
+          "profit_factor": 1.01,
+          "expectancy_r": 0.005,
+          "net_return_pct": 0.01,
+          "max_dd_pct": 1.25,
+          "exit_reasons": {
+            "sl": 12,
+            "tp": 1
+          },
+          "blocked_bars": {
+            "session": 907,
+            "spread": 0,
+            "vol": 37,
+            "day_limit": 0
+          },
+          "kill_switch_hit": false
+        }
+      }
+    }
+  },
+  "pooled_default": {
+    "trades": 71,
+    "expectancy_r": 0.01
+  }
+}
