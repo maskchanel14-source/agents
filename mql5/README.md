@@ -59,31 +59,78 @@ EA hanya masuk di **pullback searah trend**, bukan mengejar harga.
 - Kondisi di antara → **flat, tidak trading** (hindari market choppy)
 
 ### Sinyal entry (M5, dievaluasi di bar yang sudah close)
+
+Tiga EMA dengan **tiga peran berbeda** (sebelumnya EMA20 dan EMA21 dipakai
+berbarengan untuk dua fungsi — itu redundan dan sudah diperbaiki):
+
+| EMA | Periode | Peran |
+|---|---|---|
+| `EMA_Fast` | 8 | Momentum jangka pendek |
+| `EMA_Pullback` | 21 | Garis yang harus disentuh harga (trigger entry) |
+| `EMA_Trend` | 50 | Struktur trend yang **tidak boleh** ditembus pullback |
+
 Semua harus terpenuhi untuk **BUY**:
 1. Bias H1 = UP
-2. `EMA8 > EMA21` (momentum jangka pendek searah)
-3. Bar menyentuh/menembus `EMA20` (`Low <= EMA20`) lalu **ditolak**
-   (`Close > EMA20` **dan** `Close > Open`) — ini konfirmasi rejection
-4. Jarak entry dari EMA20 tidak lebih dari `1.2 × ATR` (tidak chasing)
-5. RSI(14) di zona 50–78 **dan** RSI naik
-6. ADX(14) ≥ 18 (market trending, bukan sideways)
-7. ATR(14)/harga di antara 0.02% – 0.50% (tidak mati, tidak kacau)
-8. Spread ≤ batas, jam trading aktif, tidak kena cooldown / daily loss limit
+2. **Struktur EMA**: `EMA21 > EMA50` **dan** `EMA8 > EMA50`.
+   Ini memastikan kita beli *pullback di dalam uptrend*, bukan menangkap
+   pisau jatuh. `EMA8 > EMA50` (bukan `EMA8 > EMA21`) sengaja lebih longgar
+   supaya pullback yang agak dalam tetap ke-trigger.
+3. **Bar menyentuh garis pullback**: `Low <= EMA21`
+4. **Tapi tidak menembusnya** (`InpMaxPenetrationATR = 1.0`):
+   `Low >= EMA21 - 1.0 × ATR`. Tembus terlalu dalam = breakdown, bukan pullback.
+5. **Rejection**: `Close > EMA21` **dan** `Close > Open`
+6. **Kualitas rejection** (`InpRejectionClose = 0.55`):
+   bar harus close di **55% atas** dari range-nya, yaitu
+   `(Close - Low) / (High - Low) >= 0.55`.
+   Bounce yang close balik dekat low-nya = rejection lemah = setup yang gagal.
+   Set `0` untuk mematikan.
+7. Jarak entry dari EMA21 tidak lebih dari `1.2 × ATR` (tidak chasing)
+8. RSI(14) di zona 50–78 **dan** RSI naik
+9. ADX(14) ≥ 18 (market trending, bukan sideways)
+10. ATR(14)/harga di antara 0.02% – 0.50% (tidak mati, tidak kacau)
+11. Spread ≤ batas, jam trading aktif, tidak kena cooldown / daily loss limit
 
 SELL adalah kebalikan persisnya.
 
-### Stop Loss & Take Profit
-- **SL**: swing low/high `N` bar terakhir + buffer `0.25 × ATR`,
-  di-clamp ke minimum `0.8 × ATR` dan maksimum `3.0 × ATR`.
-  Kalau SL lebih lebar dari `3.0 × ATR` → **trade dibatalkan** (risk/reward jelek).
-- **TP**: `jarak SL × InpRR` (default 1:2).
+### Stop Loss & Take Profit (SL sengaja dibuat lebih lega)
+- **SL**: swing low/high `12` bar terakhir + buffer `0.40 × ATR`,
+  di-clamp ke minimum `1.2 × ATR` dan maksimum `5.0 × ATR`.
+  Kalau SL lebih lebar dari `5.0 × ATR` → **trade dibatalkan** (risk/reward jelek).
+- Fallback kalau `InpUseSwingSL = false`: SL = `2.2 × ATR`.
+- **TP**: `jarak SL × InpRR` (default **1:1.5**, turun dari 1:2).
 
-### Trailing stop (sudah aktif secara default)
-1. **Breakeven**: saat profit ≥ `1.0 × ATR`, SL dipindah ke entry + `0.10 × ATR`.
-2. **Trailing**: saat profit ≥ `1.0 × ATR`, SL mengikuti harga pada jarak `1.0 × ATR`.
-3. SL **hanya boleh mengencang**, tidak pernah melebar.
-4. Modifikasi hanya dilakukan kalau perbaikannya ≥ `0.05 × ATR` (hindari spam request).
-5. Selalu menghormati `SYMBOL_TRADE_STOPS_LEVEL` dan `SYMBOL_TRADE_FREEZE_LEVEL` broker.
+Kenapa SL dilebarkan dan RR diturunkan: SL ketat di akun 3 digit gampang
+kena stop-hunt karena ketelitian harganya kasar. Tapi SL lebar tanpa
+pengaman = rugi besar. Makanya **trailing-lah yang jadi pengamannya** — lihat bawah.
+
+> ⚠️ Karena lot dihitung dari risiko (`risk% ÷ jarak SL`), **SL lebih lebar =
+> lot otomatis lebih kecil**. Ini memang benar secara manajemen risiko, bukan bug.
+> Kalau mau lot tetap besar, naikkan `InpRiskPercent` (hati-hati) atau pakai
+> `InpFixedLot`.
+
+### Trailing stop (sudah aktif secara default — dan sekarang 3 tahap)
+1. **Breakeven**: saat profit ≥ `1.0 × ATR`, SL pindah ke entry + `0.10 × ATR`.
+2. **Trailing awal**: saat profit ≥ `1.2 × ATR`, SL mengikuti harga pada
+   jarak `1.2 × ATR` (artinya SL pertama kali pindah **tepat di entry**).
+3. **Ratchet / pengencangan** (`InpUseTrailTighten`, baru):
+   saat profit ≥ `3.0 × ATR`, jarak trail **dikencangkan** jadi `0.8 × ATR`
+   supaya sebagian besar pergerakan terkunci.
+
+> **Invariant penting** (dijaga di kode, bukan cuma di default):
+> trailing **tidak boleh aktif sebelum profit ≥ jarak trail-nya**.
+> Soalnya kalau `TrailStart < TrailDist`, update pertama menaruh SL di
+> `harga − TrailDist` padahal profitnya lebih kecil dari itu — jadi SL
+> mendarat **di bawah entry**. Dengan SL awal yang lebar, itu berarti SL
+> melompat dari beberapa ATR jauhnya ke sedikit di bawah entry, dan trade
+> mati kena retrace biasa. Kode memakai `max(TrailStart, TrailDist)` supaya
+> ini gak bisa terjadi berapa pun nilai yang kamu set.
+4. SL **hanya boleh mengencang**, tidak pernah melebar.
+5. Modifikasi hanya dilakukan kalau perbaikannya ≥ `0.05 × ATR` (hindari spam request).
+6. Selalu menghormati `SYMBOL_TRADE_STOPS_LEVEL` dan `SYMBOL_TRADE_FREEZE_LEVEL` broker.
+
+**Ini konsep kuncinya**: SL jauh di awal memberi ruang napas, lalu trailing
+mengambil ruang itu kembali sedikit demi sedikit begitu trade bergerak untung.
+Jadi secara efektif risiko awal besar, tapi risiko *realized* mengecil.
 
 ### Exit tambahan
 - **Time stop**: posisi ditutup setelah `12` bar M5 (default 1 jam) kalau belum kena SL/TP.
@@ -120,11 +167,27 @@ Ini otomatis menyesuaikan kontrak broker, tanpa asumsi "1 lot = $10/pip".
 | Parameter | Default | Rekomendasi 3 digit |
 |---|---|---|
 | `InpSignalTF` | M5 | **M5** (jangan M1) |
-| `InpRiskPercent` | 1.0 | **0.5 – 1.0** |
+| `InpRiskPercent` | 1.0 | **0.5 – 1.0** (lot menyusut karena SL lebih lebar) |
 | `InpMaxSpreadPoints` | 0 (auto) | biarkan auto → 3 |
 | `InpBE_OffsetATR` | 0.10 | **0.15** (menutup spread yang lebih lebar) |
-| `InpTrailStartATR` | 1.0 | **1.0 – 1.2** |
-| `InpSL_ATR` | 1.5 | **1.5 – 2.0** |
+| `InpTrailStartATR` | 0.8 | **0.8 – 1.0** |
+| `InpSL_ATR` | 2.2 | **2.0 – 2.5** |
+| `InpSL_MinATR` | 1.2 | **1.2 – 1.5** (jangan di bawah ini di 3 digit) |
+| `InpRR` | 1.5 | **1.5 – 2.0** |
+| `InpSwingLookback` | 12 | **12 – 16** |
+
+### Kalau sinyal terlalu sedikit
+Fitur baru (`InpUseStackFilter`, `InpRejectionClose`, `InpMaxPenetrationATR`)
+memang bikin sinyal **lebih sedikit tapi lebih bersih**. Kalau hasilnya
+terlalu sepi, longgarkan bertahap — jangan langsung semua:
+
+1. `InpRejectionClose` → `0.40` (atau `0` untuk matikan)
+2. `InpMaxPenetrationATR` → `1.5`
+3. `InpADX_Min` → `15`
+4. Terakhir: `InpUseStackFilter` → `false`
+
+Urutan ini dari yang paling sedikit pengaruhnya ke yang paling besar.
+Ubah satu-satu dan catat hasilnya, biar tahu mana yang bikin beda.
 
 ---
 

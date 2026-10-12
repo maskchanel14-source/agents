@@ -34,9 +34,12 @@ input int              InpTrendEMASlow       = 200;        // HTF EMA slow perio
 //+------------------------------------------------------------------+
 //| ----------------------- ENTRY LOGIC ----------------------------- |
 //+------------------------------------------------------------------+
-input int              InpEMA_Pullback       = 20;         // Pullback EMA period
-input int              InpEMA_Fast           = 8;          // Fast EMA period
-input int              InpEMA_Slow           = 21;         // Slow EMA period
+input int              InpEMA_Fast           = 8;          // Fast EMA period (momentum)
+input int              InpEMA_Pullback       = 21;         // Pullback EMA period (entry line)
+input int              InpEMA_Trend          = 50;         // Trend EMA period (structure)
+input bool             InpUseStackFilter     = true;       // Require EMA stack alignment
+input double           InpRejectionClose     = 0.55;       // Rejection bar min close position (0=off)
+input double           InpMaxPenetrationATR  = 1.00;       // Max pullback past EMA (x ATR), 0=off
 input int              InpRSI_Period         = 14;         // RSI period
 input double           InpRSI_BuyMin         = 50.0;       // RSI min for BUY
 input double           InpRSI_BuyMax         = 78.0;       // RSI max for BUY
@@ -51,13 +54,13 @@ input double           InpMaxDistFromEMA_ATR = 1.2;        // Max entry distance
 //+------------------------------------------------------------------+
 //| --------------------- STOP LOSS / TAKE PROFIT ------------------- |
 //+------------------------------------------------------------------+
-input double           InpSL_ATR             = 1.5;        // Stop loss distance (x ATR)
-input double           InpRR                 = 2.0;        // Take profit = risk x R:R
+input double           InpSL_ATR             = 2.2;        // Stop loss distance (x ATR)
+input double           InpRR                 = 1.5;        // Take profit = risk x R:R
 input bool             InpUseSwingSL         = true;       // Use swing high/low for stop loss
-input int              InpSwingLookback      = 10;         // Swing lookback (bars)
-input double           InpSwingBufferATR     = 0.25;       // Swing buffer (x ATR)
-input double           InpSL_MinATR          = 0.8;        // Minimum stop distance (x ATR)
-input double           InpSL_MaxATR          = 3.0;        // Max stop distance (x ATR) - skip if wider
+input int              InpSwingLookback      = 12;         // Swing lookback (bars)
+input double           InpSwingBufferATR     = 0.40;       // Swing buffer (x ATR)
+input double           InpSL_MinATR          = 1.2;        // Minimum stop distance (x ATR)
+input double           InpSL_MaxATR          = 5.0;        // Max stop distance (x ATR) - skip if wider
 
 //+------------------------------------------------------------------+
 //| ------------------------ MONEY MANAGEMENT ----------------------- |
@@ -72,10 +75,13 @@ input bool             InpUseMarginCheck     = true;       // Check free margin 
 //+------------------------------------------------------------------+
 input bool             InpUseTrailing        = true;        // Enable trailing stop
 input ENUM_TRAIL_MODE  InpTrailMode          = TRAIL_ATR;   // Trailing distance mode
-input double           InpTrailStartATR      = 1.0;         // Start trailing at profit (x ATR)
-input double           InpTrailDistATR       = 1.0;         // Trailing distance (x ATR) if ATR mode
+input double           InpTrailStartATR      = 1.2;         // Start trailing at profit (x ATR)
+input double           InpTrailDistATR       = 1.2;         // Trailing distance (x ATR) if ATR mode
 input int              InpTrailDistPoints    = 200;         // Trailing distance (points) if points mode
 input double           InpTrailStepATR       = 0.05;        // Min improvement (x ATR) before modifying
+input bool             InpUseTrailTighten    = true;        // Tighten the trail deep in profit
+input double           InpTightenStartATR    = 3.0;         // Tighten trigger at profit (x ATR)
+input double           InpTightenDistATR     = 0.8;         // Tightened trail distance (x ATR)
 input bool             InpUseBreakeven       = true;        // Move to breakeven
 input double           InpBE_StartATR        = 1.0;         // Breakeven trigger at profit (x ATR)
 input double           InpBE_OffsetATR       = 0.10;        // Breakeven offset (x ATR, covers spread+costs)
@@ -111,7 +117,7 @@ CTrade   trade;
 int      g_hATR       = INVALID_HANDLE;
 int      g_hEMAPull   = INVALID_HANDLE;
 int      g_hEMAFast   = INVALID_HANDLE;
-int      g_hEMASlow   = INVALID_HANDLE;
+int      g_hEMATrend  = INVALID_HANDLE;
 int      g_hRSI       = INVALID_HANDLE;
 int      g_hADX       = INVALID_HANDLE;
 int      g_hTrendFast = INVALID_HANDLE;
@@ -418,14 +424,14 @@ int CheckEntry(double &slDistance)
    double atr[];
    double emaPull[];
    double emaFast[];
-   double emaSlow[];
+   double emaTrend[];
    double rsi[];
    double adx[];
 
    if(!FillBuffer(g_hATR,     0, need, atr))      return(0);
    if(!FillBuffer(g_hEMAPull, 0, need, emaPull))  return(0);
    if(!FillBuffer(g_hEMAFast, 0, need, emaFast))  return(0);
-   if(!FillBuffer(g_hEMASlow, 0, need, emaSlow))  return(0);
+   if(!FillBuffer(g_hEMATrend, 0, need, emaTrend)) return(0);
    if(!FillBuffer(g_hRSI,     0, need, rsi))      return(0);
    if(!FillBuffer(g_hADX,     0, need, adx))      return(0);
 
@@ -447,9 +453,22 @@ int CheckEntry(double &slDistance)
    if(InpUseADXFilter && adx[i] < InpADX_Min)
       return(0);
 
-   //--- EMA stack = short term momentum direction
-   bool stackUp   = (emaFast[i] > emaSlow[i]);
-   bool stackDown = (emaFast[i] < emaSlow[i]);
+   //--- EMA structure. Three distinct EMAs, three distinct jobs:
+   //---   emaFast  (8)  - short term momentum
+   //---   emaPull  (21) - the line price must pull back to and reject
+   //---   emaTrend (50) - the structure the pullback must not break
+   //--- emaPull > emaTrend keeps us buying dips inside an uptrend rather
+   //--- than catching a falling knife. emaFast > emaTrend confirms
+   //--- momentum has not rolled over while price was pulling back; it is
+   //--- deliberately looser than emaFast > emaPull, which would reject
+   //--- exactly the deeper pullbacks we want to buy.
+   bool stackUp   = true;
+   bool stackDown = true;
+   if(InpUseStackFilter)
+     {
+      stackUp   = (emaPull[i] > emaTrend[i] && emaFast[i] > emaTrend[i]);
+      stackDown = (emaPull[i] < emaTrend[i] && emaFast[i] < emaTrend[i]);
+     }
 
    //--- RSI state
    bool rsiUp   = (rsi[i] >  InpRSI_BuyMin  && rsi[i] <  InpRSI_BuyMax);
@@ -473,9 +492,28 @@ int CheckEntry(double &slDistance)
    //---------------------------- BUY ---------------------------------
    if(biasOKLong && stackUp && rsiUp && notChasing)
      {
-      bool touched   = (r[i].low <= emaPull[i]);
-      bool rejected  = (close1 > emaPull[i] && close1 > open1);
-      if(touched && rejected)
+      double range1 = r[i].high - r[i].low;
+
+      //--- the bar must actually reach the pullback line
+      bool touched = (r[i].low <= emaPull[i]);
+
+      //--- but not blow straight through it. A deep penetration is a
+      //--- breakdown, not a pullback.
+      bool controlled = true;
+      if(InpMaxPenetrationATR > 0.0)
+         controlled = (r[i].low >= emaPull[i] - InpMaxPenetrationATR * a);
+
+      //--- closed back above the line, on a bullish bar
+      bool rejected = (close1 > emaPull[i] && close1 > open1);
+
+      //--- rejection quality: the bar must close in the upper part of its
+      //--- range. A bounce that closes back near its low is a weak
+      //--- rejection and is exactly the setup that fails.
+      bool decisive = true;
+      if(InpRejectionClose > 0.0 && range1 > 0.0)
+         decisive = ((close1 - r[i].low) / range1 >= InpRejectionClose);
+
+      if(touched && controlled && rejected && decisive)
         {
          double stop = InpSL_ATR * a;
          if(InpUseSwingSL)
@@ -500,9 +538,21 @@ int CheckEntry(double &slDistance)
    //---------------------------- SELL --------------------------------
    if(biasOKShort && stackDown && rsiDown && notChasing)
      {
-      bool touched  = (r[i].high >= emaPull[i]);
+      double range1 = r[i].high - r[i].low;
+
+      bool touched = (r[i].high >= emaPull[i]);
+
+      bool controlled = true;
+      if(InpMaxPenetrationATR > 0.0)
+         controlled = (r[i].high <= emaPull[i] + InpMaxPenetrationATR * a);
+
       bool rejected = (close1 < emaPull[i] && close1 < open1);
-      if(touched && rejected)
+
+      bool decisive = true;
+      if(InpRejectionClose > 0.0 && range1 > 0.0)
+         decisive = ((r[i].high - close1) / range1 >= InpRejectionClose);
+
+      if(touched && controlled && rejected && decisive)
         {
          double stop = InpSL_ATR * a;
          if(InpUseSwingSL)
@@ -648,16 +698,39 @@ void ManageTrailing()
      }
 
    //---------------------- TRAILING ---------------------------------
-   if(InpUseTrailing && profitDist >= InpTrailStartATR * a)
+   if(InpUseTrailing)
      {
-      double trailDist = (InpTrailMode == TRAIL_ATR)
-                         ? (InpTrailDistATR * a)
-                         : (InpTrailDistPoints * _Point);
+      double trailDist;
+      if(InpTrailMode == TRAIL_ATR)
+        {
+         trailDist = InpTrailDistATR * a;
+
+         //--- Ratchet: deep in profit, pull the trail in so more of the
+         //--- move gets banked. This is what makes a WIDE initial stop
+         //--- affordable - we give the trade room to breathe at entry,
+         //--- then progressively take that room away as it works.
+         if(InpUseTrailTighten && profitDist >= InpTightenStartATR * a)
+            trailDist = InpTightenDistATR * a;
+        }
+      else
+         trailDist = InpTrailDistPoints * _Point;
+
       trailDist = MathMax(trailDist, minStp);
 
-      double cand = (type == POSITION_TYPE_BUY) ? (price - trailDist) : (price + trailDist);
-      if(IsBetterSL(type, cand, newSL))
-         newSL = cand;
+      //--- Invariant: a trail must not arm before it trails by at least its
+      //--- own distance. If it did, the first update would place the stop at
+      //--- price - trailDist while profit is smaller than trailDist, i.e.
+      //--- BELOW the entry price. With a wide initial stop that snaps the
+      //--- stop from several ATR away to just under entry and the trade
+      //--- dies on the next ordinary retrace.
+      double armAt = MathMax(InpTrailStartATR * a, trailDist);
+
+      if(profitDist >= armAt)
+        {
+         double cand = (type == POSITION_TYPE_BUY) ? (price - trailDist) : (price + trailDist);
+         if(IsBetterSL(type, cand, newSL))
+            newSL = cand;
+        }
      }
 
    if(newSL == curSL)
@@ -815,6 +888,26 @@ int OnInit()
       Print("OnInit: InpTrendEMAFast must be smaller than InpTrendEMASlow");
       return(INIT_PARAMETERS_INCORRECT);
      }
+   if(InpRejectionClose < 0.0 || InpRejectionClose >= 1.0)
+     {
+      Print("OnInit: InpRejectionClose must be 0 (off) or between 0 and 1");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpSL_MinATR > InpSL_MaxATR)
+     {
+      Print("OnInit: InpSL_MinATR must not exceed InpSL_MaxATR");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpUseTrailing && InpTrailMode == TRAIL_ATR && InpTrailDistATR <= 0.0)
+     {
+      Print("OnInit: InpTrailDistATR must be > 0 in ATR trailing mode");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpUseTrailTighten && InpTightenDistATR <= 0.0)
+     {
+      Print("OnInit: InpTightenDistATR must be > 0 when tightening is on");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
 
    //---------------- symbol -----------------------------------------
    if(!SymbolInfoInteger(_Symbol, SYMBOL_SELECT))
@@ -852,14 +945,14 @@ int OnInit()
    g_hATR       = iATR(_Symbol,  InpSignalTF, InpATR_Period);
    g_hEMAPull   = iMA(_Symbol,   InpSignalTF, InpEMA_Pullback, 0, MODE_EMA, PRICE_CLOSE);
    g_hEMAFast   = iMA(_Symbol,   InpSignalTF, InpEMA_Fast,     0, MODE_EMA, PRICE_CLOSE);
-   g_hEMASlow   = iMA(_Symbol,   InpSignalTF, InpEMA_Slow,     0, MODE_EMA, PRICE_CLOSE);
+   g_hEMATrend  = iMA(_Symbol,   InpSignalTF, InpEMA_Trend,    0, MODE_EMA, PRICE_CLOSE);
    g_hRSI       = iRSI(_Symbol,  InpSignalTF, InpRSI_Period,   PRICE_CLOSE);
    g_hADX       = iADX(_Symbol,  InpSignalTF, InpADX_Period);
    g_hTrendFast = iMA(_Symbol,   InpTrendTF,  InpTrendEMAFast, 0, MODE_EMA, PRICE_CLOSE);
    g_hTrendSlow = iMA(_Symbol,   InpTrendTF,  InpTrendEMASlow, 0, MODE_EMA, PRICE_CLOSE);
 
    if(g_hATR       == INVALID_HANDLE || g_hEMAPull   == INVALID_HANDLE ||
-      g_hEMAFast   == INVALID_HANDLE || g_hEMASlow   == INVALID_HANDLE ||
+      g_hEMAFast   == INVALID_HANDLE || g_hEMATrend  == INVALID_HANDLE ||
       g_hRSI       == INVALID_HANDLE || g_hADX       == INVALID_HANDLE ||
       g_hTrendFast == INVALID_HANDLE || g_hTrendSlow == INVALID_HANDLE)
      {
@@ -887,8 +980,16 @@ int OnInit()
                tickSize, tickValue, PointValuePerLot());
    PrintFormat("  signal TF=%s  trend TF=%s  max spread=%d points",
                EnumToString(InpSignalTF), EnumToString(InpTrendTF), g_maxSpreadPoints);
-   PrintFormat("  risk=%.2f%%  SL=%.2fx ATR  R:R=1:%.2f  trailing=%s",
-               InpRiskPercent, InpSL_ATR, InpRR, sTrailing);
+   PrintFormat("  risk=%.2f%%  SL=%.2fx ATR (clamped %.1f-%.1f)  R:R=1:%.2f",
+               InpRiskPercent, InpSL_ATR, InpSL_MinATR, InpSL_MaxATR, InpRR);
+
+   string sTighten = "OFF";
+   if(InpUseTrailing && InpUseTrailTighten)
+      sTighten = StringFormat("ON at %.1fx ATR -> %.1fx ATR",
+                              InpTightenStartATR, InpTightenDistATR);
+
+   PrintFormat("  trailing=%s  start=%.1fx ATR  dist=%.1fx ATR  tighten=%s",
+               sTrailing, InpTrailStartATR, InpTrailDistATR, sTighten);
 
    g_initOK      = true;
    g_lastBarTime = iTime(_Symbol, InpSignalTF, 0);
@@ -907,7 +1008,7 @@ void OnDeinit(const int reason)
    if(g_hATR       != INVALID_HANDLE) IndicatorRelease(g_hATR);
    if(g_hEMAPull   != INVALID_HANDLE) IndicatorRelease(g_hEMAPull);
    if(g_hEMAFast   != INVALID_HANDLE) IndicatorRelease(g_hEMAFast);
-   if(g_hEMASlow   != INVALID_HANDLE) IndicatorRelease(g_hEMASlow);
+   if(g_hEMATrend  != INVALID_HANDLE) IndicatorRelease(g_hEMATrend);
    if(g_hRSI       != INVALID_HANDLE) IndicatorRelease(g_hRSI);
    if(g_hADX       != INVALID_HANDLE) IndicatorRelease(g_hADX);
    if(g_hTrendFast != INVALID_HANDLE) IndicatorRelease(g_hTrendFast);
