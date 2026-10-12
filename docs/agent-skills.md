@@ -1,6 +1,6 @@
 # Agent Skills
 
-Agent Skills provide specialized guidance for AI coding agents using the shared [Agent Skills Specification](https://agentskills.io/specification). The repository includes 184 local skills across 51 plugins, with support for seven coding tools. See the [capability matrix](./harnesses.md) for discovery and installation differences.
+Agent Skills provide specialized guidance for AI coding agents using the shared [Agent Skills Specification](https://agentskills.io/specification). The repository includes 187 local skills across 52 plugins, with support for seven coding tools. See the [capability matrix](./harnesses.md) for discovery and installation differences.
 
 Install a skill on its own into a tool supported by the Agent Skills installers:
 
@@ -386,6 +386,14 @@ Skills provide domain guidance that coding agents can load when relevant. Each s
 | **checkpoint-promotion**        | Gate checkpoints with drift budgets, paired comparison, and forgetting checks            |
 | **quantized-export**            | Export a promoted model as merged safetensors, LoRA-only, GGUF with imatrix, or FP8      |
 
+### Photo Realism (3 skills)
+
+| Skill                  | Description                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **smartphone-realism** | Device-and-shooting-logic prompting for believable captures, with six documented failure modes and their word substitutions    |
+| **visual-brief**       | Freeze a versioned brief before generating, so a miss has an address instead of prompting another guess                         |
+| **image-to-prompt**    | Reconstruct a reusable, editable image-generation prompt from a reference image                                                 |
+
 ### PPTX Deck Creation (5 skills)
 
 | Skill                            | Description                                                                              |
@@ -448,7 +456,7 @@ fastapi-templates skill → Supplies production-ready templates
 
 ## Specification Compliance
 
-All 184 skills follow the [Agent Skills Specification](https://agentskills.io/specification):
+All 187 skills follow the [Agent Skills Specification](https://agentskills.io/specification):
 
 - ✓ Required `name` field (hyphen-case)
 - ✓ Required `description` field with "Use when" clause

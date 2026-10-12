@@ -1,6 +1,6 @@
 # Agent Reference
 
-Reference for 202 local AI agents organized by category. The model column lists aliases in the shared Claude Code source format. Adapters provide agent formats and model mappings for other tools. See the [capability matrix](./harnesses.md) for setup and tool-specific limits.
+Reference for 203 local AI agents organized by category. The model column lists aliases in the shared Claude Code source format. Adapters provide agent formats and model mappings for other tools. See the [capability matrix](./harnesses.md) for setup and tool-specific limits.
 
 ## Agent Categories
 
@@ -226,6 +226,7 @@ Reference for 202 local AI agents organized by category. The model column lists 
 | [legacy-modernizer](../plugins/framework-migration/agents/legacy-modernizer.md)         | fable  | Legacy code refactoring and modernization               |
 | [context-manager](../plugins/agent-orchestration/agents/context-manager.md)             | haiku  | Multi-agent context management                          |
 | [pptx-deck-creation-builder](../plugins/pptx-deck-creation/agents/pptx-deck-creation-builder.md) | inherit | Production-ready editable PPTX decks from briefs or reference decks |
+| [photo-realism-director](../plugins/photo-realism/agents/photo-realism-director.md) | inherit | Directs image generation toward photographic realism and verifies pixels before claiming success |
 
 ## Model Configuration
 
@@ -239,7 +240,7 @@ Source agents specify Claude Code model aliases. Other tools use the [adapter mo
 | Opus    | 54          | Critical architecture, security, code review, production coding |
 | Sonnet  | 70          | Complex tasks, support with intelligence                        |
 | Haiku   | 24          | Fast operational tasks                                          |
-| Inherit | 52          | Complex tasks where the user chooses the model at runtime       |
+| Inherit | 53          | Complex tasks where the user chooses the model at runtime       |
 
 ### Model Selection Criteria
 

@@ -1,0 +1,23 @@
+{
+  "name": "photo-realism",
+  "version": "1.0.0",
+  "description": "Make generated images read as real photographs instead of AI renders: device-and-shooting-logic prompting, failure-mode word substitutions, versioned visual briefs, and 9-stage prompt reconstruction from reference images.",
+  "skills": "./skills/",
+  "author": {
+    "name": "maskchanel14-source",
+    "url": "https://github.com/maskchanel14-source"
+  },
+  "homepage": "https://github.com/wshobson/agents/tree/main/plugins/photo-realism",
+  "repository": "https://github.com/wshobson/agents",
+  "license": "MIT",
+  "keywords": [
+    "image-to-prompt",
+    "smartphone-realism",
+    "visual-brief"
+  ],
+  "interface": {
+    "displayName": "Photo Realism",
+    "shortDescription": "Make generated images read as real photographs instead of AI renders: device-and-shooting-logic prompting\u2026",
+    "category": "creative"
+  }
+}
