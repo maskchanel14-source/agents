@@ -2,7 +2,7 @@
 
 <a id="claude-agents--multi-harness-agentic-plugin-marketplace"></a>
 
-The repository provides 95 plugins (93 local + 2 external), 203 agents, 187 skills, and 106 commands for seven coding tools: Claude Code, OpenAI Codex CLI, Cursor, OpenCode, Google Antigravity CLI (`agy`), GitHub Copilot, and Pi. Shared source files use the Claude Code format, and adapters provide the formats used by other tools. External entries have their own tool support.
+The repository provides 95 plugins (93 local + 2 external), 203 agents, 188 skills, and 106 commands for seven coding tools: Claude Code, OpenAI Codex CLI, Cursor, OpenCode, Google Antigravity CLI (`agy`), GitHub Copilot, and Pi. Shared source files use the Claude Code format, and adapters provide the formats used by other tools. External entries have their own tool support.
 
 AGENTS.md is the canonical context file. Codex, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi read it directly. Claude Code reads it via `CLAUDE.md`, a symlink to this file.
 
@@ -21,7 +21,7 @@ AGENTS.md is the canonical context file. Codex, Cursor, OpenCode, Antigravity CL
 - **[docs/plugin-eval.md](docs/plugin-eval.md)** — three-layer quality evaluation framework
 - **[docs/round-trip-results.md](docs/round-trip-results.md)** — real-CLI verification recipes
 - **[docs/mlops.md](docs/mlops.md)** — MLOps lab pipeline (W&B, Hugging Face, model release)
-- **[plugins/photo-realism](plugins/photo-realism/README.md)** — photographic realism for generated images: device/shooting-logic prompting, the damage-prior finding, versioned visual briefs, prompt reconstruction from reference images
+- **[plugins/photo-realism](plugins/photo-realism/README.md)** — photographic realism for generated images: device/shooting-logic prompting, the damage-prior finding, identity locking across generations, versioned visual briefs, prompt reconstruction from reference images
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** — how to contribute
 
 ## Working in this repo
@@ -58,7 +58,7 @@ Small native-install registries are committed for tools that support that route.
 
 ## Skills (cross-harness)
 
-187 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
+188 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
 
 - **Claude Code**: auto-discovery via Anthropic's SKILL.md spec
 - **Codex CLI**: mirrored to `.codex/skills/<plugin>__<skill>/` (8 KB body cap; detail in `references/details.md`)

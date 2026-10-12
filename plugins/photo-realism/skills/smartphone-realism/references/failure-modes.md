@@ -100,3 +100,58 @@ A successful tool response is not a successful image. Inspect the returned pixel
 the prompt asked for, and check specifically for the failure modes above. Accepting a
 generation because the tool reported success is how a damaged wall and an impossible
 aspect ratio both ship.
+
+## 7. The beauty prior — skin gets smoothed unless texture is specified
+
+The damage prior (§2) has a mirror image: a prior toward **flattery**. Faces come back waxy
+and airbrushed with no pores, round orange blush patches, an over-saturated orange-pink glow,
+a dreamy bloom haze, over-bright rim light, glassy doll-like eyes with oversized catchlights,
+and mirror-symmetric features. Like the damage prior, it is a pull, not a parse failure —
+`not plastic` does not win against it.
+
+**Fix — give the model texture to draw, and light that reveals it.**
+
+| Lever | Write | Because |
+|---|---|---|
+| Positive texture | `natural skin texture with visible pores, subtle fine lines, realistic uneven skin tone, slight natural redness, soft peach fuzz` | concrete micro-detail occupies the space smoothing would take |
+| Asymmetry | `asymmetric features`, name one specific asymmetry | symmetric faces are the model's default and an AI tell |
+| Light | one directional key at 45–75°, `soft sidelight` | grazing light casts micro-shadows inside pores; flat frontal light fills them and produces plastic |
+| Words to cut | `flawless`, `airbrushed`, `smooth skin`, `perfect skin`, `porcelain`, `beauty retouch` | each is an instruction to erase texture |
+| Negative slot, where one exists | `plastic skin, waxy, doll-like, symmetrical face, beauty filter, cgi` | blocks the finish directly |
+
+Token placement is model-dependent: skin tokens land better near the **end** of a Midjourney
+prompt and **after the lighting description** in Stable Diffusion-family prompts. Do not fix
+texture with post-sharpening — it draws halo rings around pores and reads as fake.
+
+Documented convergently by practitioner skin-texture guides (2026) and by the repair
+vocabulary of `beatra-ai/ai-image-realism-skill` (MIT-0); mechanism matches §2.
+
+## 8. Repair creep — targeted edits quietly beautify
+
+**Observed in this repository's test generations.** A single-field repair edit (base image in
+slot 1, `a single targeted edit`, explicit preserve-list) fixed the intended field and
+preserved identity — and returned the whole frame slightly **brighter and cleaner** than the
+base: slipcover shifted toward white, digital noise reduced. The preserve-list named the cast
+and the noise and forbade brightening. It lost, partially.
+
+**Mechanism.** An edit re-renders through the model's quality prior; the preserve-list
+competes with that pull exactly as negation competes with the damage prior (§2).
+
+**Fix — budget for it, do not expect zero:**
+
+- Name the ugly parts in the preserve-list: color cast, noise level, softness, dullness.
+- Compare base and result side by side before accepting; a one-step brightness lift is the
+  tell.
+- If the creep matters, re-grade after the edit instead of fighting it inside the prompt, or
+  accept the trade: identity preserved plus slight cleanup usually beats a re-rolled scene.
+
+## 9. Identity drift — text anchors lock type, not individual
+
+A frozen text identity block (`dark grey-brown stripes, a white chest patch, a small notch in
+the left ear tip`) regenerated without a visual reference produced **a different individual of
+the same type**: cooler coat, another pattern class, notch gone. The block was unchanged; the
+sampling was not.
+
+**Fix:** individual-level consistency requires a visual anchor (reference image, base image
+for edits), and field-level fixes belong to edits rather than regenerations. Full workflow and
+evidence: `skills/identity-lock` and its `references/case-series.md`.

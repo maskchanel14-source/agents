@@ -445,7 +445,7 @@
     },
     {
       "name": "photo-realism",
-      "description": "Make generated images read as real photographs instead of AI renders: device-and-shooting-logic prompting, failure-mode word substitutions, versioned visual briefs, and 9-stage prompt reconstruction from reference images.",
+      "description": "Make generated images read as real photographs instead of AI renders: device-and-shooting-logic prompting, failure-mode word substitutions, identity locking across generations, versioned visual briefs, and 9-stage prompt reconstruction from reference images.",
       "source": {
         "source": "local",
         "path": "./plugins/photo-realism"

@@ -12,7 +12,8 @@ quality flaws, ordinary subjects, and a few closing negations.
 
 | Skill | Purpose |
 |---|---|
-| **`smartphone-realism`** | The core method. Device-plus-shooting-logic prompting, the golden three-part structure, and six documented failure modes with substitutions |
+| **`smartphone-realism`** | The core method. Device-plus-shooting-logic prompting, the golden three-part structure, and nine documented failure modes with substitutions |
+| **`identity-lock`** | Keep the same individual across generations and edits: frozen identity blocks, the reference workflow, platform parameters, and measured identity scoring |
 | **`visual-brief`** | Freeze a versioned brief before generating, so a miss has an address instead of prompting another guess |
 | **`image-to-prompt`** | Reconstruct a reusable, editable prompt from a reference image |
 
@@ -26,15 +27,19 @@ quality flaws, ordinary subjects, and a few closing negations.
 
 | File | Contents |
 |---|---|
-| `smartphone-realism/references/failure-modes.md` | Six failure classes. Word substitutions with evidence, the damage prior, aspect-ratio and camera-logic traps |
+| `smartphone-realism/references/failure-modes.md` | Nine failure classes. Word substitutions with evidence, the damage prior, the beauty prior, repair creep, identity drift, aspect-ratio and camera-logic traps |
 | `smartphone-realism/references/vocabulary.md` | 298 structured options: lenses, angles, shot types, gradings, styles, lighting prose expansions |
 | `smartphone-realism/references/era-grading.md` | Era table, the modern-phone trap, five presets, a fill-in template |
 | `smartphone-realism/references/negative-prompt-bank.md` | Negative banks, plus how to rewrite them affirmatively for generators with no negative slot |
 | `smartphone-realism/references/case-study.md` | Three iterations of one prompt: two failures and the fix that worked |
+| `identity-lock/references/identity-block.md` | The lock formula, enumeration checklist, fill-in template, freeze-and-hash rule |
+| `identity-lock/references/ref-workflow.md` | Reference collection, ordering, labeling, two-pass, mannequins, provider notes |
+| `identity-lock/references/measuring.md` | Embedding scores, adaptive thresholds by face size, grid review, calibration |
+| `identity-lock/references/case-series.md` | Three generations of one cat: text-anchor drift, base-image lock, repair creep |
 | `visual-brief/references/schema.md` | Field reference, writing locks that enforce, revision and change-log pattern, canonical hashing, artifact sidecar |
 | `image-to-prompt/references/analysis-order.md` | Nine-stage analysis, per-genre special cases, a worked example |
 
-## The two findings worth reading first
+## The three findings worth reading first
 
 **1. Word substitutions change more than any rewording.**
 
@@ -54,6 +59,17 @@ object, not the adjective** — describe a surface that is genuinely intact, and
 ordinary-ness in light, color, and clutter instead. Observed directly in this plugin's test
 generations: `not damaged, not stained, not peeling` produced a mould-speckled wall twice.
 
+**3. Text anchors lock the type; pixel anchors lock the individual.**
+
+A frozen identity block (`dark grey-brown stripes, a white chest patch, a small notch in the
+left ear tip`) regenerated without a reference produced a different individual of the same
+type — cooler coat, other pattern class, notch gone. Passing the previous image as base and
+framing the change as a single targeted edit kept the exact same animal. A description denotes
+a category; pixels denote a person. Individual-level consistency costs a reference, and
+field-level fixes belong to edits, not regenerations. Evidence, and the repair-creep caveat
+(edits quietly brighten and clean what they touch), in
+`identity-lock/references/case-series.md`.
+
 ## Attribution
 
 The method synthesizes four MIT-licensed sources, each credited in the file that draws on it:
@@ -64,7 +80,16 @@ The method synthesizes four MIT-licensed sources, each credited in the file that
 - [`artokun/ComfyUI-Photoreal-Prompt-Builder`](https://github.com/artokun/ComfyUI-Photoreal-Prompt-Builder) — the structured vocabulary and lighting prose expansions
 - [`GitHub30/Reproducible-Photorealistic-Nano-Banana-Pro-JSON-Prompts`](https://github.com/GitHub30/Reproducible-Photorealistic-Nano-Banana-Pro-JSON-Prompts) — negative-prompt bank
 
-The damage-prior finding and the case study come from testing in this repository.
+Identity locking adds sources credited in the skill files that draw on them:
+
+- [`asreynolds1000/ai-image-generation-guide`](https://github.com/asreynolds1000/ai-image-generation-guide) (CC-BY-4.0) — the reference workflow: three-refs-max, ordering, frontal anchors, two-pass, mannequins, the likeness ceiling
+- [`ZeroLu/awesome-nanobanana-pro`](https://github.com/ZeroLu/awesome-nanobanana-pro) (MIT) and [`PicoTrex/Awesome-Nano-Banana-images`](https://github.com/PicoTrex/Awesome-Nano-Banana-images) (Apache-2.0) — identity-lock phrasing patterns and the consistency-dataset context
+- [`artfat-creator/ComfyUI-Artfat-FaceConsistency`](https://github.com/artfat-creator/ComfyUI-Artfat-FaceConsistency) (MIT) and [`SiddharthFulia/face-consistency-toolkit`](https://github.com/SiddharthFulia/face-consistency-toolkit) (MIT) — identity scoring, adaptive thresholds by face size
+- [`beatra-ai/ai-image-realism-skill`](https://github.com/beatra-ai/ai-image-realism-skill) (MIT-0) — the repair-prompt shape and the AI-tells inspection vocabulary
+- Prior art, unlicensed — ideas referenced, no text copied: [`aidenli/krea2-photography-prompt-skills`](https://github.com/aidenli/krea2-photography-prompt-skills) — causal imperfection (one reasoned, localized flaw per capture)
+
+The damage-prior finding, the first case study, and the identity case series come from testing
+in this repository.
 
 ## License
 
