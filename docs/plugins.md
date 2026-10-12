@@ -1,6 +1,6 @@
 # Complete Plugin Reference
 
-Browse all 95 marketplace plugins organized by category: 93 local plugins plus 2 external Claude Code marketplace entries (`pensyve` and `hol-guard`). The local source supports seven coding tools through native formats and adapters. Install commands below use Claude Code syntax. See the [tool setup guide](./harnesses.md) for other installation routes.
+Browse all 94 marketplace plugins organized by category: 92 local plugins plus 2 external Claude Code marketplace entries (`pensyve` and `hol-guard`). The local source supports seven coding tools through native formats and adapters. Install commands below use Claude Code syntax. See the [tool setup guide](./harnesses.md) for other installation routes.
 
 ## Quick Start - Essential Plugins
 
@@ -299,12 +299,6 @@ Next.js, React + Vite, and Node.js project setup with pnpm and TypeScript best p
 | ------------------- | ---------------------------------- | --------------------------------- |
 | **blockchain-web3** | Smart contracts and DeFi protocols | `/plugin install blockchain-web3` |
 
-### 💰 Finance (1 plugin)
-
-| Plugin                   | Description                             | Install                                |
-| ------------------------ | --------------------------------------- | -------------------------------------- |
-| **quantitative-trading** | Algorithmic trading and risk management | `/plugin install quantitative-trading` |
-
 ### 💳 Payments (1 plugin)
 
 | Plugin                 | Description                           | Install                              |
@@ -422,7 +416,7 @@ Selectors, install paths, and gotchas: [harnesses.md](./harnesses.md#skills-only
 
 ## See Also
 
-- [Agent Skills](./agent-skills.md) - 187 specialized skills across plugins
+- [Agent Skills](./agent-skills.md) - 186 specialized skills across plugins
 - [Agent Reference](./agents.md) - Complete agent catalog
 - [Usage Guide](./usage.md) - Commands and workflows
 - [Architecture](./architecture.md) - Design principles

@@ -509,19 +509,6 @@
       "category": "Coding"
     },
     {
-      "name": "quantitative-trading",
-      "description": "Quantitative analysis, algorithmic trading strategies, financial modeling, portfolio risk management, and backtesting",
-      "source": {
-        "source": "local",
-        "path": "./plugins/quantitative-trading"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_USE"
-      },
-      "category": "Coding"
-    },
-    {
       "name": "reverse-engineering",
       "description": "Binary reverse engineering, malware analysis, firmware security, and software protection research for authorized security research, CTF competitions, and defensive security",
       "source": {

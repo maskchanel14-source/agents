@@ -1,6 +1,6 @@
 # Agent Reference
 
-Reference for 203 local AI agents organized by category. The model column lists aliases in the shared Claude Code source format. Adapters provide agent formats and model mappings for other tools. See the [capability matrix](./harnesses.md) for setup and tool-specific limits.
+Reference for 201 local AI agents organized by category. The model column lists aliases in the shared Claude Code source format. Adapters provide agent formats and model mappings for other tools. See the [capability matrix](./harnesses.md) for setup and tool-specific limits.
 
 ## Agent Categories
 
@@ -182,8 +182,6 @@ Reference for 203 local AI agents organized by category. The model column lists 
 | Agent                                                                        | Model  | Description                                             |
 | ---------------------------------------------------------------------------- | ------ | ------------------------------------------------------- |
 | [business-analyst](../plugins/business-analytics/agents/business-analyst.md) | sonnet | Metrics analysis, reporting, KPI tracking               |
-| [quant-analyst](../plugins/quantitative-trading/agents/quant-analyst.md)     | opus   | Financial modeling, trading strategies, market analysis |
-| [risk-manager](../plugins/quantitative-trading/agents/risk-manager.md)       | sonnet | Portfolio risk monitoring and management                |
 
 #### Marketing & Sales
 

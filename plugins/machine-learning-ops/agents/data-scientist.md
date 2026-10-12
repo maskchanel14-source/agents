@@ -85,7 +85,6 @@ Expert data scientist combining strong statistical foundations with modern machi
 - Credit risk modeling and scoring algorithms
 - Portfolio optimization and risk management
 - Fraud detection and anomaly monitoring systems
-- Algorithmic trading strategy development
 - Financial time series analysis and volatility modeling
 - Stress testing and scenario analysis
 - Regulatory compliance analytics (Basel, GDPR, etc.)
