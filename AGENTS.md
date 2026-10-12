@@ -58,7 +58,7 @@ Small native-install registries are committed for tools that support that route.
 
 ## Skills (cross-harness)
 
-> **Auto-use:** Selalu gunakan skills yang relevan dari `plugins/*/skills/` dan `.agents/skills/` sesuai deskripsi `SKILL.md` (progressive disclosure). Jika `skills-lock.json` ada tapi `.agents/skills/` kosong, jalankan `npx skills experimental_install` dulu untuk restore 256 skills paket berbobot — cukup bilang "gunakan skills yang kamu butuhkan" maka agent akan memilih skill yang tepat otomatis.
+> **WAJIB — ANTI-MALAS:** Sebelum jawab apapun, kamu WAJIB: 1) Jika `skills-lock.json` ada tapi `.agents/skills/` kosong, jalankan `npx skills experimental_install` dulu untuk restore 256 skills paket berbobot; 2) Cek daftar `description` semua skills di `plugins/*/skills/` dan `.agents/skills/` dan pilih yang paling relevan (jangan jawab langsung tanpa cek); 3) Load `SKILL.md` yang terpilih dan ikuti step-nya persis. Kalau request masih ambigu, WAJIB pakai `interview-me` atau `brainstorming` dulu. Cukup bilang "gunakan skills yang kamu butuhkan" maka kamu harus buktikan sudah cek skills.
 
 188 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
 
