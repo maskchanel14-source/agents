@@ -1,0 +1,7 @@
+# Raw datasets (~20MB) — re-downloadable from the sources listed in
+# backtest/out/REPORT.md (github.com/FeziweMelvin/XAUUSD-Gold-Price and
+# github.com/JonusNattapong/Dataset-XAUUSD-1.0)
+backtest/data/*.csv
+
+# Large generated artifact (4.7MB)
+backtest/out/equity_h1_baseline.csv
