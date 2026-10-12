@@ -205,12 +205,10 @@ Ini otomatis menyesuaikan kontrak broker, tanpa asumsi "1 lot = $10/pip".
 |---|---|---|
 | `InpSignalTF` | M5 | **M5** (jangan M1) |
 | `InpRiskPercent` | 1.0 | **0.5 – 1.0** (lot menyusut karena SL lebih lebar) |
-| `InpMaxSpreadPoints` | 0 (auto) | biarkan auto → 3 |
+| `InpMaxSpreadATR` | 0.10 | **0.10** (jangan longgar ini — paling bernilai) |
 | `InpBE_OffsetATR` | 0.10 | **0.15** (menutup spread yang lebih lebar) |
-| `InpTrailStartATR` | 0.8 | **0.8 – 1.0** |
-| `InpSL_ATR` | 2.2 | **2.0 – 2.5** |
-| `InpSL_MinATR` | 1.2 | **1.2 – 1.5** (jangan di bawah ini di 3 digit) |
-| `InpRR` | 1.5 | **1.5 – 2.0** |
+| `InpSL_ATR` | 2.0 | **2.0 – 2.5** |
+| `InpRR` | 1.2 | **1.0 – 1.2** |
 | `InpSwingLookback` | 12 | **12 – 16** |
 
 ### Kalau sinyal terlalu sedikit
@@ -224,6 +222,61 @@ terlalu sepi, longgarkan bertahap — jangan langsung semua:
 4. Terakhir: `InpUseStackFilter` → `false`
 
 Urutan ini dari yang paling sedikit pengaruhnya ke yang paling besar.
+
+### XAUUSD (gold): apa yang berbeda dan kenapa
+
+Gold bukan EURUSD. Dua hal yang bikin setting default kurang optimal:
+
+1. **`SYMBOL_TRADE_STOPS_LEVEL` lebih lebar.** Broker gold sering
+   menetapkan 100-300 points. Kalau ATR(14) M5 gold = 150-250 points,
+   itu berarti broker mengharuskan SL minimal = 1.0-1.5 ATR. Jarak
+   trail juga terkena floor yang sama: trail 0.7 ATR di-clamp ke
+   floor broker. Trail terasa "gak muncul" karena profit yang
+   dibutuhkan buat aktifkan trail = jarak trail itu sendiri (yang
+   di-clamp).
+
+2. **Spread relatif lebih lebar.** Gold M5 retail spread = 0.10-0.20 ATR.
+   Simulasi: begitu spread >= 0.10 ATR, **semua konfigurasi rugi** tanpa
+   edge entri yang nyata.
+
+**Setting yang disarankan untuk XAUUSD:**
+
+| Parameter | Default | Rekomendasi XAUUSD |
+|---|---|---|
+| `InpSL_ATR` | 2.0 | **2.5** - room buat trail dan broker floor |
+| `InpRR` | 1.2 | **1.0 - 1.2** - TP lebih dekat |
+| `InpSwingLookback` | 12 | **16 - 20** - gold swing lebih besar |
+| `InpMaxSpreadATR` | 0.10 | **0.08** - ketatkan, spread gold mahal |
+| `InpTightenStartATR` | 2.5 | **2.0** - tighten lebih awal |
+| `InpRiskPercent` | 1.0 | **0.5** - SL lebar = lot kecil |
+
+Simulasi Monte Carlo (20k trial per konfigurasi, spread 0.15 ATR,
+drift +0.02/bar, hold 16 bar):
+
+```
+minStp=1.0 ATR (tipikal gold):
+  sl2.5 rr1.2  ->  -0.029 ATR/trade    <- terbaik
+  sl3.0 rr1.0  ->  -0.036 ATR/trade
+  sl2.0 rr1.0  ->  -0.053 ATR/trade
+  sl1.5 rr1.5  ->  -0.064 ATR/trade    <- default lama (terburuk)
+
+minStp=1.5 ATR:
+  sl2.5 rr1.2  ->  -0.027 ATR/trade    <- terbaik
+  sl3.0 rr1.0  ->  -0.040 ATR/trade
+  sl1.5 rr1.5  ->  -0.072 ATR/trade    <- default lama (terburuk)
+```
+
+**Pola konsisten di SEMUA level broker min-stop:** SL lebih lebar +
+RR lebih kecil = lebih baik. SL sempit 1.5 ATR terburuk di mana-mana.
+Kenapa? Trail di-clamp ke broker floor, profit untuk aktifkan trail
+juga naik ke floor yang sama = trail cuma jadi breakeven. SL 2.5 ATR
+memberi ruang di atas floor broker supaya trail benar-benar bisa kerja.
+
+Yang gak bisa diselesaikan tuning: kalau entri gak punya edge nyata
+(>0.15 ATR per trade), rugi ~0.1 ATR/trade berapapun setting-nya.
+Lihat bagian 6c buat data lengkap.
+
+
 Ubah satu-satu dan catat hasilnya, biar tahu mana yang bikin beda.
 
 ---

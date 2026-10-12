@@ -60,8 +60,8 @@ input double           InpMaxDistFromEMA_ATR = 1.2;        // Max entry distance
 //+------------------------------------------------------------------+
 //| --------------------- STOP LOSS / TAKE PROFIT ------------------- |
 //+------------------------------------------------------------------+
-input double           InpSL_ATR             = 1.5;        // Stop loss distance (x ATR)
-input double           InpRR                 = 1.5;        // Take profit = risk x R:R
+input double           InpSL_ATR             = 2.0;        // Stop loss distance (x ATR)
+input double           InpRR                 = 1.2;        // Take profit = risk x R:R
 input bool             InpUseSwingSL         = true;       // Use swing high/low for stop loss
 input int              InpSwingLookback      = 12;         // Swing lookback (bars)
 input double           InpSwingBufferATR     = 0.25;       // Swing buffer (x ATR)
@@ -86,17 +86,17 @@ input double           InpEquityFloorPct     = 50.0;       // Stop trading if eq
 //+------------------------------------------------------------------+
 input bool             InpUseTrailing        = true;        // Enable trailing stop
 input ENUM_TRAIL_MODE  InpTrailMode          = TRAIL_ATR;   // Trailing distance mode
-input double           InpTrailStartATR      = 0.80;        // Start trailing at profit (x ATR)
-input double           InpTrailDistATR       = 0.70;        // Trailing distance (x ATR) if ATR mode
+input double           InpTrailStartATR      = 0.70;        // Start trailing at profit (x ATR)
+input double           InpTrailDistATR       = 0.80;        // Trailing distance (x ATR) if ATR mode
 input int              InpTrailDistPoints    = 200;         // Trailing distance (points) if points mode
 input double           InpTrailStepATR       = 0.05;        // Min improvement (x ATR) before modifying
 input bool             InpUseTrailTighten    = true;        // Tighten the trail deep in profit
-input double           InpTightenStartATR    = 1.60;        // Tighten trigger at profit (x ATR)
-input double           InpTightenDistATR     = 0.45;        // Tightened trail distance (x ATR)
+input double           InpTightenStartATR    = 2.50;        // Tighten trigger at profit (x ATR)
+input double           InpTightenDistATR     = 0.50;        // Tightened trail distance (x ATR)
 input bool             InpDebugTrailing      = false;       // Log every trailing decision (troubleshooting)
 input int              InpDebugSeconds       = 5;           // Debug log throttle (seconds)
 input bool             InpUseBreakeven       = true;        // Move to breakeven
-input double           InpBE_StartATR        = 0.60;        // Breakeven trigger at profit (x ATR)
+input double           InpBE_StartATR        = 0.50;        // Breakeven trigger at profit (x ATR)
 input double           InpBE_OffsetATR       = 0.10;        // Breakeven offset (x ATR, covers spread+costs)
 
 //+------------------------------------------------------------------+
@@ -111,7 +111,7 @@ input bool             InpUseSessionFilter   = true;        // Use trading sessi
 input int              InpSessionStartHour   = 7;           // Session start (server time, hour)
 input int              InpSessionEndHour     = 20;          // Session end (server time, hour)
 input bool             InpTradeFriday        = true;        // Allow trading on Friday
-input int              InpMaxHoldBars        = 12;          // Time stop: max bars in trade (0 = off)
+input int              InpMaxHoldBars        = 16;          // Time stop: max bars in trade (0 = off)
 input int              InpCooldownBars       = 1;           // Bars to wait after a trade closes
 
 //+------------------------------------------------------------------+
