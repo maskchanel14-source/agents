@@ -76,21 +76,58 @@ Semua harus terpenuhi untuk **BUY**:
    pisau jatuh. `EMA8 > EMA50` (bukan `EMA8 > EMA21`) sengaja lebih longgar
    supaya pullback yang agak dalam tetap ke-trigger.
 3. **Bar menyentuh garis pullback**: `Low <= EMA21`
-4. **Tapi tidak menembusnya** (`InpMaxPenetrationATR = 1.0`):
-   `Low >= EMA21 - 1.0 × ATR`. Tembus terlalu dalam = breakdown, bukan pullback.
+4. **Tapi tidak menembusnya** (`InpMaxPenetrationATR = 1.5`):
+   `Low >= EMA21 - 1.5 × ATR`. Tembus terlalu dalam = breakdown, bukan pullback.
 5. **Rejection**: `Close > EMA21` **dan** `Close > Open`
-6. **Kualitas rejection** (`InpRejectionClose = 0.55`):
-   bar harus close di **55% atas** dari range-nya, yaitu
-   `(Close - Low) / (High - Low) >= 0.55`.
+6. **Kualitas rejection** (`InpRejectionClose = 0.50`):
+   bar harus close di **50% atas** dari range-nya, yaitu
+   `(Close - Low) / (High - Low) >= 0.50`.
    Bounce yang close balik dekat low-nya = rejection lemah = setup yang gagal.
    Set `0` untuk mematikan.
 7. Jarak entry dari EMA21 tidak lebih dari `1.2 × ATR` (tidak chasing)
-8. RSI(14) di zona 50–78 **dan** RSI naik
-9. ADX(14) ≥ 18 (market trending, bukan sideways)
+8. RSI(14) di zona 45–80 **dan** RSI naik
+9. ADX(14) ≥ 15 (market trending, bukan sideways)
 10. ATR(14)/harga di antara 0.02% – 0.50% (tidak mati, tidak kacau)
 11. Spread ≤ batas, jam trading aktif, tidak kena cooldown / daily loss limit
 
 SELL adalah kebalikan persisnya.
+
+### Setup B — Momentum breakout (BARU, penyumbang frekuensi utama)
+
+Setup A saja **terlalu jarang** — harga harus balik dulu ke EMA baru ditolak.
+Itu sebabnya versi sebelumnya cuma entry 3 hari sekali. Setup B menambah
+entry yang jauh lebih sering muncul:
+
+1. Bias H1 searah **dan** struktur EMA searah (sama seperti Setup A)
+2. `Close[1] > High[2..N]` → tembus high `N` bar sebelumnya
+   (`InpBreakoutLookback = 5`)
+3. `Close > Open` (bar bullish)
+4. RSI ≥ `InpBreakoutRSI` (default 55; untuk SELL: RSI ≤ 45)
+5. Tidak overextended: `Close - EMA21 <= 2.0 × ATR`
+
+SL/TP **identik** dengan Setup A (fungsi `BuildStop` yang sama), jadi
+manajemen risikonya konsisten di kedua setup.
+
+Keduanya bisa dinyalakan/dimatikan sendiri-sendiri lewat
+`InpUsePullbackEntry` dan `InpUseBreakoutEntry`.
+
+### Kenapa sebelumnya cuma 3 hari sekali
+
+Sepuluh filter yang **berkali-kali**, bukan bertambah. Kalau tiap filter
+lolos ~50%, sepuluh filter = `0.5^10 ≈ 0.1%` bar yang lolos. Itu sebabnya
+frekuensinya hancur. Perubahan yang dilakukan:
+
+| Parameter | Lama | Baru | Alasan |
+|---|---|---|---|
+| `InpUseBreakoutEntry` | — | **true** | Setup kedua, penyumbang frekuensi terbesar |
+| `InpTrendRequirePrice` | — | **false** | H1 cukup struktur EMA, tidak perlu harga lewati EMA juga |
+| `InpADX_Min` | 18 | **15** | ADX M5 noisy, 18 terlalu ketat |
+| RSI band BUY | 50–78 | **45–80** | diperlukan |
+| `InpRejectionClose` | 0.55 | **0.50** | diperlukan |
+| `InpMaxPenetrationATR` | 1.0 | **1.5** | harga yang nyentuh EMA wajar lewat sedikit |
+| `InpCooldownBars` | 3 | **1** | cooldown 15 menit buang banyak sinyal |
+| `InpMaxHoldBars` | 12 | **8** | turnover lebih cepat, cocok scalping |
+| `InpMaxDailyTrades` | 12 | **30** | plafon harian tidak lagi jadi pembatas |
 
 ### Stop Loss & Take Profit (SL sengaja dibuat lebih lega)
 - **SL**: swing low/high `12` bar terakhir + buffer `0.40 × ATR`,

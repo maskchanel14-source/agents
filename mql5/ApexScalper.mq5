@@ -38,17 +38,23 @@ input int              InpEMA_Fast           = 8;          // Fast EMA period (m
 input int              InpEMA_Pullback       = 21;         // Pullback EMA period (entry line)
 input int              InpEMA_Trend          = 50;         // Trend EMA period (structure)
 input bool             InpUseStackFilter     = true;       // Require EMA stack alignment
-input double           InpRejectionClose     = 0.55;       // Rejection bar min close position (0=off)
-input double           InpMaxPenetrationATR  = 1.00;       // Max pullback past EMA (x ATR), 0=off
+input bool             InpTrendRequirePrice  = false;      // H1: also require price beyond HTF EMA fast
+input bool             InpUsePullbackEntry   = true;       // Setup A: pullback to EMA and reject
+input bool             InpUseBreakoutEntry   = true;       // Setup B: momentum breakout (fires far more often)
+input double           InpRejectionClose     = 0.50;       // Rejection bar min close position (0=off)
+input double           InpMaxPenetrationATR  = 1.50;       // Max pullback past EMA (x ATR), 0=off
+input int              InpBreakoutLookback   = 5;          // Setup B: breakout lookback (bars)
+input double           InpBreakoutRSI        = 55.0;       // Setup B: min RSI for long (100-x for short)
+input double           InpBreakoutMaxEMA_ATR = 2.00;       // Setup B: max distance from EMA (x ATR)
 input int              InpRSI_Period         = 14;         // RSI period
-input double           InpRSI_BuyMin         = 50.0;       // RSI min for BUY
-input double           InpRSI_BuyMax         = 78.0;       // RSI max for BUY
-input double           InpRSI_SellMin        = 22.0;       // RSI min for SELL
-input double           InpRSI_SellMax        = 50.0;       // RSI max for SELL
+input double           InpRSI_BuyMin         = 45.0;       // RSI min for BUY
+input double           InpRSI_BuyMax         = 80.0;       // RSI max for BUY
+input double           InpRSI_SellMin        = 20.0;       // RSI min for SELL
+input double           InpRSI_SellMax        = 55.0;       // RSI max for SELL
 input bool             InpRSI_RisingOnly     = true;       // Require RSI rising (buy) / falling (sell)
 input int              InpADX_Period         = 14;         // ADX period
 input bool             InpUseADXFilter       = true;       // Use ADX trend-strength filter
-input double           InpADX_Min            = 18.0;       // Minimum ADX value (0-100)
+input double           InpADX_Min            = 15.0;       // Minimum ADX value (0-100)
 input double           InpMaxDistFromEMA_ATR = 1.2;        // Max entry distance from EMA (x ATR)
 
 //+------------------------------------------------------------------+
@@ -104,14 +110,14 @@ input bool             InpUseSessionFilter   = true;        // Use trading sessi
 input int              InpSessionStartHour   = 7;           // Session start (server time, hour)
 input int              InpSessionEndHour     = 20;          // Session end (server time, hour)
 input bool             InpTradeFriday        = true;        // Allow trading on Friday
-input int              InpMaxHoldBars        = 12;          // Time stop: max bars in trade (0 = off)
-input int              InpCooldownBars       = 3;           // Bars to wait after a trade closes
+input int              InpMaxHoldBars        = 8;           // Time stop: max bars in trade (0 = off)
+input int              InpCooldownBars       = 1;           // Bars to wait after a trade closes
 
 //+------------------------------------------------------------------+
 //| -------------------------- PROTECTION --------------------------- |
 //+------------------------------------------------------------------+
 input double           InpMaxDailyLossPct    = 3.0;         // Max daily loss (% of day-start equity)
-input int              InpMaxDailyTrades     = 12;          // Max trades per day (0 = off)
+input int              InpMaxDailyTrades     = 30;          // Max trades per day (0 = off)
 input ulong            InpMagic              = 8801201;     // Magic number
 input string           InpTradeComment       = "ApexScalper";// Order comment
 input bool             InpShowPanel          = true;        // Show on-chart info panel
@@ -495,13 +501,28 @@ int GetTrendBias()
    if(!FillBuffer(g_hTrendSlow, 0, 1, slow))
       return(0);
 
-   double price = iClose(_Symbol, InpTrendTF, 1);
-   if(price <= 0.0)
-      return(0);
+   //--- Strict: price beyond the fast EMA AND the EMA stack in order.
+   //--- Sound, but it blocks a lot of the time and starves a scalper.
+   if(InpTrendRequirePrice)
+     {
+      double price = iClose(_Symbol, InpTrendTF, 1);
+      if(price <= 0.0)
+         return(0);
 
-   if(price > fast[0] && fast[0] > slow[0])
+      if(price > fast[0] && fast[0] > slow[0])
+         return(1);
+      if(price < fast[0] && fast[0] < slow[0])
+         return(-1);
+
+      return(0);
+     }
+
+   //--- Structure only: the HTF EMA slope decides direction. Far more
+   //--- permissive, which is what scalping needs - price only has to be on
+   //--- the right side of the HTF structure, not beyond the fast EMA too.
+   if(fast[0] > slow[0])
       return(1);
-   if(price < fast[0] && fast[0] < slow[0])
+   if(fast[0] < slow[0])
       return(-1);
 
    return(0);
@@ -520,6 +541,46 @@ bool IsBetterSL(long posType, double candidate, double currentSL)
   }
 
 //+------------------------------------------------------------------+
+//| Build the stop distance (price units) for a direction             |
+//| Both entry setups share this so the risk maths stays identical.   |
+//| Returns false when the stop would exceed InpSL_MaxATR, which      |
+//| rejects the trade rather than taking it at a poor reward:risk.    |
+//+------------------------------------------------------------------+
+bool BuildStop(int dir, const MqlRates &r[], double close1, double a, int look, double &stopOut)
+  {
+   stopOut    = 0.0;
+   double stop = InpSL_ATR * a;
+
+   if(InpUseSwingSL)
+     {
+      if(dir > 0)
+        {
+         double swingLow = r[1].low;
+         for(int k = 1; k <= look; k++)
+            swingLow = MathMin(swingLow, r[k].low);
+         stop = close1 - (swingLow - InpSwingBufferATR * a);
+        }
+      else
+        {
+         double swingHigh = r[1].high;
+         for(int k = 1; k <= look; k++)
+            swingHigh = MathMax(swingHigh, r[k].high);
+         stop = (swingHigh + InpSwingBufferATR * a) - close1;
+        }
+     }
+
+   double minD = InpSL_MinATR * a;
+   double maxD = InpSL_MaxATR * a;
+
+   if(stop < minD) stop = minD;
+   if(stop > maxD) return(false);      // too wide -> reject
+   if(stop <= 0.0) return(false);
+
+   stopOut = stop;
+   return(true);
+  }
+
+//+------------------------------------------------------------------+
 //| MAIN SIGNAL: returns 1 = buy, -1 = sell, 0 = no trade             |
 //| slDistance -> stop distance in PRICE units                        |
 //+------------------------------------------------------------------+
@@ -529,7 +590,11 @@ int CheckEntry(double &slDistance)
 
    int need   = 4;
    int look   = InpSwingLookback > 0 ? InpSwingLookback : 1;
-   int barsNeeded = look + 4;
+   int blook  = InpBreakoutLookback > 0 ? InpBreakoutLookback : 1;
+
+   //--- enough bars for BOTH the swing stop lookback and the breakout
+   //--- lookback, whichever reaches deeper into history
+   int barsNeeded = (int)MathMax((double)look, (double)(blook + 2)) + 4;
 
    MqlRates r[];
    ArraySetAsSeries(r, true);
@@ -604,87 +669,97 @@ int CheckEntry(double &slDistance)
    bool biasOKLong  = (InpUseTrendFilter ? (bias ==  1) : true);
    bool biasOKShort = (InpUseTrendFilter ? (bias == -1) : true);
 
-   //---------------------------- BUY ---------------------------------
-   if(biasOKLong && stackUp && rsiUp && notChasing)
+   double range1 = r[i].high - r[i].low;
+
+   //====================== SETUP A: PULLBACK & REJECT ==================
+   //--- Buy dips inside an uptrend once the pullback gets rejected.
+   //--- This is the higher quality setup, but it is rare: price has to
+   //--- travel back to the EMA and then reject it.
+   if(InpUsePullbackEntry)
      {
-      double range1 = r[i].high - r[i].low;
-
-      //--- the bar must actually reach the pullback line
-      bool touched = (r[i].low <= emaPull[i]);
-
-      //--- but not blow straight through it. A deep penetration is a
-      //--- breakdown, not a pullback.
-      bool controlled = true;
-      if(InpMaxPenetrationATR > 0.0)
-         controlled = (r[i].low >= emaPull[i] - InpMaxPenetrationATR * a);
-
-      //--- closed back above the line, on a bullish bar
-      bool rejected = (close1 > emaPull[i] && close1 > open1);
-
-      //--- rejection quality: the bar must close in the upper part of its
-      //--- range. A bounce that closes back near its low is a weak
-      //--- rejection and is exactly the setup that fails.
-      bool decisive = true;
-      if(InpRejectionClose > 0.0 && range1 > 0.0)
-         decisive = ((close1 - r[i].low) / range1 >= InpRejectionClose);
-
-      if(touched && controlled && rejected && decisive)
+      //-------------------------- BUY ----------------------------------
+      if(biasOKLong && stackUp && rsiUp && notChasing)
         {
-         double stop = InpSL_ATR * a;
-         if(InpUseSwingSL)
+         bool touched = (r[i].low <= emaPull[i]);
+
+         bool controlled = true;
+         if(InpMaxPenetrationATR > 0.0)
+            controlled = (r[i].low >= emaPull[i] - InpMaxPenetrationATR * a);
+
+         bool rejected = (close1 > emaPull[i] && close1 > open1);
+
+         bool decisive = true;
+         if(InpRejectionClose > 0.0 && range1 > 0.0)
+            decisive = ((close1 - r[i].low) / range1 >= InpRejectionClose);
+
+         if(touched && controlled && rejected && decisive)
            {
-            double swingLow = r[i].low;
-            for(int k = 1; k <= look; k++)
-               swingLow = MathMin(swingLow, r[k].low);
-            stop = close1 - (swingLow - InpSwingBufferATR * a);
+            if(BuildStop(1, r, close1, a, look, slDistance))
+               return(1);
            }
-         double minD = InpSL_MinATR * a;
-         double maxD = InpSL_MaxATR * a;
-         if(stop < minD) stop = minD;
-         if(stop > maxD) return(0);          // stop too wide -> skip
-         if(stop > 0.0)
+        }
+
+      //-------------------------- SELL ---------------------------------
+      if(biasOKShort && stackDown && rsiDown && notChasing)
+        {
+         bool touched = (r[i].high >= emaPull[i]);
+
+         bool controlled = true;
+         if(InpMaxPenetrationATR > 0.0)
+            controlled = (r[i].high <= emaPull[i] + InpMaxPenetrationATR * a);
+
+         bool rejected = (close1 < emaPull[i] && close1 < open1);
+
+         bool decisive = true;
+         if(InpRejectionClose > 0.0 && range1 > 0.0)
+            decisive = ((r[i].high - close1) / range1 >= InpRejectionClose);
+
+         if(touched && controlled && rejected && decisive)
            {
-            slDistance = stop;
-            return(1);
+            if(BuildStop(-1, r, close1, a, look, slDistance))
+               return(-1);
            }
         }
      }
 
-   //---------------------------- SELL --------------------------------
-   if(biasOKShort && stackDown && rsiDown && notChasing)
+   //====================== SETUP B: MOMENTUM BREAKOUT ==================
+   //--- This is what turns the EA into an actual scalper. Breakouts fire
+   //--- far more often than pullbacks, and trading them with the trend
+   //--- is a legitimate scalping entry, not a dilution of quality.
+   if(InpUseBreakoutEntry)
      {
-      double range1 = r[i].high - r[i].low;
-
-      bool touched = (r[i].high >= emaPull[i]);
-
-      bool controlled = true;
-      if(InpMaxPenetrationATR > 0.0)
-         controlled = (r[i].high <= emaPull[i] + InpMaxPenetrationATR * a);
-
-      bool rejected = (close1 < emaPull[i] && close1 < open1);
-
-      bool decisive = true;
-      if(InpRejectionClose > 0.0 && range1 > 0.0)
-         decisive = ((r[i].high - close1) / range1 >= InpRejectionClose);
-
-      if(touched && controlled && rejected && decisive)
+      //--- extreme of the bars BEFORE the signal bar
+      double prevHigh = r[2].high;
+      double prevLow  = r[2].low;
+      for(int k = 2; k <= blook + 1; k++)
         {
-         double stop = InpSL_ATR * a;
-         if(InpUseSwingSL)
+         prevHigh = MathMax(prevHigh, r[k].high);
+         prevLow  = MathMin(prevLow,  r[k].low);
+        }
+
+      //-------------------------- BUY ----------------------------------
+      if(biasOKLong && stackUp && close1 > prevHigh && close1 > open1)
+        {
+         bool rsiOK = (rsi[i] >= InpBreakoutRSI);
+         bool reach = ((close1 - emaPull[i]) <= InpBreakoutMaxEMA_ATR * a);
+
+         if(rsiOK && reach)
            {
-            double swingHigh = r[i].high;
-            for(int k = 1; k <= look; k++)
-               swingHigh = MathMax(swingHigh, r[k].high);
-            stop = (swingHigh + InpSwingBufferATR * a) - close1;
+            if(BuildStop(1, r, close1, a, look, slDistance))
+               return(1);
            }
-         double minD = InpSL_MinATR * a;
-         double maxD = InpSL_MaxATR * a;
-         if(stop < minD) stop = minD;
-         if(stop > maxD) return(0);          // stop too wide -> skip
-         if(stop > 0.0)
+        }
+
+      //-------------------------- SELL ---------------------------------
+      if(biasOKShort && stackDown && close1 < prevLow && close1 < open1)
+        {
+         bool rsiOK = (rsi[i] <= (100.0 - InpBreakoutRSI));
+         bool reach = ((emaPull[i] - close1) <= InpBreakoutMaxEMA_ATR * a);
+
+         if(rsiOK && reach)
            {
-            slDistance = stop;
-            return(-1);
+            if(BuildStop(-1, r, close1, a, look, slDistance))
+               return(-1);
            }
         }
      }
@@ -1114,6 +1189,21 @@ int OnInit()
       Print("OnInit: InpMinMarginLevelPct must be 0 (off) or >= 100");
       return(INIT_PARAMETERS_INCORRECT);
      }
+   if(!InpUsePullbackEntry && !InpUseBreakoutEntry)
+     {
+      Print("OnInit: enable at least one entry setup (InpUsePullbackEntry / InpUseBreakoutEntry)");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpBreakoutLookback < 1)
+     {
+      Print("OnInit: InpBreakoutLookback must be >= 1");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpBreakoutRSI <= 0.0 || InpBreakoutRSI >= 100.0)
+     {
+      Print("OnInit: InpBreakoutRSI must be between 0 and 100");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
 
    //---------------- symbol -----------------------------------------
    if(!SymbolInfoInteger(_Symbol, SYMBOL_SELECT))
@@ -1234,8 +1324,11 @@ int OnInit()
    g_peakEquity  = g_startEquity;
    g_dayStartEquity = g_startEquity;
 
-   PrintFormat("  risk guards: maxDD=%.1f%%  equityFloor=%.1f%%  minMarginLevel=%.1f%%  maxLot=%.2f",
-               InpMaxDrawdownPct, InpEquityFloorPct, InpMinMarginLevelPct, InpMaxLot);
+   string sSetups = "";
+   if(InpUsePullbackEntry) sSetups += "pullback ";
+   if(InpUseBreakoutEntry) sSetups += "breakout ";
+   PrintFormat("  entry setups: %s | trend filter: %s",
+               sSetups, (InpUseTrendFilter ? (InpTrendRequirePrice ? "HTF STRICT" : "HTF STRUCTURE") : "OFF"));
 
    //--- draw the panel immediately, the first OnTick will not see a new bar
    UpdatePanel();
