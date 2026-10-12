@@ -214,6 +214,69 @@ Jangan langsung optimasi semua parameter (overfitting). Urutan yang aman:
 
 ---
 
+## 6b. Kenapa EA ini bisa hampir MC, dan apa yang sudah diperbaiki
+
+**Penyebab utamanya bug di perhitungan lot.** Ini penting dipahami karena
+perilakunya **berlawanan dengan intuisi**.
+
+Ukuran lot dihitung dari risiko:
+
+```
+lot = (equity × risk%) / (jarak SL × nilai per 1.0 harga per lot)
+```
+
+Masalahnya: **SL yang lebih lebar menghasilkan lot yang lebih kecil.**
+Kalau lot hasil hitungan itu jatuh **di bawah lot minimum broker**,
+`NormalizeVolume()` akan membulatkannya **naik** ke lot minimum —
+dan risiko aslinya ikut **berlipat**, tanpa peringatan apa pun.
+
+Contoh nyata (EURUSD 3 digit, ATR ≈ 0.0008, `minLot = 0.01`, risk 1%):
+
+| Equity | SL | Lot hitungan | Lot dipakai | **Risiko asli** |
+|---|---|---|---|---|
+| $1000 | 4 ATR | 0.0312 | 0.0300 | 0.96% ✅ |
+| $300 | 4 ATR | 0.0094 | **0.01** | **1.07%** |
+| $100 | 4 ATR | 0.0031 | **0.01** | **3.20%** ← 3,2× lipat |
+| $100 | 5 ATR | 0.0025 | **0.01** | **4.00%** ← 4× lipat |
+
+Perhatikan polanya: **makin lebar SL, makin parah.** Jadi pelebaran SL
+yang Anda minta justru memicu bug ini lebih sering. Di akun kecil dengan
+rentetan loss, 4% per trade sangat cepat menggerus equity sampai dekat MC.
+
+### Perbaikan yang sudah dilakukan
+
+1. **`InpSkipIfLotTooSmall` (default `true`)** — kalau lot minimum broker
+   berarti risiko melebihi target, **trade dibatalkan** dan dicatat di log:
+   ```
+   SKIP: min lot 0.01 implies 3.20 % risk but target is 1.00 % - stop too wide for this account size
+   ```
+   Set `false` kalau Anda tetap mau masuk — log akan tetap memperingatkan.
+2. **`InpMaxLot`** — plafon lot keras per trade (`0` = tanpa batas).
+3. **`InpMinMarginLevelPct` (default 400%)** — tolak entry kalau margin level
+   *setelah* masuk posisi bakal jatuh di bawah itu. Ini yang langsung menjaga
+   dari margin call; cek free margin saja tidak cukup.
+4. **`InpMaxDrawdownPct` (default 25%)** — berhenti trading kalau drawdown
+   dari **peak equity** sudah segitu. Daily loss limit saja tidak cukup,
+   karena rentetan loss kecil harian tetap menumpuk jadi drawdown besar.
+5. **`InpEquityFloorPct` (default 50%)** — berhenti total kalau equity
+   tinggal setengah dari saat EA dipasang.
+
+Semua statusnya tampil di panel chart (baris `Risk guard`), dan log akan
+mencetak `HALT: ...` begitu ada breaker yang aktif.
+
+### Rekomendasi kalau akun Anda kecil
+
+Lot minimum adalah musuh akun kecil. Urut yang aman:
+
+1. Biarkan `InpSkipIfLotTooSmall = true`. Kalau log penuh `SKIP`, itu
+   artinya **SL terlalu lebar untuk ukuran akun Anda** — persempit
+   `InpSL_MaxATR` (mis. `5.0` → `3.0`), atau tambah modal.
+2. Turunkan `InpRiskPercent` ke `0.5`.
+3. Kalau pakai `InpFixedLot`, **Anda mematikan semua manajemen risiko di
+   atas**. Pakai hanya kalau Anda tahu persis apa yang Anda lakukan.
+
+---
+
 ## 7. Troubleshooting: "trailing gak jalan"
 
 Kalau posisi sudah profit tapi SL-nya diam, urutan cek-nya:

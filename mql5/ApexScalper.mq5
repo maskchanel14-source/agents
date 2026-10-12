@@ -67,8 +67,13 @@ input double           InpSL_MaxATR          = 5.0;        // Max stop distance 
 //+------------------------------------------------------------------+
 input double           InpRiskPercent        = 1.0;        // Risk per trade (% of equity)
 input double           InpFixedLot           = 0.0;        // Fixed lot (0 = use risk %)
+input double           InpMaxLot             = 0.0;        // Hard cap on lot per trade (0 = no cap)
+input bool             InpSkipIfLotTooSmall  = true;       // Skip trade if min lot would exceed target risk
 input int              InpMaxSlippagePoints  = 0;          // Max slippage / deviation (points), 0 = auto
 input bool             InpUseMarginCheck     = true;       // Check free margin before opening
+input double           InpMinMarginLevelPct  = 400.0;      // Refuse entry if margin level would fall below (%)
+input double           InpMaxDrawdownPct     = 25.0;       // Stop trading after drawdown from peak equity (%)
+input double           InpEquityFloorPct     = 50.0;       // Stop trading if equity falls below (% of starting equity)
 
 //+------------------------------------------------------------------+
 //| -------------------------- TRAILING STOP ------------------------ |
@@ -129,6 +134,8 @@ datetime g_lastBarTime      = 0;      // last processed signal bar
 datetime g_lastDbgTime      = 0;      // trailing debug log throttle
 datetime g_lastEntryBarTime = 0;      // signal bar time of the last entry (cooldown)
 double   g_dayStartEquity   = 0.0;
+double   g_peakEquity       = 0.0;    // high water mark, for the drawdown breaker
+double   g_startEquity      = 0.0;    // equity at load, for the equity floor
 int      g_dayStamp         = -1;
 int      g_tradesToday      = 0;
 int      g_maxSpreadPoints  = 0;
@@ -236,8 +243,43 @@ double CalcLots(double stopDistancePrice)
    if(valuePerPrice <= 0.0)
       return(0.0);
 
-   double lots = riskMoney / (stopDistancePrice * valuePerPrice);
-   return(NormalizeVolume(lots));
+   double rawLots = riskMoney / (stopDistancePrice * valuePerPrice);
+
+   //--- A WIDE stop makes the raw lot SMALL. If it falls under the symbol's
+   //--- minimum lot, NormalizeVolume() would quietly round it UP to minLot,
+   //--- and the real risk quietly multiplies. On a small account with a wide
+   //--- stop that is several times the intended risk per trade, which is how
+   //--- a 1% risk setting ends up threatening the account.
+   //--- Refuse the trade instead, unless the user opts in and is warned.
+   double minLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
+   if(minLot > 0.0 && rawLots < minLot)
+     {
+      double realRisk = minLot * stopDistancePrice * valuePerPrice;
+      double realPct  = (equity > 0.0) ? (realRisk / equity * 100.0) : 0.0;
+
+      if(InpSkipIfLotTooSmall)
+        {
+         Print("SKIP: min lot ", DoubleToString(minLot, 2), " implies ",
+               DoubleToString(realPct, 2), "% risk but target is ",
+               DoubleToString(InpRiskPercent, 2), "% - stop too wide for this account size");
+         return(0.0);
+        }
+
+      Print("WARN: using min lot ", DoubleToString(minLot, 2), " -> real risk ",
+            DoubleToString(realPct, 2), "% vs target ",
+            DoubleToString(InpRiskPercent, 2), "%");
+     }
+
+   double lots = NormalizeVolume(rawLots);
+
+   //--- Hard cap. Capping reduces risk, so it is always safe to apply.
+   if(InpMaxLot > 0.0 && lots > InpMaxLot)
+     {
+      lots = NormalizeVolume(InpMaxLot);
+      Print("Lot capped at ", DoubleToString(lots, 2), " by InpMaxLot");
+     }
+
+   return(lots);
   }
 
 //+------------------------------------------------------------------+
@@ -252,8 +294,33 @@ bool HasEnoughMargin(ENUM_ORDER_TYPE otype, double lots, double price)
    if(!OrderCalcMargin(otype, _Symbol, lots, price, margin))
       return(true);                       // cannot calculate -> let the server decide
 
+   //--- Enough free margin to cover the new position, with headroom.
    double freeMargin = AccountInfoDouble(ACCOUNT_MARGIN_FREE);
-   return(freeMargin > margin * 1.2);
+   if(freeMargin <= margin * 1.2)
+      return(false);
+
+   //--- Guards the margin level directly, which is what actually triggers a
+   //--- margin call. Free margin alone is not enough: a position can fit in
+   //--- free margin and still push the account close to the call level.
+   if(InpMinMarginLevelPct > 0.0)
+     {
+      double equity     = AccountInfoDouble(ACCOUNT_EQUITY);
+      double usedMargin = AccountInfoDouble(ACCOUNT_MARGIN);
+      double newUsed    = usedMargin + margin;
+
+      if(equity > 0.0 && newUsed > 0.0)
+        {
+         double level = equity / newUsed * 100.0;
+         if(level < InpMinMarginLevelPct)
+           {
+            Print("SKIP: margin level after entry would be ", DoubleToString(level, 1),
+                  "% < required ", DoubleToString(InpMinMarginLevelPct, 1), "%");
+            return(false);
+           }
+        }
+     }
+
+   return(true);
   }
 
 //+------------------------------------------------------------------+
@@ -364,6 +431,51 @@ bool DailyGuardOK()
 
    if(InpMaxDailyTrades > 0 && g_tradesToday >= InpMaxDailyTrades)
       return(false);
+
+   return(true);
+  }
+
+//+------------------------------------------------------------------+
+//| Account level circuit breakers                                    |
+//| The daily loss limit is not enough on its own: a run of small      |
+//| daily losses still compounds into a large drawdown. These two      |
+//| breakers stop the EA before the account gets near a margin call.   |
+//+------------------------------------------------------------------+
+bool RiskGuardOK()
+  {
+   double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+   if(equity <= 0.0)
+      return(false);
+
+   //--- track the high water mark
+   if(equity > g_peakEquity)
+      g_peakEquity = equity;
+
+   //--- 1) drawdown from peak equity
+   if(InpMaxDrawdownPct > 0.0 && g_peakEquity > 0.0)
+     {
+      double dd = (g_peakEquity - equity) / g_peakEquity * 100.0;
+      if(dd >= InpMaxDrawdownPct)
+        {
+         Print("HALT: drawdown ", DoubleToString(dd, 1), "% from peak ",
+               DoubleToString(g_peakEquity, 2), " >= limit ",
+               DoubleToString(InpMaxDrawdownPct, 1), "% - no new entries");
+         return(false);
+        }
+     }
+
+   //--- 2) absolute floor relative to the equity when the EA was loaded
+   if(InpEquityFloorPct > 0.0 && g_startEquity > 0.0)
+     {
+      double pct = equity / g_startEquity * 100.0;
+      if(pct <= InpEquityFloorPct)
+        {
+         Print("HALT: equity ", DoubleToString(equity, 2), " is ",
+               DoubleToString(pct, 1), "% of start ", DoubleToString(g_startEquity, 2),
+               " <= floor ", DoubleToString(InpEquityFloorPct, 1), "% - no new entries");
+         return(false);
+        }
+     }
 
    return(true);
   }
@@ -925,6 +1037,22 @@ void UpdatePanel()
    txt += "Spread        : " + sSpread + " pts  (max " + IntegerToString(g_maxSpreadPoints) + ")\n";
    txt += "Session       : " + sSession + "\n";
    txt += "Daily guard   : " + sGuard + "   trades today: " + IntegerToString(g_tradesToday) + "\n";
+
+   double eqNow = AccountInfoDouble(ACCOUNT_EQUITY);
+   if(eqNow > g_peakEquity)
+      g_peakEquity = eqNow;
+   string sDD = "n/a";
+   if(g_peakEquity > 0.0)
+      sDD = DoubleToString((g_peakEquity - eqNow) / g_peakEquity * 100.0, 1) + " %";
+   string sFloor = "n/a";
+   if(g_startEquity > 0.0)
+      sFloor = DoubleToString(eqNow / g_startEquity * 100.0, 1) + " %";
+
+   string sRisk = "OK";
+   if(!RiskGuardOK())
+      sRisk = "HALTED";
+
+   txt += "Risk guard    : " + sRisk + "   DD from peak: " + sDD + "   equity: " + sFloor + "\n";
    txt += "Position      : " + sPos + "\n";
 
    Comment(txt);
@@ -969,6 +1097,21 @@ int OnInit()
    if(InpUseTrailTighten && InpTightenDistATR <= 0.0)
      {
       Print("OnInit: InpTightenDistATR must be > 0 when tightening is on");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpMaxDrawdownPct < 0.0 || InpMaxDrawdownPct > 100.0)
+     {
+      Print("OnInit: InpMaxDrawdownPct must be 0 (off) or 1-100");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpEquityFloorPct < 0.0 || InpEquityFloorPct > 100.0)
+     {
+      Print("OnInit: InpEquityFloorPct must be 0 (off) or 1-100");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpMinMarginLevelPct != 0.0 && InpMinMarginLevelPct < 100.0)
+     {
+      Print("OnInit: InpMinMarginLevelPct must be 0 (off) or >= 100");
       return(INIT_PARAMETERS_INCORRECT);
      }
 
@@ -1084,6 +1227,16 @@ int OnInit()
    g_initOK      = true;
    g_lastBarTime = iTime(_Symbol, InpSignalTF, 0);
 
+   //--- baselines for the account level circuit breakers
+   g_startEquity = AccountInfoDouble(ACCOUNT_EQUITY);
+   if(g_startEquity <= 0.0)
+      g_startEquity = AccountInfoDouble(ACCOUNT_BALANCE);
+   g_peakEquity  = g_startEquity;
+   g_dayStartEquity = g_startEquity;
+
+   PrintFormat("  risk guards: maxDD=%.1f%%  equityFloor=%.1f%%  minMarginLevel=%.1f%%  maxLot=%.2f",
+               InpMaxDrawdownPct, InpEquityFloorPct, InpMinMarginLevelPct, InpMaxLot);
+
    //--- draw the panel immediately, the first OnTick will not see a new bar
    UpdatePanel();
 
@@ -1130,6 +1283,8 @@ void OnTick()
    if(!SpreadOK())
       return;
    if(!DailyGuardOK())
+      return;
+   if(!RiskGuardOK())          // account level breakers: peak drawdown + equity floor
       return;
    if(!CooldownOK())
       return;
