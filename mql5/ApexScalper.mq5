@@ -1,0 +1,920 @@
+//+------------------------------------------------------------------+
+//|                                                  ApexScalper.mq5 |
+//|                                     Multi-Confluence Scalping EA  |
+//|                                             https://www.mql5.com |
+//+------------------------------------------------------------------+
+#property copyright "ApexScalper"
+#property link      "https://www.mql5.com"
+#property version   "1.00"
+#property description "Multi-confluence SCALPING EA for MetaTrader 5."
+#property description "HTF trend bias + EMA pullback entry + ADX/RSI/ATR/spread/session filters."
+#property description "ATR-based SL & TP, ATR trailing stop with breakeven, time stop, daily risk guard."
+#property description "DIGIT-AGNOSTIC: all math in price units -> safe on 3, 4 and 5 digit brokers."
+
+#include <Trade/Trade.mqh>
+
+//+------------------------------------------------------------------+
+//| Trailing stop distance mode                                      |
+//+------------------------------------------------------------------+
+enum ENUM_TRAIL_MODE
+  {
+   TRAIL_ATR    = 0,  // 0 - ATR based distance
+   TRAIL_POINTS = 1   // 1 - Fixed points distance
+  };
+
+//+------------------------------------------------------------------+
+//| ------------------------- TIMEFRAMES ---------------------------- |
+//+------------------------------------------------------------------+
+input ENUM_TIMEFRAMES  InpSignalTF           = PERIOD_M5;  // Signal timeframe (run chart on this TF)
+input ENUM_TIMEFRAMES  InpTrendTF            = PERIOD_H1;  // Higher timeframe for trend bias
+input bool             InpUseTrendFilter     = true;       // Use higher timeframe trend filter
+input int              InpTrendEMAFast       = 50;         // HTF EMA fast period
+input int              InpTrendEMASlow       = 200;        // HTF EMA slow period
+
+//+------------------------------------------------------------------+
+//| ----------------------- ENTRY LOGIC ----------------------------- |
+//+------------------------------------------------------------------+
+input int              InpEMA_Pullback       = 20;         // Pullback EMA period
+input int              InpEMA_Fast           = 8;          // Fast EMA period
+input int              InpEMA_Slow           = 21;         // Slow EMA period
+input int              InpRSI_Period         = 14;         // RSI period
+input double           InpRSI_BuyMin         = 50.0;       // RSI min for BUY
+input double           InpRSI_BuyMax         = 78.0;       // RSI max for BUY
+input double           InpRSI_SellMin        = 22.0;       // RSI min for SELL
+input double           InpRSI_SellMax        = 50.0;       // RSI max for SELL
+input bool             InpRSI_RisingOnly     = true;       // Require RSI rising (buy) / falling (sell)
+input int              InpADX_Period         = 14;         // ADX period
+input bool             InpUseADXFilter       = true;       // Use ADX trend-strength filter
+input double           InpADX_Min            = 18.0;       // Minimum ADX value (0-100)
+input double           InpMaxDistFromEMA_ATR = 1.2;        // Max entry distance from EMA (x ATR)
+
+//+------------------------------------------------------------------+
+//| --------------------- STOP LOSS / TAKE PROFIT ------------------- |
+//+------------------------------------------------------------------+
+input double           InpSL_ATR             = 1.5;        // Stop loss distance (x ATR)
+input double           InpRR                 = 2.0;        // Take profit = risk x R:R
+input bool             InpUseSwingSL         = true;       // Use swing high/low for stop loss
+input int              InpSwingLookback      = 10;         // Swing lookback (bars)
+input double           InpSwingBufferATR     = 0.25;       // Swing buffer (x ATR)
+input double           InpSL_MinATR          = 0.8;        // Minimum stop distance (x ATR)
+input double           InpSL_MaxATR          = 3.0;        // Max stop distance (x ATR) - skip if wider
+
+//+------------------------------------------------------------------+
+//| ------------------------ MONEY MANAGEMENT ----------------------- |
+//+------------------------------------------------------------------+
+input double           InpRiskPercent        = 1.0;        // Risk per trade (% of equity)
+input double           InpFixedLot           = 0.0;        // Fixed lot (0 = use risk %)
+input int              InpMaxSlippagePoints  = 0;          // Max slippage / deviation (points), 0 = auto
+input bool             InpUseMarginCheck     = true;       // Check free margin before opening
+
+//+------------------------------------------------------------------+
+//| -------------------------- TRAILING STOP ------------------------ |
+//+------------------------------------------------------------------+
+input bool             InpUseTrailing        = true;        // Enable trailing stop
+input ENUM_TRAIL_MODE  InpTrailMode          = TRAIL_ATR;   // Trailing distance mode
+input double           InpTrailStartATR      = 1.0;         // Start trailing at profit (x ATR)
+input double           InpTrailDistATR       = 1.0;         // Trailing distance (x ATR) if ATR mode
+input int              InpTrailDistPoints    = 200;         // Trailing distance (points) if points mode
+input double           InpTrailStepATR       = 0.05;        // Min improvement (x ATR) before modifying
+input bool             InpUseBreakeven       = true;        // Move to breakeven
+input double           InpBE_StartATR        = 1.0;         // Breakeven trigger at profit (x ATR)
+input double           InpBE_OffsetATR       = 0.10;        // Breakeven offset (x ATR, covers spread+costs)
+
+//+------------------------------------------------------------------+
+//| ---------------------------- FILTERS ---------------------------- |
+//+------------------------------------------------------------------+
+input int              InpATR_Period         = 14;          // ATR period
+input double           InpATR_MinPct         = 0.020;       // Min ATR as % of price (dead market)
+input double           InpATR_MaxPct         = 0.500;       // Max ATR as % of price (chaos)
+input int              InpMaxSpreadPoints    = 0;           // Max spread (points), 0 = auto
+input bool             InpUseSessionFilter   = true;        // Use trading session filter
+input int              InpSessionStartHour   = 7;           // Session start (server time, hour)
+input int              InpSessionEndHour     = 20;          // Session end (server time, hour)
+input bool             InpTradeFriday        = true;        // Allow trading on Friday
+input int              InpMaxHoldBars        = 12;          // Time stop: max bars in trade (0 = off)
+input int              InpCooldownBars       = 3;           // Bars to wait after a trade closes
+
+//+------------------------------------------------------------------+
+//| -------------------------- PROTECTION --------------------------- |
+//+------------------------------------------------------------------+
+input double           InpMaxDailyLossPct    = 3.0;         // Max daily loss (% of day-start equity)
+input int              InpMaxDailyTrades     = 12;          // Max trades per day (0 = off)
+input ulong            InpMagic              = 8801201;     // Magic number
+input string           InpTradeComment       = "ApexScalper";// Order comment
+input bool             InpShowPanel          = true;        // Show on-chart info panel
+
+//+------------------------------------------------------------------+
+//| --------------------------- GLOBALS ----------------------------- |
+//+------------------------------------------------------------------+
+CTrade   trade;
+
+int      g_hATR       = INVALID_HANDLE;
+int      g_hEMAPull   = INVALID_HANDLE;
+int      g_hEMAFast   = INVALID_HANDLE;
+int      g_hEMASlow   = INVALID_HANDLE;
+int      g_hRSI       = INVALID_HANDLE;
+int      g_hADX       = INVALID_HANDLE;
+int      g_hTrendFast = INVALID_HANDLE;
+int      g_hTrendSlow = INVALID_HANDLE;
+
+datetime g_lastBarTime      = 0;      // last processed signal bar
+datetime g_lastEntryBarTime = 0;      // signal bar time of the last entry (cooldown)
+double   g_dayStartEquity   = 0.0;
+int      g_dayStamp         = -1;
+int      g_tradesToday      = 0;
+int      g_maxSpreadPoints  = 0;
+double   g_pointValue       = 0.0;    // money per 1.0 price move per 1 lot
+bool     g_initOK           = false;
+
+//+------------------------------------------------------------------+
+//| --------------------------- HELPERS ----------------------------- |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| Fill a dynamic array from an indicator buffer (as series)         |
+//+------------------------------------------------------------------+
+bool FillBuffer(int handle, int bufferNum, int count, double &arr[])
+  {
+   if(handle == INVALID_HANDLE)
+      return(false);
+   ArraySetAsSeries(arr, true);
+   ResetLastError();
+   int copied = CopyBuffer(handle, bufferNum, 0, count, arr);
+   if(copied != count)
+      return(false);
+   return(true);
+  }
+
+//+------------------------------------------------------------------+
+//| Broker minimum stop distance in price units                       |
+//+------------------------------------------------------------------+
+double MinStopDistance()
+  {
+   long stops  = SymbolInfoInteger(_Symbol, SYMBOL_TRADE_STOPS_LEVEL);
+   long freeze = SymbolInfoInteger(_Symbol, SYMBOL_TRADE_FREEZE_LEVEL);
+   if(stops  < 0) stops  = 0;
+   if(freeze < 0) freeze = 0;
+   double lvl = MathMax((double)stops, (double)freeze);
+   return(lvl * _Point);
+  }
+
+//+------------------------------------------------------------------+
+//| Normalize a lot size to symbol min / max / step                   |
+//+------------------------------------------------------------------+
+double NormalizeVolume(double lots)
+  {
+   double minLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
+   double maxLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX);
+   double step   = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
+
+   if(minLot <= 0.0) minLot = 0.01;
+   if(maxLot <= 0.0) maxLot = 100.0;
+   if(step   <= 0.0) step   = 0.01;
+
+   double v = MathFloor(lots / step) * step;
+   v = NormalizeDouble(v, 8);
+
+   if(v < minLot) v = minLot;
+   if(v > maxLot) v = maxLot;
+
+   return(NormalizeDouble(v, 8));
+  }
+
+//+------------------------------------------------------------------+
+//| Money value of a 1.0 price unit move, per 1 lot                   |
+//| Works on 3, 4 and 5 digit brokers (uses tick size / tick value)   |
+//+------------------------------------------------------------------+
+double PointValuePerLot()
+  {
+   if(g_pointValue > 0.0)
+      return(g_pointValue);
+
+   double tickSize  = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+   double tickValue = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_VALUE);
+
+   if(tickSize > 0.0 && tickValue > 0.0)
+      g_pointValue = tickValue / tickSize;
+   else
+     {
+      //--- fallback for exotic / mis-configured symbols
+      double contract = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_CONTRACT_SIZE);
+      if(contract <= 0.0) contract = 100000.0;
+      g_pointValue = contract;
+     }
+   return(g_pointValue);
+  }
+
+//+------------------------------------------------------------------+
+//| Calculate lot size from a risk % and a stop distance in price     |
+//+------------------------------------------------------------------+
+double CalcLots(double stopDistancePrice)
+  {
+   if(stopDistancePrice <= 0.0)
+      return(0.0);
+
+   if(InpFixedLot > 0.0)
+      return(NormalizeVolume(InpFixedLot));
+
+   double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+   if(equity <= 0.0)
+      equity = AccountInfoDouble(ACCOUNT_BALANCE);
+   if(equity <= 0.0)
+      return(0.0);
+
+   double riskMoney = equity * (InpRiskPercent / 100.0);
+   double valuePerPrice = PointValuePerLot();
+
+   if(valuePerPrice <= 0.0)
+      return(0.0);
+
+   double lots = riskMoney / (stopDistancePrice * valuePerPrice);
+   return(NormalizeVolume(lots));
+  }
+
+//+------------------------------------------------------------------+
+//| Free margin check                                                 |
+//+------------------------------------------------------------------+
+bool HasEnoughMargin(ENUM_ORDER_TYPE otype, double lots, double price)
+  {
+   if(!InpUseMarginCheck)
+      return(true);
+
+   double margin = 0.0;
+   if(!OrderCalcMargin(otype, _Symbol, lots, price, margin))
+      return(true);                       // cannot calculate -> let the server decide
+
+   double freeMargin = AccountInfoDouble(ACCOUNT_MARGIN_FREE);
+   return(freeMargin > margin * 1.2);
+  }
+
+//+------------------------------------------------------------------+
+//| Find the ticket of our own position on the current symbol         |
+//+------------------------------------------------------------------+
+ulong GetOurPositionTicket()
+  {
+   int total = PositionsTotal();
+   for(int i = total - 1; i >= 0; i--)
+     {
+      ulong ticket = PositionGetTicket(i);
+      if(ticket == 0)
+         continue;
+      if(!PositionSelectByTicket(ticket))
+         continue;
+      if(PositionGetString(POSITION_SYMBOL) != _Symbol)
+         continue;
+      if((long)PositionGetInteger(POSITION_MAGIC) != (long)InpMagic)
+         continue;
+      return(ticket);
+     }
+   return(0);
+  }
+
+//+------------------------------------------------------------------+
+//| Do we already have an open position from this EA?                 |
+//+------------------------------------------------------------------+
+bool HasOpenPosition()
+  {
+   return(GetOurPositionTicket() != 0);
+  }
+
+//+------------------------------------------------------------------+
+//| New bar detection on the signal timeframe                         |
+//+------------------------------------------------------------------+
+bool IsNewBar()
+  {
+   datetime t = iTime(_Symbol, InpSignalTF, 0);
+   if(t <= 0)
+      return(false);
+   if(t != g_lastBarTime)
+     {
+      g_lastBarTime = t;
+      return(true);
+     }
+   return(false);
+  }
+
+//+------------------------------------------------------------------+
+//| Spread filter                                                     |
+//+------------------------------------------------------------------+
+bool SpreadOK()
+  {
+   if(g_maxSpreadPoints <= 0)
+      return(true);
+   long spread = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
+   if(spread < 0)
+      return(true);
+   return((int)spread <= g_maxSpreadPoints);
+  }
+
+//+------------------------------------------------------------------+
+//| Session filter (server time)                                      |
+//+------------------------------------------------------------------+
+bool InSession()
+  {
+   if(!InpUseSessionFilter)
+      return(true);
+
+   MqlDateTime dt;
+   TimeCurrent(dt);
+
+   if(!InpTradeFriday && dt.day_of_week == 5)
+      return(false);
+
+   int h = dt.hour;
+   if(InpSessionStartHour == InpSessionEndHour)
+      return(true);
+   if(InpSessionStartHour < InpSessionEndHour)
+      return(h >= InpSessionStartHour && h < InpSessionEndHour);
+   //--- overnight session (e.g. 22 -> 5)
+   return(h >= InpSessionStartHour || h < InpSessionEndHour);
+  }
+
+//+------------------------------------------------------------------+
+//| Daily loss / trade count guard                                    |
+//+------------------------------------------------------------------+
+bool DailyGuardOK()
+  {
+   MqlDateTime dt;
+   TimeCurrent(dt);
+   int stamp = dt.year * 10000 + dt.mon * 100 + dt.day;
+
+   if(stamp != g_dayStamp)
+     {
+      g_dayStamp       = stamp;
+      g_dayStartEquity = AccountInfoDouble(ACCOUNT_EQUITY);
+      g_tradesToday    = 0;
+     }
+
+   if(InpMaxDailyLossPct > 0.0 && g_dayStartEquity > 0.0)
+     {
+      double equity  = AccountInfoDouble(ACCOUNT_EQUITY);
+      double lossPct = (g_dayStartEquity - equity) / g_dayStartEquity * 100.0;
+      if(lossPct >= InpMaxDailyLossPct)
+         return(false);
+     }
+
+   if(InpMaxDailyTrades > 0 && g_tradesToday >= InpMaxDailyTrades)
+      return(false);
+
+   return(true);
+  }
+
+//+------------------------------------------------------------------+
+//| Higher timeframe trend bias: 1 = up, -1 = down, 0 = none          |
+//+------------------------------------------------------------------+
+int GetTrendBias()
+  {
+   if(!InpUseTrendFilter)
+      return(0);
+
+   double fast[1], slow[1];
+   if(!FillBuffer(g_hTrendFast, 0, 1, fast))
+      return(0);
+   if(!FillBuffer(g_hTrendSlow, 0, 1, slow))
+      return(0);
+
+   double price = iClose(_Symbol, InpTrendTF, 1);
+   if(price <= 0.0)
+      return(0);
+
+   if(price > fast[0] && fast[0] > slow[0])
+      return(1);
+   if(price < fast[0] && fast[0] < slow[0])
+      return(-1);
+
+   return(0);
+  }
+
+//+------------------------------------------------------------------+
+//| Would this candidate stop be an improvement?                      |
+//+------------------------------------------------------------------+
+bool IsBetterSL(long posType, double candidate, double currentSL)
+  {
+   if(candidate <= 0.0)
+      return(false);
+   if(posType == POSITION_TYPE_BUY)
+      return(currentSL == 0.0 ? true : (candidate > currentSL));
+   return(currentSL == 0.0 ? true : (candidate < currentSL));
+  }
+
+//+------------------------------------------------------------------+
+//| MAIN SIGNAL: returns 1 = buy, -1 = sell, 0 = no trade             |
+//| slDistance -> stop distance in PRICE units                        |
+//+------------------------------------------------------------------+
+int CheckEntry(double &slDistance)
+  {
+   slDistance = 0.0;
+
+   int need   = 4;
+   int look   = InpSwingLookback > 0 ? InpSwingLookback : 1;
+   int barsNeeded = look + 4;
+
+   MqlRates r[];
+   ArraySetAsSeries(r, true);
+   if(CopyRates(_Symbol, InpSignalTF, 0, barsNeeded) < barsNeeded)
+      return(0);
+
+   double atr[];
+   double emaPull[];
+   double emaFast[];
+   double emaSlow[];
+   double rsi[];
+   double adx[];
+
+   if(!FillBuffer(g_hATR,     0, need, atr))      return(0);
+   if(!FillBuffer(g_hEMAPull, 0, need, emaPull))  return(0);
+   if(!FillBuffer(g_hEMAFast, 0, need, emaFast))  return(0);
+   if(!FillBuffer(g_hEMASlow, 0, need, emaSlow))  return(0);
+   if(!FillBuffer(g_hRSI,     0, need, rsi))      return(0);
+   if(!FillBuffer(g_hADX,     0, need, adx))      return(0);
+
+   //--- we trade on the last CLOSED bar (index 1)
+   int    i      = 1;
+   double close1 = r[i].close;
+   double open1  = r[i].open;
+   double a      = atr[i];
+
+   if(close1 <= 0.0 || a <= 0.0)
+      return(0);
+
+   //--- volatility filter: ATR as a percentage of price
+   double atrPct = (a / close1) * 100.0;
+   if(atrPct < InpATR_MinPct || atrPct > InpATR_MaxPct)
+      return(0);
+
+   //--- ADX trend-strength filter
+   if(InpUseADXFilter && adx[i] < InpADX_Min)
+      return(0);
+
+   //--- EMA stack = short term momentum direction
+   bool stackUp   = (emaFast[i] > emaSlow[i]);
+   bool stackDown = (emaFast[i] < emaSlow[i]);
+
+   //--- RSI state
+   bool rsiUp   = (rsi[i] >  InpRSI_BuyMin  && rsi[i] <  InpRSI_BuyMax);
+   bool rsiDown = (rsi[i] >  InpRSI_SellMin && rsi[i] <  InpRSI_SellMax);
+   if(InpRSI_RisingOnly)
+     {
+      rsiUp   = rsiUp   && (rsi[i] >  rsi[i + 1]);
+      rsiDown = rsiDown && (rsi[i] <  rsi[i + 1]);
+     }
+
+   //--- pullback geometry
+   double distEMA     = MathAbs(close1 - emaPull[i]);
+   bool   notChasing  = (distEMA <= InpMaxDistFromEMA_ATR * a);
+
+   //--- When the filter is OFF, GetTrendBias() returns 0 and both directions are allowed.
+   //--- When it is ON, we must demand a clear bias: 0 (flat/choppy) blocks both directions.
+   int  bias        = GetTrendBias();
+   bool biasOKLong  = (InpUseTrendFilter ? (bias ==  1) : true);
+   bool biasOKShort = (InpUseTrendFilter ? (bias == -1) : true);
+
+   //---------------------------- BUY ---------------------------------
+   if(biasOKLong && stackUp && rsiUp && notChasing)
+     {
+      bool touched   = (r[i].low <= emaPull[i]);
+      bool rejected  = (close1 > emaPull[i] && close1 > open1);
+      if(touched && rejected)
+        {
+         double stop = InpSL_ATR * a;
+         if(InpUseSwingSL)
+           {
+            double swingLow = r[i].low;
+            for(int k = 1; k <= look; k++)
+               swingLow = MathMin(swingLow, r[k].low);
+            stop = close1 - (swingLow - InpSwingBufferATR * a);
+           }
+         double minD = InpSL_MinATR * a;
+         double maxD = InpSL_MaxATR * a;
+         if(stop < minD) stop = minD;
+         if(stop > maxD) return(0);          // stop too wide -> skip
+         if(stop > 0.0)
+           {
+            slDistance = stop;
+            return(1);
+           }
+        }
+     }
+
+   //---------------------------- SELL --------------------------------
+   if(biasOKShort && stackDown && rsiDown && notChasing)
+     {
+      bool touched  = (r[i].high >= emaPull[i]);
+      bool rejected = (close1 < emaPull[i] && close1 < open1);
+      if(touched && rejected)
+        {
+         double stop = InpSL_ATR * a;
+         if(InpUseSwingSL)
+           {
+            double swingHigh = r[i].high;
+            for(int k = 1; k <= look; k++)
+               swingHigh = MathMax(swingHigh, r[k].high);
+            stop = (swingHigh + InpSwingBufferATR * a) - close1;
+           }
+         double minD = InpSL_MinATR * a;
+         double maxD = InpSL_MaxATR * a;
+         if(stop < minD) stop = minD;
+         if(stop > maxD) return(0);          // stop too wide -> skip
+         if(stop > 0.0)
+           {
+            slDistance = stop;
+            return(-1);
+           }
+        }
+     }
+
+   return(0);
+  }
+
+//+------------------------------------------------------------------+
+//| Open a market position                                            |
+//+------------------------------------------------------------------+
+void OpenTrade(int dir, double stopPriceDistance)
+  {
+   if(dir == 0 || stopPriceDistance <= 0.0)
+      return;
+
+   int    digits  = (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS);
+   double ask     = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   double bid     = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+
+   if(ask <= 0.0 || bid <= 0.0)
+      return;
+
+   double entry   = (dir > 0) ? ask : bid;
+   double minStop = MinStopDistance();
+
+   double dist = MathMax(stopPriceDistance, minStop + _Point);
+   double sl   = (dir > 0) ? entry - dist        : entry + dist;
+   double tp   = (dir > 0) ? entry + dist * InpRR : entry - dist * InpRR;
+
+   sl = NormalizeDouble(sl, digits);
+   tp = NormalizeDouble(tp, digits);
+
+   double lots = CalcLots(dist);
+   if(lots <= 0.0)
+      return;
+
+   ENUM_ORDER_TYPE otype = (dir > 0) ? ORDER_TYPE_BUY : ORDER_TYPE_SELL;
+   if(!HasEnoughMargin(otype, lots, entry))
+     {
+      Print("OpenTrade: not enough free margin for ", DoubleToString(lots, 2), " lots");
+      return;
+     }
+
+   bool ok = false;
+   if(dir > 0)
+      ok = trade.Buy(lots, _Symbol, 0.0, sl, tp, InpTradeComment);
+   else
+      ok = trade.Sell(lots, _Symbol, 0.0, sl, tp, InpTradeComment);
+
+   if(!ok)
+     {
+      Print("OpenTrade failed. retcode=", trade.ResultRetcode(),
+            " (", trade.ResultRetcodeDescription(), ")");
+      return;
+     }
+
+   //--- Safety net: some brokers strip SL/TP from the deal request.
+   //--- Verify the levels are really there, otherwise modify them in.
+   ulong ticket = GetOurPositionTicket();
+   if(ticket != 0)
+     {
+      PositionSelectByTicket(ticket);
+      double curSL = PositionGetDouble(POSITION_SL);
+      double curTP = PositionGetDouble(POSITION_TP);
+      if(curSL == 0.0 || curTP == 0.0)
+         trade.PositionModify(ticket, sl, tp);
+
+      g_tradesToday++;
+      g_lastEntryBarTime = iTime(_Symbol, InpSignalTF, 0);
+      Print("OPEN ", (dir > 0 ? "BUY " : "SELL"), " lots=", DoubleToString(lots, 2),
+            " entry=", DoubleToString(PositionGetDouble(POSITION_PRICE_OPEN), digits),
+            " sl=", DoubleToString(sl, digits), " tp=", DoubleToString(tp, digits));
+     }
+  }
+
+//+------------------------------------------------------------------+
+//| Trailing stop + breakeven (runs on every tick)                    |
+//+------------------------------------------------------------------+
+void ManageTrailing()
+  {
+   if(!InpUseTrailing && !InpUseBreakeven)
+      return;
+
+   ulong ticket = GetOurPositionTicket();
+   if(ticket == 0)
+      return;
+   if(!PositionSelectByTicket(ticket))
+      return;
+
+   int    digits  = (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS);
+   long   type    = PositionGetInteger(POSITION_TYPE);
+   double open    = PositionGetDouble(POSITION_PRICE_OPEN);
+   double curSL   = PositionGetDouble(POSITION_SL);
+   double curTP   = PositionGetDouble(POSITION_TP);
+   double bid     = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+   double ask     = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+
+   if(bid <= 0.0 || ask <= 0.0)
+      return;
+
+   double atr[];
+   if(!FillBuffer(g_hATR, 0, 3, atr))
+      return;
+   double a = atr[1];                       // ATR of the last closed bar (stable)
+   if(a <= 0.0)
+      return;
+
+   double price      = (type == POSITION_TYPE_BUY) ? bid : ask;
+   double profitDist = (type == POSITION_TYPE_BUY) ? (price - open) : (open - price);
+
+   double newSL  = curSL;
+   double minStp = MinStopDistance();
+
+   //---------------------- BREAKEVEN --------------------------------
+   //--- The offset is expressed in ATR (price units), not points, so it behaves
+   //--- identically on 3, 4 and 5 digit brokers.
+   if(InpUseBreakeven && profitDist >= InpBE_StartATR * a)
+     {
+      double offset  = InpBE_OffsetATR * a;
+      double beLevel = (type == POSITION_TYPE_BUY) ? (open + offset) : (open - offset);
+      if(IsBetterSL(type, beLevel, newSL))
+         newSL = beLevel;
+     }
+
+   //---------------------- TRAILING ---------------------------------
+   if(InpUseTrailing && profitDist >= InpTrailStartATR * a)
+     {
+      double trailDist = (InpTrailMode == TRAIL_ATR)
+                         ? (InpTrailDistATR * a)
+                         : (InpTrailDistPoints * _Point);
+      trailDist = MathMax(trailDist, minStp);
+
+      double cand = (type == POSITION_TYPE_BUY) ? (price - trailDist) : (price + trailDist);
+      if(IsBetterSL(type, cand, newSL))
+         newSL = cand;
+     }
+
+   if(newSL == curSL)
+      return;
+
+   //--- only modify if the improvement is meaningful (ATR relative -> digit agnostic)
+   if(curSL != 0.0 && MathAbs(newSL - curSL) < InpTrailStepATR * a)
+      return;
+
+   //--- never place the stop closer than the broker allows
+   if(type == POSITION_TYPE_BUY)
+     {
+      double limit = bid - minStp - _Point;
+      if(newSL > limit)
+         newSL = limit;
+     }
+   else
+     {
+      double limit = ask + minStp + _Point;
+      if(newSL < limit)
+         newSL = limit;
+     }
+
+   newSL = NormalizeDouble(newSL, digits);
+
+   if(curSL != 0.0 && MathAbs(newSL - NormalizeDouble(curSL, digits)) < _Point)
+      return;
+
+   if(type == POSITION_TYPE_BUY  && newSL >= bid) return;
+   if(type == POSITION_TYPE_SELL && newSL <= ask) return;
+
+   if(!trade.PositionModify(ticket, newSL, curTP))
+      Print("PositionModify failed. retcode=", trade.ResultRetcode(),
+            " (", trade.ResultRetcodeDescription(), ")");
+  }
+
+//+------------------------------------------------------------------+
+//| Time based exit (scalps should not be held forever)               |
+//+------------------------------------------------------------------+
+void CheckTimeExit()
+  {
+   if(InpMaxHoldBars <= 0)
+      return;
+
+   ulong ticket = GetOurPositionTicket();
+   if(ticket == 0)
+      return;
+   if(!PositionSelectByTicket(ticket))
+      return;
+
+   datetime openTime = (datetime)PositionGetInteger(POSITION_TIME);
+   if(openTime <= 0)
+      return;
+
+   int shift = iBarShift(_Symbol, InpSignalTF, openTime);
+   if(shift < 0)
+      return;
+
+   if(shift >= InpMaxHoldBars)
+     {
+      if(!trade.PositionClose(ticket))
+         Print("Time stop close failed. retcode=", trade.ResultRetcode(),
+               " (", trade.ResultRetcodeDescription(), ")");
+      else
+         Print("TIME STOP: position closed after ", shift, " bars");
+     }
+  }
+
+//+------------------------------------------------------------------+
+//| Cooldown after the last entry                                     |
+//+------------------------------------------------------------------+
+bool CooldownOK()
+  {
+   if(InpCooldownBars <= 0 || g_lastEntryBarTime == 0)
+      return(true);
+
+   int shift = iBarShift(_Symbol, InpSignalTF, g_lastEntryBarTime);
+   if(shift < 0)
+      return(true);
+
+   return(shift >= InpCooldownBars);
+  }
+
+//+------------------------------------------------------------------+
+//| On-chart information panel                                        |
+//+------------------------------------------------------------------+
+void UpdatePanel()
+  {
+   if(!InpShowPanel)
+      return;
+
+   long   spread = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
+   string sSpread = (spread >= 0) ? IntegerToString(spread) : "n/a";
+
+   string sBias = "OFF";
+   if(InpUseTrendFilter)
+     {
+      int b = GetTrendBias();
+      sBias = (b > 0) ? "UP" : (b < 0 ? "DOWN" : "FLAT");
+     }
+
+   string txt = "";
+   txt += "=== ApexScalper v1.00 ===\n";
+   txt += "Symbol        : " + _Symbol + "  (digits: " + IntegerToString((int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS)) + ")\n";
+   txt += "Signal TF     : " + EnumToString(InpSignalTF) + "\n";
+   txt += "Trend TF      : " + EnumToString(InpTrendTF) + "   bias: " + sBias + "\n";
+   txt += "Spread        : " + sSpread + " pts  (max " + IntegerToString(g_maxSpreadPoints) + ")\n";
+   txt += "Session       : " + (InSession() ? "OPEN" : "CLOSED") + "\n";
+   txt += "Daily guard   : " + (DailyGuardOK() ? "OK" : "BLOCKED") + "   trades today: " + IntegerToString(g_tradesToday) + "\n";
+   txt += "Position      : " + (HasOpenPosition() ? "OPEN" : "none") + "\n";
+
+   Comment(txt);
+  }
+
+//+------------------------------------------------------------------+
+//| Expert initialization                                             |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+   //---------------- input sanity -----------------------------------
+   if(InpSL_ATR <= 0.0 || InpRR <= 0.0)
+     {
+      Print("OnInit: InpSL_ATR and InpRR must be > 0");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpRiskPercent < 0.0)
+     {
+      Print("OnInit: InpRiskPercent must be >= 0");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+   if(InpTrendEMAFast >= InpTrendEMASlow)
+     {
+      Print("OnInit: InpTrendEMAFast must be smaller than InpTrendEMASlow");
+      return(INIT_PARAMETERS_INCORRECT);
+     }
+
+   //---------------- symbol -----------------------------------------
+   if(!SymbolInfoInteger(_Symbol, SYMBOL_SELECT))
+      SymbolSelect(_Symbol, true);
+
+   if(!SymbolInfoInteger(_Symbol, SYMBOL_TRADE_MODE))
+     {
+      Print("OnInit: trading is disabled for ", _Symbol);
+      return(INIT_FAILED);
+     }
+
+   int digits = (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS);
+
+   //---------------- auto max spread + slippage ----------------------
+   //--- A "point" means something different on every digit type, so the
+   //--- tolerances are scaled to the quote precision the broker actually uses.
+   //---   5/6 digits -> 1 point = 0.00001 (0.1 pip) -> allow 20 points = 2.0 pip
+   //---   3/4 digits -> 1 point = 0.001/0.0001     -> allow  3 points
+   if(InpMaxSpreadPoints > 0)
+      g_maxSpreadPoints = InpMaxSpreadPoints;
+   else
+      g_maxSpreadPoints = (digits == 5 || digits == 6) ? 20 : 3;
+
+   int maxSlippage = InpMaxSlippagePoints;
+   if(maxSlippage <= 0)
+      maxSlippage = (digits == 5 || digits == 6) ? 20 : 3;
+
+   //---------------- trade object -----------------------------------
+   trade.SetExpertMagicNumber(InpMagic);
+   trade.SetDeviationInPoints((ulong)maxSlippage);
+   trade.SetTypeFillingBySymbol(true);
+   trade.SetAsyncMode(false);
+
+   //---------------- indicator handles ------------------------------
+   g_hATR       = iATR(_Symbol,  InpSignalTF, InpATR_Period);
+   g_hEMAPull   = iMA(_Symbol,   InpSignalTF, InpEMA_Pullback, 0, MODE_EMA, PRICE_CLOSE);
+   g_hEMAFast   = iMA(_Symbol,   InpSignalTF, InpEMA_Fast,     0, MODE_EMA, PRICE_CLOSE);
+   g_hEMASlow   = iMA(_Symbol,   InpSignalTF, InpEMA_Slow,     0, MODE_EMA, PRICE_CLOSE);
+   g_hRSI       = iRSI(_Symbol,  InpSignalTF, InpRSI_Period,   PRICE_CLOSE);
+   g_hADX       = iADX(_Symbol,  InpSignalTF, InpADX_Period);
+   g_hTrendFast = iMA(_Symbol,   InpTrendTF,  InpTrendEMAFast, 0, MODE_EMA, PRICE_CLOSE);
+   g_hTrendSlow = iMA(_Symbol,   InpTrendTF,  InpTrendEMASlow, 0, MODE_EMA, PRICE_CLOSE);
+
+   if(g_hATR       == INVALID_HANDLE || g_hEMAPull   == INVALID_HANDLE ||
+      g_hEMAFast   == INVALID_HANDLE || g_hEMASlow   == INVALID_HANDLE ||
+      g_hRSI       == INVALID_HANDLE || g_hADX       == INVALID_HANDLE ||
+      g_hTrendFast == INVALID_HANDLE || g_hTrendSlow == INVALID_HANDLE)
+     {
+      Print("OnInit: failed to create one or more indicator handles. Error=", GetLastError());
+      return(INIT_FAILED);
+     }
+
+   //---------------- status -----------------------------------------
+   double tickSize  = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+   double tickValue = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_VALUE);
+
+   PrintFormat("ApexScalper v1.00 initialized on %s", _Symbol);
+   PrintFormat("  digits=%d  point=%.8f  digits-aware: %s",
+               digits, _Point, (digits == 3 ? "3-DIGIT BROKER detected" : "standard"));
+   PrintFormat("  tick size=%.8f  tick value=%.4f  value per 1.0 price move/lot=%.2f",
+               tickSize, tickValue, PointValuePerLot());
+   PrintFormat("  signal TF=%s  trend TF=%s  max spread=%d points",
+               EnumToString(InpSignalTF), EnumToString(InpTrendTF), g_maxSpreadPoints);
+   PrintFormat("  risk=%.2f%%  SL=%.2fx ATR  R:R=1:%.2f  trailing=%s",
+               InpRiskPercent, InpSL_ATR, InpRR, (InpUseTrailing ? "ON" : "OFF"));
+
+   g_initOK      = true;
+   g_lastBarTime = iTime(_Symbol, InpSignalTF, 0);
+
+   //--- draw the panel immediately, the first OnTick will not see a new bar
+   UpdatePanel();
+
+   return(INIT_SUCCEEDED);
+  }
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization                                           |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+  {
+   if(g_hATR       != INVALID_HANDLE) IndicatorRelease(g_hATR);
+   if(g_hEMAPull   != INVALID_HANDLE) IndicatorRelease(g_hEMAPull);
+   if(g_hEMAFast   != INVALID_HANDLE) IndicatorRelease(g_hEMAFast);
+   if(g_hEMASlow   != INVALID_HANDLE) IndicatorRelease(g_hEMASlow);
+   if(g_hRSI       != INVALID_HANDLE) IndicatorRelease(g_hRSI);
+   if(g_hADX       != INVALID_HANDLE) IndicatorRelease(g_hADX);
+   if(g_hTrendFast != INVALID_HANDLE) IndicatorRelease(g_hTrendFast);
+   if(g_hTrendSlow != INVALID_HANDLE) IndicatorRelease(g_hTrendSlow);
+
+   Comment("");
+  }
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                              |
+//+------------------------------------------------------------------+
+void OnTick()
+  {
+   if(!g_initOK)
+      return;
+
+   //--- Trailing stop must react to price, so it runs on EVERY tick.
+   ManageTrailing();
+
+   //--- Everything below is bar based: it only needs to run once per signal bar.
+   if(!IsNewBar())
+      return;
+
+   CheckTimeExit();
+   UpdatePanel();
+
+   if(!InSession())
+      return;
+   if(!SpreadOK())
+      return;
+   if(!DailyGuardOK())
+      return;
+   if(!CooldownOK())
+      return;
+
+   if(HasOpenPosition())
+      return;
+
+   double stopDistance = 0.0;
+   int    dir = CheckEntry(stopDistance);
+
+   if(dir != 0)
+      OpenTrade(dir, stopDistance);
+  }
+//+------------------------------------------------------------------+
