@@ -845,7 +845,7 @@ int OnInit()
    //---------------- trade object -----------------------------------
    trade.SetExpertMagicNumber(InpMagic);
    trade.SetDeviationInPoints((ulong)maxSlippage);
-   trade.SetTypeFillingBySymbol(true);
+   trade.SetTypeFillingBySymbol(_Symbol);
    trade.SetAsyncMode(false);
 
    //---------------- indicator handles ------------------------------
