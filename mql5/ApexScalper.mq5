@@ -106,7 +106,7 @@ input int              InpATR_Period         = 14;          // ATR period
 input double           InpATR_MinPct         = 0.020;       // Min ATR as % of price (dead market)
 input double           InpATR_MaxPct         = 0.500;       // Max ATR as % of price (chaos)
 input int              InpMaxSpreadPoints    = 0;           // Max spread (points), 0 = auto
-input double           InpMaxSpreadATR       = 0.10;        // Max spread as a fraction of ATR (0 = off)
+input double           InpMaxSpreadATR       = 0.25;        // Max spread as a fraction of ATR (0 = off)
 input bool             InpUseSessionFilter   = true;        // Use trading session filter
 input int              InpSessionStartHour   = 7;           // Session start (server time, hour)
 input int              InpSessionEndHour     = 20;          // Session end (server time, hour)
@@ -158,6 +158,31 @@ double   g_sumOther         = 0.0;
 ulong    g_seenDeals[];               // deal tickets already examined
 int      g_seenCount        = 0;
 double   g_openRiskMoney    = 0.0;    // money at risk on the open trade
+
+//--- filter-rejection counters. When the EA produces zero trades, the log
+//--- shows exactly which filter is the bottleneck. Without this every
+//--- tuning attempt is blind.
+int      f_data             = 0;
+int      f_spreadATR        = 0;
+int      f_spreadPts        = 0;
+int      f_atrPct           = 0;
+int      f_adx              = 0;
+int      f_session          = 0;
+int      f_daily            = 0;
+int      f_riskGuard        = 0;
+int      f_cooldown         = 0;
+int      f_openPos          = 0;
+int      f_noBias           = 0;
+int      f_stack            = 0;
+int      f_rsi              = 0;
+int      f_noTouch          = 0;
+int      f_penetration      = 0;
+int      f_reject           = 0;
+int      f_decisive         = 0;
+int      f_chasing          = 0;
+int      f_breakout         = 0;
+int      f_stop             = 0;
+int      f_pass             = 0;
 
 //--- R multiple buckets. Exit REASON alone is misleading: a trailed stop
 //--- and a genuine stop out both report DEAL_REASON_SL. R tells them apart.
@@ -635,12 +660,12 @@ int CheckEntry(double &slDistance)
    double rsi[];
    double adx[];
 
-   if(!FillBuffer(g_hATR,     0, need, atr))      return(0);
-   if(!FillBuffer(g_hEMAPull, 0, need, emaPull))  return(0);
-   if(!FillBuffer(g_hEMAFast, 0, need, emaFast))  return(0);
-   if(!FillBuffer(g_hEMATrend, 0, need, emaTrend)) return(0);
-   if(!FillBuffer(g_hRSI,     0, need, rsi))      return(0);
-   if(!FillBuffer(g_hADX,     0, need, adx))      return(0);
+   if(!FillBuffer(g_hATR,     0, need, atr))      { f_data++; return(0); }
+   if(!FillBuffer(g_hEMAPull, 0, need, emaPull))  { f_data++; return(0); }
+   if(!FillBuffer(g_hEMAFast, 0, need, emaFast))  { f_data++; return(0); }
+   if(!FillBuffer(g_hEMATrend, 0, need, emaTrend)) { f_data++; return(0); }
+   if(!FillBuffer(g_hRSI,     0, need, rsi))      { f_data++; return(0); }
+   if(!FillBuffer(g_hADX,     0, need, adx))      { f_data++; return(0); }
 
    //--- we trade on the last CLOSED bar (index 1)
    int    i      = 1;
@@ -663,18 +688,18 @@ int CheckEntry(double &slDistance)
         {
          double spreadPrice = (double)spr * _Point;
          if(spreadPrice / a > InpMaxSpreadATR)
-            return(0);
+               { f_spreadATR++; return(0); }
         }
      }
 
    //--- volatility filter: ATR as a percentage of price
    double atrPct = (a / close1) * 100.0;
    if(atrPct < InpATR_MinPct || atrPct > InpATR_MaxPct)
-      return(0);
+      { f_atrPct++; return(0); }
 
    //--- ADX trend-strength filter
    if(InpUseADXFilter && adx[i] < InpADX_Min)
-      return(0);
+      { f_adx++; return(0); }
 
    //--- EMA structure. Three distinct EMAs, three distinct jobs:
    //---   emaFast  (8)  - short term momentum
@@ -711,6 +736,7 @@ int CheckEntry(double &slDistance)
    int  bias        = GetTrendBias();
    bool biasOKLong  = (InpUseTrendFilter ? (bias ==  1) : true);
    bool biasOKShort = (InpUseTrendFilter ? (bias == -1) : true);
+   if(InpUseTrendFilter && bias == 0) f_noBias++;
 
    double range1 = r[i].high - r[i].low;
 
@@ -807,6 +833,8 @@ int CheckEntry(double &slDistance)
         }
      }
 
+   //--- passed all pre-filters, but no entry signal on this bar
+   f_noTouch++;
    return(0);
   }
 
@@ -936,6 +964,57 @@ void PrintExitStats(string where)
       Print("  Read: if scratch+win dominates but net is negative, spread is");
       Print("        eating the edge. If bigLoss dominates, entries are wrong.");
      }
+  }
+
+//+------------------------------------------------------------------+
+//| Print filter-rejection counters                                   |
+//|                                                                   |
+//| When the EA produces zero trades, this shows EXACTLY which filter |
+//| is the bottleneck. Read from top to bottom: the first large number|
+//| is the primary cause.                                             |
+//+------------------------------------------------------------------+
+void PrintFilterStats(string where)
+  {
+   int total = f_data + f_spreadATR + f_spreadPts + f_atrPct + f_adx
+             + f_session + f_daily + f_riskGuard + f_cooldown + f_openPos
+             + f_noBias + f_noTouch;
+
+   if(total == 0 && f_pass == 0)
+      return;
+
+   PrintFormat("--- FILTER STATS (%s) ---", where);
+   PrintFormat("  data not ready : %6d", f_data);
+   PrintFormat("  spread/ATR     : %6d  <- InpMaxSpreadATR", f_spreadATR);
+   PrintFormat("  spread/points  : %6d  <- InpMaxSpreadPoints", f_spreadPts);
+   PrintFormat("  ATR%% range     : %6d  <- InpATR_MinPct/MaxPct", f_atrPct);
+   PrintFormat("  ADX too low    : %6d  <- InpADX_Min", f_adx);
+   PrintFormat("  H1 no bias     : %6d  <- InpUseTrendFilter", f_noBias);
+   PrintFormat("  outside session: %6d", f_session);
+   PrintFormat("  daily guard    : %6d", f_daily);
+   PrintFormat("  risk guard     : %6d", f_riskGuard);
+   PrintFormat("  cooldown       : %6d", f_cooldown);
+   PrintFormat("  position open  : %6d", f_openPos);
+   PrintFormat("  no entry signal: %6d  <- passed all filters, no setup matched", f_noTouch);
+   PrintFormat("  entries taken  : %6d", f_pass);
+   PrintFormat("  total bars     : %6d", total + f_pass);
+
+   //--- highlight the bottleneck
+   int maxV = f_data;
+   string maxN = "data not ready";
+   if(f_spreadATR > maxV) { maxV=f_spreadATR; maxN="spread/ATR (InpMaxSpreadATR)"; }
+   if(f_spreadPts > maxV) { maxV=f_spreadPts; maxN="spread/points (InpMaxSpreadPoints)"; }
+   if(f_atrPct > maxV)    { maxV=f_atrPct;    maxN="ATR range (InpATR_MinPct/MaxPct)"; }
+   if(f_adx > maxV)       { maxV=f_adx;       maxN="ADX (InpADX_Min)"; }
+   if(f_noBias > maxV)    { maxV=f_noBias;    maxN="H1 bias (InpUseTrendFilter)"; }
+   if(f_session > maxV)   { maxV=f_session;   maxN="session (InpSessionStart/End)"; }
+   if(f_daily > maxV)     { maxV=f_daily;     maxN="daily guard"; }
+   if(f_riskGuard > maxV) { maxV=f_riskGuard; maxN="risk guard (drawdown/equity floor)"; }
+   if(f_cooldown > maxV)  { maxV=f_cooldown;  maxN="cooldown (InpCooldownBars)"; }
+   if(f_openPos > maxV)   { maxV=f_openPos;   maxN="position already open"; }
+   if(f_noTouch > maxV)   { maxV=f_noTouch;   maxN="no entry signal"; }
+   if(maxV > 0)
+      PrintFormat("  >>> BOTTLENECK: %s blocked %d bars (%.0f%%) <<<",
+                  maxN, maxV, (total > 0 ? (double)maxV/total*100.0 : 0.0));
   }
 
 //+------------------------------------------------------------------+
@@ -1313,6 +1392,19 @@ void UpdatePanel()
              "   SL " + IntegerToString(g_cntSL) +
              "   TIME " + IntegerToString(g_cntTime) +
              "   other " + IntegerToString(g_cntOther) + "\n";
+
+   //--- filter summary: shows which filter is the bottleneck
+   int totalBars = f_data + f_spreadATR + f_spreadPts + f_atrPct + f_adx
+                 + f_session + f_daily + f_riskGuard + f_cooldown + f_openPos
+                 + f_noBias + f_noTouch + f_pass;
+   if(totalBars > 0)
+     {
+      txt += "Filters       : bars " + IntegerToString(totalBars) +
+             "   entries " + IntegerToString(f_pass) +
+             "   spreadR " + IntegerToString(f_spreadATR) +
+             "   noSignal " + IntegerToString(f_noTouch) + "\n";
+     }
+
    txt += "Position      : " + sPos + "\n";
 
    Comment(txt);
@@ -1515,6 +1607,27 @@ int OnInit()
    PrintFormat("  entry setups: %s | trend filter: %s",
                sSetups, (InpUseTrendFilter ? (InpTrendRequirePrice ? "HTF STRICT" : "HTF STRUCTURE") : "OFF"));
 
+   //--- Spread/ATR diagnostic: show the actual ratio so the user can
+   //--- see immediately whether InpMaxSpreadATR will block everything.
+   if(InpMaxSpreadATR > 0.0)
+     {
+      double hATR[];
+      if(CopyBuffer(g_hATR, 0, 0, 1, hATR) == 1 && hATR[0] > 0.0)
+        {
+         long spr = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
+         if(spr > 0)
+           {
+            double sp = (double)spr * _Point;
+            double ratio = sp / hATR[0];
+            PrintFormat("  spread: %d pts = %.5f price  ATR=%.5f  ratio=%.3f ATR  limit=%.3f",
+                        spr, sp, hATR[0], ratio, InpMaxSpreadATR);
+            if(ratio > InpMaxSpreadATR)
+               PrintFormat("  WARNING: current spread EXCEEDS InpMaxSpreadATR %.3f - ALL entries will be blocked!",
+                           InpMaxSpreadATR);
+           }
+        }
+     }
+
    //--- draw the panel immediately, the first OnTick will not see a new bar
    UpdatePanel();
 
@@ -1528,6 +1641,7 @@ void OnDeinit(const int reason)
   {
    TallyExits();
    PrintExitStats("OnDeinit");
+   PrintFilterStats("OnDeinit");
    if(g_hATR       != INVALID_HANDLE) IndicatorRelease(g_hATR);
    if(g_hEMAPull   != INVALID_HANDLE) IndicatorRelease(g_hEMAPull);
    if(g_hEMAFast   != INVALID_HANDLE) IndicatorRelease(g_hEMAFast);
@@ -1559,24 +1673,21 @@ void OnTick()
    TallyExits();
    UpdatePanel();
 
-   if(!InSession())
-      return;
-   if(!SpreadOK())
-      return;
-   if(!DailyGuardOK())
-      return;
-   if(!RiskGuardOK())          // account level breakers: peak drawdown + equity floor
-      return;
-   if(!CooldownOK())
-      return;
+   if(!InSession())     { f_session++;   return; }
+   if(!SpreadOK())      { f_spreadPts++; return; }
+   if(!DailyGuardOK())  { f_daily++;     return; }
+   if(!RiskGuardOK())   { f_riskGuard++; return; }
+   if(!CooldownOK())    { f_cooldown++;  return; }
 
-   if(HasOpenPosition())
-      return;
+   if(HasOpenPosition()) { f_openPos++; return; }
 
    double stopDistance = 0.0;
    int    dir = CheckEntry(stopDistance);
 
    if(dir != 0)
+     {
+      f_pass++;
       OpenTrade(dir, stopDistance);
+     }
   }
 //+------------------------------------------------------------------+

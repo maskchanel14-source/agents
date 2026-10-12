@@ -246,7 +246,7 @@ Gold bukan EURUSD. Dua hal yang bikin setting default kurang optimal:
 | `InpSL_ATR` | 2.0 | **2.5** - room buat trail dan broker floor |
 | `InpRR` | 1.2 | **1.0 - 1.2** - TP lebih dekat |
 | `InpSwingLookback` | 12 | **16 - 20** - gold swing lebih besar |
-| `InpMaxSpreadATR` | 0.10 | **0.08** - ketatkan, spread gold mahal |
+| `InpMaxSpreadATR` | 0.25 | **0.20** - ketatkan sedikit, tapi jangan terlalu ketat |
 | `InpTightenStartATR` | 2.5 | **2.0** - tighten lebih awal |
 | `InpRiskPercent` | 1.0 | **0.5** - SL lebar = lot kecil |
 
