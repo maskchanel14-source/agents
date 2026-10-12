@@ -1,6 +1,6 @@
 # Agent Skills
 
-Agent Skills provide specialized guidance for AI coding agents using the shared [Agent Skills Specification](https://agentskills.io/specification). The repository includes 187 local skills across 52 plugins, with support for seven coding tools. See the [capability matrix](./harnesses.md) for discovery and installation differences.
+Agent Skills provide specialized guidance for AI coding agents using the shared [Agent Skills Specification](https://agentskills.io/specification). The repository includes 186 local skills across 51 plugins, with support for seven coding tools. See the [capability matrix](./harnesses.md) for discovery and installation differences.
 
 Install a skill on its own into a tool supported by the Agent Skills installers:
 
@@ -267,13 +267,6 @@ Skills provide domain guidance that coding agents can load when relevant. Each s
 | **connectivity-triage**        | Diagnose active macOS connectivity failures and localize the likely fault domain |
 | **on-call-handoff-patterns**   | Design on-call handoffs with context preservation and alert routing   |
 
-### Quantitative Trading (2 skills)
-
-| Skill                        | Description                                                             |
-| ---------------------------- | ----------------------------------------------------------------------- |
-| **backtesting-frameworks**   | Build backtesting systems with realistic slippage and transaction costs |
-| **risk-metrics-calculation** | Calculate VaR, Sharpe ratio, and drawdown metrics for portfolios        |
-
 ### Systems Programming (3 skills)
 
 | Skill                       | Description                                                                 |
@@ -456,7 +449,7 @@ fastapi-templates skill → Supplies production-ready templates
 
 ## Specification Compliance
 
-All 188 skills follow the [Agent Skills Specification](https://agentskills.io/specification):
+All 186 skills follow the [Agent Skills Specification](https://agentskills.io/specification):
 
 - ✓ Required `name` field (hyphen-case)
 - ✓ Required `description` field with "Use when" clause

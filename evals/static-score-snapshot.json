@@ -2234,36 +2234,6 @@
       "token_efficiency": 0.943089430894309
     }
   },
-  "quantitative-trading/backtesting-frameworks": {
-    "badge": "silver",
-    "composite": 71.5058275058275,
-    "digest": "3e733e6fc95fbf1d61a39f8e9bb1211b1236c2925565be6e8d3f503ea5e35095",
-    "static_score": 0.7021076923076923,
-    "sub_scores": {
-      "ecosystem_coherence": 0.5,
-      "frontmatter_quality": 0.71,
-      "harness_portability": 1.0,
-      "orchestration_wiring": 0.9,
-      "progressive_disclosure": 0.35,
-      "structural_completeness": 0.45,
-      "token_efficiency": 0.9323076923076923
-    }
-  },
-  "quantitative-trading/risk-metrics-calculation": {
-    "badge": "bronze",
-    "composite": 67.48917748917748,
-    "digest": "f2541b9497b45c0a232d998302faa7597bd52f705eb6fd3ed3b3198e541e4992",
-    "static_score": 0.6728428571428571,
-    "sub_scores": {
-      "ecosystem_coherence": 0.5,
-      "frontmatter_quality": 0.71,
-      "harness_portability": 1.0,
-      "orchestration_wiring": 0.75,
-      "progressive_disclosure": 0.35,
-      "structural_completeness": 0.45,
-      "token_efficiency": 0.9904761904761905
-    }
-  },
   "reverse-engineering/anti-reversing-techniques": {
     "badge": "silver",
     "composite": 73.07792207792205,
