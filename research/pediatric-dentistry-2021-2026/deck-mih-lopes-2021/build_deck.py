@@ -145,6 +145,16 @@ def add_shape_like(slide, o):
     return shape
 
 
+def add_picture(slide, o):
+    b = o["bbox"]
+    path = (HERE / o["content"]["path"]).resolve()
+    if not path.exists():
+        raise SystemExit(f"missing asset for {o['id']}: {path}")
+    picture = slide.shapes.add_picture(str(path), Inches(b["x"]), Inches(b["y"]),
+                                       Inches(b["width"]), Inches(b["height"]))
+    return picture
+
+
 def add_line(slide, o):
     b = o["bbox"]
     x1, y1, x2, y2 = o["content"]["x1"], o["content"]["y1"], o["content"]["x2"], o["content"]["y2"]
@@ -263,7 +273,7 @@ def add_chart(slide, o):
 
 
 BUILDERS = {"text": add_text, "shape": add_shape_like, "line": add_line, "table": add_table,
-            "chart": add_chart}
+            "chart": add_chart, "picture": add_picture}
 
 
 def main() -> None:

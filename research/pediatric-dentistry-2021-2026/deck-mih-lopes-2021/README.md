@@ -3,29 +3,39 @@
 Deck PowerPoint **editable** (15 slide, bahasa Indonesia) untuk diskusi jurnal kedokteran
 gigi anak, dibangun dari satu artikel dalam daftar `../README.md`.
 
-Versi 4. Perubahan utama dari versi 3:
+Versi 5. Alasan versi 4 dibuang: hasil rendernya memperlihatkan slide yang kosong, garis
+rambut tipis, dan "diagram gigi" yang sebenarnya cuma tangga kotak tanpa makna. Itu
+wireframe, bukan desain. Versi 5 dibangun ulang dari nol dengan bahasa desain baru.
 
-1. **Renderer sungguhan.** Sandbox ini tidak punya PowerPoint, LibreOffice, atau browser,
-   jadi sebelumnya tampilan deck hanya diperkirakan dengan sketsa Pillow dan bug tidak
-   terlihat. `render_deck.py` sekarang membaca paket PPTX, menyusun ulang tiap objek
-   dengan font bermetrik sama lewat ReportLab, lalu merasterkannya dengan PyMuPDF.
-   Hasilnya dipakai untuk menilai desain, dan langsung menemukan tiga bug nyata:
-   elips tergambar keliru, grafik kolom hilang, dan teks mengalir ke arah yang salah.
-2. **Tata letak dinilai ulang dari hasil render**, bukan dari teks spesifikasi.
-   Sampul kini memakai blok judul tiga baris dengan gradien tinta dan tekstur batang
-   email; seluruh slide dicek satu per satu pada resolusi penuh.
-3. **Bahasa dinaikkan ke register medis**: *post-eruptive enamel breakdown*,
-   hipersensitivitas dentin, opasitas berbatas tegas, MIH tipe molar-insisivus,
-   sealant pada molar berisiko, SSC.
+## Yang berubah di versi 5
+
+1. **Latar putih, blok warna terisi.** Panel mint, krem, dan amber menggantikan latar
+   beige dan garis rambut. Setiap slide punya chip bagian, judul, banner inti, isi, dan
+   rel footer yang konsisten.
+2. **Dua ilustrasi nyata** di folder `assets/`: tekstur batang email untuk sampul
+   (ditimpa panel tinta semi-transparan supaya teks terbaca) dan potongan molar
+   berlesi hipomineralisasi untuk slide "Apa itu MIH", lengkap dengan legenda warna.
+   Keduanya ditanam sebagai gambar biasa, jadi bisa diganti tanpa membongkar tata letak.
+3. **Isi dipadatkan dan diperbesar.** Badan teks 10–15 pt, angka kunci 20–62 pt,
+   dan tidak ada slide yang separuh kosong. Empat grafik native: kolom (sebaran NOS),
+   donat (proporsi 13,5%), dua grafik batang mendatar.
+4. **Naskah medis dipertahankan** dari versi 4 (`post-eruptive enamel breakdown`,
+   hipersensitivitas dentin, opasitas berbatas tegas, MIH tipe molar-insisivus, HSPM)
+   beserta seluruh angka dan rujukannya.
+5. **Renderer dipakai sebagai alat kontrol mutu.** `render_deck.py` menggambar ulang
+   setiap objek dengan font bermetrik sama, melaporkan teks yang meluber, dan sekarang
+   juga menempatkan gambar. Deck hanya dianggap selesai kalau audit 0 error dan render
+   tidak melaporkan luberan.
 
 ## Sumber desain eksternal (design evidence, bukan aset)
 
 | Repo | Lisensi | Yang diambil | Yang tidak diambil |
 |---|---|---|---|
-| [Noi1r/powerpoint-skill](https://github.com/Noi1r/powerpoint-skill) | MIT | Aturan deck akademik: hierarki tipe, batas bawah ukuran huruf, warna aman buta warna, keragaman tata letak, dan larangan garis dekoratif di bawah judul (aturan #11 — garis di bawah judul adalah penanda deck buatan mesin) | Tidak ada skrip PptxGenJS/LaTeX-nya yang dipakai; deck tetap dibangun dengan python-pptx |
-| [microsoft/dstoolkit-DiscoveryEnvisioning](https://github.com/microsoft/dstoolkit-DiscoveryEnvisioning) | MIT | Palet tema dan ritme tata letak, diekstrak read-only memakai skill `pptx-reference-deck-analysis` milik repo ini (39 slide; tema `dk2 #081F2B`, `lt2 #E8E6DF`, `accent1 #0078D3`, `accent2 #28426B`) | Tidak ada slide, gambar, ikon, atau teks Microsoft yang disalin |
-| [SorkinType/Gelasio](https://github.com/SorkinType/Gelasio) | SIL OFL 1.1 | Font pratinjau metrik-sama dengan Georgia | Hanya dipakai untuk renderer, tidak disematkan ke deck |
-| [cssobral2013/LC-Sans](https://github.com/cssobral2013/LC-Sans) | SIL OFL 1.1 | Font pratinjau metrik-sama dengan Calibri | Hanya dipakai untuk renderer, tidak disematkan ke deck |
+| [GordenSun/GordenPPTSkill](https://github.com/GordenSun/GordenPPTSkill) | MIT (keterangan repo: personal/research use only) | Rujukan kepadatan dan keberanian warna: 17 template menunjukkan bahwa deck yang terlihat mahal selalu mengisi slide dengan panel, kartu angka, dan diagram informasi | Tidak ada berkas template, tata letak, atau teksnya yang dipakai; deck ini tetap dibangun dari nol dengan python-pptx |
+| [Noi1r/powerpoint-skill](https://github.com/Noi1r/powerpoint-skill) | MIT | Aturan deck akademik: hierarki tipe, batas bawah 9–10 pt, warna aman buta warna, dan larangan garis dekoratif di bawah judul (aturan #11) | Tidak ada skrip PptxGenJS/LaTeX-nya yang dipakai |
+| [microsoft/dstoolkit-DiscoveryEnvisioning](https://github.com/microsoft/dstoolkit-DiscoveryEnvisioning) | MIT | Tema dan ritme tata letak, diekstrak read-only lewat skill `pptx-reference-deck-analysis` (39 slide; tema `dk2 #081F2B`, `lt2 #E8E6DF`, `accent1 #0078D3`) | Tidak ada slide, gambar, ikon, atau teks Microsoft yang disalin |
+| [SorkinType/Gelasio](https://github.com/SorkinType/Gelasio) | SIL OFL 1.1 | Font pratinjau metrik-sama dengan Cambria untuk renderer | Tidak disematkan ke deck; deck memakai Cambria/Calibri/Consolas bawaan Office |
+| [cssobral2013/LC-Sans](https://github.com/cssobral2013/LC-Sans) | SIL OFL 1.1 | Font pratinjau metrik-sama dengan Calibri untuk renderer | Tidak disematkan ke deck |
 
 ## Berkas hasil
 
@@ -36,9 +46,10 @@ Versi 4. Perubahan utama dari versi 3:
 | `author_spec.py` | Naskah spesifikasi — tiap slide disusun eksplisit di sini |
 | `build_deck.py` | Pembangun PPTX: bentuk native, gradien, rotasi, grafik, transparansi, letter-spacing |
 | `audit_deck.py` | Audit geometri, kolisi, margin, kapasitas teks, type scale, reading order |
-| `preview_spec.py` | Sketsa cepat berbasis spec (Pillow); perkiraan kasar, bukan acuan desain |
+| `preview_spec.py` | Sketsa cepat berbasis spec (Pillow); perkiraan kasar, tidak lagi dipakai |
 | `render_deck.py` | **Renderer sungguhan**: PPTX → PDF (ReportLab, font metrik-sama) → PNG (PyMuPDF). Ini acuan untuk menilai desain |
 | `audits/render/` | Hasil render 15 slide + contact sheet + PDF |
+| `assets/` | Dua ilustrasi yang ditanam ke deck (tekstur email, potongan molar berlesi) |
 | `audits/` | Laporan audit + PNG pratinjau tiap slide dan contact sheet |
 | `build_record.json` | Rekaman pembangunan (spec → objek per slide) |
 

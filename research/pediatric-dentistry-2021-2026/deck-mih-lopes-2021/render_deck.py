@@ -28,9 +28,11 @@ import json
 import math
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import pymupdf
+from PIL import Image
 from lxml import etree
 from pptx import Presentation
 from pptx.enum.chart import XL_CHART_TYPE
@@ -269,6 +271,28 @@ def draw_text_frame(c, frame, box, bg: str, overflow: list) -> None:
             y -= block["advance"]
         y -= block["space_after"]
     c.restoreState()
+
+
+def draw_picture(c, shape, slide_h) -> None:
+    """Place an embedded image at its box, honouring the slide's own scaling."""
+    try:
+        image = shape.image
+    except Exception:
+        return
+    suffix = "." + (image.ext or "png")
+    tmp = Path(tempfile.gettempdir()) / f"render-{abs(hash(image.blob))}{suffix}"
+    if not tmp.exists():
+        tmp.write_bytes(image.blob)
+    x = shape.left / EMU_IN * PT_IN
+    y = slide_h - shape.top / EMU_IN * PT_IN - shape.height / EMU_IN * PT_IN
+    w = shape.width / EMU_IN * PT_IN
+    h = shape.height / EMU_IN * PT_IN
+    try:
+        pil = Image.open(tmp)
+        c.drawImage(str(tmp), x, y, w, h, mask=None)
+        _ = pil.size
+    except Exception as exc:  # pragma: no cover - diagnostic only
+        print(f"WARNING: could not draw image {tmp.name}: {exc}")
 
 
 def hex_to_color(value: str) -> Color:
@@ -598,6 +622,8 @@ def main() -> None:
                 chart_i += 1
             elif getattr(shape, "has_table", False) and shape.has_table:
                 draw_table(c, shape, slide_h)
+            elif shape.shape_type is not None and str(shape.shape_type).startswith("PICTURE"):
+                draw_picture(c, shape, slide_h)
             elif shape.shape_type is not None and str(shape.shape_type).startswith("LINE"):
                 left = shape.left / EMU_IN * PT_IN
                 top = slide_h - shape.top / EMU_IN * PT_IN
