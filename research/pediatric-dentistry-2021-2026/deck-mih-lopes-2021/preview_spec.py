@@ -84,24 +84,64 @@ def draw_text(base, obj, draw):
         y += line_h
 
 
+def _rotate(points, cx, cy, degrees):
+    if not degrees:
+        return points
+    rad = math.radians(degrees)
+    cos_a, sin_a = math.cos(rad), math.sin(rad)
+    out = []
+    for px_, py_ in points:
+        dx, dy = px_ - cx, py_ - cy
+        out.append((cx + dx * cos_a - dy * sin_a, cy + dx * sin_a + dy * cos_a))
+    return out
+
+
+def _fill_gradient(layer, box, colors):
+    """Approximate a linear gradient with horizontal bands (audit preview only)."""
+    c0, c1 = rgba(colors[0])[:3], rgba(colors[1])[:3]
+    steps = 96
+    paint = ImageDraw.Draw(layer)
+    for i in range(steps):
+        t = i / (steps - 1)
+        blend = tuple(int(c0[k] + (c1[k] - c0[k]) * t) for k in range(3))
+        y0 = box[1] + (box[3] - box[1]) * i / steps
+        y1 = box[1] + (box[3] - box[1]) * (i + 1) / steps
+        paint.rectangle([box[0], y0, box[2], y1 + 0.5], fill=blend)
+
+
 def draw_shape(layer, obj, draw):
     b, style = obj["bbox"], obj["style"]
-    box = [px(b["x"]), px(b["y"]), px(b["x"] + b["width"]), px(b["y"] + b["height"])]
+    left, top = px(b["x"]), px(b["y"])
+    right, bottom = px(b["x"] + b["width"]), px(b["y"] + b["height"])
+    box = [left, top, right, bottom]
+    if style.get("gradient"):
+        _fill_gradient(layer, box, style["gradient"])
+        return
     alpha = float(style.get("alpha", 100))
     fill = rgba(style.get("fill", "#FFFFFF"), alpha)
     outline = None if float(style.get("line_width", 0)) <= 0 else rgba(
         style.get("line_color", "#CBD5E1"), alpha)
     width = max(1, int(round(float(style.get("line_width", 0)) * DPI / 72)))
     kind = obj["content"].get("shape", "rectangle")
+    rotation = float(style.get("rotation", 0.0) or 0.0)
+    if rotation:
+        cx, cy = (left + right) / 2, (top + bottom) / 2
+        corners = _rotate([(left, top), (right, top), (right, bottom), (left, bottom)], cx, cy,
+                          rotation)
+        draw.polygon(corners, fill=fill, outline=outline)
+        return
     if kind == "oval":
         draw.ellipse(box, fill=fill, outline=outline, width=width)
+    elif kind in ("triangle", "isosceles_triangle"):
+        draw.polygon([((left + right) / 2, top), (right, bottom), (left, bottom)], fill=fill,
+                     outline=outline)
     elif kind == "right_arrow":
-        x0, y0, x1, y1 = box
-        mid = (y0 + y1) / 2
-        draw.polygon([(x0, y0), (x1 - (x1 - x0) * 0.45, y0), (x1 - (x1 - x0) * 0.45, y0 - (y1 - y0) * 0.35),
-                      (x1, mid), (x1 - (x1 - x0) * 0.45, y1 + (y1 - y0) * 0.35),
-                      (x1 - (x1 - x0) * 0.45, y1), (x0, y1)], fill=fill)
-    elif kind == "rounded_rectangle":
+        mid = (top + bottom) / 2
+        draw.polygon([(left, top), (right - (right - left) * 0.45, top),
+                      (right - (right - left) * 0.45, top - (bottom - top) * 0.35),
+                      (right, mid), (right - (right - left) * 0.45, bottom + (bottom - top) * 0.35),
+                      (right - (right - left) * 0.45, bottom), (left, bottom)], fill=fill)
+    elif kind in ("rounded_rectangle", "round2same"):
         draw.rounded_rectangle(box, radius=max(1, px(style.get("radius", 0.05))), fill=fill,
                                outline=outline, width=width)
     else:

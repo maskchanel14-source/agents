@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-13T05:44:49+00:00",
+  "built_at": "2026-10-13T05:53:28+00:00",
   "spec": "spec.json",
   "output": "Presentasi-Jurnal-MIH-Lopes-2021.pptx",
   "slides": [
@@ -12,147 +12,107 @@
           "z_index": 1
         },
         {
-          "object_id": "ring_00",
+          "object_id": "rod_00",
           "kind": "shape",
           "z_index": 2
         },
         {
-          "object_id": "ring_01",
+          "object_id": "rod_01",
           "kind": "shape",
           "z_index": 3
         },
         {
-          "object_id": "ring_02",
+          "object_id": "rod_02",
           "kind": "shape",
           "z_index": 4
         },
         {
-          "object_id": "ring_03",
+          "object_id": "rod_03",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "ring_04",
+          "object_id": "rod_04",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "ring_05",
+          "object_id": "rod_05",
           "kind": "shape",
           "z_index": 7
         },
         {
-          "object_id": "ring_06",
+          "object_id": "rod_06",
           "kind": "shape",
           "z_index": 8
         },
         {
-          "object_id": "ring_07",
+          "object_id": "rod_07",
           "kind": "shape",
           "z_index": 9
         },
         {
-          "object_id": "ring_08",
+          "object_id": "rod_08",
           "kind": "shape",
           "z_index": 10
         },
         {
-          "object_id": "ring_09",
+          "object_id": "tick",
           "kind": "shape",
           "z_index": 11
         },
         {
-          "object_id": "ring_10",
-          "kind": "shape",
-          "z_index": 12
-        },
-        {
-          "object_id": "ring_11",
-          "kind": "shape",
-          "z_index": 13
-        },
-        {
-          "object_id": "ring_12",
-          "kind": "shape",
-          "z_index": 14
-        },
-        {
-          "object_id": "ring_arc_100",
-          "kind": "shape",
-          "z_index": 15
-        },
-        {
-          "object_id": "ring_arc_72",
-          "kind": "shape",
-          "z_index": 16
-        },
-        {
-          "object_id": "ring_arc_46",
-          "kind": "shape",
-          "z_index": 17
-        },
-        {
-          "object_id": "accent_bar",
-          "kind": "shape",
-          "z_index": 18
-        },
-        {
           "object_id": "kicker",
           "kind": "text",
-          "z_index": 19
+          "z_index": 12
         },
         {
           "object_id": "title",
           "kind": "text",
-          "z_index": 20
-        },
-        {
-          "object_id": "subtitle",
-          "kind": "text",
-          "z_index": 21
+          "z_index": 13
         },
         {
           "object_id": "orig",
           "kind": "text",
-          "z_index": 22
+          "z_index": 14
+        },
+        {
+          "object_id": "meta_rule",
+          "kind": "shape",
+          "z_index": 15
         },
         {
           "object_id": "meta",
           "kind": "text",
-          "z_index": 23
+          "z_index": 16
         },
         {
           "object_id": "hero_v",
           "kind": "text",
-          "z_index": 24
+          "z_index": 17
+        },
+        {
+          "object_id": "hero_rule",
+          "kind": "shape",
+          "z_index": 18
         },
         {
           "object_id": "hero_l",
           "kind": "text",
-          "z_index": 25
+          "z_index": 19
         },
         {
-          "object_id": "hero_chip",
+          "object_id": "foot_rule",
           "kind": "shape",
-          "z_index": 26
-        },
-        {
-          "object_id": "hero_chip_t",
-          "kind": "text",
-          "z_index": 27
-        },
-        {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 28
+          "z_index": 20
         },
         {
           "object_id": "presenter",
           "kind": "text",
-          "z_index": 29
+          "z_index": 21
         }
       ],
-      "notes_chars": 302
+      "notes_chars": 337
     },
     {
       "slide_id": "s02_ringkasan",
@@ -163,7 +123,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -178,197 +138,112 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "hero_v",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "t1_card",
-          "kind": "shape",
+          "object_id": "hero_l",
+          "kind": "text",
           "z_index": 10
         },
         {
-          "object_id": "t1_v",
-          "kind": "text",
+          "object_id": "hero_r",
+          "kind": "shape",
           "z_index": 11
         },
         {
-          "object_id": "t1_l",
+          "object_id": "hero_n",
           "kind": "text",
           "z_index": 12
         },
         {
-          "object_id": "t1_n",
+          "object_id": "f1_v",
           "kind": "text",
           "z_index": 13
         },
         {
-          "object_id": "t2_card",
-          "kind": "shape",
+          "object_id": "f1_n",
+          "kind": "text",
           "z_index": 14
         },
         {
-          "object_id": "t2_v",
-          "kind": "text",
+          "object_id": "f1_r",
+          "kind": "shape",
           "z_index": 15
         },
         {
-          "object_id": "t2_l",
+          "object_id": "f2_v",
           "kind": "text",
           "z_index": 16
         },
         {
-          "object_id": "t2_n",
+          "object_id": "f2_n",
           "kind": "text",
           "z_index": 17
         },
         {
-          "object_id": "t3_card",
+          "object_id": "f2_r",
           "kind": "shape",
           "z_index": 18
         },
         {
-          "object_id": "t3_v",
+          "object_id": "f3_v",
           "kind": "text",
           "z_index": 19
         },
         {
-          "object_id": "t3_l",
+          "object_id": "f3_n",
           "kind": "text",
           "z_index": 20
         },
         {
-          "object_id": "t3_n",
-          "kind": "text",
+          "object_id": "f3_r",
+          "kind": "shape",
           "z_index": 21
         },
         {
-          "object_id": "c1_card",
-          "kind": "shape",
+          "object_id": "f4_v",
+          "kind": "text",
           "z_index": 22
         },
         {
-          "object_id": "c1_h",
+          "object_id": "f4_n",
           "kind": "text",
           "z_index": 23
         },
         {
-          "object_id": "c1_b",
-          "kind": "text",
+          "object_id": "f4_r",
+          "kind": "shape",
           "z_index": 24
         },
         {
-          "object_id": "c2_card",
-          "kind": "shape",
+          "object_id": "close",
+          "kind": "text",
           "z_index": 25
-        },
-        {
-          "object_id": "c2_h",
-          "kind": "text",
-          "z_index": 26
-        },
-        {
-          "object_id": "c2_b",
-          "kind": "text",
-          "z_index": 27
-        },
-        {
-          "object_id": "c3_card",
-          "kind": "shape",
-          "z_index": 28
-        },
-        {
-          "object_id": "c3_h",
-          "kind": "text",
-          "z_index": 29
-        },
-        {
-          "object_id": "c3_b",
-          "kind": "text",
-          "z_index": 30
-        },
-        {
-          "object_id": "c4_card",
-          "kind": "shape",
-          "z_index": 31
-        },
-        {
-          "object_id": "c4_h",
-          "kind": "text",
-          "z_index": 32
-        },
-        {
-          "object_id": "c4_b",
-          "kind": "text",
-          "z_index": 33
-        },
-        {
-          "object_id": "c5_card",
-          "kind": "shape",
-          "z_index": 34
-        },
-        {
-          "object_id": "c5_h",
-          "kind": "text",
-          "z_index": 35
-        },
-        {
-          "object_id": "c5_b",
-          "kind": "text",
-          "z_index": 36
-        },
-        {
-          "object_id": "c6_card",
-          "kind": "shape",
-          "z_index": 37
-        },
-        {
-          "object_id": "c6_h",
-          "kind": "text",
-          "z_index": 38
-        },
-        {
-          "object_id": "c6_b",
-          "kind": "text",
-          "z_index": 39
-        },
-        {
-          "object_id": "take_card",
-          "kind": "shape",
-          "z_index": 40
-        },
-        {
-          "object_id": "take_tick",
-          "kind": "shape",
-          "z_index": 41
-        },
-        {
-          "object_id": "take_t",
-          "kind": "text",
-          "z_index": 42
         }
       ],
-      "notes_chars": 267
+      "notes_chars": 275
     },
     {
       "slide_id": "s03_mih",
@@ -379,7 +254,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -394,142 +269,202 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "lead",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "a_card",
+          "object_id": "tooth_00",
           "kind": "shape",
           "z_index": 10
         },
         {
-          "object_id": "a_h",
-          "kind": "text",
+          "object_id": "tooth_01",
+          "kind": "shape",
           "z_index": 11
         },
         {
-          "object_id": "a_b",
-          "kind": "text",
+          "object_id": "tooth_02",
+          "kind": "shape",
           "z_index": 12
         },
         {
-          "object_id": "b_card",
+          "object_id": "tooth_03",
           "kind": "shape",
           "z_index": 13
         },
         {
-          "object_id": "b_h",
-          "kind": "text",
+          "object_id": "tooth_04",
+          "kind": "shape",
           "z_index": 14
         },
         {
-          "object_id": "b_b",
-          "kind": "text",
+          "object_id": "tooth_05",
+          "kind": "shape",
           "z_index": 15
         },
         {
-          "object_id": "c_card",
+          "object_id": "tooth_06",
           "kind": "shape",
           "z_index": 16
         },
         {
-          "object_id": "c_h",
-          "kind": "text",
+          "object_id": "tooth_07",
+          "kind": "shape",
           "z_index": 17
         },
         {
-          "object_id": "c_b",
-          "kind": "text",
+          "object_id": "tooth_08",
+          "kind": "shape",
           "z_index": 18
         },
         {
-          "object_id": "why_card",
+          "object_id": "tooth_09",
           "kind": "shape",
           "z_index": 19
         },
         {
-          "object_id": "why_h",
-          "kind": "text",
+          "object_id": "tooth_10",
+          "kind": "shape",
           "z_index": 20
         },
         {
-          "object_id": "why_b",
-          "kind": "text",
+          "object_id": "tooth_11",
+          "kind": "shape",
           "z_index": 21
         },
         {
-          "object_id": "steps_lab",
-          "kind": "text",
+          "object_id": "occl_line",
+          "kind": "shape",
           "z_index": 22
         },
         {
-          "object_id": "s1_card",
-          "kind": "shape",
+          "object_id": "occl_cap",
+          "kind": "text",
           "z_index": 23
         },
         {
-          "object_id": "s1_t",
-          "kind": "text",
+          "object_id": "lg_molar",
+          "kind": "shape",
           "z_index": 24
         },
         {
-          "object_id": "s2_card",
-          "kind": "shape",
+          "object_id": "lg_molar_t",
+          "kind": "text",
           "z_index": 25
         },
         {
-          "object_id": "s2_t",
-          "kind": "text",
+          "object_id": "lg_inc",
+          "kind": "shape",
           "z_index": 26
         },
         {
-          "object_id": "s3_card",
-          "kind": "shape",
+          "object_id": "lg_inc_t",
+          "kind": "text",
           "z_index": 27
         },
         {
-          "object_id": "s3_t",
-          "kind": "text",
+          "object_id": "sw_normal",
+          "kind": "shape",
           "z_index": 28
         },
         {
-          "object_id": "ar1",
+          "object_id": "sw_normal_lab",
           "kind": "shape",
           "z_index": 29
         },
         {
-          "object_id": "ar2",
+          "object_id": "sw_defect",
           "kind": "shape",
           "z_index": 30
         },
         {
-          "object_id": "steps_note",
-          "kind": "text",
+          "object_id": "sw_spot_0",
+          "kind": "shape",
           "z_index": 31
+        },
+        {
+          "object_id": "sw_spot_1",
+          "kind": "shape",
+          "z_index": 32
+        },
+        {
+          "object_id": "sw_defect_lab",
+          "kind": "shape",
+          "z_index": 33
+        },
+        {
+          "object_id": "sw_cap",
+          "kind": "text",
+          "z_index": 34
+        },
+        {
+          "object_id": "r1_h",
+          "kind": "text",
+          "z_index": 35
+        },
+        {
+          "object_id": "r1_b",
+          "kind": "text",
+          "z_index": 36
+        },
+        {
+          "object_id": "r1_r",
+          "kind": "shape",
+          "z_index": 37
+        },
+        {
+          "object_id": "r2_h",
+          "kind": "text",
+          "z_index": 38
+        },
+        {
+          "object_id": "r2_b",
+          "kind": "text",
+          "z_index": 39
+        },
+        {
+          "object_id": "r2_r",
+          "kind": "shape",
+          "z_index": 40
+        },
+        {
+          "object_id": "r3_h",
+          "kind": "text",
+          "z_index": 41
+        },
+        {
+          "object_id": "r3_b",
+          "kind": "text",
+          "z_index": 42
+        },
+        {
+          "object_id": "r3_r",
+          "kind": "shape",
+          "z_index": 43
         }
       ],
-      "notes_chars": 281
+      "notes_chars": 363
     },
     {
       "slide_id": "s04_gap",
@@ -540,7 +475,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -555,142 +490,112 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "scale_lab",
+          "kind": "text",
           "z_index": 9
-        },
-        {
-          "object_id": "range_card",
-          "kind": "shape",
-          "z_index": 10
-        },
-        {
-          "object_id": "range_h",
-          "kind": "text",
-          "z_index": 11
-        },
-        {
-          "object_id": "anno_prev",
-          "kind": "text",
-          "z_index": 12
-        },
-        {
-          "object_id": "anno_bracket",
-          "kind": "shape",
-          "z_index": 13
         },
         {
           "object_id": "track",
           "kind": "shape",
+          "z_index": 10
+        },
+        {
+          "object_id": "fill",
+          "kind": "shape",
+          "z_index": 11
+        },
+        {
+          "object_id": "lo_dot",
+          "kind": "shape",
+          "z_index": 12
+        },
+        {
+          "object_id": "lo_t",
+          "kind": "text",
+          "z_index": 13
+        },
+        {
+          "object_id": "hi_dot",
+          "kind": "shape",
           "z_index": 14
         },
         {
-          "object_id": "range_fill",
-          "kind": "shape",
+          "object_id": "hi_t",
+          "kind": "text",
           "z_index": 15
         },
         {
-          "object_id": "m_lo_dot",
+          "object_id": "mid_dot",
           "kind": "shape",
           "z_index": 16
         },
         {
-          "object_id": "m_lo_lab",
+          "object_id": "mid_t",
           "kind": "text",
           "z_index": 17
         },
         {
-          "object_id": "m_hi_dot",
-          "kind": "shape",
+          "object_id": "prev_t",
+          "kind": "text",
           "z_index": 18
         },
         {
-          "object_id": "m_hi_lab",
+          "object_id": "k1_t",
           "kind": "text",
           "z_index": 19
         },
         {
-          "object_id": "m_mid_dot",
-          "kind": "shape",
+          "object_id": "k2_t",
+          "kind": "text",
           "z_index": 20
         },
         {
-          "object_id": "anno_this",
-          "kind": "text",
+          "object_id": "k2_div",
+          "kind": "shape",
           "z_index": 21
         },
         {
-          "object_id": "scale",
+          "object_id": "k3_t",
           "kind": "text",
           "z_index": 22
         },
         {
-          "object_id": "g1_card",
+          "object_id": "k3_div",
           "kind": "shape",
           "z_index": 23
         },
         {
-          "object_id": "g1_h",
-          "kind": "text",
+          "object_id": "base",
+          "kind": "shape",
           "z_index": 24
         },
         {
-          "object_id": "g1_b",
+          "object_id": "closing",
           "kind": "text",
           "z_index": 25
-        },
-        {
-          "object_id": "g2_card",
-          "kind": "shape",
-          "z_index": 26
-        },
-        {
-          "object_id": "g2_h",
-          "kind": "text",
-          "z_index": 27
-        },
-        {
-          "object_id": "g2_b",
-          "kind": "text",
-          "z_index": 28
-        },
-        {
-          "object_id": "g3_card",
-          "kind": "shape",
-          "z_index": 29
-        },
-        {
-          "object_id": "g3_h",
-          "kind": "text",
-          "z_index": 30
-        },
-        {
-          "object_id": "g3_b",
-          "kind": "text",
-          "z_index": 31
         }
       ],
-      "notes_chars": 267
+      "notes_chars": 332
     },
     {
       "slide_id": "s05_tujuan",
@@ -701,7 +606,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -716,215 +621,200 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "P_l",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "q_card",
-          "kind": "shape",
+          "object_id": "P_t",
+          "kind": "text",
           "z_index": 10
+        },
+        {
+          "object_id": "P_d",
+          "kind": "text",
+          "z_index": 11
+        },
+        {
+          "object_id": "E_l",
+          "kind": "text",
+          "z_index": 12
+        },
+        {
+          "object_id": "E_t",
+          "kind": "text",
+          "z_index": 13
+        },
+        {
+          "object_id": "E_d",
+          "kind": "text",
+          "z_index": 14
+        },
+        {
+          "object_id": "C_l",
+          "kind": "text",
+          "z_index": 15
+        },
+        {
+          "object_id": "C_t",
+          "kind": "text",
+          "z_index": 16
+        },
+        {
+          "object_id": "C_d",
+          "kind": "text",
+          "z_index": 17
+        },
+        {
+          "object_id": "O_l",
+          "kind": "text",
+          "z_index": 18
+        },
+        {
+          "object_id": "O_t",
+          "kind": "text",
+          "z_index": 19
+        },
+        {
+          "object_id": "O_d",
+          "kind": "text",
+          "z_index": 20
+        },
+        {
+          "object_id": "peco_r",
+          "kind": "shape",
+          "z_index": 21
         },
         {
           "object_id": "q_t",
           "kind": "text",
-          "z_index": 11
-        },
-        {
-          "object_id": "p_card",
-          "kind": "shape",
-          "z_index": 12
-        },
-        {
-          "object_id": "p_l",
-          "kind": "text",
-          "z_index": 13
-        },
-        {
-          "object_id": "p_t",
-          "kind": "text",
-          "z_index": 14
-        },
-        {
-          "object_id": "e_card",
-          "kind": "shape",
-          "z_index": 15
-        },
-        {
-          "object_id": "e_l",
-          "kind": "text",
-          "z_index": 16
-        },
-        {
-          "object_id": "e_t",
-          "kind": "text",
-          "z_index": 17
-        },
-        {
-          "object_id": "c_card",
-          "kind": "shape",
-          "z_index": 18
-        },
-        {
-          "object_id": "c_l",
-          "kind": "text",
-          "z_index": 19
-        },
-        {
-          "object_id": "c_t",
-          "kind": "text",
-          "z_index": 20
-        },
-        {
-          "object_id": "o_card",
-          "kind": "shape",
-          "z_index": 21
-        },
-        {
-          "object_id": "o_l",
-          "kind": "text",
           "z_index": 22
         },
         {
-          "object_id": "o_t",
+          "object_id": "out_lab",
           "kind": "text",
           "z_index": 23
         },
         {
-          "object_id": "out_card",
+          "object_id": "o1_sq",
           "kind": "shape",
           "z_index": 24
         },
         {
-          "object_id": "out_h",
+          "object_id": "o1_t",
           "kind": "text",
           "z_index": 25
         },
         {
-          "object_id": "r0_chip",
-          "kind": "shape",
+          "object_id": "o1_ty",
+          "kind": "text",
           "z_index": 26
         },
         {
-          "object_id": "r0_n",
+          "object_id": "o1_src",
           "kind": "text",
           "z_index": 27
         },
         {
-          "object_id": "r0_t",
-          "kind": "text",
+          "object_id": "o1_r",
+          "kind": "shape",
           "z_index": 28
         },
         {
-          "object_id": "r0_l",
-          "kind": "text",
+          "object_id": "o2_sq",
+          "kind": "shape",
           "z_index": 29
         },
         {
-          "object_id": "r0_d",
+          "object_id": "o2_t",
           "kind": "text",
           "z_index": 30
         },
         {
-          "object_id": "r1_chip",
-          "kind": "shape",
+          "object_id": "o2_ty",
+          "kind": "text",
           "z_index": 31
         },
         {
-          "object_id": "r1_n",
+          "object_id": "o2_src",
           "kind": "text",
           "z_index": 32
         },
         {
-          "object_id": "r1_t",
-          "kind": "text",
+          "object_id": "o2_r",
+          "kind": "shape",
           "z_index": 33
         },
         {
-          "object_id": "r1_l",
-          "kind": "text",
+          "object_id": "o3_sq",
+          "kind": "shape",
           "z_index": 34
         },
         {
-          "object_id": "r1_d",
+          "object_id": "o3_t",
           "kind": "text",
           "z_index": 35
         },
         {
-          "object_id": "r2_chip",
-          "kind": "shape",
+          "object_id": "o3_ty",
+          "kind": "text",
           "z_index": 36
         },
         {
-          "object_id": "r2_n",
+          "object_id": "o3_src",
           "kind": "text",
           "z_index": 37
         },
         {
-          "object_id": "r2_t",
-          "kind": "text",
+          "object_id": "o3_r",
+          "kind": "shape",
           "z_index": 38
         },
         {
-          "object_id": "r2_l",
-          "kind": "text",
+          "object_id": "o4_sq",
+          "kind": "shape",
           "z_index": 39
         },
         {
-          "object_id": "r2_d",
+          "object_id": "o4_t",
           "kind": "text",
           "z_index": 40
         },
         {
-          "object_id": "r3_chip",
-          "kind": "shape",
+          "object_id": "o4_ty",
+          "kind": "text",
           "z_index": 41
         },
         {
-          "object_id": "r3_n",
+          "object_id": "o4_src",
           "kind": "text",
           "z_index": 42
-        },
-        {
-          "object_id": "r3_t",
-          "kind": "text",
-          "z_index": 43
-        },
-        {
-          "object_id": "r3_l",
-          "kind": "text",
-          "z_index": 44
-        },
-        {
-          "object_id": "r3_d",
-          "kind": "text",
-          "z_index": 45
         }
       ],
-      "notes_chars": 304
+      "notes_chars": 288
     },
     {
-      "slide_id": "s06_metode1",
+      "slide_id": "s06_metode",
       "objects": [
         {
           "object_id": "bg",
@@ -932,7 +822,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -947,175 +837,115 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "timeline",
+          "kind": "shape",
           "z_index": 9
         },
         {
-          "object_id": "d_card",
+          "object_id": "n1_dot",
           "kind": "shape",
           "z_index": 10
         },
         {
-          "object_id": "d_h",
+          "object_id": "n1_t",
           "kind": "text",
           "z_index": 11
         },
         {
-          "object_id": "d_b",
+          "object_id": "n1_n",
           "kind": "text",
           "z_index": 12
         },
         {
-          "object_id": "note_card",
+          "object_id": "n2_dot",
           "kind": "shape",
           "z_index": 13
         },
         {
-          "object_id": "note_h",
+          "object_id": "n2_t",
           "kind": "text",
           "z_index": 14
         },
         {
-          "object_id": "note_b",
+          "object_id": "n2_n",
           "kind": "text",
           "z_index": 15
         },
         {
-          "object_id": "db_card",
+          "object_id": "n3_dot",
           "kind": "shape",
           "z_index": 16
         },
         {
-          "object_id": "db_h",
+          "object_id": "n3_t",
           "kind": "text",
           "z_index": 17
         },
         {
-          "object_id": "db0",
-          "kind": "shape",
+          "object_id": "n3_n",
+          "kind": "text",
           "z_index": 18
         },
         {
-          "object_id": "db0_t",
-          "kind": "text",
+          "object_id": "n4_dot",
+          "kind": "shape",
           "z_index": 19
         },
         {
-          "object_id": "db1",
-          "kind": "shape",
+          "object_id": "n4_t",
+          "kind": "text",
           "z_index": 20
         },
         {
-          "object_id": "db1_t",
+          "object_id": "n4_n",
           "kind": "text",
           "z_index": 21
         },
         {
-          "object_id": "db2",
+          "object_id": "mono_r",
           "kind": "shape",
           "z_index": 22
         },
         {
-          "object_id": "db2_t",
+          "object_id": "mono_lab",
           "kind": "text",
           "z_index": 23
         },
         {
-          "object_id": "db3",
-          "kind": "shape",
+          "object_id": "mono",
+          "kind": "text",
           "z_index": 24
         },
         {
-          "object_id": "db3_t",
+          "object_id": "note",
           "kind": "text",
           "z_index": 25
-        },
-        {
-          "object_id": "db4",
-          "kind": "shape",
-          "z_index": 26
-        },
-        {
-          "object_id": "db4_t",
-          "kind": "text",
-          "z_index": 27
-        },
-        {
-          "object_id": "db5",
-          "kind": "shape",
-          "z_index": 28
-        },
-        {
-          "object_id": "db5_t",
-          "kind": "text",
-          "z_index": 29
-        },
-        {
-          "object_id": "db6",
-          "kind": "shape",
-          "z_index": 30
-        },
-        {
-          "object_id": "db6_t",
-          "kind": "text",
-          "z_index": 31
-        },
-        {
-          "object_id": "db7",
-          "kind": "shape",
-          "z_index": 32
-        },
-        {
-          "object_id": "db7_t",
-          "kind": "text",
-          "z_index": 33
-        },
-        {
-          "object_id": "db_date",
-          "kind": "text",
-          "z_index": 34
-        },
-        {
-          "object_id": "qry_card",
-          "kind": "shape",
-          "z_index": 35
-        },
-        {
-          "object_id": "qry_h",
-          "kind": "text",
-          "z_index": 36
-        },
-        {
-          "object_id": "qry_b",
-          "kind": "text",
-          "z_index": 37
         }
       ],
-      "notes_chars": 316
+      "notes_chars": 364
     },
     {
-      "slide_id": "s07_metode2",
+      "slide_id": "s07_penyaringan",
       "objects": [
         {
           "object_id": "bg",
@@ -1123,7 +953,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -1138,95 +968,65 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "inc_h",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "i1_card",
-          "kind": "shape",
+          "object_id": "inc_b",
+          "kind": "text",
           "z_index": 10
         },
         {
-          "object_id": "i1_h",
-          "kind": "text",
+          "object_id": "divider",
+          "kind": "shape",
           "z_index": 11
         },
         {
-          "object_id": "i1_b",
+          "object_id": "exc_h",
           "kind": "text",
           "z_index": 12
         },
         {
-          "object_id": "i2_card",
-          "kind": "shape",
+          "object_id": "exc_b",
+          "kind": "text",
           "z_index": 13
         },
         {
-          "object_id": "i2_h",
-          "kind": "text",
+          "object_id": "base",
+          "kind": "shape",
           "z_index": 14
         },
         {
-          "object_id": "i2_b",
+          "object_id": "base_t",
           "kind": "text",
           "z_index": 15
-        },
-        {
-          "object_id": "i3_card",
-          "kind": "shape",
-          "z_index": 16
-        },
-        {
-          "object_id": "i3_h",
-          "kind": "text",
-          "z_index": 17
-        },
-        {
-          "object_id": "i3_b",
-          "kind": "text",
-          "z_index": 18
-        },
-        {
-          "object_id": "i4_card",
-          "kind": "shape",
-          "z_index": 19
-        },
-        {
-          "object_id": "i4_h",
-          "kind": "text",
-          "z_index": 20
-        },
-        {
-          "object_id": "i4_b",
-          "kind": "text",
-          "z_index": 21
         }
       ],
-      "notes_chars": 296
+      "notes_chars": 278
     },
     {
-      "slide_id": "s08_hasil1",
+      "slide_id": "s08_hasil_seleksi",
       "objects": [
         {
           "object_id": "bg",
@@ -1234,7 +1034,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -1249,33 +1049,33 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "nos_chart",
+          "kind": "chart",
           "z_index": 9
         },
         {
-          "object_id": "k1_card",
-          "kind": "shape",
+          "object_id": "nos_cap",
+          "kind": "text",
           "z_index": 10
         },
         {
@@ -1284,251 +1084,65 @@
           "z_index": 11
         },
         {
-          "object_id": "k1_l",
+          "object_id": "k1_n",
           "kind": "text",
           "z_index": 12
         },
         {
-          "object_id": "k1_n",
-          "kind": "text",
-          "z_index": 13
-        },
-        {
-          "object_id": "k2_card",
+          "object_id": "k1_r",
           "kind": "shape",
-          "z_index": 14
+          "z_index": 13
         },
         {
           "object_id": "k2_v",
           "kind": "text",
-          "z_index": 15
-        },
-        {
-          "object_id": "k2_l",
-          "kind": "text",
-          "z_index": 16
+          "z_index": 14
         },
         {
           "object_id": "k2_n",
           "kind": "text",
-          "z_index": 17
+          "z_index": 15
         },
         {
-          "object_id": "k3_card",
+          "object_id": "k2_r",
           "kind": "shape",
-          "z_index": 18
+          "z_index": 16
         },
         {
           "object_id": "k3_v",
           "kind": "text",
-          "z_index": 19
-        },
-        {
-          "object_id": "k3_l",
-          "kind": "text",
-          "z_index": 20
+          "z_index": 17
         },
         {
           "object_id": "k3_n",
           "kind": "text",
-          "z_index": 21
-        },
-        {
-          "object_id": "nos_card",
-          "kind": "shape",
-          "z_index": 22
-        },
-        {
-          "object_id": "nos_h",
-          "kind": "text",
-          "z_index": 23
-        },
-        {
-          "object_id": "nos_chart",
-          "kind": "chart",
-          "z_index": 24
-        },
-        {
-          "object_id": "q_card",
-          "kind": "shape",
-          "z_index": 25
-        },
-        {
-          "object_id": "q_h",
-          "kind": "text",
-          "z_index": 26
-        },
-        {
-          "object_id": "q_b",
-          "kind": "text",
-          "z_index": 27
-        }
-      ],
-      "notes_chars": 304
-    },
-    {
-      "slide_id": "s09_hasil2",
-      "objects": [
-        {
-          "object_id": "bg",
-          "kind": "shape",
-          "z_index": 1
-        },
-        {
-          "object_id": "accent_bar",
-          "kind": "shape",
-          "z_index": 2
-        },
-        {
-          "object_id": "kicker",
-          "kind": "text",
-          "z_index": 3
-        },
-        {
-          "object_id": "title",
-          "kind": "text",
-          "z_index": 4
-        },
-        {
-          "object_id": "rule_teal",
-          "kind": "shape",
-          "z_index": 5
-        },
-        {
-          "object_id": "rule_hair",
-          "kind": "shape",
-          "z_index": 6
-        },
-        {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
-          "object_id": "footer",
-          "kind": "text",
-          "z_index": 8
-        },
-        {
-          "object_id": "page",
-          "kind": "text",
-          "z_index": 9
-        },
-        {
-          "object_id": "hero_card",
-          "kind": "shape",
-          "z_index": 10
-        },
-        {
-          "object_id": "hero_lab",
-          "kind": "text",
-          "z_index": 11
-        },
-        {
-          "object_id": "hero_v",
-          "kind": "text",
-          "z_index": 12
-        },
-        {
-          "object_id": "hero_ci",
-          "kind": "text",
-          "z_index": 13
-        },
-        {
-          "object_id": "hero_note",
-          "kind": "text",
-          "z_index": 14
-        },
-        {
-          "object_id": "dough_card",
-          "kind": "shape",
-          "z_index": 15
-        },
-        {
-          "object_id": "dough_h",
-          "kind": "text",
-          "z_index": 16
-        },
-        {
-          "object_id": "dough_chart",
-          "kind": "chart",
-          "z_index": 17
-        },
-        {
-          "object_id": "dough_center",
-          "kind": "text",
           "z_index": 18
         },
         {
-          "object_id": "lg1_dot",
+          "object_id": "k3_r",
           "kind": "shape",
           "z_index": 19
         },
         {
-          "object_id": "lg1_t",
+          "object_id": "k4_v",
           "kind": "text",
           "z_index": 20
         },
         {
-          "object_id": "lg2_dot",
-          "kind": "shape",
+          "object_id": "k4_n",
+          "kind": "text",
           "z_index": 21
         },
         {
-          "object_id": "lg2_t",
-          "kind": "text",
+          "object_id": "k4_r",
+          "kind": "shape",
           "z_index": 22
-        },
-        {
-          "object_id": "h1_card",
-          "kind": "shape",
-          "z_index": 23
-        },
-        {
-          "object_id": "h1_h",
-          "kind": "text",
-          "z_index": 24
-        },
-        {
-          "object_id": "h1_b",
-          "kind": "text",
-          "z_index": 25
-        },
-        {
-          "object_id": "h2_card",
-          "kind": "shape",
-          "z_index": 26
-        },
-        {
-          "object_id": "h2_h",
-          "kind": "text",
-          "z_index": 27
-        },
-        {
-          "object_id": "h2_b",
-          "kind": "text",
-          "z_index": 28
-        },
-        {
-          "object_id": "h3_card",
-          "kind": "shape",
-          "z_index": 29
-        },
-        {
-          "object_id": "h3_h",
-          "kind": "text",
-          "z_index": 30
-        },
-        {
-          "object_id": "h3_b",
-          "kind": "text",
-          "z_index": 31
         }
       ],
-      "notes_chars": 324
+      "notes_chars": 283
     },
     {
-      "slide_id": "s10_hasil3",
+      "slide_id": "s09_hasil_prevalensi",
       "objects": [
         {
           "object_id": "bg",
@@ -1536,7 +1150,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -1551,33 +1165,194 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "hero_v",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "v1_card",
+          "object_id": "hero_ci",
+          "kind": "text",
+          "z_index": 10
+        },
+        {
+          "object_id": "hero_r",
           "kind": "shape",
+          "z_index": 11
+        },
+        {
+          "object_id": "hero_n",
+          "kind": "text",
+          "z_index": 12
+        },
+        {
+          "object_id": "dough",
+          "kind": "chart",
+          "z_index": 13
+        },
+        {
+          "object_id": "dough_c",
+          "kind": "text",
+          "z_index": 14
+        },
+        {
+          "object_id": "dough_l",
+          "kind": "text",
+          "z_index": 15
+        },
+        {
+          "object_id": "b1_v",
+          "kind": "text",
+          "z_index": 16
+        },
+        {
+          "object_id": "b1_l",
+          "kind": "text",
+          "z_index": 17
+        },
+        {
+          "object_id": "b2_v",
+          "kind": "text",
+          "z_index": 18
+        },
+        {
+          "object_id": "b2_l",
+          "kind": "text",
+          "z_index": 19
+        },
+        {
+          "object_id": "b2_div",
+          "kind": "shape",
+          "z_index": 20
+        },
+        {
+          "object_id": "b3_v",
+          "kind": "text",
+          "z_index": 21
+        },
+        {
+          "object_id": "b3_l",
+          "kind": "text",
+          "z_index": 22
+        },
+        {
+          "object_id": "b3_div",
+          "kind": "shape",
+          "z_index": 23
+        },
+        {
+          "object_id": "d1_h",
+          "kind": "text",
+          "z_index": 24
+        },
+        {
+          "object_id": "d1_n",
+          "kind": "text",
+          "z_index": 25
+        },
+        {
+          "object_id": "d2_h",
+          "kind": "text",
+          "z_index": 26
+        },
+        {
+          "object_id": "d2_n",
+          "kind": "text",
+          "z_index": 27
+        },
+        {
+          "object_id": "d3_h",
+          "kind": "text",
+          "z_index": 28
+        },
+        {
+          "object_id": "d3_n",
+          "kind": "text",
+          "z_index": 29
+        },
+        {
+          "object_id": "diag_lab",
+          "kind": "text",
+          "z_index": 30
+        },
+        {
+          "object_id": "diag_r",
+          "kind": "shape",
+          "z_index": 31
+        }
+      ],
+      "notes_chars": 370
+    },
+    {
+      "slide_id": "s10_hasil_keparahan",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 1
+        },
+        {
+          "object_id": "accent_tick",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "rule",
+          "kind": "shape",
+          "z_index": 5
+        },
+        {
+          "object_id": "rail",
+          "kind": "shape",
+          "z_index": 6
+        },
+        {
+          "object_id": "footer",
+          "kind": "text",
+          "z_index": 7
+        },
+        {
+          "object_id": "page",
+          "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "bar_chart",
+          "kind": "chart",
+          "z_index": 9
+        },
+        {
+          "object_id": "bar_cap",
+          "kind": "text",
           "z_index": 10
         },
         {
@@ -1596,7 +1371,7 @@
           "z_index": 13
         },
         {
-          "object_id": "v2_card",
+          "object_id": "v1_r",
           "kind": "shape",
           "z_index": 14
         },
@@ -1616,7 +1391,7 @@
           "z_index": 17
         },
         {
-          "object_id": "v3_card",
+          "object_id": "v2_r",
           "kind": "shape",
           "z_index": 18
         },
@@ -1636,47 +1411,12 @@
           "z_index": 21
         },
         {
-          "object_id": "bar_card",
+          "object_id": "v3_r",
           "kind": "shape",
           "z_index": 22
-        },
-        {
-          "object_id": "bar_h",
-          "kind": "text",
-          "z_index": 23
-        },
-        {
-          "object_id": "bar_chart",
-          "kind": "chart",
-          "z_index": 24
-        },
-        {
-          "object_id": "read_card",
-          "kind": "shape",
-          "z_index": 25
-        },
-        {
-          "object_id": "read_h",
-          "kind": "text",
-          "z_index": 26
-        },
-        {
-          "object_id": "read_b",
-          "kind": "text",
-          "z_index": 27
-        },
-        {
-          "object_id": "read_rule",
-          "kind": "shape",
-          "z_index": 28
-        },
-        {
-          "object_id": "read_note",
-          "kind": "text",
-          "z_index": 29
         }
       ],
-      "notes_chars": 369
+      "notes_chars": 385
     },
     {
       "slide_id": "s11_subanalisis",
@@ -1687,7 +1427,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -1702,132 +1442,117 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
-          "z_index": 9
+          "z_index": 8
         },
         {
-          "object_id": "geo_card",
-          "kind": "shape",
-          "z_index": 10
-        },
-        {
-          "object_id": "geo_h",
+          "object_id": "geo_lab",
           "kind": "text",
-          "z_index": 11
+          "z_index": 9
         },
         {
           "object_id": "geo1_lab",
           "kind": "text",
-          "z_index": 12
+          "z_index": 10
         },
         {
           "object_id": "geo1_val",
           "kind": "text",
-          "z_index": 13
+          "z_index": 11
         },
         {
           "object_id": "geo1_track",
           "kind": "shape",
-          "z_index": 14
+          "z_index": 12
         },
         {
           "object_id": "geo1_fill",
           "kind": "shape",
-          "z_index": 15
+          "z_index": 13
         },
         {
           "object_id": "geo2_lab",
           "kind": "text",
-          "z_index": 16
+          "z_index": 14
         },
         {
           "object_id": "geo2_val",
           "kind": "text",
-          "z_index": 17
+          "z_index": 15
         },
         {
           "object_id": "geo2_track",
           "kind": "shape",
-          "z_index": 18
+          "z_index": 16
         },
         {
           "object_id": "geo2_fill",
           "kind": "shape",
-          "z_index": 19
+          "z_index": 17
         },
         {
           "object_id": "geo_scale",
           "kind": "text",
+          "z_index": 18
+        },
+        {
+          "object_id": "geo_r",
+          "kind": "shape",
+          "z_index": 19
+        },
+        {
+          "object_id": "geo_n",
+          "kind": "text",
           "z_index": 20
         },
         {
-          "object_id": "geo_rule",
+          "object_id": "crit_block",
           "kind": "shape",
           "z_index": 21
         },
         {
-          "object_id": "geo_note",
+          "object_id": "crit_lab",
           "kind": "text",
           "z_index": 22
         },
         {
-          "object_id": "crit_card",
-          "kind": "shape",
+          "object_id": "crit_v",
+          "kind": "text",
           "z_index": 23
         },
         {
-          "object_id": "crit_h",
+          "object_id": "crit_n",
           "kind": "text",
           "z_index": 24
         },
         {
-          "object_id": "crit_v",
+          "object_id": "small_h",
           "kind": "text",
           "z_index": 25
         },
         {
-          "object_id": "crit_b",
+          "object_id": "small_n",
           "kind": "text",
           "z_index": 26
-        },
-        {
-          "object_id": "small_card",
-          "kind": "shape",
-          "z_index": 27
-        },
-        {
-          "object_id": "small_h",
-          "kind": "text",
-          "z_index": 28
-        },
-        {
-          "object_id": "small_b",
-          "kind": "text",
-          "z_index": 29
         }
       ],
-      "notes_chars": 373
+      "notes_chars": 371
     },
     {
       "slide_id": "s12_diskusi",
@@ -1838,7 +1563,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -1853,92 +1578,82 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "quote",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "main_card",
+          "object_id": "q_r",
           "kind": "shape",
           "z_index": 10
         },
         {
-          "object_id": "main_lab",
+          "object_id": "d1_h",
           "kind": "text",
           "z_index": 11
         },
         {
-          "object_id": "main_t",
+          "object_id": "d1_b",
           "kind": "text",
           "z_index": 12
         },
         {
-          "object_id": "d1_card",
+          "object_id": "d1_r",
           "kind": "shape",
           "z_index": 13
         },
         {
-          "object_id": "d1_h",
+          "object_id": "d2_h",
           "kind": "text",
           "z_index": 14
         },
         {
-          "object_id": "d1_b",
+          "object_id": "d2_b",
           "kind": "text",
           "z_index": 15
         },
         {
-          "object_id": "d2_card",
+          "object_id": "d2_r",
           "kind": "shape",
           "z_index": 16
         },
         {
-          "object_id": "d2_h",
+          "object_id": "d3_h",
           "kind": "text",
           "z_index": 17
         },
         {
-          "object_id": "d2_b",
+          "object_id": "d3_b",
           "kind": "text",
           "z_index": 18
         },
         {
-          "object_id": "d3_card",
-          "kind": "shape",
+          "object_id": "disc_close",
+          "kind": "text",
           "z_index": 19
-        },
-        {
-          "object_id": "d3_h",
-          "kind": "text",
-          "z_index": 20
-        },
-        {
-          "object_id": "d3_b",
-          "kind": "text",
-          "z_index": 21
         }
       ],
-      "notes_chars": 273
+      "notes_chars": 280
     },
     {
       "slide_id": "s13_appraisal",
@@ -1949,7 +1664,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -1964,62 +1679,62 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
-          "z_index": 9
-        },
-        {
-          "object_id": "str_card",
-          "kind": "shape",
-          "z_index": 10
+          "z_index": 8
         },
         {
           "object_id": "str_h",
           "kind": "text",
-          "z_index": 11
+          "z_index": 9
         },
         {
           "object_id": "str_b",
           "kind": "text",
-          "z_index": 12
+          "z_index": 10
         },
         {
-          "object_id": "lim_card",
+          "object_id": "div",
           "kind": "shape",
-          "z_index": 13
+          "z_index": 11
         },
         {
           "object_id": "lim_h",
           "kind": "text",
-          "z_index": 14
+          "z_index": 12
         },
         {
           "object_id": "lim_b",
           "kind": "text",
+          "z_index": 13
+        },
+        {
+          "object_id": "base",
+          "kind": "shape",
+          "z_index": 14
+        },
+        {
+          "object_id": "base_t",
+          "kind": "text",
           "z_index": 15
         }
       ],
-      "notes_chars": 384
+      "notes_chars": 269
     },
     {
       "slide_id": "s14_implikasi",
@@ -2030,7 +1745,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -2045,162 +1760,142 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "step_line",
+          "kind": "shape",
           "z_index": 9
         },
         {
-          "object_id": "a1_card",
+          "object_id": "a1_dot",
           "kind": "shape",
           "z_index": 10
         },
         {
-          "object_id": "a1_chip",
-          "kind": "shape",
-          "z_index": 11
-        },
-        {
           "object_id": "a1_n",
           "kind": "text",
-          "z_index": 12
+          "z_index": 11
         },
         {
           "object_id": "a1_h",
           "kind": "text",
-          "z_index": 13
+          "z_index": 12
         },
         {
           "object_id": "a1_b",
           "kind": "text",
+          "z_index": 13
+        },
+        {
+          "object_id": "a2_dot",
+          "kind": "shape",
           "z_index": 14
-        },
-        {
-          "object_id": "a2_card",
-          "kind": "shape",
-          "z_index": 15
-        },
-        {
-          "object_id": "a2_chip",
-          "kind": "shape",
-          "z_index": 16
         },
         {
           "object_id": "a2_n",
           "kind": "text",
-          "z_index": 17
+          "z_index": 15
         },
         {
           "object_id": "a2_h",
           "kind": "text",
-          "z_index": 18
+          "z_index": 16
         },
         {
           "object_id": "a2_b",
           "kind": "text",
+          "z_index": 17
+        },
+        {
+          "object_id": "a2_div",
+          "kind": "shape",
+          "z_index": 18
+        },
+        {
+          "object_id": "a3_dot",
+          "kind": "shape",
           "z_index": 19
-        },
-        {
-          "object_id": "a3_card",
-          "kind": "shape",
-          "z_index": 20
-        },
-        {
-          "object_id": "a3_chip",
-          "kind": "shape",
-          "z_index": 21
         },
         {
           "object_id": "a3_n",
           "kind": "text",
-          "z_index": 22
+          "z_index": 20
         },
         {
           "object_id": "a3_h",
           "kind": "text",
-          "z_index": 23
+          "z_index": 21
         },
         {
           "object_id": "a3_b",
           "kind": "text",
+          "z_index": 22
+        },
+        {
+          "object_id": "a3_div",
+          "kind": "shape",
+          "z_index": 23
+        },
+        {
+          "object_id": "a4_dot",
+          "kind": "shape",
           "z_index": 24
-        },
-        {
-          "object_id": "a4_card",
-          "kind": "shape",
-          "z_index": 25
-        },
-        {
-          "object_id": "a4_chip",
-          "kind": "shape",
-          "z_index": 26
         },
         {
           "object_id": "a4_n",
           "kind": "text",
-          "z_index": 27
+          "z_index": 25
         },
         {
           "object_id": "a4_h",
           "kind": "text",
-          "z_index": 28
+          "z_index": 26
         },
         {
           "object_id": "a4_b",
           "kind": "text",
+          "z_index": 27
+        },
+        {
+          "object_id": "a4_div",
+          "kind": "shape",
+          "z_index": 28
+        },
+        {
+          "object_id": "school",
+          "kind": "shape",
           "z_index": 29
         },
         {
-          "object_id": "ar14a",
+          "object_id": "school_tick",
           "kind": "shape",
           "z_index": 30
         },
         {
-          "object_id": "ar14b",
-          "kind": "shape",
-          "z_index": 31
-        },
-        {
-          "object_id": "ar14c",
-          "kind": "shape",
-          "z_index": 32
-        },
-        {
-          "object_id": "school_card",
-          "kind": "shape",
-          "z_index": 33
-        },
-        {
-          "object_id": "school_lab",
-          "kind": "text",
-          "z_index": 34
-        },
-        {
           "object_id": "school_t",
           "kind": "text",
-          "z_index": 35
+          "z_index": 31
         }
       ],
-      "notes_chars": 347
+      "notes_chars": 283
     },
     {
       "slide_id": "s15_kesimpulan",
@@ -2211,7 +1906,7 @@
           "z_index": 1
         },
         {
-          "object_id": "accent_bar",
+          "object_id": "accent_tick",
           "kind": "shape",
           "z_index": 2
         },
@@ -2226,122 +1921,97 @@
           "z_index": 4
         },
         {
-          "object_id": "rule_teal",
+          "object_id": "rule",
           "kind": "shape",
           "z_index": 5
         },
         {
-          "object_id": "rule_hair",
+          "object_id": "rail",
           "kind": "shape",
           "z_index": 6
         },
         {
-          "object_id": "rail",
-          "kind": "shape",
-          "z_index": 7
-        },
-        {
           "object_id": "footer",
           "kind": "text",
-          "z_index": 8
+          "z_index": 7
         },
         {
           "object_id": "page",
           "kind": "text",
+          "z_index": 8
+        },
+        {
+          "object_id": "g1_v",
+          "kind": "text",
           "z_index": 9
         },
         {
-          "object_id": "f1_card",
-          "kind": "shape",
+          "object_id": "g1_l",
+          "kind": "text",
           "z_index": 10
         },
         {
-          "object_id": "f1_v",
+          "object_id": "g1_n",
           "kind": "text",
           "z_index": 11
         },
         {
-          "object_id": "f1_s",
+          "object_id": "g2_v",
           "kind": "text",
           "z_index": 12
         },
         {
-          "object_id": "f1_b",
+          "object_id": "g2_l",
           "kind": "text",
           "z_index": 13
         },
         {
-          "object_id": "f2_card",
-          "kind": "shape",
+          "object_id": "g2_n",
+          "kind": "text",
           "z_index": 14
         },
         {
-          "object_id": "f2_v",
-          "kind": "text",
+          "object_id": "g2_div",
+          "kind": "shape",
           "z_index": 15
         },
         {
-          "object_id": "f2_s",
+          "object_id": "g3_v",
           "kind": "text",
           "z_index": 16
         },
         {
-          "object_id": "f2_b",
+          "object_id": "g3_l",
           "kind": "text",
           "z_index": 17
         },
         {
-          "object_id": "f3_card",
-          "kind": "shape",
+          "object_id": "g3_n",
+          "kind": "text",
           "z_index": 18
         },
         {
-          "object_id": "f3_v",
-          "kind": "text",
+          "object_id": "g3_div",
+          "kind": "shape",
           "z_index": 19
         },
         {
-          "object_id": "f3_s",
-          "kind": "text",
+          "object_id": "close_r",
+          "kind": "shape",
           "z_index": 20
         },
         {
-          "object_id": "f3_b",
+          "object_id": "close",
           "kind": "text",
           "z_index": 21
         },
         {
-          "object_id": "close_card",
-          "kind": "shape",
+          "object_id": "refs",
+          "kind": "text",
           "z_index": 22
-        },
-        {
-          "object_id": "close_tick",
-          "kind": "shape",
-          "z_index": 23
-        },
-        {
-          "object_id": "close_t",
-          "kind": "text",
-          "z_index": 24
-        },
-        {
-          "object_id": "ref_card",
-          "kind": "shape",
-          "z_index": 25
-        },
-        {
-          "object_id": "ref_h",
-          "kind": "text",
-          "z_index": 26
-        },
-        {
-          "object_id": "ref_b",
-          "kind": "text",
-          "z_index": 27
         }
       ],
-      "notes_chars": 344
+      "notes_chars": 315
     }
   ]
 }

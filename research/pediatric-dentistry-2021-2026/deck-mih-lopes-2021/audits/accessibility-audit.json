@@ -1,52 +1,40 @@
 {
-  "audited_at": "2026-10-13T05:44:50+00:00",
+  "audited_at": "2026-10-13T05:53:29+00:00",
   "language": "id-ID",
   "slides": [
     {
       "slide_id": "s01_cover",
-      "title": "Prevalensi Molar-Incisor Hypomineralization pada Anak dan Remaja",
+      "title": "Molar-Incisor Hypomineralization pada anak dan remaja",
       "reading_order": [
         "kicker",
         "title",
-        "subtitle",
         "orig",
         "meta",
         "hero_v",
-        "hero_l",
-        "hero_chip_t"
+        "hero_l"
       ],
-      "objects": 29
+      "objects": 21
     },
     {
       "slide_id": "s02_ringkasan",
-      "title": "Inti artikel dalam satu slide",
+      "title": "Ringkasan",
       "reading_order": [
         "kicker",
         "title",
-        "t1_v",
-        "t1_l",
-        "t1_n",
-        "t2_v",
-        "t2_l",
-        "t2_n",
-        "t3_v",
-        "t3_l",
-        "t3_n",
-        "c1_h",
-        "c1_b",
-        "c2_h",
-        "c2_b",
-        "c3_h",
-        "c3_b",
-        "c4_h",
-        "c4_b",
-        "c5_h",
-        "c5_b",
-        "c6_h",
-        "c6_b",
-        "take_t"
+        "hero_v",
+        "hero_l",
+        "hero_n",
+        "f1_v",
+        "f1_n",
+        "f2_v",
+        "f2_n",
+        "f3_v",
+        "f3_n",
+        "f4_v",
+        "f4_n",
+        "close"
       ],
-      "objects": 42
+      "objects": 25
     },
     {
       "slide_id": "s03_mih",
@@ -54,42 +42,37 @@
       "reading_order": [
         "kicker",
         "title",
-        "a_h",
-        "a_b",
-        "b_h",
-        "b_b",
-        "c_h",
-        "c_b",
-        "why_h",
-        "why_b",
-        "steps_lab",
-        "s1_t",
-        "s2_t",
-        "s3_t",
-        "steps_note"
+        "lead",
+        "occl_cap",
+        "lg_molar_t",
+        "lg_inc_t",
+        "sw_cap",
+        "r1_h",
+        "r1_b",
+        "r2_h",
+        "r2_b",
+        "r3_h",
+        "r3_b"
       ],
-      "objects": 31
+      "objects": 43
     },
     {
       "slide_id": "s04_gap",
-      "title": "Angka laporan yang tersebar luas",
+      "title": "Angka laporan tersebar dari 2,8% sampai 40,2%",
       "reading_order": [
         "kicker",
         "title",
-        "range_h",
-        "anno_prev",
-        "m_lo_lab",
-        "m_hi_lab",
-        "anno_this",
-        "scale",
-        "g1_h",
-        "g1_b",
-        "g2_h",
-        "g2_b",
-        "g3_h",
-        "g3_b"
+        "scale_lab",
+        "lo_t",
+        "hi_t",
+        "mid_t",
+        "prev_t",
+        "k1_t",
+        "k2_t",
+        "k3_t",
+        "closing"
       ],
-      "objects": 31
+      "objects": 25
     },
     {
       "slide_id": "s05_tujuan",
@@ -97,129 +80,124 @@
       "reading_order": [
         "kicker",
         "title",
+        "P_l",
+        "P_t",
+        "P_d",
+        "E_l",
+        "E_t",
+        "E_d",
+        "C_l",
+        "C_t",
+        "C_d",
+        "O_l",
+        "O_t",
+        "O_d",
         "q_t",
-        "p_l",
-        "p_t",
-        "e_l",
-        "e_t",
-        "c_l",
-        "c_t",
-        "o_l",
-        "o_t",
-        "out_h",
-        "r0_n",
-        "r0_t",
-        "r0_l",
-        "r0_d",
-        "r1_n",
-        "r1_t",
-        "r1_l",
-        "r1_d",
-        "r2_n",
-        "r2_t",
-        "r2_l",
-        "r2_d",
-        "r3_n",
-        "r3_t",
-        "r3_l",
-        "r3_d"
+        "out_lab",
+        "o1_t",
+        "o1_ty",
+        "o1_src",
+        "o2_t",
+        "o2_ty",
+        "o2_src",
+        "o3_t",
+        "o3_ty",
+        "o3_src",
+        "o4_t",
+        "o4_ty",
+        "o4_src"
       ],
-      "objects": 45
+      "objects": 42
     },
     {
-      "slide_id": "s06_metode1",
-      "title": "Cara penulis mencari bukti",
+      "slide_id": "s06_metode",
+      "title": "Cara penulis mengumpulkan bukti",
       "reading_order": [
         "kicker",
         "title",
-        "d_h",
-        "d_b",
-        "note_h",
-        "note_b",
-        "db_h",
-        "db0_t",
-        "db1_t",
-        "db2_t",
-        "db3_t",
-        "db4_t",
-        "db5_t",
-        "db6_t",
-        "db7_t",
-        "db_date",
-        "qry_h",
-        "qry_b"
+        "n1_t",
+        "n1_n",
+        "n2_t",
+        "n2_n",
+        "n3_t",
+        "n3_n",
+        "n4_t",
+        "n4_n",
+        "mono_lab",
+        "mono",
+        "note"
       ],
-      "objects": 37
+      "objects": 25
     },
     {
-      "slide_id": "s07_metode2",
-      "title": "Cara penulis menyaring dan menimbang bukti",
+      "slide_id": "s07_penyaringan",
+      "title": "Aturan masuk dan keluar",
       "reading_order": [
         "kicker",
         "title",
-        "i1_h",
-        "i1_b",
-        "i2_h",
-        "i2_b",
-        "i3_h",
-        "i3_b",
-        "i4_h",
-        "i4_b"
+        "inc_h",
+        "inc_b",
+        "exc_h",
+        "exc_b",
+        "base_t"
       ],
-      "objects": 21
+      "objects": 15
     },
     {
-      "slide_id": "s08_hasil1",
-      "title": "116 studi lolos seleksi, dan mutunya tinggi",
+      "slide_id": "s08_hasil_seleksi",
+      "title": "116 studi lolos, dan mutunya tinggi",
       "reading_order": [
         "kicker",
         "title",
+        "nos_chart",
+        "nos_cap",
         "k1_v",
-        "k1_l",
         "k1_n",
         "k2_v",
-        "k2_l",
         "k2_n",
         "k3_v",
-        "k3_l",
         "k3_n",
-        "nos_h",
-        "nos_chart",
-        "q_h",
-        "q_b"
+        "k4_v",
+        "k4_n"
       ],
-      "objects": 27
+      "objects": 22
     },
     {
-      "slide_id": "s09_hasil2",
+      "slide_id": "s09_hasil_prevalensi",
       "title": "Prevalensi global 13,5%",
       "reading_order": [
         "kicker",
         "title",
-        "hero_lab",
         "hero_v",
         "hero_ci",
-        "hero_note",
-        "dough_h",
-        "dough_chart",
-        "dough_center",
-        "lg1_t",
-        "lg2_t",
-        "h1_h",
-        "h1_b",
-        "h2_h",
-        "h2_b",
-        "h3_h",
-        "h3_b"
+        "hero_n",
+        "dough",
+        "dough_c",
+        "dough_l",
+        "b1_v",
+        "b1_l",
+        "b2_v",
+        "b2_l",
+        "b3_v",
+        "b3_l",
+        "d1_h",
+        "d1_n",
+        "d2_h",
+        "d2_n",
+        "d3_h",
+        "d3_n",
+        "diag_lab"
       ],
       "objects": 31
     },
     {
-      "slide_id": "s10_hasil3",
-      "title": "Keparahan dan gigi yang terkena",
+      "slide_id": "s10_hasil_keparahan",
+      "title": "Lebih dari sepertiga kasus sudah sedang sampai berat",
       "reading_order": [
         "kicker",
         "title",
+        "bar_chart",
+        "bar_cap",
         "v1_v",
         "v1_l",
         "v1_n",
@@ -228,69 +206,65 @@
         "v2_n",
         "v3_v",
         "v3_l",
-        "v3_n",
-        "bar_h",
-        "bar_chart",
-        "read_h",
-        "read_b",
-        "read_note"
+        "v3_n"
       ],
-      "objects": 29
+      "objects": 22
     },
     {
       "slide_id": "s11_subanalisis",
-      "title": "Wilayah dan kriteria diagnostik",
+      "title": "Wilayah berbeda, kriteria lebih menentukan",
       "reading_order": [
         "kicker",
         "title",
-        "geo_h",
+        "geo_lab",
         "geo1_lab",
         "geo1_val",
         "geo2_lab",
         "geo2_val",
         "geo_scale",
-        "geo_note",
-        "crit_h",
+        "geo_n",
+        "crit_lab",
         "crit_v",
-        "crit_b",
+        "crit_n",
         "small_h",
-        "small_b"
+        "small_n"
       ],
-      "objects": 29
+      "objects": 26
     },
     {
       "slide_id": "s12_diskusi",
-      "title": "Apa yang menurut penulis menjelaskan variasi ini",
+      "title": "Yang menurut penulis menjelaskan variasi",
       "reading_order": [
         "kicker",
         "title",
-        "main_lab",
-        "main_t",
+        "quote",
         "d1_h",
         "d1_b",
         "d2_h",
         "d2_b",
         "d3_h",
-        "d3_b"
+        "d3_b",
+        "disc_close"
       ],
-      "objects": 21
+      "objects": 19
     },
     {
       "slide_id": "s13_appraisal",
-      "title": "Kekuatan dan keterbatasan artikel ini",
+      "title": "Yang kuat dan yang perlu dibaca hati-hati",
       "reading_order": [
         "kicker",
         "title",
         "str_h",
         "str_b",
         "lim_h",
-        "lim_b"
+        "lim_b",
+        "base_t"
       ],
       "objects": 15
     },
     {
       "slide_id": "s14_implikasi",
-      "title": "Apa yang bisa dilakukan di klinik",
+      "title": "Langkah praktis di klinik",
       "reading_order": [
         "kicker",
         "title",
@@ -306,31 +280,29 @@
         "a4_n",
         "a4_h",
         "a4_b",
-        "school_lab",
         "school_t"
       ],
-      "objects": 35
+      "objects": 31
     },
     {
       "slide_id": "s15_kesimpulan",
-      "title": "Tiga angka, satu pesan",
+      "title": "Kesimpulan",
       "reading_order": [
         "kicker",
         "title",
-        "f1_v",
-        "f1_s",
-        "f1_b",
-        "f2_v",
-        "f2_s",
-        "f2_b",
-        "f3_v",
-        "f3_s",
-        "f3_b",
-        "close_t",
-        "ref_h",
-        "ref_b"
+        "g1_v",
+        "g1_l",
+        "g1_n",
+        "g2_v",
+        "g2_l",
+        "g2_n",
+        "g3_v",
+        "g3_l",
+        "g3_n",
+        "close",
+        "refs"
       ],
-      "objects": 27
+      "objects": 22
     }
   ]
 }

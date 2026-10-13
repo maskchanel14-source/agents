@@ -33,7 +33,9 @@ ANCHORS = {"top": MSO_ANCHOR.TOP, "middle": MSO_ANCHOR.MIDDLE, "bottom": MSO_ANC
 ALIGNS = {"left": PP_ALIGN.LEFT, "center": PP_ALIGN.CENTER, "right": PP_ALIGN.RIGHT}
 SHAPES = {"rectangle": MSO_SHAPE.RECTANGLE, "rounded_rectangle": MSO_SHAPE.ROUNDED_RECTANGLE,
           "oval": MSO_SHAPE.OVAL, "right_arrow": MSO_SHAPE.RIGHT_ARROW,
-          "isosceles_triangle": MSO_SHAPE.ISOSCELES_TRIANGLE}
+          "isosceles_triangle": MSO_SHAPE.ISOSCELES_TRIANGLE, "triangle": MSO_SHAPE.ISOSCELES_TRIANGLE,
+          "round2same": MSO_SHAPE.ROUND_2_SAME_RECTANGLE, "arc": MSO_SHAPE.ARC,
+          "block_arc": MSO_SHAPE.BLOCK_ARC}
 CHARTS = {"col": XL_CHART_TYPE.COLUMN_CLUSTERED, "bar": XL_CHART_TYPE.BAR_CLUSTERED,
           "doughnut": XL_CHART_TYPE.DOUGHNUT, "pie": XL_CHART_TYPE.PIE}
 
@@ -115,9 +117,22 @@ def add_shape_like(slide, o):
     if shape_type == MSO_SHAPE.ROUNDED_RECTANGLE:
         radius = float(style.get("radius", 0.06))
         shape.adjustments[0] = max(0.0, min(0.5, radius / max(0.01, min(b["width"], b["height"]))))
-    shape.fill.solid()
-    shape.fill.fore_color.rgb = rgb(style.get("fill", "#FFFFFF"))
-    apply_alpha(shape.fill.fore_color._xFill.find(qn("a:srgbClr")), float(style.get("alpha", 100)))
+    if style.get("gradient"):
+        stops = style["gradient"]
+        shape.fill.gradient()
+        gradient_stops = shape.fill.gradient_stops
+        gradient_stops[0].color.rgb = rgb(stops[0])
+        gradient_stops[0].position = 0.0
+        gradient_stops[1].color.rgb = rgb(stops[1])
+        gradient_stops[1].position = 1.0
+        shape.fill.gradient_angle = float(style.get("gradient_angle", 45.0))
+    else:
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = rgb(style.get("fill", "#FFFFFF"))
+        apply_alpha(shape.fill.fore_color._xFill.find(qn("a:srgbClr")),
+                    float(style.get("alpha", 100)))
+    if float(style.get("rotation", 0.0)):
+        shape.rotation = float(style["rotation"])
     if float(style.get("line_width", 1)) <= 0:
         shape.line.fill.background()
     else:
