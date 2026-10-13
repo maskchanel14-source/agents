@@ -1,5 +1,5 @@
 {
-  "audited_at": "2026-10-13T05:53:29+00:00",
+  "audited_at": "2026-10-13T06:05:31+00:00",
   "language": "id-ID",
   "slides": [
     {
@@ -286,7 +286,7 @@
     },
     {
       "slide_id": "s15_kesimpulan",
-      "title": "Kesimpulan",
+      "title": "Tiga angka, satu pesan",
       "reading_order": [
         "kicker",
         "title",

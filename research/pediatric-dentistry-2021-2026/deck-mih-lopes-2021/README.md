@@ -3,20 +3,29 @@
 Deck PowerPoint **editable** (15 slide, bahasa Indonesia) untuk diskusi jurnal kedokteran
 gigi anak, dibangun dari satu artikel dalam daftar `../README.md`.
 
-Versi 3 (revisi kedua). Yang berubah dari versi 2:
+Versi 4. Perubahan utama dari versi 3:
 
-1. **Tata letak disusun ulang per slide.** Versi 2 memakai grid kartu berulang (judul kecil
-   tebal plus dua baris keterangan di dalam kotak) pada hampir semua slide — pola itulah
-   yang membuat deck terasa dibuat mesin. Versi 3 memakai: sampul tipografis dengan tekstur
-   batang email, diagram lengkung gigi, batang rentang, garis waktu horizontal, dua kolom
-   dengan pembatas garis rambut, deret angka besar, dan tiga grafik native.
-2. **Sistem tipe editorial.** Judul memakai Cambria (serif, tersedia di Office Windows dan
-   macOS), teks badan Calibri, kode Consolas. Judul slide dipendekkan menjadi dua sampai
-   lima kata.
-3. **Teks dipotong, detail pindah ke catatan pemateri.** Rata-rata 20 sampai 100 kata isi per
-   slide, total sekitar 1.100 kata untuk 15 slide.
-4. **Kerangka penuntun pembaca dihapus** (“bacalah begini”, “apa artinya”, “catatan
-   pembacaan”, “yang perlu Anda tahu”). Judul menyampaikan temuannya langsung.
+1. **Renderer sungguhan.** Sandbox ini tidak punya PowerPoint, LibreOffice, atau browser,
+   jadi sebelumnya tampilan deck hanya diperkirakan dengan sketsa Pillow dan bug tidak
+   terlihat. `render_deck.py` sekarang membaca paket PPTX, menyusun ulang tiap objek
+   dengan font bermetrik sama lewat ReportLab, lalu merasterkannya dengan PyMuPDF.
+   Hasilnya dipakai untuk menilai desain, dan langsung menemukan tiga bug nyata:
+   elips tergambar keliru, grafik kolom hilang, dan teks mengalir ke arah yang salah.
+2. **Tata letak dinilai ulang dari hasil render**, bukan dari teks spesifikasi.
+   Sampul kini memakai blok judul tiga baris dengan gradien tinta dan tekstur batang
+   email; seluruh slide dicek satu per satu pada resolusi penuh.
+3. **Bahasa dinaikkan ke register medis**: *post-eruptive enamel breakdown*,
+   hipersensitivitas dentin, opasitas berbatas tegas, MIH tipe molar-insisivus,
+   sealant pada molar berisiko, SSC.
+
+## Sumber desain eksternal (design evidence, bukan aset)
+
+| Repo | Lisensi | Yang diambil | Yang tidak diambil |
+|---|---|---|---|
+| [Noi1r/powerpoint-skill](https://github.com/Noi1r/powerpoint-skill) | MIT | Aturan deck akademik: hierarki tipe, batas bawah ukuran huruf, warna aman buta warna, keragaman tata letak, dan larangan garis dekoratif di bawah judul (aturan #11 — garis di bawah judul adalah penanda deck buatan mesin) | Tidak ada skrip PptxGenJS/LaTeX-nya yang dipakai; deck tetap dibangun dengan python-pptx |
+| [microsoft/dstoolkit-DiscoveryEnvisioning](https://github.com/microsoft/dstoolkit-DiscoveryEnvisioning) | MIT | Palet tema dan ritme tata letak, diekstrak read-only memakai skill `pptx-reference-deck-analysis` milik repo ini (39 slide; tema `dk2 #081F2B`, `lt2 #E8E6DF`, `accent1 #0078D3`, `accent2 #28426B`) | Tidak ada slide, gambar, ikon, atau teks Microsoft yang disalin |
+| [SorkinType/Gelasio](https://github.com/SorkinType/Gelasio) | SIL OFL 1.1 | Font pratinjau metrik-sama dengan Georgia | Hanya dipakai untuk renderer, tidak disematkan ke deck |
+| [cssobral2013/LC-Sans](https://github.com/cssobral2013/LC-Sans) | SIL OFL 1.1 | Font pratinjau metrik-sama dengan Calibri | Hanya dipakai untuk renderer, tidak disematkan ke deck |
 
 ## Berkas hasil
 
@@ -27,7 +36,9 @@ Versi 3 (revisi kedua). Yang berubah dari versi 2:
 | `author_spec.py` | Naskah spesifikasi — tiap slide disusun eksplisit di sini |
 | `build_deck.py` | Pembangun PPTX: bentuk native, gradien, rotasi, grafik, transparansi, letter-spacing |
 | `audit_deck.py` | Audit geometri, kolisi, margin, kapasitas teks, type scale, reading order |
-| `preview_spec.py` | Renderer perkiraan (Pillow) untuk pemeriksaan tata letak termasuk grafik |
+| `preview_spec.py` | Sketsa cepat berbasis spec (Pillow); perkiraan kasar, bukan acuan desain |
+| `render_deck.py` | **Renderer sungguhan**: PPTX → PDF (ReportLab, font metrik-sama) → PNG (PyMuPDF). Ini acuan untuk menilai desain |
+| `audits/render/` | Hasil render 15 slide + contact sheet + PDF |
 | `audits/` | Laporan audit + PNG pratinjau tiap slide dan contact sheet |
 | `build_record.json` | Rekaman pembangunan (spec → objek per slide) |
 
@@ -75,7 +86,11 @@ cd research/pediatric-dentistry-2021-2026/deck-mih-lopes-2021
 python3 author_spec.py      # menulis spec.json
 python3 build_deck.py       # menulis Presentasi-Jurnal-MIH-Lopes-2021.pptx + build_record.json
 python3 audit_deck.py       # menulis audits/*.json; exit 0 bila lulus
-python3 preview_spec.py     # opsional: PNG perkiraan termasuk grafik
+python3 preview_spec.py     # opsional: sketsa cepat dari spec
+
+# render sungguhan (butuh reportlab + pymupdf, dan sekali saja: klon font pratinjau)
+python3 render_deck.py --fetch-fonts      # sekaligus: Gelasio + LC-Sans (SIL OFL)
+python3 render_deck.py                    # -> audits/render/*.png + PDF
 
 # integritas paket OOXML memakai skrip skill di repo (dijalankan dari akar repo)
 cd /home/user/agents
@@ -84,7 +99,8 @@ python3 plugins/pptx-deck-creation/skills/pptx-reference-deck-analysis/scripts/v
   --output research/pediatric-dentistry-2021-2026/deck-mih-lopes-2021/audits/package-report.json
 ```
 
-Dependensi: `python-pptx`, `Pillow`, `defusedxml`.
+Dependensi: `python-pptx`, `Pillow`, `defusedxml`, `reportlab`, `pymupdf`
+(`pip install --break-system-packages reportlab pymupdf`).
 
 ## Status audit
 

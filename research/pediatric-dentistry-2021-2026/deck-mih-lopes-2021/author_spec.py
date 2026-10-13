@@ -267,14 +267,14 @@ enamel_rods(s, 8.55, -0.6)
 s.rect("tick", SAFE, 0.92, 0.045, 0.30, S["accent_soft"], role="decoration")
 s.kicker_line("kicker", SAFE + 0.18, 0.90, 7.0, "DISKUSI JURNAL · KEDOKTERAN GIGI ANAK",
               color=S["accent_soft"])
-s.display("title", SAFE, 1.42, 7.05, 1.80,
+s.display("title", SAFE, 1.30, 7.15, 2.16,
           "Molar-Incisor Hypomineralization pada anak dan remaja", size=38,
           color=S["white"], role="title", line_spacing=1.02)
-s.txt("orig", SAFE, 3.30, 6.6, 0.34, "The prevalence of molar-incisor hypomineralization: "
+s.txt("orig", SAFE, 3.52, 6.6, 0.34, "The prevalence of molar-incisor hypomineralization: "
       "a systematic review and meta-analysis", size=10.5, italic=True, color=S["on_ink_muted"],
       src="S1, judul")
-s.hairline("meta_rule", SAFE, 3.78, 6.4, color=S["hair_ink"], h=0.014)
-s.txt("meta", SAFE, 3.94, 6.5, 1.30,
+s.hairline("meta_rule", SAFE, 3.94, 6.4, color=S["hair_ink"], h=0.014)
+s.txt("meta", SAFE, 4.08, 6.5, 1.40,
       "Lopes LB, Machado V, Mascarenhas P, Mendes JJ, Botelho J · Egas Moniz, Portugal\n"
       "Scientific Reports 2021;11:22405 · open access CC BY 4.0\n"
       "PMID 34789780 · PMC8599453 · PROSPERO CRD42021229435",
@@ -332,9 +332,10 @@ s = Slide("s03_mih", "LATAR BELAKANG", "Apa itu MIH",
                 "terang bahwa sampai artikel ini terbit penyebabnya belum diketahui.")
 paper_bg(s)
 s.head(3)
-s.lead("lead", SAFE, 1.84, 5.60, 0.86,
-       "Email pada gigi permanen muda gagal matang. Bercaknya keras, putih sampai cokelat, "
-       "batasnya tegas, dan email itu lebih rapuh daripada email di sebelahnya.", size=13,
+s.lead("lead", SAFE, 1.84, 5.60, 1.06,
+       "Email pada gigi permanen muda gagal matang. Opasitasnya berbatas tegas, warnanya putih "
+       "sampai cokelat, dan jaringan itu lebih rapuh daripada email di sebelahnya sehingga mudah "
+       "pecah setelah gigi erupsi (post-eruptive enamel breakdown).", size=13,
        src="S1, Introduction")
 arch_diagram(s, SAFE + 2.10, 3.92, scale=0.96)
 s.rect("occl_line", SAFE + 0.20, 4.86, 4.30, 0.012, S["hair"], role="illustration")
@@ -353,10 +354,10 @@ s.txt("sw_cap", SAFE + 2.76, 6.02, 2.86, 0.56,
       "Email normal dan email dengan bercak hipomineralisasi.", size=10, italic=True,
       color=S["muted"], line_spacing=1.06, src="S1, Introduction")
 right = [
-    ("r1", "Definisi resminya", "Defek kualitatif email: jumlah mineralnya kurang, bukan "
-                               "jumlah emailnya."),
-    ("r2", "Yang dirasakan anak", "Gigi sensitif, sulit menyikat, dan restorasi sering "
-                                 "harus diulang."),
+    ("r1", "Definisi resminya", "Defek kualitatif email: kandungan mineralnya berkurang, "
+                               "bukan jumlah emailnya."),
+    ("r2", "Yang dirasakan anak", "Hipersensitivitas dentin, sulit menyikat, dan restorasi "
+                                 "yang sering harus diulang."),
     ("r3", "Yang belum jelas", "Penyebabnya belum diketahui, sehingga pencegahan MIH sendiri "
                               "masih belum bisa dilakukan."),
 ]
@@ -621,7 +622,8 @@ s.chart("bar_chart", SAFE, 1.92, 7.65, 3.05, "bar",
 s.txt("bar_cap", SAFE, 5.02, 7.65, 0.30, "Jumlah molar pertama permanen yang terkena, dalam "
       "persen kasus", size=10, italic=True, color=S["muted"], src="S1, Tabel 2")
 stats = [("v1", "36,3%", "sedang sampai berat", "95% CI 29,9–43,2 · 33 studi · I² = 95,2%"),
-         ("v2", "38,7%", "insisivus terkena (Tabel 2)", "abstrak menulis 36,6%"),
+         ("v2", "38,7%", "insisivus terkena (Tabel 2)",
+          "MIH tipe molar-insisivus; abstrak menulis 36,6%"),
          ("v3", "3,6%", "HSPM menyertai MIH", "95% CI 1,9–6,8 · hanya 7 studi")]
 for i, (tag, value, label, note) in enumerate(stats):
     y = 1.96 + i * 1.42
@@ -752,8 +754,9 @@ steps = [("a1", "Periksa lebih awal", "Molar pertama permanen diperiksa begitu e
                                        "klinis, supaya catatan kita sebanding."),
          ("a3", "Catat keparahan", "Keparahan dan jumlah molar yang terkena menentukan "
                                    "intensitas recall."),
-         ("a4", "Tangani seminimal mungkin", "Desensitisasi, sealant, restorasi bila enamel "
-                                             "pecah. Hindari preparasi agresif.")]
+         ("a4", "Tangani seminimal mungkin", "Desensitisasi, sealant pada molar berisiko, "
+                                             "restorasi atau SSC bila enamel pecah. Hindari "
+                                             "preparasi agresif.")]
 s.rect("step_line", SAFE, 2.02, 11.93, 0.012, S["hair"], role="rule")
 for i, (tag, head, body) in enumerate(steps):
     x = SAFE + i * 3.00
@@ -777,7 +780,7 @@ s.txt("school_t", SAFE + 0.30, 4.98, 11.20, 0.90,
 slides.append(s)
 
 # ============================================================================ 15
-s = Slide("s15_kesimpulan", "KESIMPULAN", "Kesimpulan",
+s = Slide("s15_kesimpulan", "KESIMPULAN", "Tiga angka, satu pesan",
           notes="Tutup dengan tiga angka, lalu satu kalimat: MIH sering terlewat, dan "
                 "pencatatan yang rapi membuat data klinik kita sebanding dengan literatur "
                 "internasional. Dua pertanyaan untuk membuka diskusi: apakah angka di "

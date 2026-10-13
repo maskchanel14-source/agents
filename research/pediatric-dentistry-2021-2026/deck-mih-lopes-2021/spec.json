@@ -441,9 +441,9 @@
             },
             "bbox": {
               "x": 0.7,
-              "y": 1.42,
-              "width": 7.05,
-              "height": 1.8
+              "y": 1.3,
+              "width": 7.15,
+              "height": 2.16
             },
             "z_index": 13,
             "source_ref": "",
@@ -472,7 +472,7 @@
             },
             "bbox": {
               "x": 0.7,
-              "y": 3.3,
+              "y": 3.52,
               "width": 6.6,
               "height": 0.34
             },
@@ -499,7 +499,7 @@
             },
             "bbox": {
               "x": 0.7,
-              "y": 3.78,
+              "y": 3.94,
               "width": 6.4,
               "height": 0.014
             },
@@ -532,9 +532,9 @@
             },
             "bbox": {
               "x": 0.7,
-              "y": 3.94,
+              "y": 4.08,
               "width": 6.5,
-              "height": 1.3
+              "height": 1.4
             },
             "z_index": 16,
             "source_ref": "S1, halaman judul",
@@ -1734,7 +1734,7 @@
             "role": "callout",
             "classification": "content",
             "content": {
-              "text": "Email pada gigi permanen muda gagal matang. Bercaknya keras, putih sampai cokelat, batasnya tegas, dan email itu lebih rapuh daripada email di sebelahnya."
+              "text": "Email pada gigi permanen muda gagal matang. Opasitasnya berbatas tegas, warnanya putih sampai cokelat, dan jaringan itu lebih rapuh daripada email di sebelahnya sehingga mudah pecah setelah gigi erupsi (post-eruptive enamel breakdown)."
             },
             "style": {
               "font": "Calibri",
@@ -1754,7 +1754,7 @@
               "x": 0.7,
               "y": 1.84,
               "width": 5.6,
-              "height": 0.86
+              "height": 1.06
             },
             "z_index": 9,
             "source_ref": "S1, Introduction",
@@ -2490,7 +2490,7 @@
             "role": "body",
             "classification": "content",
             "content": {
-              "text": "Defek kualitatif email: jumlah mineralnya kurang, bukan jumlah emailnya."
+              "text": "Defek kualitatif email: kandungan mineralnya berkurang, bukan jumlah emailnya."
             },
             "style": {
               "font": "Calibri",
@@ -2580,7 +2580,7 @@
             "role": "body",
             "classification": "content",
             "content": {
-              "text": "Gigi sensitif, sulit menyikat, dan restorasi sering harus diulang."
+              "text": "Hipersensitivitas dentin, sulit menyikat, dan restorasi yang sering harus diulang."
             },
             "style": {
               "font": "Calibri",
@@ -8281,7 +8281,7 @@
             "role": "body",
             "classification": "content",
             "content": {
-              "text": "abstrak menulis 36,6%"
+              "text": "MIH tipe molar-insisivus; abstrak menulis 36,6%"
             },
             "style": {
               "font": "Calibri",
@@ -11140,7 +11140,7 @@
             "role": "body",
             "classification": "content",
             "content": {
-              "text": "Desensitisasi, sealant, restorasi bila enamel pecah. Hindari preparasi agresif."
+              "text": "Desensitisasi, sealant pada molar berisiko, restorasi atau SSC bila enamel pecah. Hindari preparasi agresif."
             },
             "style": {
               "font": "Calibri",
@@ -11304,7 +11304,7 @@
     },
     {
       "id": "s15_kesimpulan",
-      "title": "Kesimpulan",
+      "title": "Tiga angka, satu pesan",
       "kicker": "KESIMPULAN",
       "notes": "Tutup dengan tiga angka, lalu satu kalimat: MIH sering terlewat, dan pencatatan yang rapi membuat data klinik kita sebanding dengan literatur internasional. Dua pertanyaan untuk membuka diskusi: apakah angka di Indonesia mungkin berbeda, dan apakah kriteria EAPD bisa diterapkan di tempat kerja peserta sehari-hari?",
       "layout_tree": {
@@ -11405,7 +11405,7 @@
             "role": "title",
             "classification": "content",
             "content": {
-              "text": "Kesimpulan"
+              "text": "Tiga angka, satu pesan"
             },
             "style": {
               "font": "Cambria",
@@ -11980,7 +11980,7 @@
         }
       },
       "accessibility": {
-        "title": "Kesimpulan",
+        "title": "Tiga angka, satu pesan",
         "reading_order": [
           "kicker",
           "title",
