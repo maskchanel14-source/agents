@@ -1,0 +1,283 @@
+{
+  "audited_at": "2026-10-13T05:22:04+00:00",
+  "language": "id-ID",
+  "slides": [
+    {
+      "slide_id": "s01_cover",
+      "title": "Prevalensi Molar-Incisor Hypomineralization (MIH) pada Anak dan Remaja",
+      "reading_order": [
+        "kicker",
+        "title",
+        "subtitle",
+        "meta_card",
+        "meta",
+        "presenter",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 11
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "title": "Satu meta-analisis, 116 studi, 113.089 peserta — prevalensi global 13,5%",
+      "reading_order": [
+        "kicker",
+        "title",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "takeaway",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 31
+    },
+    {
+      "slide_id": "s03_mih",
+      "title": "MIH: defek kualitatif email pada gigi permanen muda, etiologi belum diketahui",
+      "reading_order": [
+        "kicker",
+        "title",
+        "d1",
+        "d1t",
+        "d2",
+        "d2t",
+        "d3",
+        "d3t",
+        "impact",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 14
+    },
+    {
+      "slide_id": "s04_gap",
+      "title": "Rentang 2,8%–40,2% menunjukkan masalah standardisasi, bukan sekadar variasi nyata",
+      "reading_order": [
+        "kicker",
+        "title",
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "gap",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 24
+    },
+    {
+      "slide_id": "s05_tujuan",
+      "title": "Satu pertanyaan primer (PECO) dan empat luaran sekunder yang diukur serentak",
+      "reading_order": [
+        "kicker",
+        "title",
+        "peco",
+        "o1",
+        "o2",
+        "o3",
+        "o4",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 24
+    },
+    {
+      "slide_id": "s06_metode1",
+      "title": "Protokol PRISMA terdaftar, tujuh basis data, pencarian sampai Juli 2021",
+      "reading_order": [
+        "kicker",
+        "title",
+        "m1",
+        "m1t",
+        "m2",
+        "m2t",
+        "m3",
+        "m3t",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 13
+    },
+    {
+      "slide_id": "s07_metode2",
+      "title": "Kriteria ketat, penilaian risiko bias oleh dua peneliti, analisis random-effects",
+      "reading_order": [
+        "kicker",
+        "title",
+        "i1",
+        "i1t",
+        "i2",
+        "i2t",
+        "q1",
+        "q1t",
+        "s1",
+        "s1t",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 14
+    },
+    {
+      "slide_id": "s08_hasil1",
+      "title": "116 studi lolos seleksi; mutu metodologis hampir seluruhnya tinggi",
+      "reading_order": [
+        "kicker",
+        "title",
+        "k1",
+        "k1v",
+        "k2",
+        "k2v",
+        "k3",
+        "k3v",
+        "nos_t",
+        "nos",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 23
+    },
+    {
+      "slide_id": "s09_hasil2",
+      "title": "Prevalensi global MIH 13,5% — setara sekitar 1 dari 7–8 anak",
+      "reading_order": [
+        "kicker",
+        "title",
+        "hero",
+        "hero_v",
+        "hero_l",
+        "r1",
+        "r1t",
+        "r2",
+        "r2t",
+        "r3",
+        "r3t",
+        "note",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 16
+    },
+    {
+      "slide_id": "s10_hasil3",
+      "title": "Lebih dari sepertiga kasus tergolong sedang–berat; pola molar bervariasi",
+      "reading_order": [
+        "kicker",
+        "title",
+        "v1",
+        "v1t",
+        "v2",
+        "v2t",
+        "v3",
+        "v3t",
+        "bar_t",
+        "m1",
+        "m1v",
+        "m2",
+        "m2v",
+        "m3",
+        "m3v",
+        "m4",
+        "m4v",
+        "barsrc",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 41
+    },
+    {
+      "slide_id": "s11_subanalisis",
+      "title": "Amerika tertinggi (15,3%) dan Asia terendah (10,7%), namun bedanya tidak bermakna",
+      "reading_order": [
+        "kicker",
+        "title",
+        "g1",
+        "g1v",
+        "g1l",
+        "g2",
+        "g2v",
+        "g2l",
+        "g_note",
+        "crit",
+        "crit_t",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 15
+    },
+    {
+      "slide_id": "s12_diskusi",
+      "title": "Heterogenitas berasal dari variasi wilayah, bukan dari definisi keparahan saja",
+      "reading_order": [
+        "kicker",
+        "title",
+        "p1",
+        "p1t",
+        "p2",
+        "p2t",
+        "p3",
+        "p3t",
+        "p4",
+        "p4t",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 18
+    },
+    {
+      "slide_id": "s13_appraisal",
+      "title": "Kekuatan pada desain dan mutu studi; kelemahan pada heterogenitas dan representativitas",
+      "reading_order": [
+        "kicker",
+        "title",
+        "st",
+        "str_t",
+        "wt",
+        "wk_t",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 10
+    },
+    {
+      "slide_id": "s14_implikasi",
+      "title": "Protokol praktis: skrining usia 6–8 tahun, catat keparahan, tatalaksana minimal invasif",
+      "reading_order": [
+        "kicker",
+        "title",
+        "a1",
+        "a1t",
+        "a2",
+        "a2t",
+        "a3",
+        "a3t",
+        "a4",
+        "a4t",
+        "imp",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 20
+    },
+    {
+      "slide_id": "s15_kesimpulan",
+      "title": "MIH menyerang sekitar 1 dari 7–8 anak — siapkan skrining dan tatalaksananya",
+      "reading_order": [
+        "kicker",
+        "title",
+        "c1",
+        "c2",
+        "c3",
+        "ref_t",
+        "ref",
+        "closing",
+        "footer_src",
+        "page_no"
+      ],
+      "objects": 15
+    }
+  ]
+}

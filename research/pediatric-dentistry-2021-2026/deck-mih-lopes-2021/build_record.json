@@ -1,0 +1,1542 @@
+{
+  "built_at": "2026-10-13T05:22:03+00:00",
+  "spec": "spec.json",
+  "output": "Presentasi-Jurnal-MIH-Lopes-2021.pptx",
+  "slides": [
+    {
+      "slide_id": "s01_cover",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "meta_card",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "cta",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "meta",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "presenter",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "subtitle",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 258
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "c1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c4",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c5",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c6",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "c1h",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c1s",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c1v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c2h",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c2s",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c2v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c3h",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c3s",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c3v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c4h",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c4s",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c4v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c5h",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c5s",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c5v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c6h",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c6s",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c6v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "takeaway",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 266
+    },
+    {
+      "slide_id": "s03_mih",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "d1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "d2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "d3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "impact",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "d1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "d2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "d3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "impact_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 266
+    },
+    {
+      "slide_id": "s04_gap",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "b1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "b2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "b3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "b4",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "gap",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "b1l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b1n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b1v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b2l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b2n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b2v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b3l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b3n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b3v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b4l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b4n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "b4v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "gap_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 284
+    },
+    {
+      "slide_id": "s05_tujuan",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "o1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o1bar",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o2bar",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o3bar",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o4",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "o4bar",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "peco",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o1d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o2d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o3d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o4d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "o4t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "peco_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 241
+    },
+    {
+      "slide_id": "s06_metode1",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "m1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m_note",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 346
+    },
+    {
+      "slide_id": "s07_metode2",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "i1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "i2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "q1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "s1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "i1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "i2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "q1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "s1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 268
+    },
+    {
+      "slide_id": "s08_hasil1",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "k1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "k2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "k3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "nos_card",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "k1l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k1n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k1v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k2l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k2n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k2v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k3l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k3n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "k3v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "nos",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "nos_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "nos_head",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "nos_table",
+          "kind": "table",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 271
+    },
+    {
+      "slide_id": "s09_hasil2",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "hero",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "r1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "r2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "r3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "hero_l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "hero_v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "note",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "r1t",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "r2t",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "r3t",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 311
+    },
+    {
+      "slide_id": "s10_hasil3",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "barsrc",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m1v",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m1x",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m2v",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m2x",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m3v",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m3x",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m4v",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "m4x",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "v1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "v2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "v3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "bar_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "barsrc_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m1",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m1c",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m1l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m2",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m2c",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m2l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m3",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m3c",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m3l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m4",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m4c",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "m4l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v1n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v1v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v2n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v2v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v3n",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "v3v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 379
+    },
+    {
+      "slide_id": "s11_subanalisis",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "crit",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "g1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "g2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "crit_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "g1l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "g1v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "g2l",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "g2v",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "g_note",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 358
+    },
+    {
+      "slide_id": "s12_diskusi",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "p1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "p2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "p3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "p4",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p1d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p2d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p3d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p4d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "p4t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 275
+    },
+    {
+      "slide_id": "s13_appraisal",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "st",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "wt",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "str_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "wk_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 484
+    },
+    {
+      "slide_id": "s14_implikasi",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "a1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "a2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "a3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "a4",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "imp",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "a1d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a2d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a3d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a4d",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "a4t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "imp_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 293
+    },
+    {
+      "slide_id": "s15_kesimpulan",
+      "objects": [
+        {
+          "object_id": "bg",
+          "kind": "shape",
+          "z_index": 0
+        },
+        {
+          "object_id": "c1",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c2",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "c3",
+          "kind": "shape",
+          "z_index": 2
+        },
+        {
+          "object_id": "rule",
+          "kind": "line",
+          "z_index": 2
+        },
+        {
+          "object_id": "c1t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c2t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "c3t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "closing",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "kicker",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "ref",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "ref_t",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "title",
+          "kind": "text",
+          "z_index": 3
+        },
+        {
+          "object_id": "footer_src",
+          "kind": "text",
+          "z_index": 4
+        },
+        {
+          "object_id": "page_no",
+          "kind": "text",
+          "z_index": 4
+        }
+      ],
+      "notes_chars": 355
+    }
+  ]
+}
