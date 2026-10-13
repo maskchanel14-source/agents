@@ -1,0 +1,281 @@
+#!/usr/bin/env python3
+"""Pick the most relevant agent skills for a task.
+
+Builds a compact index of every SKILL.md under plugins/*/skills/ and
+.agents/skills/ (name, source, one-line description), then ranks them
+against a free-text task description.
+
+Usage:
+    python3 tools/skill_router.py index              # write .agents/skill-index.md
+    python3 tools/skill_router.py plan "<task>"      # capability-based skill plan (JSON)
+    python3 tools/skill_router.py search "<task>"    # top 8 matches as JSON lines
+    python3 tools/skill_router.py search "<task>" -n 15
+
+Ranking is a deterministic keyword overlap score (stdlib only, no network).
+It is a shortlist generator: the agent still reads the candidate SKILL.md
+files and decides which ones to load.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+INDEX_PATH = ROOT / ".agents" / "skill-index.md"
+
+STOPWORDS = set(
+    """a an the and or of to in on for with without from by at as is are be it this that
+    these those into about over under than then so if else not no yes do does did how what
+    when where which who why i you we they he she me my our your their use using used
+    can could should would will may might must need needs want wants make made get also
+    just more most less very too up down out via per etc the dan yang untuk dengan di ke
+    dari ini itu saya kamu bisa mau apa bagaimana""".split()
+)
+
+
+def parse_frontmatter(text: str) -> dict:
+    """Minimal YAML front matter reader for name/description (stdlib only)."""
+    if not text.startswith("---"):
+        return {}
+    end = text.find("\n---", 3)
+    if end == -1:
+        return {}
+    lines = text[3:end].strip("\n").split("\n")
+    out: dict = {}
+    i = 0
+    while i < len(lines):
+        m = re.match(r"^([A-Za-z_][\w-]*):\s*(.*)$", lines[i])
+        if not m:
+            i += 1
+            continue
+        key, val = m.group(1), m.group(2).strip()
+        if val in (">", "|", ">-", "|-"):
+            block = []
+            i += 1
+            while i < len(lines) and (lines[i].startswith(" ") or lines[i] == ""):
+                block.append(lines[i].strip())
+                i += 1
+            out[key] = " ".join(b for b in block if b)
+            continue
+        if len(val) >= 2 and val[0] == val[-1] and val[0] in "\"'":
+            val = val[1:-1]
+        out[key] = val
+        i += 1
+    return out
+
+
+def find_skill_files() -> list[Path]:
+    files = list((ROOT / "plugins").glob("*/skills/*/SKILL.md"))
+    files += list((ROOT / ".agents" / "skills").glob("*/SKILL.md"))
+    return sorted(files)
+
+
+def load_index() -> list[dict]:
+    entries = []
+    for path in find_skill_files():
+        meta = parse_frontmatter(path.read_text(encoding="utf-8", errors="replace"))
+        name = meta.get("name") or path.parent.name
+        desc = re.sub(r"\s+", " ", meta.get("description", "")).strip()
+        rel = path.relative_to(ROOT).as_posix()
+        origin = "plugin" if rel.startswith("plugins/") else "installed"
+        entries.append({"name": name, "description": desc, "path": rel, "origin": origin})
+    return entries
+
+
+# Small Indonesian -> English glossary so Indonesian task descriptions match
+# the English skill descriptions.
+GLOSSARY = {
+    "berpikir": "thinking reasoning", "pikir": "thinking", "logika": "logic reasoning",
+    "logis": "logical reasoning", "riset": "research", "meneliti": "research",
+    "penelitian": "research", "cari": "search", "internet": "web search",
+    "sumber": "sources citation", "ringkas": "summarize", "rencana": "plan planning",
+    "merencanakan": "plan planning", "ide": "brainstorming ideas", "kritis": "critical thinking",
+    "bug": "debugging", "masalah": "problem debugging", "tulis": "writing",
+    "menulis": "writing", "kode": "code", "tes": "test testing", "keputusan": "decision",
+}
+
+
+def tokens(text: str) -> set[str]:
+    text = text.lower()
+    for idn, eng in GLOSSARY.items():
+        if re.search(rf"\b{idn}", text):
+            text += " " + eng
+    words = re.findall(r"[a-z0-9][a-z0-9+#.-]*", text)
+    return {w for w in words if len(w) > 2 and w not in STOPWORDS}
+
+
+def score(query_tokens: set[str], entry: dict) -> float:
+    name_tokens = tokens(entry["name"].replace("-", " "))
+    desc_tokens = tokens(entry["description"])
+    s = 0.0
+    for q in query_tokens:
+        if q in name_tokens:
+            s += 3.0
+        if q in desc_tokens:
+            s += 1.0
+        # light prefix match, e.g. "debug" vs "debugging"
+        elif any(len(q) >= 5 and d.startswith(q[:5]) for d in desc_tokens):
+            s += 0.5
+    return s
+
+
+def cmd_index() -> int:
+    entries = load_index()
+    INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# Skill index",
+        "",
+        "Generated by `python3 tools/skill_router.py index`. Do not edit by hand.",
+        f"{len(entries)} skills. Load a skill by reading its path.",
+        "",
+        "| name | origin | description | path |",
+        "|---|---|---|---|",
+    ]
+    for e in entries:
+        desc = e["description"].replace("|", "\\|")
+        if len(desc) > 220:
+            desc = desc[:217] + "..."
+        lines.append(f"| {e['name']} | {e['origin']} | {desc} | `{e['path']}` |")
+    INDEX_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"wrote {INDEX_PATH.relative_to(ROOT)} ({len(entries)} skills)")
+    return 0
+
+
+# Capability -> curated candidates. Each capability is needed by most
+# non-trivial tasks; the candidates are checked against the live index so a
+# missing skill is reported instead of silently dropped.
+CAPABILITIES = {
+    "research": {
+        "why": "cari fakta, dokumentasi, dan sumber terbaru di internet",
+        "pinned": ["research-lookup", "exa-search", "parallel-web"],
+        "query": "research web search sources citations evidence",
+    },
+    "deep-thinking": {
+        "why": "analisis mendalam, menguji asumsi, berpikir logis",
+        "pinned": ["scientific-critical-thinking", "doubt-driven-development"],
+        "query": "critical thinking reasoning analysis assumptions",
+    },
+    "brainstorming": {
+        "why": "menggali ide dan opsi sebelum membangun",
+        "pinned": ["brainstorming", "idea-refine", "scientific-brainstorming"],
+        "query": "brainstorm ideas options refine",
+    },
+    "planning": {
+        "why": "memecah tugas menjadi langkah yang bisa dieksekusi",
+        "pinned": ["planning-and-task-breakdown", "writing-plans", "spec-driven-development"],
+        "query": "plan breakdown tasks steps",
+    },
+    "implementation": {
+        "why": "menulis kode bertahap dengan tes",
+        "pinned": ["incremental-implementation", "test-driven-development", "source-driven-development"],
+        "query": "implement incremental test-driven code",
+    },
+    "debugging": {
+        "why": "menemukan akar masalah saat ada error",
+        "pinned": ["systematic-debugging", "debugging-and-error-recovery"],
+        "query": "debugging root cause errors",
+    },
+    "verification": {
+        "why": "membuktikan hasil benar sebelum dianggap selesai",
+        "pinned": ["verification-before-completion", "code-review-and-quality"],
+        "query": "verification review quality testing",
+    },
+}
+
+# Keywords that make a capability relevant even when the task is short.
+TRIGGERS = {
+    "research": r"riset|research|cari|search|internet|web|sumber|source|terbaru|latest|dokumentasi|docs?|api",
+    "deep-thinking": r"pikir|think|logi|reason|analis|analy|mendalam|deep|kritis|critic|strategi|strategy|keputusan|decid",
+    "brainstorming": r"brainstorm|ide|idea|opsi|option|konsep|concept|kreatif|creative",
+    "planning": r"rencana|plan|roadmap|tahap|step|langkah",
+    "implementation": r"bikin|buat|build|create|implement|coding|kode|code|ea\b|expert advisor|script|bot|program",
+    "debugging": r"bug|error|debug|gagal|fail|perbaiki|fix",
+    "verification": r"test|tes|review|verify|verifikasi|valid",
+}
+
+
+def cmd_plan(task: str, per_cap: int) -> int:
+    """Decide which skills a task needs, from capabilities rather than raw keywords."""
+    index = {e["name"]: e for e in load_index()}
+    t = task.lower()
+    needed = [c for c, pat in TRIGGERS.items() if re.search(pat, t)]
+    # Non-trivial coding/research tasks always get research + thinking support.
+    if any(c in needed for c in ("implementation", "research", "planning")):
+        for c in ("research", "deep-thinking", "brainstorming", "planning"):
+            if c not in needed:
+                needed.append(c)
+    if not needed:
+        needed = ["deep-thinking"]
+    order = list(CAPABILITIES)
+    needed.sort(key=order.index)
+
+    plan = {"task": task, "capabilities": []}
+    gaps = []
+    for cap in needed:
+        spec = CAPABILITIES[cap]
+        picks, seen = [], set()
+        for name in spec["pinned"]:
+            if name in index and name not in seen:
+                picks.append(index[name]); seen.add(name)
+        plan["capabilities"].append({
+            "capability": cap,
+            "why": spec["why"],
+            "skills": [{"name": p["name"], "path": p["path"]} for p in picks[:per_cap]],
+        })
+
+    # Domain check: search the task itself for a specific skill (e.g. mql5).
+    domain = []
+    q = tokens(task)
+    for sc, e in sorted(((score(q, e), e) for e in index.values()), key=lambda t: -t[0])[:3]:
+        if sc >= 3:
+            domain.append({"name": e["name"], "path": e["path"], "score": sc})
+    plan["domain_matches"] = domain
+    if not domain:
+        gaps.append("Tidak ada skill domain khusus untuk tugas ini. Ambil dokumentasi resmi (mis. mql5.com/en/docs) lewat capability research dan verifikasi API sebelum menulis kode.")
+    plan["gaps"] = gaps
+    print(json.dumps(plan, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_search(query: str, n: int) -> int:
+    q = tokens(query)
+    if not q:
+        print("query has no usable keywords", file=sys.stderr)
+        return 1
+    ranked = []
+    for e in load_index():
+        s = score(q, e)
+        if s > 0:
+            ranked.append((s, e))
+    ranked.sort(key=lambda t: (-t[0], t[1]["name"]))
+    for s, e in ranked[:n]:
+        print(json.dumps({"score": s, "name": e["name"], "path": e["path"],
+                          "description": e["description"][:300]}, ensure_ascii=False))
+    if not ranked:
+        print("no matches; try broader keywords", file=sys.stderr)
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("index", help="write .agents/skill-index.md")
+    pp = sub.add_parser("plan", help="choose skills per capability (research, thinking, brainstorm, ...)")
+    pp.add_argument("task")
+    pp.add_argument("-k", type=int, default=3, help="skills per capability")
+    sp = sub.add_parser("search", help="rank skills for a task")
+    sp.add_argument("query")
+    sp.add_argument("-n", type=int, default=8)
+    args = ap.parse_args()
+    if args.cmd == "index":
+        return cmd_index()
+    if args.cmd == "plan":
+        return cmd_plan(args.task, args.k)
+    return cmd_search(args.query, args.n)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

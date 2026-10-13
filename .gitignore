@@ -66,3 +66,7 @@ opencode.json
 
 # Superpowers plugin artifacts (specs/plans are session-local, never committed)
 docs/superpowers/
+
+# Restored agent skills (from skills-lock.json; large, not versioned)
+.agents/skills/
+.agents/skill-index.md
