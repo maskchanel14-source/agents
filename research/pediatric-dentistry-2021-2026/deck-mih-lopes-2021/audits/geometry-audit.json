@@ -1,0 +1,945 @@
+{
+  "audited_at": "2026-10-13T09:41:19+00:00",
+  "deck": "Presentasi-Jurnal-MIH-Lopes-2021.pptx",
+  "spec": "spec.json",
+  "slides": 15,
+  "objects_checked": 564,
+  "accepted_exceptions": [],
+  "checks": [
+    "geometry-drift",
+    "positive-geometry",
+    "safe-margins",
+    "footer-rail",
+    "content-collisions",
+    "text-capacity",
+    "containment",
+    "type-scale",
+    "table-integrity",
+    "reading-order",
+    "slide-titles"
+  ],
+  "errors": 0,
+  "findings": [],
+  "samples": [
+    {
+      "slide_id": "s01_cover",
+      "object_id": "cover_img",
+      "declared": {
+        "x": 0,
+        "y": 0,
+        "width": 13.333,
+        "height": 7.5
+      },
+      "actual": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 13.333,
+        "height": 7.5
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "scrim",
+      "declared": {
+        "x": 0,
+        "y": 0,
+        "width": 9.95,
+        "height": 7.5
+      },
+      "actual": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 9.95,
+        "height": 7.5
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "kicker_bg",
+      "declared": {
+        "x": 0.62,
+        "y": 0.62,
+        "width": 3.269,
+        "height": 0.3
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 0.62,
+        "width": 3.269,
+        "height": 0.3
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "kicker",
+      "declared": {
+        "x": 0.79,
+        "y": 0.688,
+        "width": 2.929,
+        "height": 0.18
+      },
+      "actual": {
+        "x": 0.79,
+        "y": 0.688,
+        "width": 2.929,
+        "height": 0.18
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "title",
+      "declared": {
+        "x": 0.62,
+        "y": 1.06,
+        "width": 6.62,
+        "height": 1.8
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 1.06,
+        "width": 6.62,
+        "height": 1.8
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "accent",
+      "declared": {
+        "x": 0.62,
+        "y": 2.98,
+        "width": 0.92,
+        "height": 0.055
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 2.98,
+        "width": 0.92,
+        "height": 0.055
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "orig",
+      "declared": {
+        "x": 0.62,
+        "y": 3.14,
+        "width": 6.45,
+        "height": 0.52
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 3.14,
+        "width": 6.45,
+        "height": 0.52
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "meta",
+      "declared": {
+        "x": 0.62,
+        "y": 3.74,
+        "width": 6.55,
+        "height": 0.7
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 3.74,
+        "width": 6.55,
+        "height": 0.7
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "hero_v",
+      "declared": {
+        "x": 8.06,
+        "y": 2.62,
+        "width": 4.6,
+        "height": 1.311
+      },
+      "actual": {
+        "x": 8.06,
+        "y": 2.62,
+        "width": 4.6,
+        "height": 1.311
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "hero_l",
+      "declared": {
+        "x": 8.12,
+        "y": 3.98,
+        "width": 4.2,
+        "height": 0.32
+      },
+      "actual": {
+        "x": 8.12,
+        "y": 3.98,
+        "width": 4.2,
+        "height": 0.32
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "hero_n",
+      "declared": {
+        "x": 8.12,
+        "y": 4.3,
+        "width": 4.3,
+        "height": 0.258
+      },
+      "actual": {
+        "x": 8.12,
+        "y": 4.3,
+        "width": 4.3,
+        "height": 0.258
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "cover_rule",
+      "declared": {
+        "x": 0.62,
+        "y": 6.84,
+        "width": 12.173,
+        "height": 0.014
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 6.84,
+        "width": 12.173,
+        "height": 0.014
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "presenter",
+      "declared": {
+        "x": 0.62,
+        "y": 6.88,
+        "width": 7.55,
+        "height": 0.28
+      },
+      "actual": {
+        "x": 0.62,
+        "y": 6.88,
+        "width": 7.55,
+        "height": 0.28
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s01_cover",
+      "object_id": "program",
+      "declared": {
+        "x": 8.32,
+        "y": 6.88,
+        "width": 4.42,
+        "height": 0.28
+      },
+      "actual": {
+        "x": 8.32,
+        "y": 6.88,
+        "width": 4.42,
+        "height": 0.28
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg",
+      "declared": {
+        "x": 0,
+        "y": 0,
+        "width": 13.333,
+        "height": 7.5
+      },
+      "actual": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 13.333,
+        "height": 7.5
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_orb",
+      "declared": {
+        "x": 9.55,
+        "y": 3.85,
+        "width": 6.3,
+        "height": 6.3
+      },
+      "actual": {
+        "x": 9.55,
+        "y": 3.85,
+        "width": 6.3,
+        "height": 6.3
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_grid1",
+      "declared": {
+        "x": 3.619,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "actual": {
+        "x": 3.619,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_grid2",
+      "declared": {
+        "x": 6.663,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "actual": {
+        "x": 6.663,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_grid3",
+      "declared": {
+        "x": 9.706,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "actual": {
+        "x": 9.706,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_spine",
+      "declared": {
+        "x": 0,
+        "y": 0,
+        "width": 0.22,
+        "height": 7.5
+      },
+      "actual": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.22,
+        "height": 7.5
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "hdr",
+      "declared": {
+        "x": 0,
+        "y": 0,
+        "width": 13.333,
+        "height": 1.281
+      },
+      "actual": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 13.333,
+        "height": 1.281
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "hdr_edge",
+      "declared": {
+        "x": 0,
+        "y": 1.281,
+        "width": 13.333,
+        "height": 0.07
+      },
+      "actual": {
+        "x": 0.0,
+        "y": 1.281,
+        "width": 13.333,
+        "height": 0.07
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "kicker",
+      "declared": {
+        "x": 0.58,
+        "y": 0.28,
+        "width": 12.173,
+        "height": 0.24
+      },
+      "actual": {
+        "x": 0.58,
+        "y": 0.28,
+        "width": 12.173,
+        "height": 0.24
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "title",
+      "declared": {
+        "x": 0.58,
+        "y": 0.56,
+        "width": 12.173,
+        "height": 0.541
+      },
+      "actual": {
+        "x": 0.58,
+        "y": 0.56,
+        "width": 12.173,
+        "height": 0.541
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "action_bg",
+      "declared": {
+        "x": 0.58,
+        "y": 1.421,
+        "width": 12.173,
+        "height": 0.515
+      },
+      "actual": {
+        "x": 0.58,
+        "y": 1.421,
+        "width": 12.173,
+        "height": 0.515
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "action_edge",
+      "declared": {
+        "x": 0.58,
+        "y": 1.421,
+        "width": 0.06,
+        "height": 0.515
+      },
+      "actual": {
+        "x": 0.58,
+        "y": 1.421,
+        "width": 0.06,
+        "height": 0.515
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "action",
+      "declared": {
+        "x": 0.9,
+        "y": 1.571,
+        "width": 11.293,
+        "height": 0.215
+      },
+      "actual": {
+        "x": 0.9,
+        "y": 1.571,
+        "width": 11.293,
+        "height": 0.215
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sum_bg",
+      "declared": {
+        "x": 0.58,
+        "y": 2.24,
+        "width": 4.35,
+        "height": 3.1
+      },
+      "actual": {
+        "x": 0.58,
+        "y": 2.24,
+        "width": 4.35,
+        "height": 3.1
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sum_v",
+      "declared": {
+        "x": 0.88,
+        "y": 2.48,
+        "width": 3.75,
+        "height": 1.137
+      },
+      "actual": {
+        "x": 0.88,
+        "y": 2.48,
+        "width": 3.75,
+        "height": 1.137
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sum_l",
+      "declared": {
+        "x": 0.88,
+        "y": 3.657,
+        "width": 3.75,
+        "height": 0.292
+      },
+      "actual": {
+        "x": 0.88,
+        "y": 3.657,
+        "width": 3.75,
+        "height": 0.292
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sum_n",
+      "declared": {
+        "x": 0.88,
+        "y": 3.969,
+        "width": 3.75,
+        "height": 0.436
+      },
+      "actual": {
+        "x": 0.88,
+        "y": 3.969,
+        "width": 3.75,
+        "height": 0.436
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_v0",
+      "declared": {
+        "x": 5.15,
+        "y": 2.3,
+        "width": 2.05,
+        "height": 0.487
+      },
+      "actual": {
+        "x": 5.15,
+        "y": 2.3,
+        "width": 2.05,
+        "height": 0.487
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_l0",
+      "declared": {
+        "x": 7.36,
+        "y": 2.28,
+        "width": 5.39,
+        "height": 0.255
+      },
+      "actual": {
+        "x": 7.36,
+        "y": 2.28,
+        "width": 5.39,
+        "height": 0.255
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_n0",
+      "declared": {
+        "x": 7.36,
+        "y": 2.6,
+        "width": 5.39,
+        "height": 0.221
+      },
+      "actual": {
+        "x": 7.36,
+        "y": 2.6,
+        "width": 5.39,
+        "height": 0.221
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_r1",
+      "declared": {
+        "x": 5.15,
+        "y": 2.96,
+        "width": 7.6,
+        "height": 0.014
+      },
+      "actual": {
+        "x": 5.15,
+        "y": 2.96,
+        "width": 7.6,
+        "height": 0.014
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_v1",
+      "declared": {
+        "x": 5.15,
+        "y": 3.08,
+        "width": 2.05,
+        "height": 0.487
+      },
+      "actual": {
+        "x": 5.15,
+        "y": 3.08,
+        "width": 2.05,
+        "height": 0.487
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_l1",
+      "declared": {
+        "x": 7.36,
+        "y": 3.06,
+        "width": 5.39,
+        "height": 0.255
+      },
+      "actual": {
+        "x": 7.36,
+        "y": 3.06,
+        "width": 5.39,
+        "height": 0.255
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_n1",
+      "declared": {
+        "x": 7.36,
+        "y": 3.38,
+        "width": 5.39,
+        "height": 0.221
+      },
+      "actual": {
+        "x": 7.36,
+        "y": 3.38,
+        "width": 5.39,
+        "height": 0.221
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_r2",
+      "declared": {
+        "x": 5.15,
+        "y": 3.74,
+        "width": 7.6,
+        "height": 0.014
+      },
+      "actual": {
+        "x": 5.15,
+        "y": 3.74,
+        "width": 7.6,
+        "height": 0.014
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "sumk_v2",
+      "declared": {
+        "x": 5.15,
+        "y": 3.86,
+        "width": 2.05,
+        "height": 0.487
+      },
+      "actual": {
+        "x": 5.15,
+        "y": 3.86,
+        "width": 2.05,
+        "height": 0.487
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    }
+  ]
+}

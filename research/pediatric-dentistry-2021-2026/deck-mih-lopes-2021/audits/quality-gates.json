@@ -1,0 +1,23 @@
+{
+  "audited_at": "2026-10-13T09:41:19+00:00",
+  "deck": "Presentasi-Jurnal-MIH-Lopes-2021.pptx",
+  "spec": "spec.json",
+  "slides": 15,
+  "objects_checked": 564,
+  "accepted_exceptions": [],
+  "checks": [
+    "geometry-drift",
+    "positive-geometry",
+    "safe-margins",
+    "footer-rail",
+    "content-collisions",
+    "text-capacity",
+    "containment",
+    "type-scale",
+    "table-integrity",
+    "reading-order",
+    "slide-titles"
+  ],
+  "errors": 0,
+  "findings": []
+}
