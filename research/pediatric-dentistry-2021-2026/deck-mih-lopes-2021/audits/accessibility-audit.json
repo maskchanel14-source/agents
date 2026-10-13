@@ -1,5 +1,5 @@
 {
-  "audited_at": "2026-10-13T06:50:04+00:00",
+  "audited_at": "2026-10-13T09:34:07+00:00",
   "language": "id-ID",
   "slides": [
     {
@@ -45,7 +45,7 @@
         "footer",
         "page"
       ],
-      "objects": 31
+      "objects": 37
     },
     {
       "slide_id": "s03_mih",
@@ -69,7 +69,7 @@
         "footer",
         "page"
       ],
-      "objects": 30
+      "objects": 37
     },
     {
       "slide_id": "s04_gap",
@@ -95,7 +95,7 @@
         "footer",
         "page"
       ],
-      "objects": 34
+      "objects": 40
     },
     {
       "slide_id": "s05_tujuan",
@@ -128,7 +128,7 @@
         "footer",
         "page"
       ],
-      "objects": 39
+      "objects": 45
     },
     {
       "slide_id": "s06_metode",
@@ -155,7 +155,7 @@
         "footer",
         "page"
       ],
-      "objects": 33
+      "objects": 39
     },
     {
       "slide_id": "s07_penyaringan",
@@ -178,7 +178,7 @@
         "footer",
         "page"
       ],
-      "objects": 29
+      "objects": 35
     },
     {
       "slide_id": "s08_hasil_seleksi",
@@ -199,7 +199,7 @@
         "footer",
         "page"
       ],
-      "objects": 22
+      "objects": 28
     },
     {
       "slide_id": "s09_hasil_prevalensi",
@@ -227,7 +227,7 @@
         "footer",
         "page"
       ],
-      "objects": 32
+      "objects": 38
     },
     {
       "slide_id": "s10_hasil_keparahan",
@@ -250,7 +250,7 @@
         "footer",
         "page"
       ],
-      "objects": 23
+      "objects": 29
     },
     {
       "slide_id": "s11_subanalisis",
@@ -270,7 +270,7 @@
         "footer",
         "page"
       ],
-      "objects": 22
+      "objects": 28
     },
     {
       "slide_id": "s12_diskusi",
@@ -294,7 +294,7 @@
         "footer",
         "page"
       ],
-      "objects": 28
+      "objects": 34
     },
     {
       "slide_id": "s13_appraisal",
@@ -322,7 +322,7 @@
         "footer",
         "page"
       ],
-      "objects": 41
+      "objects": 47
     },
     {
       "slide_id": "s14_implikasi",
@@ -348,7 +348,7 @@
         "footer",
         "page"
       ],
-      "objects": 32
+      "objects": 38
     },
     {
       "slide_id": "s15_kesimpulan",
@@ -374,7 +374,7 @@
         "footer",
         "page"
       ],
-      "objects": 27
+      "objects": 33
     }
   ]
 }

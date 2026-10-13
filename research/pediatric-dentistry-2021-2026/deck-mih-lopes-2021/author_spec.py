@@ -31,6 +31,12 @@ FOOT_RULE_Y = 6.84
 FOOT_TEXT_Y = 6.88
 
 # ---- design tokens ---------------------------------------------------------
+# v6 chrome: a designed background instead of blank paper
+PAPER_A = "#F9F7F3"          # warm paper, top-left of the wash
+PAPER_B = "#E6EFF2"          # cool tint, bottom-right of the wash
+BAND = "#0B4A5A"             # deep teal header band
+BAND2 = "#0F6274"            # its gradient partner
+ON_BAND = "#8FD8E4"          # kicker on the dark band
 PAPER = "#FFFFFF"
 PANEL = "#F2F7F8"
 MINT = "#E3F1F3"
@@ -102,18 +108,37 @@ class Slide:
 
     # -- primitives ---------------------------------------------------------
     def bg(self, fill: str = PAPER) -> None:
-        self._add("bg", "shape", "background", "layout_design", {"shape": "rectangle"},
-                  {"fill": fill, "line_color": fill, "line_width": 0.0}, 0, 0, SLIDE_W, SLIDE_H)
+        """A graded paper wash plus two soft shapes, so no slide is blank white."""
+        if fill != PAPER:
+            self._add("bg", "shape", "background", "layout_design", {"shape": "rectangle"},
+                      {"fill": fill, "line_color": fill, "line_width": 0.0}, 0, 0, SLIDE_W, SLIDE_H)
+            return
+        self.bar("bg", 0, 0, SLIDE_W, SLIDE_H, PAPER_A, role="background",
+                 gradient=[PAPER_A, PAPER_B], gradient_angle=40.0)
+        self._add("bg_orb1", "shape", "background", "layout_design", {"shape": "oval"},
+                  {"fill": "#E4EFF1", "line_color": "#E4EFF1", "line_width": 0.0},
+                  9.95, -2.45, 4.90, 4.90)
+        self._add("bg_orb2", "shape", "background", "layout_design", {"shape": "oval"},
+                  {"fill": "#EAF3F4", "line_color": "#EAF3F4", "line_width": 0.0},
+                  -1.75, 4.55, 4.30, 4.30)
+        self.bar("bg_foot", 0, 7.06, SLIDE_W, 0.44, "#DCE7EA", role="background", alpha=85.0)
 
     def pic(self, oid, path: str, x, y, w, h, alt: str = "") -> None:
         self._add(oid, "picture", "decoration", "layout_design", {"path": path},
                   {"alpha": 100}, x, y, w, h, alt_text=alt)
 
     def bar(self, oid, x, y, w, h, fill: str, radius: float = 0.0, role: str = "bar",
-            alpha: float = 100.0, line_color: str | None = None, line_width: float = 0.0) -> None:
+            alpha: float = 100.0, line_color: str | None = None, line_width: float = 0.0,
+            gradient: list[str] | None = None, gradient_angle: float = 0.0,
+            gradient_alpha: list[float] | None = None) -> None:
         style = {"fill": fill, "radius": radius, "alpha": alpha, "rotation": 0.0,
                  "line_width": line_width if line_color else 0.0,
                  "line_color": line_color or fill}
+        if gradient:
+            style["gradient"] = gradient
+            style["gradient_angle"] = gradient_angle
+            if gradient_alpha:
+                style["gradient_alpha"] = gradient_alpha
         self._add(oid, "shape", role, "layout_design",
                   {"shape": "rounded_rectangle" if radius else "rectangle"}, style, x, y, w, h)
 
@@ -157,24 +182,34 @@ class Slide:
 
     # -- master blocks -------------------------------------------------------
     def header(self, action: str = "", action_fill: str = MINT, action_color: str = TEAL,
-               title_size: float = 27.0) -> None:
-        self.chip("kicker", M, 0.44, self.kicker)
-        self.txt("title", M, 0.84, W, h_for(self.title, W, title_size, pad=0.16),
-                 self.title, size=title_size, bold=True, color=INK, role="title")
+               title_size: float = 26.0) -> None:
+        """Deep-teal band carrying the kicker and title, then a carded lead line."""
+        title_h = h_for(self.title, W, title_size, pad=0.10)
+        band_h = round(0.56 + title_h + 0.18, 3)
+        self.bar("hdr", 0, 0, SLIDE_W, band_h, BAND, role="background",
+                 gradient=[BAND, BAND2], gradient_angle=0.0)
+        self.bar("hdr_edge", 0, band_h, SLIDE_W, 0.05, TEAL2, role="background")
+        self.txt("kicker", M, 0.28, W, 0.24, self.kicker, size=9.5, bold=True,
+                 color=ON_BAND, role="kicker", spc=110)
+        self.txt("title", M, 0.56, W, title_h, self.title, size=title_size, bold=True,
+                 color=WHITE, role="title")
         if action:
-            width = W - 0.60
+            ay = round(band_h + 0.14, 3)
+            width = W - 0.88
             lines = est_lines(action, width, 12.5)
-            h = round(lines * (12.5 * 1.22 / 72) + 0.26, 3)
-            y = 1.46
-            self.bar("action_bg", M, y, W, h, action_fill, radius=0.08, role="bar")
-            self.txt("action", M + 0.30, y + 0.13, width, h - 0.26, action, size=12.5,
-                     bold=True, color=action_color, role="takeaway")
+            ah = round(lines * (12.5 * 1.24 / 72) + 0.30, 3)
+            self.card("action_bg", M, ay, W, ah, WHITE, radius=0.08, edge=LINE)
+            self.bar("action_edge", M, ay, 0.06, ah, action_color, role="bar")
+            self.txt("action", M + 0.32, round(ay + 0.15, 3), width, round(ah - 0.30, 3),
+                     action, size=12.5, bold=True, color=action_color, role="takeaway")
 
     def footer(self, page: str) -> None:
         self.rule("foot_rule", M, FOOT_RULE_Y, W)
         self.txt("footer", M, FOOT_TEXT_Y, 9.4, 0.28, CITATION, size=9, color=MUTED, role="footer")
-        self.txt("page", RIGHT - 1.4, FOOT_TEXT_Y, 1.4, 0.28, page, size=9.5, bold=True,
-                 color=TEAL, align="right", role="footer")
+        self.bar("page_chip", round(RIGHT - 0.44, 3), round(FOOT_RULE_Y - 0.03, 3), 0.44, 0.28,
+                 BAND, radius=0.05, role="bar")
+        self.txt("page", round(RIGHT - 0.44, 3), round(FOOT_RULE_Y + 0.035, 3), 0.44, 0.20,
+                 page, size=9.5, bold=True, color=WHITE, align="center", role="footer")
 
     def kpi_rail(self, oid_prefix: str, x, y, w, rows, row_h: float = 0.78,
                  num_size: float = 24.0, num_w: float = 2.05) -> None:
@@ -267,7 +302,8 @@ s = Slide(deck, "s01_cover", "DISKUSI JURNAL · KEDOKTERAN GIGI ANAK",
                 "terbesar untuk MIH.")
 s.pic("cover_img", "assets/cover-enamel.png", 0, 0, SLIDE_W, SLIDE_H,
       alt="Tekstur batang email gigi, tampilan dekat")
-s.bar("scrim", 0, 0, 7.85, SLIDE_H, INK, role="background", alpha=68)
+s.bar("scrim", 0, 0, 9.95, SLIDE_H, INK, role="background",
+      gradient=[INK, INK], gradient_alpha=[93.0, 0.0], gradient_angle=0.0)
 s.chip("kicker", 0.62, 0.62, "DISKUSI JURNAL · KEDOKTERAN GIGI ANAK", fill=TEAL, size=9.5)
 title = "Molar-Incisor Hypomineralization pada anak dan remaja"
 s.txt("title", 0.62, 1.06, 6.62, 1.80, title, size=31,
@@ -351,6 +387,7 @@ for i, (head, body) in enumerate(rows):
           body, size=11.5, color=TEXT, role="panel_text", ls=1.12)
     y = round(y + 1.48, 3)
 s.card("fig_bg", 6.95, BODY_TOP, 5.80, 4.28, CREAM)
+s.card("fig_plate", 7.21, 2.32, 2.38, 3.54, WHITE, radius=0.05, edge=LINE)
 s.pic("fig_molar", "assets/molar-mih-crop.png", 7.33, 2.44, 2.14, 3.30,
       alt="Potongan molar pertama permanen dengan lesi hipomineralisasi pada email")
 legend = [("#A8D8DC", "email sehat"), ("#D9A566", "dentin"), ("#2E8B8B", "pulpa"),

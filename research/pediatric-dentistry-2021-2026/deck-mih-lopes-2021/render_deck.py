@@ -379,7 +379,14 @@ def gradient_stops(spPr):
             position = int(stop.get("pos", "0")) / 100000.0
         except ValueError:
             position = 0.0
-        stops.append((position, "#" + colour_node.get("val", "000000")))
+        alpha_node = colour_node.find(qn("a:alpha"))
+        alpha = 100.0
+        if alpha_node is not None:
+            try:
+                alpha = int(alpha_node.get("val", "100000")) / 1000.0
+            except ValueError:
+                alpha = 100.0
+        stops.append((position, "#" + colour_node.get("val", "000000"), alpha))
     if len(stops) < 2:
         return None
     linear = grad.find(qn("a:lin"))
@@ -399,10 +406,16 @@ def draw_gradient(c, spPr, path, x, y, w, h, stops, angle) -> None:
     """Approximate a linear PowerPoint gradient with thin interpolated bands."""
     import math as _math
 
-    (p0, c0), (p1, c1) = stops[0], stops[-1]
+    (p0, c0, a0), (p1, c1, a1) = stops[0], stops[-1]
     r0, g0, b0 = hex_to_rgb(c0)
     r1, g1, b1 = hex_to_rgb(c1)
-    bands = 120
+    # overlapping bands would double-blend once alpha is involved, so only overlap
+    # when the gradient is fully opaque
+    # bands cannot overlap once alpha is involved (that would double-blend), so a
+    # fading gradient needs many more of them for the seams to disappear
+    fade = a0 < 100 or a1 < 100
+    bleed = 0.0 if fade else 0.7
+    bands = 420 if fade else 120
     # PowerPoint angle: 0 = left-to-right, grows clockwise. PDF y grows upward.
     rad = _math.radians(angle)
     dx, dy = _math.cos(rad), _math.sin(rad)
@@ -413,17 +426,20 @@ def draw_gradient(c, spPr, path, x, y, w, h, stops, angle) -> None:
         t = i / (bands - 1)
         colour = Color(r0 + (r1 - r0) * t, g0 + (g1 - g0) * t, b0 + (b1 - b0) * t)
         c.setFillColor(colour)
+        if fade:
+            c.setFillAlpha(max(0.0, min(1.0, (a0 + (a1 - a0) * t) / 100.0)))
         # band strip perpendicular to the gradient axis
         s0 = (t - 0.5 / bands - 0.5) * extent
         s1 = (t + 0.5 / bands - 0.5) * extent
         strip = c.beginPath()
         if abs(dx) >= abs(dy):
             xa, xb = x + w / 2 + s0 * (1 if dx >= 0 else -1), x + w / 2 + s1 * (1 if dx >= 0 else -1)
-            strip.rect(min(xa, xb), y - h, abs(xb - xa) + 0.5, 3 * h)
+            strip.rect(min(xa, xb) - bleed / 2, y - h, abs(xb - xa) + bleed, 3 * h)
         else:
             ya = y + h / 2 + s0 * (1 if dy >= 0 else -1)
             yb = y + h / 2 + s1 * (1 if dy >= 0 else -1)
-            strip.rect(x - w, min(ya, yb), 3 * w, abs(yb - ya) + 0.5)
+            # overlap bands a hair so hairlines between strips cannot show through
+            strip.rect(x - w, min(ya, yb) - bleed / 2, 3 * w, abs(yb - ya) + bleed)
         c.drawPath(strip, stroke=0, fill=1)
     c.restoreState()
 
@@ -516,7 +532,8 @@ def draw_chart(c, shape, top_h: float, bg: str, spec_chart: dict | None):
     label_font = font_name("Calibri", False, False)
     if ctype.startswith("DOUGHNUT") or ctype.startswith("PIE"):
         total = sum(values) or 1.0
-        side = min(width, height) - 6
+        # PowerPoint draws a doughnut inside the frame's plot area, not edge to edge
+        side = min(width, height) * 0.80
         cx, cy = x0 + width / 2, y0 + height / 2
         thickness = side * 0.26
         angle = 90.0
@@ -629,7 +646,7 @@ def main() -> None:
                     and shape.height > prs.slide_height * 0.98:
                 grad = gradient_stops(shape._element.spPr)
                 if grad:
-                    bg = grad[0][0][1]      # darkest stop as the clipping reference
+                    bg = grad[0][0][1]      # first stop as the clipping reference
                 else:
                     try:
                         bg = rgb_of(shape.fill.fore_color)

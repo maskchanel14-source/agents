@@ -126,6 +126,16 @@ def add_shape_like(slide, o):
         gradient_stops[1].color.rgb = rgb(stops[1])
         gradient_stops[1].position = 1.0
         shape.fill.gradient_angle = float(style.get("gradient_angle", 45.0))
+        alphas = style.get("gradient_alpha")
+        if alphas:
+            grad_fill = shape._element.spPr.find(qn("a:gradFill"))
+            gs_list = grad_fill.find(qn("a:gsLst")) if grad_fill is not None else None
+            if gs_list is not None:
+                stops = gs_list.findall(qn("a:gs"))
+                for stop, value in zip(stops, alphas):
+                    clr = stop.find(qn("a:srgbClr"))
+                    if clr is not None:
+                        apply_alpha(clr, float(value))
     else:
         shape.fill.solid()
         shape.fill.fore_color.rgb = rgb(style.get("fill", "#FFFFFF"))
