@@ -58,7 +58,8 @@ Small native-install registries are committed for tools that support that route.
 
 ## Skills (cross-harness)
 
-> **WAJIB — ANTI-MALAS:** Sebelum jawab apapun, kamu WAJIB: 1) Jika `skills-lock.json` ada tapi `.agents/skills/` kosong, jalankan `npx skills experimental_install` dulu untuk restore 256 paket skill berbobot; 2) Cek daftar `description` semua skills di `plugins/*/skills/` dan `.agents/skills/` dan pilih yang paling relevan (jangan jawab langsung tanpa cek); 3) Load `SKILL.md` yang terpilih dan ikuti step-nya persis. Kalau request masih ambigu, WAJIB pakai `interview-me` atau `brainstorming` dulu. Cukup bilang "gunakan skills yang kamu butuhkan" maka kamu harus buktikan sudah cek skills.
+> **WAJIB — ANTI-MALAS:** Sebelum jawab apapun, kamu WAJIB: 1) Jika `skills-lock.json` ada tapi `.agents/skills/` kosong, jalankan `npx skills experimental_install` dulu untuk restore 256 paket skill berbobot; 2) Pilih skills otomatis: jalankan `python3 tools/skill_router.py plan "<deskripsi tugas>"`. Output berisi skill per kapabilitas (riset, berpikir mendalam, brainstorming, perencanaan, implementasi, debugging, verifikasi) dan `gaps` jika tidak ada skill domain khusus. Untuk tugas domain spesifik, tambahkan `search "<istilah domain>"`. Jangan load semua skill;
+3) Load `SKILL.md` yang terpilih dan ikuti step-nya persis. Kalau request masih ambigu, WAJIB pakai `interview-me` atau `brainstorming` dulu. Cukup bilang "gunakan skills yang kamu butuhkan" maka kamu harus buktikan sudah cek skills.
 
 186 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
 
