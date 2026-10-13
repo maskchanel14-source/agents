@@ -273,26 +273,57 @@ def draw_text_frame(c, frame, box, bg: str, overflow: list) -> None:
     c.restoreState()
 
 
-def draw_picture(c, shape, slide_h) -> None:
-    """Place an embedded image at its box, honouring the slide's own scaling."""
+PICTURE_CACHE: dict[str, str] = {}
+
+
+def draw_picture(c, shape, top_h: float) -> None:
+    """Draw an embedded picture, honouring PowerPoint's crop fractions.
+
+    A cropped picture is rendered by drawing it oversized and clipping back to the
+    frame, which is how PowerPoint treats srcRect.
+    """
+    import hashlib
+
     try:
-        image = shape.image
+        blob = shape.image.blob
+        ext = shape.image.ext
     except Exception:
         return
-    suffix = "." + (image.ext or "png")
-    tmp = Path(tempfile.gettempdir()) / f"render-{abs(hash(image.blob))}{suffix}"
-    if not tmp.exists():
-        tmp.write_bytes(image.blob)
-    x = shape.left / EMU_IN * PT_IN
-    y = slide_h - shape.top / EMU_IN * PT_IN - shape.height / EMU_IN * PT_IN
-    w = shape.width / EMU_IN * PT_IN
-    h = shape.height / EMU_IN * PT_IN
+    key = hashlib.sha1(blob).hexdigest()[:16] + "." + ext
+    path = PICTURE_CACHE.get(key)
+    if path is None:
+        target = Path(tempfile.gettempdir()) / f"renderimg-{key}"
+        target.write_bytes(blob)
+        PICTURE_CACHE[key] = path = str(target)
+
+    left = shape.left / EMU_IN * PT_IN
+    top = top_h - shape.top / EMU_IN * PT_IN - shape.height / EMU_IN * PT_IN
+    width = shape.width / EMU_IN * PT_IN
+    height = shape.height / EMU_IN * PT_IN
+    crop_l = float(getattr(shape, "crop_left", 0) or 0)
+    crop_r = float(getattr(shape, "crop_right", 0) or 0)
+    crop_t = float(getattr(shape, "crop_top", 0) or 0)
+    crop_b = float(getattr(shape, "crop_bottom", 0) or 0)
+
+    c.saveState()
+    if any((crop_l, crop_r, crop_t, crop_b)):
+        full_w = width / max(0.01, 1 - crop_l - crop_r)
+        full_h = height / max(0.01, 1 - crop_t - crop_b)
+        x0 = left - crop_l * full_w
+        y0 = top - crop_b * full_h
+        clip = c.beginPath()
+        clip.rect(left, top, width, height)
+        c.clipPath(clip, stroke=0, fill=0)
+    else:
+        x0, y0, full_w, full_h = left, top, width, height
     try:
-        pil = Image.open(tmp)
-        c.drawImage(str(tmp), x, y, w, h, mask=None)
-        _ = pil.size
-    except Exception as exc:  # pragma: no cover - diagnostic only
-        print(f"WARNING: could not draw image {tmp.name}: {exc}")
+        c.drawImage(path, x0, y0, full_w, full_h, mask=None)
+    except Exception:
+        c.setFillColor(hex_to_color("#DDDDDD"))
+        box = c.beginPath()
+        box.rect(left, top, width, height)
+        c.drawPath(box, stroke=0, fill=1)
+    c.restoreState()
 
 
 def hex_to_color(value: str) -> Color:
@@ -594,7 +625,8 @@ def main() -> None:
         bg = "#FFFFFF"
         for shape in slide.shapes:
             if shape.shape_type is not None and str(shape.shape_type).startswith("AUTO_SHAPE") \
-                    and shape.width > prs.slide_width * 0.9:
+                    and shape.width > prs.slide_width * 0.98 \
+                    and shape.height > prs.slide_height * 0.98:
                 grad = gradient_stops(shape._element.spPr)
                 if grad:
                     bg = grad[0][0][1]      # darkest stop as the clipping reference
@@ -613,7 +645,8 @@ def main() -> None:
         chart_i = 0
         for shape in slide.shapes:
             if shape.shape_type is not None and str(shape.shape_type).startswith("AUTO_SHAPE") \
-                    and shape.width > prs.slide_width * 0.9:
+                    and shape.width > prs.slide_width * 0.98 \
+                    and shape.height > prs.slide_height * 0.98:
                 continue
             overflow: list[float] = []
             if getattr(shape, "has_chart", False) and shape.has_chart:
