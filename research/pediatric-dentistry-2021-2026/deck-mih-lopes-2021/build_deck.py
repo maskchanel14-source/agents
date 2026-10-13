@@ -15,8 +15,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from lxml import etree
+
 from pptx import Presentation
+from pptx.chart.data import CategoryChartData
 from pptx.dml.color import RGBColor
+from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
 from pptx.oxml.ns import qn
@@ -27,7 +31,11 @@ DEFAULT_OUT = HERE / "Presentasi-Jurnal-MIH-Lopes-2021.pptx"
 
 ANCHORS = {"top": MSO_ANCHOR.TOP, "middle": MSO_ANCHOR.MIDDLE, "bottom": MSO_ANCHOR.BOTTOM}
 ALIGNS = {"left": PP_ALIGN.LEFT, "center": PP_ALIGN.CENTER, "right": PP_ALIGN.RIGHT}
-SHAPES = {"rectangle": MSO_SHAPE.RECTANGLE, "rounded_rectangle": MSO_SHAPE.ROUNDED_RECTANGLE}
+SHAPES = {"rectangle": MSO_SHAPE.RECTANGLE, "rounded_rectangle": MSO_SHAPE.ROUNDED_RECTANGLE,
+          "oval": MSO_SHAPE.OVAL, "right_arrow": MSO_SHAPE.RIGHT_ARROW,
+          "isosceles_triangle": MSO_SHAPE.ISOSCELES_TRIANGLE}
+CHARTS = {"col": XL_CHART_TYPE.COLUMN_CLUSTERED, "bar": XL_CHART_TYPE.BAR_CLUSTERED,
+          "doughnut": XL_CHART_TYPE.DOUGHNUT, "pie": XL_CHART_TYPE.PIE}
 
 
 def rgb(value: str) -> RGBColor:
@@ -40,6 +48,16 @@ def no_shadow(shape) -> None:
         shape.shadow.inherit = False
     except Exception:  # connectors and some shapes have no shadow interface
         pass
+
+
+def apply_alpha(color_element, alpha: float) -> None:
+    """Set transparency on an srgbClr element (100 = opaque, 0 = invisible)."""
+    if alpha >= 100:
+        return
+    node = color_element.find(qn("a:alpha"))
+    if node is None:
+        node = etree.SubElement(color_element, qn("a:alpha"))
+    node.set("val", str(int(max(0, alpha) * 1000)))
 
 
 def set_lang(run, lang: str) -> None:
@@ -71,6 +89,8 @@ def fill_paragraph(paragraph, text: str, style: dict, lang: str) -> None:
     font.bold = bool(style.get("bold", False))
     font.italic = bool(style.get("italic", False))
     font.color.rgb = rgb(style.get("color", "#334155"))
+    if style.get("spc"):
+        run.font._rPr.set("spc", str(int(style["spc"])))
     set_lang(run, lang)
 
 
@@ -97,11 +117,13 @@ def add_shape_like(slide, o):
         shape.adjustments[0] = max(0.0, min(0.5, radius / max(0.01, min(b["width"], b["height"]))))
     shape.fill.solid()
     shape.fill.fore_color.rgb = rgb(style.get("fill", "#FFFFFF"))
+    apply_alpha(shape.fill.fore_color._xFill.find(qn("a:srgbClr")), float(style.get("alpha", 100)))
     if float(style.get("line_width", 1)) <= 0:
         shape.line.fill.background()
     else:
         shape.line.color.rgb = rgb(style.get("line_color", "#CBD5E1"))
         shape.line.width = Pt(float(style.get("line_width", 1)))
+        apply_alpha(shape.line.color._xFill.find(qn("a:srgbClr")), float(style.get("alpha", 100)))
     no_shadow(shape)
     if shape.has_text_frame:
         shape.text_frame.text = ""
@@ -169,7 +191,64 @@ def add_table(slide, o):
     return shape
 
 
-BUILDERS = {"text": add_text, "shape": add_shape_like, "line": add_line, "table": add_table}
+def add_chart(slide, o):
+    content, style, b = o["content"], o["style"], o["bbox"]
+    chart_type = CHARTS[content["chart_type"]]
+    data = CategoryChartData()
+    data.categories = content["categories"]
+    data.add_series(content.get("series_name", "nilai"), tuple(content["values"]))
+    frame = slide.shapes.add_chart(chart_type, Inches(b["x"]), Inches(b["y"]),
+                                   Inches(b["width"]), Inches(b["height"]), data)
+    chart = frame.chart
+    chart.has_title = False
+    chart.has_legend = False
+    chart.font.name = style.get("font", "Calibri")
+    chart.font.size = Pt(float(content.get("font_size", 10.5)))
+    chart.font.color.rgb = rgb(style.get("color", "#334155"))
+
+    plot = chart.plots[0]
+    colors = content.get("colors") or ["#0E7490"]
+    series = plot.series[0]
+    points = list(getattr(series, "points", []))
+    if points:
+        for index, point in enumerate(points):
+            point.format.fill.solid()
+            point.format.fill.fore_color.rgb = rgb(colors[index % len(colors)])
+    else:
+        series.format.fill.solid()
+        series.format.fill.fore_color.rgb = rgb(colors[0])
+
+    if content.get("gap_width") and hasattr(plot, "gap_width"):
+        plot.gap_width = int(content["gap_width"])
+    if content.get("data_labels"):
+        plot.has_data_labels = True
+        labels = plot.data_labels
+        labels.number_format = content.get("label_format", '0.0"%"')
+        labels.number_format_is_linked = False
+        labels.font.size = Pt(float(content.get("font_size", 10.5)))
+        labels.font.bold = True
+        labels.font.name = style.get("font", "Calibri")
+        labels.font.color.rgb = rgb("#0F172A")
+        if content["chart_type"] in ("col", "bar"):
+            labels.position = XL_LABEL_POSITION.OUTSIDE_END
+    if hasattr(plot, "has_data_labels") and not content.get("data_labels"):
+        plot.has_data_labels = False
+
+    if content["chart_type"] in ("col", "bar"):
+        value_axis = chart.value_axis
+        value_axis.visible = bool(content.get("show_value_axis"))
+        value_axis.has_major_gridlines = False
+        category_axis = chart.category_axis
+        category_axis.has_major_gridlines = False
+        category_axis.tick_labels.font.size = Pt(float(content.get("font_size", 10.5)))
+        category_axis.tick_labels.font.color.rgb = rgb(style.get("color", "#334155"))
+        if not content.get("axis_labels"):
+            category_axis.visible = False
+    return frame
+
+
+BUILDERS = {"text": add_text, "shape": add_shape_like, "line": add_line, "table": add_table,
+            "chart": add_chart}
 
 
 def main() -> None:
