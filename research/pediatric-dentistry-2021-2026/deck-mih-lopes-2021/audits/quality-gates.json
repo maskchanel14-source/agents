@@ -1,9 +1,9 @@
 {
-  "audited_at": "2026-10-13T09:34:07+00:00",
+  "audited_at": "2026-10-13T09:41:19+00:00",
   "deck": "Presentasi-Jurnal-MIH-Lopes-2021.pptx",
   "spec": "spec.json",
   "slides": 15,
-  "objects_checked": 522,
+  "objects_checked": 564,
   "accepted_exceptions": [],
   "checks": [
     "geometry-drift",

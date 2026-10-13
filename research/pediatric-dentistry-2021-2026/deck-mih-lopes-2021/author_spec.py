@@ -32,12 +32,27 @@ FOOT_TEXT_Y = 6.88
 
 # ---- design tokens ---------------------------------------------------------
 # v6 chrome: a designed background instead of blank paper
+# v7 page tints: a coloured page per section, not near-white
+SECTION_TINTS = {
+    "RINGKASAN": "#DCEAEF",
+    "LATAR": "#DFE9EC",
+    "TUJUAN": "#DBE8EF",
+    "METODE": "#D9E8EA",
+    "HASIL": "#D8EAE5",
+    "SUB-ANALISIS": "#DEE7EE",
+    "DISKUSI": "#EFE8D9",
+    "IMPLIKASI": "#EDE8DA",
+    "KESIMPULAN": "#DCEAEF",
+}
+GRID = "#C7DCE1"             # faint column guides on the tinted page
+ACCENT = "#D98A2B"           # amber accent rule
 PAPER_A = "#F9F7F3"          # warm paper, top-left of the wash
 PAPER_B = "#E6EFF2"          # cool tint, bottom-right of the wash
 BAND = "#0B4A5A"             # deep teal header band
 BAND2 = "#0F6274"            # its gradient partner
 ON_BAND = "#8FD8E4"          # kicker on the dark band
 PAPER = "#FFFFFF"
+CARD = "#FFFFFF"            # panels are white cards on the coloured page
 PANEL = "#F2F7F8"
 MINT = "#E3F1F3"
 INK = "#08262E"
@@ -55,6 +70,24 @@ WHITE = "#FFFFFF"
 BODY, DISP, MONO = "Calibri", "Cambria", "Consolas"
 
 CITATION = "Lopes dkk., Sci Rep 2021;11:22405 · DOI 10.1038/s41598-021-01541-7 · CC BY 4.0"
+
+
+def _rgb(value: str) -> tuple[int, int, int]:
+    v = value.lstrip("#")
+    return int(v[0:2], 16), int(v[2:4], 16), int(v[4:6], 16)
+
+
+def mix(a: str, b: str, t: float) -> str:
+    """Blend two hex colours; used to derive companion shades from a page tint."""
+    ra, ga, ba = _rgb(a)
+    rb, gb, bb = _rgb(b)
+    return "#%02X%02X%02X" % (round(ra + (rb - ra) * t), round(ga + (gb - ga) * t),
+                              round(ba + (bb - ba) * t))
+
+
+def _luminance(value: str) -> float:
+    r, g, b = _rgb(value)
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255.0
 
 
 def est_lines(text: str, width_in: float, font_pt: float) -> int:
@@ -107,21 +140,31 @@ class Slide:
         return oid
 
     # -- primitives ---------------------------------------------------------
+    def section_tint(self) -> str:
+        key = (self.kicker or "").split("·")[0].strip().upper()
+        for name, tint in SECTION_TINTS.items():
+            if key.startswith(name):
+                return tint
+        return "#DCEAED"
+
     def bg(self, fill: str = PAPER) -> None:
-        """A graded paper wash plus two soft shapes, so no slide is blank white."""
+        """A coloured page with structure: tint, soft shape, dark spine, guides."""
         if fill != PAPER:
             self._add("bg", "shape", "background", "layout_design", {"shape": "rectangle"},
                       {"fill": fill, "line_color": fill, "line_width": 0.0}, 0, 0, SLIDE_W, SLIDE_H)
             return
-        self.bar("bg", 0, 0, SLIDE_W, SLIDE_H, PAPER_A, role="background",
-                 gradient=[PAPER_A, PAPER_B], gradient_angle=40.0)
-        self._add("bg_orb1", "shape", "background", "layout_design", {"shape": "oval"},
-                  {"fill": "#E4EFF1", "line_color": "#E4EFF1", "line_width": 0.0},
-                  9.95, -2.45, 4.90, 4.90)
-        self._add("bg_orb2", "shape", "background", "layout_design", {"shape": "oval"},
-                  {"fill": "#EAF3F4", "line_color": "#EAF3F4", "line_width": 0.0},
-                  -1.75, 4.55, 4.30, 4.30)
-        self.bar("bg_foot", 0, 7.06, SLIDE_W, 0.44, "#DCE7EA", role="background", alpha=85.0)
+        tint = self.section_tint()
+        self.bar("bg", 0, 0, SLIDE_W, SLIDE_H, tint, role="background")
+        # a soft geometric shape so the page is never a flat field either
+        self._add("bg_orb", "shape", "background", "layout_design", {"shape": "oval"},
+                  {"fill": mix(tint, "#8FB4BD", 0.16), "line_color": mix(tint, "#8FB4BD", 0.16),
+                   "line_width": 0.0}, 9.55, 3.85, 6.30, 6.30)
+        # faint column guides, the visible grid the content sits on
+        for i in range(1, 4):
+            gx = round(M + W * i / 4 - 0.004, 3)
+            self.bar(f"bg_grid{i}", gx, 1.55, 0.008, 5.10, GRID, role="background")
+        # dark left spine, continuous with the header and footer bands
+        self.bar("bg_spine", 0, 0, 0.22, SLIDE_H, BAND, role="background")
 
     def pic(self, oid, path: str, x, y, w, h, alt: str = "") -> None:
         self._add(oid, "picture", "decoration", "layout_design", {"path": path},
@@ -144,6 +187,9 @@ class Slide:
 
     def card(self, oid, x, y, w, h, fill: str = PANEL, radius: float = 0.10,
              edge: str | None = None, role: str = "panel") -> None:
+        # a white panel on a tinted page needs its hairline to read as a card
+        if edge is None and fill == CARD:
+            edge = LINE
         self.bar(oid, x, y, w, h, fill, radius=radius, role=role,
                  line_color=edge, line_width=0.75 if edge else 0.0)
 
@@ -188,8 +234,9 @@ class Slide:
         band_h = round(0.56 + title_h + 0.18, 3)
         self.bar("hdr", 0, 0, SLIDE_W, band_h, BAND, role="background",
                  gradient=[BAND, BAND2], gradient_angle=0.0)
-        self.bar("hdr_edge", 0, band_h, SLIDE_W, 0.05, TEAL2, role="background")
-        self.txt("kicker", M, 0.28, W, 0.24, self.kicker, size=9.5, bold=True,
+        self.bar("hdr_edge", 0, band_h, SLIDE_W, 0.07, ACCENT, role="background")
+        folio = "%02d" % (self.deck.slides.index(self) + 1)
+        self.txt("kicker", M, 0.28, W, 0.24, f"{folio}  ·  {self.kicker}", size=9.5, bold=True,
                  color=ON_BAND, role="kicker", spc=110)
         self.txt("title", M, 0.56, W, title_h, self.title, size=title_size, bold=True,
                  color=WHITE, role="title")
@@ -198,18 +245,25 @@ class Slide:
             width = W - 0.88
             lines = est_lines(action, width, 12.5)
             ah = round(lines * (12.5 * 1.24 / 72) + 0.30, 3)
-            self.card("action_bg", M, ay, W, ah, WHITE, radius=0.08, edge=LINE)
-            self.bar("action_edge", M, ay, 0.06, ah, action_color, role="bar")
+            # if the caller asked for a light action colour it meant a dark emphasis
+            # bar with light text; anything else gets the white card treatment
+            dark_bar = _luminance(action_color) > 0.62
+            fill = action_fill if dark_bar else WHITE
+            edge = None if dark_bar else LINE
+            accent = ACCENT if dark_bar else action_color
+            self.card("action_bg", M, ay, W, ah, fill, radius=0.08, edge=edge)
+            self.bar("action_edge", M, ay, 0.06, ah, accent, role="bar")
             self.txt("action", M + 0.32, round(ay + 0.15, 3), width, round(ah - 0.30, 3),
                      action, size=12.5, bold=True, color=action_color, role="takeaway")
 
     def footer(self, page: str) -> None:
-        self.rule("foot_rule", M, FOOT_RULE_Y, W)
-        self.txt("footer", M, FOOT_TEXT_Y, 9.4, 0.28, CITATION, size=9, color=MUTED, role="footer")
-        self.bar("page_chip", round(RIGHT - 0.44, 3), round(FOOT_RULE_Y - 0.03, 3), 0.44, 0.28,
-                 BAND, radius=0.05, role="bar")
-        self.txt("page", round(RIGHT - 0.44, 3), round(FOOT_RULE_Y + 0.035, 3), 0.44, 0.20,
-                 page, size=9.5, bold=True, color=WHITE, align="center", role="footer")
+        self.bar("foot_band", 0, 6.74, SLIDE_W, 0.76, BAND, role="background")
+        self.bar("foot_edge", 0, 6.74, SLIDE_W, 0.045, ACCENT, role="background")
+        self.txt("footer", M, 6.92, 9.4, 0.28, CITATION, size=8.5, color="#9FC7CF", role="footer")
+        self.bar("page_chip", round(RIGHT - 0.50, 3), 6.88, 0.50, 0.28, "#E8F4F6",
+                 radius=0.05, role="bar")
+        self.txt("page", round(RIGHT - 0.50, 3), 6.925, 0.50, 0.20, page, size=9.5,
+                 bold=True, color=BAND, align="center", role="footer")
 
     def kpi_rail(self, oid_prefix: str, x, y, w, rows, row_h: float = 0.78,
                  num_size: float = 24.0, num_w: float = 2.05) -> None:
@@ -917,7 +971,7 @@ spec = {
                            "body_pt": "10–15", "footer_pt": 9},
             "palette": {"surface": PAPER, "panel": PANEL, "mint": MINT, "ink": INK,
                         "accent": TEAL, "accent_bright": TEAL2, "warning": AMBER,
-                        "warning_bg": AMBERBG, "cream": CREAM, "hairline": LINE},
+                        "warning_bg": AMBERBG, "card": CARD, "hairline": LINE},
             "composition": "master grid tetap (chip bagian, judul, banner inti, isi, rel footer) "
                            "dengan badan yang beragam: rel angka bergaris, kartu langkah bernomor, "
                            "papan kriteria, grafik kolom, donat, dua grafik batang, dan ilustrasi "

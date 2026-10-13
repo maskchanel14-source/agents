@@ -136,3 +136,16 @@ Dependensi: `python-pptx`, `Pillow`, `defusedxml`, `reportlab`, `pymupdf`
    catatan: insisivus 36,6% di abstrak versus 38,7% di Tabel 2, serta penyebutan basis data
    yang tidak seragam (PubMed/MEDLINE dipisah, EMBASE hanya di strategi pencarian).
 4. Deck ini menyajikan **1 artikel** dari daftar 38 artikel di `../README.md`.
+Versi 7. Yang berubah dari versi 6:
+
+1. **Halaman berwarna, bukan putih.** Setiap slide memakai warna halaman per bagian
+   (ringkasan biru, hasil hijau, diskusi krem, implikasi kuning tua) diambil dari satu
+   kanvas bersama, ditambah satu bentuk geometris lembut dan panduan kolom tipis.
+2. **Chrome yang mengikat seluruh deck**: pita judul teal gelap bergradien, garis aksen
+   jingga di bawah pita, nomor bagian pada baris kicker, pita footer gelap penuh, dan
+   nomor halaman dalam chip terang.
+3. **Panel diseragamkan.** Semua panel kini kartu putih bertepi tipis di atas halaman
+   berwarna; kuning tua hanya dipakai untuk hal yang perlu perhatian (keluaran, batasan).
+4. **Baris penekanan** yang diminta gelap otomatis memakai pita teal dengan teks terang,
+   jadi tidak ada lagi teks putih di atas kartu putih.
+

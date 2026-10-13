@@ -1,9 +1,9 @@
 {
-  "audited_at": "2026-10-13T09:34:07+00:00",
+  "audited_at": "2026-10-13T09:41:19+00:00",
   "deck": "Presentasi-Jurnal-MIH-Lopes-2021.pptx",
   "spec": "spec.json",
   "slides": 15,
-  "objects_checked": 522,
+  "objects_checked": 564,
   "accepted_exceptions": [],
   "checks": [
     "geometry-drift",
@@ -368,18 +368,18 @@
     },
     {
       "slide_id": "s02_ringkasan",
-      "object_id": "bg_orb1",
+      "object_id": "bg_orb",
       "declared": {
-        "x": 9.95,
-        "y": -2.45,
-        "width": 4.9,
-        "height": 4.9
+        "x": 9.55,
+        "y": 3.85,
+        "width": 6.3,
+        "height": 6.3
       },
       "actual": {
-        "x": 9.95,
-        "y": -2.45,
-        "width": 4.9,
-        "height": 4.9
+        "x": 9.55,
+        "y": 3.85,
+        "width": 6.3,
+        "height": 6.3
       },
       "deviation_in": 0.0,
       "compared_fields": [
@@ -391,18 +391,18 @@
     },
     {
       "slide_id": "s02_ringkasan",
-      "object_id": "bg_orb2",
+      "object_id": "bg_grid1",
       "declared": {
-        "x": -1.75,
-        "y": 4.55,
-        "width": 4.3,
-        "height": 4.3
+        "x": 3.619,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
       },
       "actual": {
-        "x": -1.75,
-        "y": 4.55,
-        "width": 4.3,
-        "height": 4.3
+        "x": 3.619,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
       },
       "deviation_in": 0.0,
       "compared_fields": [
@@ -414,18 +414,64 @@
     },
     {
       "slide_id": "s02_ringkasan",
-      "object_id": "bg_foot",
+      "object_id": "bg_grid2",
+      "declared": {
+        "x": 6.663,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "actual": {
+        "x": 6.663,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_grid3",
+      "declared": {
+        "x": 9.706,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "actual": {
+        "x": 9.706,
+        "y": 1.55,
+        "width": 0.008,
+        "height": 5.1
+      },
+      "deviation_in": 0.0,
+      "compared_fields": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "slide_id": "s02_ringkasan",
+      "object_id": "bg_spine",
       "declared": {
         "x": 0,
-        "y": 7.06,
-        "width": 13.333,
-        "height": 0.44
+        "y": 0,
+        "width": 0.22,
+        "height": 7.5
       },
       "actual": {
         "x": 0.0,
-        "y": 7.06,
-        "width": 13.333,
-        "height": 0.44
+        "y": 0.0,
+        "width": 0.22,
+        "height": 7.5
       },
       "deviation_in": 0.0,
       "compared_fields": [
@@ -465,13 +511,13 @@
         "x": 0,
         "y": 1.281,
         "width": 13.333,
-        "height": 0.05
+        "height": 0.07
       },
       "actual": {
         "x": 0.0,
         "y": 1.281,
         "width": 13.333,
-        "height": 0.05
+        "height": 0.07
       },
       "deviation_in": 0.0,
       "compared_fields": [
@@ -886,52 +932,6 @@
         "y": 3.86,
         "width": 2.05,
         "height": 0.487
-      },
-      "deviation_in": 0.0,
-      "compared_fields": [
-        "x",
-        "y",
-        "width",
-        "height"
-      ]
-    },
-    {
-      "slide_id": "s02_ringkasan",
-      "object_id": "sumk_l2",
-      "declared": {
-        "x": 7.36,
-        "y": 3.84,
-        "width": 5.39,
-        "height": 0.255
-      },
-      "actual": {
-        "x": 7.36,
-        "y": 3.84,
-        "width": 5.39,
-        "height": 0.255
-      },
-      "deviation_in": 0.0,
-      "compared_fields": [
-        "x",
-        "y",
-        "width",
-        "height"
-      ]
-    },
-    {
-      "slide_id": "s02_ringkasan",
-      "object_id": "sumk_n2",
-      "declared": {
-        "x": 7.36,
-        "y": 4.16,
-        "width": 5.39,
-        "height": 0.221
-      },
-      "actual": {
-        "x": 7.36,
-        "y": 4.16,
-        "width": 5.39,
-        "height": 0.221
       },
       "deviation_in": 0.0,
       "compared_fields": [
