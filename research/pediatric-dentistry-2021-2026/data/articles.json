@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Literatur Kedokteran Gigi Anak (Pediatric Dentistry) 2021-2026",
+    "subtitle": "33 artikel jurnal internasional berbahasa Inggris, semuanya open access (full text gratis di PubMed Central)",
+    "compiled": "2026-10-13",
+    "databases": [
+      "Europe PMC REST API (korpus MEDLINE)",
+      "PubMed E-utilities",
+      "Crossref REST API (verifikasi DOI)"
+    ],
+    "license_note": "Metadata artikel adalah data publik dari Crossref/Europe PMC; teks lengkap mengikuti lisensi masing-masing artikel (umumnya CC BY)."
+  },
+  "themes": [
+    {
+      "id": "T1",
+      "name": "Beban penyakit & kebijakan karies anak usia dini (Early Childhood Caries/ECC)",
+      "why": "Tema inti kedokteran gigi anak: definisi, angka prevalensi global, dan kebijakan pencegahan. Pijakan untuk latar belakang (bab 1) dan argumen promotif.",
+      "articles": [
+        "zou2022eccconsensus",
+        "maklennan2024eccglobal",
+        "chen2021eccpolicies",
+        "vukovic2025caries12"
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "Silver diamine fluoride (SDF) & pencegahan karies",
+      "why": "Intervensi non-invasif paling cepat berkembang; ada RCT dan kebijakan global yang bisa dikutip.",
+      "articles": [
+        "gao2021sdfpolicy",
+        "ruff2023cariedaway",
+        "zheng2022sdftherapy",
+        "timms2025sdfaccept"
+      ]
+    },
+    {
+      "id": "T3",
+      "name": "Minimal intervention & restorasi gigi sulung",
+      "why": "Perubahan paradigma: dari 'bor semua' ke ART/Hall technique/lesi dalam tanpa tumpatan.",
+      "articles": [
+        "banihani2022mid",
+        "duggal2022eapddeepcaries",
+        "hu2022halltechnique"
+      ]
+    },
+    {
+      "id": "T4",
+      "name": "Molar incisor hypomineralisation (MIH)",
+      "why": "Menyumbang beban karies pada gigi molar pertama permanen; sudah ada panduan EAPD terbaru.",
+      "articles": [
+        "lygidakis2022mihpolicy",
+        "lopes2021mihprevalence",
+        "somani2022mihtreatment"
+      ]
+    },
+    {
+      "id": "T5",
+      "name": "Manajemen perilaku, kecemasan dental & sedasi",
+      "why": "Dasar non-farmakologis pengelolaan anak; banyak RCT distraksi (VR, musik, aromaterapi).",
+      "articles": [
+        "shekhar2022distraction",
+        "kohli2022behavior",
+        "du2022vr",
+        "ashley2021sedation"
+      ]
+    },
+    {
+      "id": "T6",
+      "name": "Pulpa, endodontik & trauma gigi anak",
+      "why": "Topik kasus harian; mencakup gigi imatur nekrosis, epidemiologi trauma, dan mekanisme resorpsi.",
+      "articles": [
+        "wikstrom2021immature",
+        "laforgia2025trauma",
+        "galler2021resorption"
+      ]
+    },
+    {
+      "id": "T7",
+      "name": "Kualitas hidup terkait kesehatan gigi-mulut (OHRQoL)",
+      "why": "Kerangka outcome pasien yang makin wajib di skripsi/tesis klinis anak.",
+      "articles": [
+        "pakkhesal2021ohrqol",
+        "omara2021fourdim",
+        "jalevik2022mihfear"
+      ]
+    },
+    {
+      "id": "T8",
+      "name": "Anak berkebutuhan khusus & disabilitas",
+      "why": "Bukti ketimpangan (inequity) dan hambatan akses layanan; kuat untuk argumen kebijakan.",
+      "articles": [
+        "ningrum2021specialneeds",
+        "khan2022shcn",
+        "erwin2022autism"
+      ]
+    },
+    {
+      "id": "T9",
+      "name": "Teledentistry, AI & teknologi digital",
+      "why": "Topik terhangat 2024-2026; siap dipakai sebagai novelty/kerangka penelitian baru.",
+      "articles": [
+        "alshaya2022teledentistry",
+        "kuru2025aiTrauma",
+        "tuygunov2025aidfdi",
+        "elsonbaty2025aiseg"
+      ]
+    },
+    {
+      "id": "T10",
+      "name": "Diet gula, menyusui, mikrobioma & pencegahan karies",
+      "why": "Menghubungkan faktor risiko diet dengan biome mulut; bagus untuk kerangka teori etiologi.",
+      "articles": [
+        "cheever2025freesugar",
+        "laracastor2024ssb",
+        "luo2024probiotics",
+        "li2023salivary",
+        "lustosa2025breastfeeding"
+      ]
+    },
+    {
+      "id": "T11",
+      "name": "Erosi gigi & tooth wear",
+      "why": "Tema pelengkap karies: etiologinya berbeda (asam, bukan bakteri), dan dua artikel terbaru membahas diagnosis sampai pencegahan.",
+      "articles": [
+        "carvalho2026erosion",
+        "marschner2025erosion"
+      ]
+    }
+  ]
+}
