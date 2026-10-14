@@ -32,6 +32,7 @@ quality flaws, ordinary subjects, and a few closing negations.
 | `smartphone-realism/references/era-grading.md` | Era table, the modern-phone trap, five presets, a fill-in template |
 | `smartphone-realism/references/negative-prompt-bank.md` | Negative banks, plus how to rewrite them affirmatively for generators with no negative slot |
 | `smartphone-realism/references/case-study.md` | Three iterations of one prompt: two failures and the fix that worked |
+| `smartphone-realism/references/external-anti-ai-look.md` | External tell→correction table, strip-word list, prompt slot order (UltraReal + muse) |
 | `identity-lock/references/identity-block.md` | The lock formula, enumeration checklist, fill-in template, freeze-and-hash rule |
 | `identity-lock/references/ref-workflow.md` | Reference collection, ordering, labeling, two-pass, mannequins, provider notes |
 | `identity-lock/references/measuring.md` | Embedding scores, adaptive thresholds by face size, grid review, calibration |
@@ -87,6 +88,7 @@ Identity locking adds sources credited in the skill files that draw on them:
 - [`artfat-creator/ComfyUI-Artfat-FaceConsistency`](https://github.com/artfat-creator/ComfyUI-Artfat-FaceConsistency) (MIT) and [`SiddharthFulia/face-consistency-toolkit`](https://github.com/SiddharthFulia/face-consistency-toolkit) (MIT) — identity scoring, adaptive thresholds by face size
 - [`beatra-ai/ai-image-realism-skill`](https://github.com/beatra-ai/ai-image-realism-skill) (MIT-0) — the repair-prompt shape and the AI-tells inspection vocabulary
 - Prior art, unlicensed — ideas referenced, no text copied: [`aidenli/krea2-photography-prompt-skills`](https://github.com/aidenli/krea2-photography-prompt-skills) — causal imperfection (one reasoned, localized flaw per capture)
+- [`Sugamdeol/UltraReal-Prompt-Architect`](https://github.com/Sugamdeol/UltraReal-Prompt-Architect) (MIT) and [`nanbada/muse-creative-skills`](https://github.com/nanbada/muse-creative-skills) — the external anti-AI-look tell table, strip-word list, and prompt slot order in `smartphone-realism/references/external-anti-ai-look.md`
 
 The damage-prior finding, the first case study, and the identity case series come from testing
 in this repository.
