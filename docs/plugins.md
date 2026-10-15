@@ -1,6 +1,6 @@
 # Complete Plugin Reference
 
-Browse all 94 marketplace plugins organized by category: 92 local plugins plus 2 external Claude Code marketplace entries (`pensyve` and `hol-guard`). The local source supports seven coding tools through native formats and adapters. Install commands below use Claude Code syntax. See the [tool setup guide](./harnesses.md) for other installation routes.
+Browse all 95 marketplace plugins organized by category: 93 local plugins plus 2 external Claude Code marketplace entries (`pensyve` and `hol-guard`). The local source supports seven coding tools through native formats and adapters. Install commands below use Claude Code syntax. See the [tool setup guide](./harnesses.md) for other installation routes.
 
 ## Quick Start - Essential Plugins
 
@@ -311,11 +311,12 @@ Next.js, React + Vite, and Node.js project setup with pnpm and TypeScript best p
 | -------------------- | -------------------------------------- | ---------------------------------- |
 | **game-development** | Unity and Minecraft plugin development | `/plugin install game-development` |
 
-### ♿ Accessibility (1 plugin)
+### ♿ Accessibility (2 plugins)
 
 | Plugin                       | Description                        | Install                                    |
 | ---------------------------- | ---------------------------------- | ------------------------------------------ |
 | **accessibility-compliance** | WCAG auditing and inclusive design | `/plugin install accessibility-compliance` |
+| **eaa-compliance** | European Accessibility Act compliance: legal scope, EN 301 549 / WCAG 2.1 AA audit, EU Accessibility Statements in six languages, ACR/VPAT authoring with OpenACR export, procurement answers | `/plugin install eaa-compliance` |
 
 ### 🎨 Creative (4 plugins)
 

@@ -262,6 +262,19 @@
       "category": "Coding"
     },
     {
+      "name": "eaa-compliance",
+      "description": "European Accessibility Act compliance: legal scope determination, EN 301 549 / WCAG 2.1 AA codebase audit, EU Accessibility Statement generation in six languages, ACR/VPAT authoring with OpenACR export, and procurement questionnaire answers",
+      "source": {
+        "source": "local",
+        "path": "./plugins/eaa-compliance"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Coding"
+    },
+    {
       "name": "file-conversion",
       "description": "Convert common image, audio, video, document, and data formats with installed local tools while preserving originals.",
       "source": {

@@ -1,0 +1,26 @@
+{
+  "name": "eaa-compliance",
+  "version": "1.0.0",
+  "description": "European Accessibility Act compliance: legal scope determination, EN 301 549 / WCAG 2.1 AA codebase audit, EU Accessibility Statement generation in six languages, ACR/VPAT authoring with OpenACR export, and procurement questionnaire answers",
+  "skills": "./skills/",
+  "author": {
+    "name": "maskchanel14",
+    "url": "https://github.com/maskchanel14-source"
+  },
+  "homepage": "https://github.com/wshobson/agents/tree/main/plugins/eaa-compliance",
+  "repository": "https://github.com/wshobson/agents",
+  "license": "MIT",
+  "keywords": [
+    "accessibility-statement-eu",
+    "acr-vpat-authoring",
+    "eaa-legal-scope",
+    "en-301-549-mapping",
+    "procurement-answers",
+    "wcag-codebase-audit"
+  ],
+  "interface": {
+    "displayName": "Eaa Compliance",
+    "shortDescription": "European Accessibility Act compliance: legal scope determination, EN 301 549 / WCAG 2.1 AA codebase audit, EU\u2026",
+    "category": "Coding"
+  }
+}

@@ -213,6 +213,11 @@ Claude Code automatically selects and coordinates the appropriate agents based o
 | Command                                         | Description              |
 | ----------------------------------------------- | ------------------------ |
 | `/accessibility-compliance:accessibility-audit` | WCAG compliance auditing |
+| `/eaa-compliance:scope-check` | Does the European Accessibility Act apply? Scope, microenterprise exemption, member-state exposure |
+| `/eaa-compliance:audit` | WCAG 2.1 AA / EN 301 549 source audit, prioritised by revenue-journey risk |
+| `/eaa-compliance:remediate` | Sequenced remediation plan, evidence log, ownership split, CI regression gate |
+| `/eaa-compliance:statement` | EAA-mandated Accessibility Statement in EN, DE, FR, ES, IT, or NL |
+| `/eaa-compliance:acr` | ACR on VPAT 2.5Rev (WCAG / EN 301 549 / Section 508 / INT) with OpenACR YAML export |
 
 ### API Development
 

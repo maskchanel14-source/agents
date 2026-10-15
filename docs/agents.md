@@ -30,6 +30,9 @@ Reference for 201 local AI agents organized by category. The model column lists 
 | [design-system-architect](../plugins/ui-design/agents/design-system-architect.md)        | opus   | Design tokens, component libraries, theming systems     |
 | [ui-ux-designer](../plugins/multi-platform-apps/agents/ui-ux-designer.md)                | sonnet | Interface design, wireframes, design systems            |
 | [ui-visual-validator](../plugins/accessibility-compliance/agents/ui-visual-validator.md) | sonnet | Visual regression testing and UI verification           |
+| [eaa-compliance-advisor](../plugins/eaa-compliance/agents/eaa-compliance-advisor.md)   | opus   | EAA legal scope, jurisdiction, penalty exposure         |
+| [eaa-codebase-auditor](../plugins/eaa-compliance/agents/eaa-codebase-auditor.md)       | opus   | Framework-aware WCAG 2.1 AA / EN 301 549 source audit    |
+| [eaa-documentation-author](../plugins/eaa-compliance/agents/eaa-documentation-author.md) | sonnet | EU Accessibility Statements, ACR/VPAT, procurement answers |
 | [mobile-developer](../plugins/multi-platform-apps/agents/mobile-developer.md)            | sonnet | React Native and Flutter application development        |
 | [ios-developer](../plugins/multi-platform-apps/agents/ios-developer.md)                  | sonnet | Native iOS development with Swift/SwiftUI               |
 | [flutter-expert](../plugins/multi-platform-apps/agents/flutter-expert.md)                | sonnet | Advanced Flutter development with state management      |

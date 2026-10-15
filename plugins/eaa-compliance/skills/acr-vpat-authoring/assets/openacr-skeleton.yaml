@@ -1,0 +1,221 @@
+# OpenACR skeleton
+#
+# OpenACR is the machine-readable, YAML-based Accessibility Conformance Report schema
+# used by public-sector ACR libraries (see the section508.gov ACR library and the
+# OpenACR editor). Shipping it alongside the human-readable report lets a buyer ingest
+# the ACR into their own tooling, and almost no vendor supplies it.
+#
+# DISCIPLINE: the schema evolves. Before delivery:
+#   1. Confirm the current OpenACR schema version and validate this document against it.
+#   2. Record the schema version in `report_date` metadata or the accompanying note.
+#   3. Diff against the human-readable ACR — criterion counts, conformance levels,
+#      product version, and dates must match exactly. Two documents that disagree are
+#      worse than one.
+#   4. Never emit a field from memory where the schema defines a controlled vocabulary;
+#      use the vocabulary's own terms.
+#
+# Conformance levels use the VPAT vocabulary verbatim:
+#   supports | partially supports | does not support | not applicable
+# Add a fifth value of your own only where the schema permits a free-text status, and
+# record unevaluated criteria under `notes` with the closing test and date.
+
+title: "{{PRODUCT_NAME}} {{PRODUCT_VERSION}} Accessibility Conformance Report"
+
+product:
+  name: "{{PRODUCT_NAME}}"
+  version: "{{PRODUCT_VERSION}}"
+  description: >-
+    {{ONE_PARAGRAPH — what the product is, what it does, who uses it, and which
+    surfaces this assessment covers.}}
+
+author:
+  company_name: "{{EVALUATOR_ORGANISATION}}"
+  email: "{{EMAIL}}"
+  website: "{{URL}}"
+
+vendor:
+  company_name: "{{ORGANISATION_LEGAL_NAME}}"
+  email: "{{EMAIL}}"
+  website: "{{URL}}"
+
+report_date: "{{REPORT_DATE}}"
+
+last_update: "{{REPORT_DATE}}"
+
+# Evaluation type is the field a procurement evaluator reads first after the version.
+# A self-evaluation presented as an independent audit misleads the reader about its weight.
+notes: >-
+  Evaluation type: {{SELF-EVALUATION | INDEPENDENT EVALUATION}}.
+  Assessed against {{WCAG 2.1 Level A and AA | EN 301 549 v3.2.1 | Revised 508 Standards}}.
+  Platforms tested: {{OS + VERSION}} with {{BROWSER + VERSION}} and {{AT + VERSION}}.
+  Automated scanning detects approximately a quarter to a third of WCAG issues; criteria
+  established by automated or source analysis alone are identified as such in the remarks.
+  Criteria not evaluated are recorded as unevaluated with a dated closing test and carry
+  no conformance claim.
+
+evaluation_methods:
+  - "automated-testing"
+  - "static-source-analysis"
+  - "keyboard-only-testing"
+  - "screen-reader-testing"
+  - "zoom-and-reflow-testing"
+
+# ── Web / WCAG chapter ────────────────────────────────────────────────────────
+# One entry per criterion in scope. WCAG 2.1 Level A and AA is 50 entries:
+# 30 at Level A, 20 at Level AA. A report with 38 entries was built from a WCAG 2.0
+# list and is incomplete.
+#
+# Clause mapping for the EU edition is mechanical: Level A becomes 9.1.<SC>,
+# Level AA becomes 9.2.<SC>, Level AAA becomes 9.3.<SC>.
+
+chapters:
+  - id: "success_criteria wcag2x"
+    label: "Web Content Accessibility Guidelines 2.1"
+    report:
+      - criteria: "1.1.1 Non-text Content"
+        level: "A"
+        en_301_549_clause: "9.1.1.1"
+        conformance: "{{supports | partially supports | does not support | not applicable}}"
+        remarks: >-
+          {{WHAT WAS TESTED · HOW · WHAT WAS FOUND · WHAT THE LIMITATION IS ·
+          WHEN IT WILL BE ADDRESSED. No remark may be generic, empty, or reusable
+          unchanged in another product's report.}}
+
+      - criteria: "3.3.2 Labels or Instructions"
+        level: "A"
+        en_301_549_clause: "9.1.3.3.2"
+        conformance: "{{LEVEL}}"
+        remarks: "{{REMARK}}"
+
+      - criteria: "1.4.3 Contrast (Minimum)"
+        level: "AA"
+        en_301_549_clause: "9.2.1.4.3"
+        conformance: "{{LEVEL}}"
+        remarks: "{{REMARK}}"
+
+      - criteria: "2.4.7 Focus Visible"
+        level: "AA"
+        en_301_549_clause: "9.2.2.4.7"
+        conformance: "{{LEVEL}}"
+        remarks: "{{REMARK}}"
+
+      - criteria: "4.1.3 Status Messages"
+        level: "AA"
+        en_301_549_clause: "9.2.4.1.3"
+        conformance: "{{LEVEL}}"
+        remarks: "{{REMARK}}"
+
+      # …continue for all 50 criteria in scope. Do not omit criteria that pass
+      # and do not collapse them into a summary entry.
+
+# ── EU edition: EN 301 549 chapters 4–12 ──────────────────────────────────────
+# Report every chapter. Where a chapter cannot apply, mark it not applicable WITH a
+# reason — never omit it silently, because an EU evaluator checks that all chapters
+# were considered.
+
+  - id: "functional_performance"
+    label: "EN 301 549 Clause 4 — Functional Performance Statements"
+    report:
+      - criteria: "4.2.1 Usage without vision"
+        conformance: "{{LEVEL}}"
+        remarks: >-
+          {{WHAT THE PRODUCT ENABLES, cross-referenced to the clause-9 criteria that
+          deliver it. Boilerplate here is a common rejection reason: the evaluator
+          reads clause 4 as the summary and clause 9 as the detail.}}
+      - criteria: "4.2.2 Usage with limited vision"
+        conformance: "{{LEVEL}}"
+        remarks: "{{REMARK}}"
+      # …4.2.3 through 4.2.11, including 4.2.9 (photosensitive seizure triggers)
+      # and 4.2.11 (privacy).
+
+  - id: "non_web_documents"
+    label: "EN 301 549 Clause 10 — Non-Web Documents"
+    report:
+      - criteria: "10 Non-web documents"
+        conformance: "{{LEVEL}}"
+        remarks: >-
+          {{EVERY PDF, invoice, order confirmation, contract, statement, and marketing
+          email. The accessibility statement is itself a clause-10 document — an
+          untagged PDF statement is a documented conformance failure about conformance.}}
+
+  - id: "software"
+    label: "EN 301 549 Clause 11 — Software"
+    report:
+      - criteria: "11 Software"
+        conformance: "{{LEVEL}}"
+        remarks: >-
+          {{NATIVE MOBILE AND DESKTOP SOFTWARE. A web-only audit does not reach the
+          iOS or Android application — state this explicitly rather than letting the
+          reader assume coverage.}}
+
+  - id: "documentation_and_support"
+    label: "EN 301 549 Clause 12 — Documentation and Support Services"
+    report:
+      - criteria: "12.1 Product documentation"
+        conformance: "{{LEVEL}}"
+        remarks: "{{AVAILABLE IN ACCESSIBLE FORMATS ON REQUEST; DESCRIBES THE ACCESSIBILITY FEATURES}}"
+      - criteria: "12.2 Support services"
+        conformance: "{{LEVEL}}"
+        remarks: >-
+          {{CAN SUPPORT HELP A USER WITH A DISABILITY? Almost never assessed and almost
+          always failing. Cheap to fix — a documented escalation route and brief
+          training — and expensive to discover during procurement.}}
+
+# ── US edition: Revised 508 chapters 3–6 ──────────────────────────────────────
+# Note the version difference: Section 508 references WCAG 2.0 (38 criteria at A
+# and AA); the EAA and EN 301 549 reference WCAG 2.1 (50). Conflating them is a
+# visible, disqualifying error. Add the GSA Issue Detail Supplement only where the
+# solicitation requests it, keyed to that solicitation's issue numbers.
+
+  - id: "508_functional_performance"
+    label: "Revised 508 Chapter 3 — Functional Performance Criteria"
+    report: []
+  - id: "508_hardware"
+    label: "Revised 508 Chapter 4 — Hardware"
+    report: []
+  - id: "508_software"
+    label: "Revised 508 Chapter 5 — Software (WCAG 2.0 A/AA, plus 502 and 503)"
+    report: []
+  - id: "508_support_documentation"
+    label: "Revised 508 Chapter 6 — Support Documentation and Services"
+    report: []
+
+# ── Remediation, exclusions, re-issue ─────────────────────────────────────────
+# Every non-conformance carries a dated commitment. Third-party and platform-owned
+# items are recorded separately from client-owned work, with the vendor named and
+# the date of the written remediation request.
+
+remediation: []
+# - finding_id: "CO-01"
+#   criteria: "3.3.2"
+#   journey: "checkout"
+#   owner: "client | third-party | platform"
+#   commitment_date: "{{DATE}}"
+#   status: "open | in-progress | closed"
+
+exclusions: []
+# - surface: "{{SURFACE}}"
+#   reason: "{{REASON}}"
+#   owner: "client | third-party | platform"
+
+unevaluated: []
+# - criteria: "2.4.3 Focus Order"
+#   reason: "requires keyboard-only testing not performed in this assessment"
+#   closing_test: "keyboard-only walkthrough of the checkout route"
+#   scheduled: "{{DATE}}"
+
+reissue_policy: >-
+  This report describes version {{PRODUCT_VERSION}} as assessed on {{REPORT_DATE}}.
+  It is re-issued after any material release changing a covered journey, any change of
+  third-party provider touching a covered journey, remediation closing a recorded
+  non-conformance, a change in the standard or edition required by a buyer, and at
+  minimum annually. Prior versions remain retrievable; issued reports are never edited
+  in place.
+
+legal_disclaimer: >-
+  This Accessibility Conformance Report is a vendor-completed evaluation of the product
+  identified above at the version and date stated. It is not an independent certification
+  of conformance, and it is not legal advice. Only an independent evaluator can certify
+  conformance. Any question about the applicability of Directive (EU) 2019/882, the
+  Revised 508 Standards, or another accessibility instrument should be confirmed by a
+  qualified lawyer in the relevant jurisdiction.

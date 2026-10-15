@@ -179,6 +179,17 @@ Skills provide domain guidance that coding agents can load when relevant. Each s
 | **wcag-audit-patterns**   | Conduct WCAG 2.2 accessibility audits with automated and manual testing |
 | **screen-reader-testing** | Test screen reader compatibility across NVDA, JAWS, and VoiceOver       |
 
+### EAA Compliance (6 skills)
+
+| Skill                         | Description                                                         |
+| ----------------------------- | ------------------------------------------------------------------- |
+| **eaa-legal-scope**           | Directive (EU) 2019/882 scope, Article 4(5) exemption, member-state exposure |
+| **en-301-549-mapping**        | WCAG 2.1 SC-to-clause mapping for all 50 A and AA criteria, clauses 4-12 |
+| **wcag-codebase-audit**       | Framework-specific defect patterns, findings JSON schema, CI gates, manual-test protocol |
+| **accessibility-statement-eu**| Nine mandatory elements, defensible conformance wording, six language templates |
+| **acr-vpat-authoring**        | VPAT 2.5Rev editions, remark patterns, OpenACR export, eleven rejection causes |
+| **procurement-answers**       | The thirty accessibility questions buyers ask, with model answers and traps |
+
 ### Business Analytics (2 skills)
 
 | Skill                    | Description                                                                  |
@@ -449,7 +460,7 @@ fastapi-templates skill → Supplies production-ready templates
 
 ## Specification Compliance
 
-All 186 skills follow the [Agent Skills Specification](https://agentskills.io/specification):
+All 192 skills follow the [Agent Skills Specification](https://agentskills.io/specification):
 
 - ✓ Required `name` field (hyphen-case)
 - ✓ Required `description` field with "Use when" clause
