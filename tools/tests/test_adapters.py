@@ -141,6 +141,53 @@ class TestCodexAdapter:
         # Warning recorded
         assert any("body exceeded" in w for w in result.warnings)
 
+    def test_mirrors_all_skill_support_dirs_not_just_references(
+        self, tmp_path: Path, output_root: Path
+    ):
+        """Runtime scripts and assets must survive Codex generation."""
+        from tools.tests.conftest import _make_skill
+
+        plugin_dir = tmp_path / "demo"
+        plugin_dir.mkdir()
+        (plugin_dir / ".claude-plugin").mkdir()
+        (plugin_dir / ".claude-plugin" / "plugin.json").write_text('{"name": "demo"}')
+        skill = _make_skill(
+            plugin_dir,
+            "toolkit",
+            "name: toolkit\ndescription: Use when running the toolkit.",
+            "# Toolkit\n\nRun `scripts/preflight.sh`.\n",
+        )
+        fixtures = {
+            "references/notes.md": b"notes\n",
+            "scripts/preflight.sh": b"#!/bin/sh\necho ok\n",
+            "assets/logo.png": b"\x89PNG\r\n",
+            "examples/sample.txt": b"example\n",
+            ".DS_Store": b"junk",
+            ".cache/ignored.txt": b"ignored",
+        }
+        for relative, content in fixtures.items():
+            path = skill.dir / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        plugin = PluginSource(
+            name="demo", dir=plugin_dir, plugin_json={"name": "demo"}, skills=[skill]
+        )
+
+        result = CodexAdapter(output_root=output_root).emit_plugin(plugin)
+
+        root = output_root / ".codex" / "skills" / "demo__toolkit"
+        for relative in (
+            "references/notes.md",
+            "scripts/preflight.sh",
+            "assets/logo.png",
+            "examples/sample.txt",
+        ):
+            assert (root / relative).read_bytes() == fixtures[relative]
+            assert root / relative in result.written
+        assert not (root / ".DS_Store").exists()
+        assert not (root / ".cache").exists()
+        assert (root / "SKILL.md").read_text().count("# Toolkit") == 1
+
     def test_split_helper_handles_runaway_head(self):
         """If the H1 + intro alone is bigger than cap, the splitter hard-cuts."""
         body = "# Big\n\n" + ("x" * 12000)
@@ -1438,6 +1485,53 @@ class TestCopilotAdapter:
         assert fm["name"] == "hello"
         assert fm["description"] == "Use when greeting users."
         assert "# Hello" in body
+
+    def test_mirrors_all_skill_support_dirs_not_just_references(
+        self, tmp_path: Path, output_root: Path
+    ):
+        """Runtime scripts and assets must survive Copilot generation."""
+        from tools.tests.conftest import _make_skill
+
+        plugin_dir = tmp_path / "demo"
+        plugin_dir.mkdir()
+        (plugin_dir / ".claude-plugin").mkdir()
+        (plugin_dir / ".claude-plugin" / "plugin.json").write_text('{"name": "demo"}')
+        skill = _make_skill(
+            plugin_dir,
+            "toolkit",
+            "name: toolkit\ndescription: Use when running the toolkit.",
+            "# Toolkit\n\nRun `scripts/preflight.sh`.\n",
+        )
+        fixtures = {
+            "references/notes.md": b"notes\n",
+            "scripts/preflight.sh": b"#!/bin/sh\necho ok\n",
+            "assets/logo.png": b"\x89PNG\r\n",
+            "examples/sample.txt": b"example\n",
+            ".DS_Store": b"junk",
+            ".cache/ignored.txt": b"ignored",
+        }
+        for relative, content in fixtures.items():
+            path = skill.dir / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        plugin = PluginSource(
+            name="demo", dir=plugin_dir, plugin_json={"name": "demo"}, skills=[skill]
+        )
+
+        result = CopilotAdapter(output_root=output_root).emit_plugin(plugin)
+
+        root = output_root / ".copilot" / "skills" / "demo__toolkit"
+        for relative in (
+            "references/notes.md",
+            "scripts/preflight.sh",
+            "assets/logo.png",
+            "examples/sample.txt",
+        ):
+            assert (root / relative).read_bytes() == fixtures[relative]
+            assert root / relative in result.written
+        assert not (root / ".DS_Store").exists()
+        assert not (root / ".cache").exists()
+        assert (root / "SKILL.md").read_text().count("# Toolkit") == 1
 
     def test_emits_command_prompt_files(self, synthetic_plugin: PluginSource, output_root: Path):
         CopilotAdapter(output_root=output_root).emit_plugin(synthetic_plugin)

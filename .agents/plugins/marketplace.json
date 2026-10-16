@@ -574,6 +574,19 @@
       "category": "Coding"
     },
     {
+      "name": "shopify-product-management",
+      "description": "Chat-controlled Shopify product catalog management through Admin GraphQL API 2026-10, with credential-safe authentication, inventory, publication, media, and streamed batch workflows",
+      "source": {
+        "source": "local",
+        "path": "./plugins/shopify-product-management"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Coding"
+    },
+    {
       "name": "signed-audit-trails",
       "description": "Teaching skill: signed audit trails for Claude Code tool calls. Cookbook-style walkthrough of Cedar-gated tool calls with Ed25519 receipts, offline verification, and CI/CD integration. Pairs with the protect-mcp plugin.",
       "source": {

@@ -1,0 +1,11 @@
+{
+  "name": "shopify-product-management",
+  "displayName": "Shopify Product Management",
+  "version": "1.0.0",
+  "description": "Chat-controlled Shopify product catalog management through Admin GraphQL API 2026-10, with credential-safe authentication, inventory, publication, media, and streamed batch workflows",
+  "author": {
+    "name": "Seth Hobson",
+    "email": "seth@major7apps.com"
+  },
+  "license": "MIT"
+}

@@ -15,6 +15,9 @@ Ranking is a deterministic keyword overlap score (stdlib only, no network).
 It is a shortlist generator: the agent still reads the candidate SKILL.md
 files and decides which ones to load.
 """
+
+# ruff: noqa: SIM905 - the compact multilingual stopword string is intentional.
+
 from __future__ import annotations
 
 import argparse
@@ -88,13 +91,28 @@ def load_index() -> list[dict]:
 # Small Indonesian -> English glossary so Indonesian task descriptions match
 # the English skill descriptions.
 GLOSSARY = {
-    "berpikir": "thinking reasoning", "pikir": "thinking", "logika": "logic reasoning",
-    "logis": "logical reasoning", "riset": "research", "meneliti": "research",
-    "penelitian": "research", "cari": "search", "internet": "web search",
-    "sumber": "sources citation", "ringkas": "summarize", "rencana": "plan planning",
-    "merencanakan": "plan planning", "ide": "brainstorming ideas", "kritis": "critical thinking",
-    "bug": "debugging", "masalah": "problem debugging", "tulis": "writing",
-    "menulis": "writing", "kode": "code", "tes": "test testing", "keputusan": "decision",
+    "berpikir": "thinking reasoning",
+    "pikir": "thinking",
+    "logika": "logic reasoning",
+    "logis": "logical reasoning",
+    "riset": "research",
+    "meneliti": "research",
+    "penelitian": "research",
+    "cari": "search",
+    "internet": "web search",
+    "sumber": "sources citation",
+    "ringkas": "summarize",
+    "rencana": "plan planning",
+    "merencanakan": "plan planning",
+    "ide": "brainstorming ideas",
+    "kritis": "critical thinking",
+    "bug": "debugging",
+    "masalah": "problem debugging",
+    "tulis": "writing",
+    "menulis": "writing",
+    "kode": "code",
+    "tes": "test testing",
+    "keputusan": "decision",
 }
 
 
@@ -170,7 +188,11 @@ CAPABILITIES = {
     },
     "implementation": {
         "why": "menulis kode bertahap dengan tes",
-        "pinned": ["incremental-implementation", "test-driven-development", "source-driven-development"],
+        "pinned": [
+            "incremental-implementation",
+            "test-driven-development",
+            "source-driven-development",
+        ],
         "query": "implement incremental test-driven code",
     },
     "debugging": {
@@ -219,12 +241,15 @@ def cmd_plan(task: str, per_cap: int) -> int:
         picks, seen = [], set()
         for name in spec["pinned"]:
             if name in index and name not in seen:
-                picks.append(index[name]); seen.add(name)
-        plan["capabilities"].append({
-            "capability": cap,
-            "why": spec["why"],
-            "skills": [{"name": p["name"], "path": p["path"]} for p in picks[:per_cap]],
-        })
+                picks.append(index[name])
+                seen.add(name)
+        plan["capabilities"].append(
+            {
+                "capability": cap,
+                "why": spec["why"],
+                "skills": [{"name": p["name"], "path": p["path"]} for p in picks[:per_cap]],
+            }
+        )
 
     # Domain check: search the task itself for a specific skill (e.g. mql5).
     domain = []
@@ -234,7 +259,9 @@ def cmd_plan(task: str, per_cap: int) -> int:
             domain.append({"name": e["name"], "path": e["path"], "score": sc})
     plan["domain_matches"] = domain
     if not domain:
-        gaps.append("Tidak ada skill domain khusus untuk tugas ini. Ambil dokumentasi resmi (mis. mql5.com/en/docs) lewat capability research dan verifikasi API sebelum menulis kode.")
+        gaps.append(
+            "Tidak ada skill domain khusus untuk tugas ini. Ambil dokumentasi resmi (mis. mql5.com/en/docs) lewat capability research dan verifikasi API sebelum menulis kode."
+        )
     plan["gaps"] = gaps
     print(json.dumps(plan, ensure_ascii=False, indent=2))
     return 0
@@ -252,18 +279,31 @@ def cmd_search(query: str, n: int) -> int:
             ranked.append((s, e))
     ranked.sort(key=lambda t: (-t[0], t[1]["name"]))
     for s, e in ranked[:n]:
-        print(json.dumps({"score": s, "name": e["name"], "path": e["path"],
-                          "description": e["description"][:300]}, ensure_ascii=False))
+        print(
+            json.dumps(
+                {
+                    "score": s,
+                    "name": e["name"],
+                    "path": e["path"],
+                    "description": e["description"][:300],
+                },
+                ensure_ascii=False,
+            )
+        )
     if not ranked:
         print("no matches; try broader keywords", file=sys.stderr)
     return 0
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("index", help="write .agents/skill-index.md")
-    pp = sub.add_parser("plan", help="choose skills per capability (research, thinking, brainstorm, ...)")
+    pp = sub.add_parser(
+        "plan", help="choose skills per capability (research, thinking, brainstorm, ...)"
+    )
     pp.add_argument("task")
     pp.add_argument("-k", type=int, default=3, help="skills per capability")
     sp = sub.add_parser("search", help="rank skills for a task")

@@ -140,6 +140,17 @@ class CopilotAdapter(HarnessAdapter):
         )
         result.written.append(self.write(skill_dir / "SKILL.md", content))
 
+        # Mirror every non-hidden support file (references/, scripts/, assets/,
+        # examples/, etc.) so generated Copilot skills keep their runtime helpers.
+        # SKILL.md is emitted above with Copilot-specific frontmatter and tool names.
+        for src in sorted(skill.dir.rglob("*")):
+            if not src.is_file() or src.name == "SKILL.md":
+                continue
+            rel = src.relative_to(skill.dir)
+            if any(part.startswith(".") for part in rel.parts):
+                continue
+            result.written.append(self.mirror_file(src, skill_dir / rel))
+
     def _emit_command_as_skill(
         self, plugin: PluginSource, command: CommandSource, result: EmitResult
     ) -> None:
