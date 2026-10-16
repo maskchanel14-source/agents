@@ -152,10 +152,11 @@ Select sections based on product type (see Section Taxonomy below).
 
 **Do:**
 - Describe layout in terms of sections and content purpose
+- Name a deliberate composition and section rhythm (for example, editorial split hero or an image-led local service page); do not repeat generic card grids by default
 - Mention the mood/feel even though the design system also encodes it (reinforcement helps)
-- Specify CTA button text explicitly (e.g., "Start Free Trial")
+- Specify CTA button text explicitly (e.g., "Start Free Trial") and a real destination only when verified
 - Keep prompts to 6-8 sentences maximum
-- Name specific section types (hero, testimonials, features, pricing)
+- Name specific section types (hero, services/menu, features, proof, FAQ, location/contact)
 
 **Do not:**
 - Write CSS, HTML, or code in the prompt
@@ -219,7 +220,8 @@ Select sections based on product type (see Section Taxonomy below).
 | Open source project | Hero, Code Snippet, Features, Social Proof (stars/contributors), About, Final CTA, Footer |
 | Developer portfolio | Hero, Featured Projects, Testimonials, About, Final CTA, Footer |
 | Side project / indie product | Hero, Problem/Solution, Features, Pricing, FAQ, Final CTA, Footer |
-| Agency / consultancy | Hero, Problem/Solution, How It Works, Testimonials, Social Proof, Final CTA, Footer |
+| Agency / consultancy | Hero, Problem/Solution, How It Works, Testimonials (only if verified), Final CTA, Footer |
+| Local service / hospitality / retail | Hero, services or menu/portfolio, verified service area/location and hours, how to book/order, real reviews only if verified, contact/FAQ, Footer |
 
 ---
 

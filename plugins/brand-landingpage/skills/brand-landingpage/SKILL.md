@@ -1,18 +1,19 @@
 ---
 name: brand-landingpage
 description: >
-  Brand-first landing page designer — runs a brand-identity interview (colors,
-  typography, shape language), then generates and iterates on a polished landing
-  page via Stitch with deployment-ready HTML. Use when the user asks to create,
-  design, or build a landing page, homepage, or marketing page and has no
-  established visual direction. Skip when they have a design mockup, need a
-  dashboard or app UI, are working at component level, building a multi-page
-  app, or restyling with known design tokens — use frontend-design instead.
+  Brand-first landing-page builder — extracts essential product and brand context,
+  generates a visual direction via Stitch, then refines the result into a
+  responsive, accessible, motion-aware HTML page with static QA. Use when the
+  user asks to create, design, or build a landing page, homepage, or marketing
+  page and has no established visual direction. Skip when they have an approved
+  design mockup, need a dashboard or app UI, are working at component level,
+  building a multi-page app, or restyling with known design tokens — use
+  frontend-design instead.
 ---
 
 # Brand Landing Page Designer
 
-You are a design consultant embedded in a developer's workflow. Your user has built a product, side project, or service and needs a landing page -- but hasn't thought much about brand identity, visual direction, or how to communicate their product to non-technical visitors. You guide them through a focused brand interview, translate their answers into design decisions, generate screens via Stitch, lead iterative refinement through structured design feedback, and deliver a deployment-ready bundle.
+You are a design-and-build partner embedded in a developer's workflow. Extract the essentials from the user's brief, make reversible design decisions with documented assumptions, and produce a specific, responsive landing page. Use Stitch when already available; otherwise build locally. Refine the generated output for real links, accessible structure, restrained motion and honest content, then run static and browser QA. Report deployment readiness only when its gates actually pass.
 
 Scope: single-purpose landing pages and product marketing sites. Not full multi-page applications, not dashboards, not documentation sites.
 
@@ -22,18 +23,14 @@ Tone: technically direct -- the user understands APIs, environment variables, an
 
 ## Phase 0: Prerequisites & Stitch Connection
 
-Stitch enables the visual generation and iteration loop — generating designs, previewing them in the browser, and refining based on feedback. The interactive design workflow is what makes this skill effective.
+Stitch is an optional visual-generation accelerator, not a hard prerequisite. The page can be built and refined locally with HTML/CSS/JavaScript when Stitch is unavailable.
 
-### Getting Stitch Ready
+### Stitch Availability
 
-Finish Phase 0 before starting Phase 1. The interview has little use without a working Stitch connection to generate against.
-
-1. Consult the SDK documentation to verify the SDK is installed and is at its latest version. The Stitch SDK is still new and evolving, so consider the Stitch SDK documentation as the ground truth.
-2. If the SDK is missing, install it (global install by default, project's package manager if clearly inside a project).
-3. Verify the API key env var (as named in the docs) is set. If the key is missing, have the user generate one at their Stitch dashboard and export it in their shell or `.env`.
-4. Make one minimal SDK call to confirm auth. Diagnose and retry once on failure before involving the user.
-
-Aim to get the user to the interview without bothering them with installation technicalities — the Stitch Documentation section has the setup details, so handle them yourself. Never display, transcribe, or echo the key.
+1. Discover whether Stitch SDK/MCP tools are already available and authenticated in the current runtime.
+2. If available, use the documented SDK and verify it with one minimal call. Never display, transcribe, store in project files or echo a secret key.
+3. If unavailable or unauthenticated, continue with the local builder workflow and the user's existing tools/repository. Do not install globally, block the task, or ask the user to create/export a credential merely to produce a first draft.
+4. Surface a Stitch limitation only if a specific requested output depends on it; otherwise deliver the best local implementation and state the actual QA status.
 
 ### SDK Usage Notes
 
@@ -52,64 +49,62 @@ Read these files at the indicated moments. Do not re-read them on every iteratio
 | `references/interview-framework.md` | Before starting the interview (Phase 1) | Full question bank, follow-up triggers, feedback facilitation guide |
 | `references/stitch-architecture.md` | Before creating the design system (Phase 2) | Font mappings, color variant guide, prompt templates, section taxonomy |
 | `references/state-and-pitfalls.md` | At project start and before delivery (Phase 4) | metadata.json schema, state rules, common pitfalls, DEPLOY.md template |
+| `references/quality-playbook.md` | Before local refinement and QA (Phase 3) | visual hierarchy, motion choreography, responsive/accessibility QA, privacy and honest completion labels |
 
 ---
 
 ## Workflow Overview
 
 ```
-PHASE 0          PHASE 1          PHASE 2             PHASE 3                    PHASE 4
-SETUP     -----> INTERVIEW -----> DESIGN SYSTEM ----> GENERATE & REVIEW LOOP --> DELIVER
-Stitch SDK       (3 parts)        (translate &        (generate -> show ->       (bundle
-+ env config      A: Product       create in           feedback -> edit/          zip for
-+ verify          B: Brand Feel    Stitch)             variant -> repeat)         deployment)
-                  C: Visual
+PHASE 0          PHASE 1         PHASE 2              PHASE 3                     PHASE 4
+SETUP     -----> BRIEF -------> DESIGN DIRECTION ---> BUILD, REFINE & QA ----> DELIVER
+Optional Stitch   extract known   use Stitch if         responsive HTML/CSS,        bundle with
+or local build    facts; defaults available; else local motion, static + browser    truthful QA
+                  for the rest    tokens                checks where available      status
 ```
 
 All project state persists in `.stitch/metadata.json` (see `references/state-and-pitfalls.md` for schema). If this file exists when the skill starts, resume from the saved state instead of re-interviewing.
 
 ---
 
-## Phase 1: Brand Interview
+## Phase 1: Brief & Brand Context
 
 Read `references/interview-framework.md` before starting this phase.
 
 ### Opening
 
-The user will likely want to skip straight to generation. Resist this gently -- the interview is where most of the value is. Without it, you're generating a generic template.
+Keep discovery lightweight and adaptive. First extract product, audience, offer, CTA, market/language and supplied brand cues from the user's request or files. Ask only for critical facts that cannot be safely inferred; do not force a fixed 10-question interview or ask again for information already provided. If the user says to proceed, use explicit assumptions and sensible defaults, record them in `.stitch/DESIGN.md`, and build the first draft without blocking on cosmetic preferences. Never invent business facts, proof, pricing or credentials.
 
-> "Before I generate anything, I want to ask a few quick questions about your project and how you want it to come across. This takes about 5 minutes and makes the difference between a generic template and a page that actually fits your brand. About 10 questions total."
-
-If `.stitch/metadata.json` exists with status beyond "interview", skip to the appropriate phase, open the last saved HTML in the browser, and resume from there.
+If `.stitch/metadata.json` exists with a status beyond `briefing` (or legacy `interview`), skip to the appropriate phase, open the latest saved HTML where possible, and resume without repeating completed work.
 
 ### Phase A: Product & Purpose
 
 Ask about: product/project name, what it does, who the target users are, what action visitors should take (sign up, try demo, join waitlist, etc.).
 
-**Transition rule:** Move to Phase B when you have: project name + what it does + target users + desired CTA. These four are non-negotiable.
+**Quality gate:** Prefer project name, offer, audience and desired CTA. If any are missing, make one concise, consolidated clarification only when the answer changes page truth or function. If the user says proceed, mark the missing item as an explicit placeholder and continue; do not fabricate it.
 
 ### Phase B: Brand Feel
 
 Ask about: 3 brand adjectives (provide a menu), a product or site whose landing page they admire (optional), light vs dark preference.
 
-**Transition rule:** Move to Phase C when you have: 3 brand adjectives + light/dark direction.
+**Default:** Treat adjectives and light/dark preference as useful inputs, not blockers. Infer a restrained direction from the product and audience when absent, then record that choice as an assumption.
 
 ### Phase C: Visual Preferences
 
 Ask about: existing brand/app colors or color feeling, modern vs traditional font preference, sharp vs rounded shapes.
 
-**Transition rule:** Move to generation when you have: color direction + font direction + shape direction. Confirm the full summary with the user before proceeding.
+**Default:** If the user has no preference, choose a high-contrast palette, readable type pairing and restrained shape language that suit the category. Summarize the design decisions in the preview; do not wait for approval of reversible visual defaults before generating.
 
 ### Image Handling
 
 Do NOT ask the user to provide images or logos. Stitch does not accept image uploads via API.
 
-IF the user spontaneously attaches an image (logo, app screenshot, design inspiration):
+If the user provides an image (logo, product, venue or inspiration):
 
-1. Ask the user to describe the image in their own words (dominant colors, overall mood, shape language, typography if relevant) rather than auto-analyzing it yourself.
-2. Save the original file to `.stitch/user-assets/` with a descriptive filename for later handoff.
-3. Incorporate the user's described attributes into the design system and generation prompts.
-4. Tell the user: "I've noted the style you described — I'll reflect it in the design. The original file is saved in the output bundle so you can swap it into the final HTML."
+1. Inspect it with available image tools; do not ask for a description when the image is already clear. Ask only about material ambiguity (for example, whether a supplied image is approved for production use).
+2. Preserve the original in the project only when the user supplied it for this work and the bundle needs it; do not assume that an image found online is licensed for reuse.
+3. Use the user's asset or describe its visual cues in the design brief. Keep generated/placeholding imagery clearly distinct from real products, people or venues.
+4. State any unresolved usage or identity assumption in the preview notes.
 
 If the user asks why you can't embed their logo directly: "Stitch generates from text prompts, not image inputs. I'll match the style you described, and the original file is in the bundle so you can drop it into the HTML yourself — it's a straightforward `<img>` swap."
 
@@ -133,7 +128,9 @@ Map interview answers to Stitch design system parameters:
 
 ### Steps
 
-1. **Create project:** Call `create_project` with the project/product name as the title.
+If Stitch is unavailable, skip the SDK operations below and create the same semantic token set locally in `.stitch/DESIGN.md` and `.stitch/metadata.json`; then continue to local HTML/CSS implementation.
+
+1. **Create project (Stitch path):** Call `create_project` with the project/product name as the title.
 2. **Build DesignSystem object** from the translation table above.
 3. **Create design system:** Call `create_design_system` on the project.
 4. **Update design system:** Immediately call `update_design_system`. This step is required -- create alone does not render the system.
@@ -156,30 +153,26 @@ Map interview answers to Stitch design system parameters:
 
 ## Phase 3: Generate & Review Loop
 
-This is the core workflow. The loop runs until the user approves the design.
+This is the core workflow. Generate a complete desktop/mobile direction, refine obvious defects proactively, and run the quality gates before presenting the result. Do not ask the user to approve tool calls or cosmetic defaults. Ask one concise question only when a material product fact, destination or decision cannot be safely inferred. User review is still required before public launch when the output contains unverified business details or is not explicitly authorized for publication.
 
 ### First Generation
 
-1. Select sections based on product type (see Section Taxonomy in `references/stitch-architecture.md`).
-2. Craft the generation prompt using the template from `references/stitch-architecture.md`.
+Before prompting, read `references/quality-playbook.md`. Build a concise content brief from verified inputs: offer, audience, primary action, brand assets, local language and required facts. Keep unknown facts as labeled placeholders; do not invent reviews, metrics, prices, credentials, hours or service claims. If Stitch is unavailable, create the first HTML/CSS draft locally from this brief; do not simulate SDK calls or fabricate screen IDs, and continue through the same mobile and QA gates.
+
+1. Select only sections that support the visitor's decision (see Section Taxonomy in `references/stitch-architecture.md`); avoid filling space with generic cards.
+2. Craft the generation prompt using the template from `references/stitch-architecture.md`, with a distinct composition and clear hierarchy—not just a color swap.
 3. Call `generate_screen_from_text` with `deviceType: DESKTOP`.
 4. Generation takes 1-3 minutes. Do NOT retry if it seems slow.
 5. Save the HTML output returned by your Stitch SDK call into `.stitch/designs/` using a versioned filename: `desktop-v1.html` for the first generation, `desktop-v2.html` for the next iteration, and so on. Use the same convention for mobile (`mobile-v1.html`, `mobile-v2.html`). Use the SDK's response-handling pattern to retrieve the output — don't perform arbitrary HTTP fetches.
 6. **Open the saved HTML file in the user's browser** so they can see the design at full fidelity. Use `open` (macOS), `xdg-open` (Linux), or `start` (Windows, via `cmd /c start`). If none work in the current environment, tell the user the file path.
 7. Save the screen ID to `.stitch/metadata.json` under `screens.desktop.current` and append to `screens.desktop.history`.
+8. Generate a mobile counterpart with `deviceType: MOBILE` by default, using the same design system, verified copy and CTA. Save it as `mobile-v1.html` and record its screen ID/history. If Stitch is unavailable, implement the mobile states locally instead.
 
 ### Presenting Results
 
-After every generation, edit, or variant selection:
+After the first desktop/mobile pair and local QA, open the real browser preview where available and give a short orientation: headline/CTA, content flow, mobile behavior and any remaining assumptions. Invite focused feedback once; do not repeat the same three questions after every minor edit or make progress depend on a response when the user asked you to finish. Apply already-stated feedback directly. Before any public launch, require explicit authorization if the user has not already authorized publication.
 
-1. Save the updated HTML from the Stitch SDK response and open the local file in the browser.
-2. Briefly orient the user: "I've opened the latest version in your browser. Hero section at top with the headline and CTA, then {describe sections}, footer at the bottom."
-3. Ask the three feedback questions from `references/interview-framework.md`:
-   - "What's your gut reaction in the first 5 seconds?"
-   - "Does this feel like YOUR product?"
-   - "Is there anything that feels wrong, missing, or not quite right?"
-
-Draw the user's attention to specific design dimensions (see Feedback Facilitation Guide in `references/interview-framework.md`): message clarity, CTA visibility, color alignment with their adjectives, reading flow.
+When useful, guide review toward message clarity, CTA visibility, brand fit, reading flow and mobile usability; see the feedback guide in `references/interview-framework.md`.
 
 ### Feedback Translation
 
@@ -192,7 +185,7 @@ Draw the user's attention to specific design dimensions (see Feedback Facilitati
 | "Something totally different" | Full rethink | `generate_variants` with REIMAGINE |
 | "I liked the earlier version better" | Rollback | Re-fetch from `screens.desktop.history` |
 | CSS-level feedback ("needs more padding", "font too small") | Translate to design intent | `edit_screens` with design-level instruction |
-| Explicit approval ("looks good", "ship it") | Exit loop | Proceed to mobile question, then Phase 4 |
+| User says the design is ready | Freeze the design, run final QA and prepare the bundle | Proceed to Phase 4; publish only within the user's explicit deployment authorization |
 
 When the user gives feedback in implementation terms (CSS, pixels, Tailwind classes), acknowledge their intent but translate to design language for Stitch.
 
@@ -202,14 +195,25 @@ Save the HTML from each Stitch variant response as `desktop-vN-option-a.html`, `
 
 ### Loop Guardrails
 
-- **Always open the updated HTML** in the browser after any edit or variant selection.
+- **Open the latest HTML** after meaningful layout/content changes when browser tooling is available; avoid a separate approval pause for every iteration.
 - **Update metadata** after every state change. Never discard previous versions.
-- **After 3 rounds** of positive feedback: "This is looking solid. Keep iterating or ship it and refine later?"
-- **After 5 rounds**: "What's the single most important change left?"
+- Limit exploration to one focused iteration by default. Continue only when the user requests changes or a material QA defect remains.
+- Record unresolved facts, destinations and browser-test limitations instead of silently guessing.
 
 ### Mobile Variant
 
-After desktop approval, offer: "Want me to generate a mobile layout too?" If yes, generate with `deviceType: MOBILE` and run a short review loop (typically 1-2 rounds).
+Generate a mobile counterpart by default with `deviceType: MOBILE` after the first desktop draft, using the same brand system, content and CTA. Treat it as a responsive design reference—not a separate production page. If the user explicitly asks for desktop-only, skip it. Merge mobile-specific decisions into one responsive `index.html`; do not wait for desktop approval before checking whether the layout works at mobile widths.
+
+### Local Refinement & QA
+
+Stitch output is a starting point, not a finished build. Refine the saved HTML/CSS locally where needed, preserving the intended design while making the page functional and robust.
+
+1. Implement semantic HTML and responsive CSS; keep one production page by default. Add only the JavaScript needed for a real interaction, with progressive enhancement.
+2. Ensure every CTA has a verified destination. Replace fake links/buttons; do not present a nonfunctional form as live. Use a verified email/phone/booking destination or clearly mark a placeholder.
+3. Add restrained motion only when it reinforces hierarchy or state. Follow the motion choreography and `prefers-reduced-motion` rules in `references/quality-playbook.md`.
+4. Run the bundled validator from the plugin root: `python scripts/validate_landing_page.py path/to/index.html`; use `--strict` for release review. Fix all errors and assess every warning.
+5. Open the actual HTML in a browser and inspect at 320, 375/390, 768, 1024 and 1440 CSS px where tooling permits. Check overflow, image crops, CTA destinations, keyboard focus and form behavior. Use browser screenshots only for actual browser captures.
+6. If a browser is unavailable, report that limitation exactly; label renders as design renders and do not claim browser-reviewed or deployment-ready.
 
 ---
 
@@ -221,25 +225,26 @@ Read `references/state-and-pitfalls.md` for the DEPLOY.md template.
 
 ```
 {project-name}-landing-page/
-  index.html                  # Final desktop HTML
-  mobile.html                 # Mobile HTML (if created)
+  index.html                  # Single responsive production page
   design/
     DESIGN.md                 # Brand design system documentation
     color-tokens.json         # Design tokens as structured data
+    mobile-reference.html    # Optional Stitch mobile reference, not a second production route
   assets/
-    {user-provided images}
-  DEPLOY.md                   # Deployment checklist
+    {approved/licensed images}
+  DEPLOY.md                   # QA status and deployment checklist
 ```
 
 ### Creation Steps
 
-1. Identify the latest approved versions in `.stitch/designs/` (highest `desktop-vN.html`, and `mobile-vN.html` if mobile was generated). Copy them into the bundle root, renaming desktop to `index.html` and mobile to `mobile.html`. Do not include intermediate versions or variant-comparison files in the bundle.
-2. Generate `color-tokens.json` with primary color, colorMode, colorVariant, fonts, roundness.
+1. Copy the refined, responsive production page into the bundle as `index.html`. Include an optional mobile reference under `design/` only if useful; never require a separate mobile production route. Do not include intermediate versions or variant-comparison files.
+2. Generate `color-tokens.json` with primary color, colorMode, colorVariant, fonts and roundness.
 3. Copy `.stitch/DESIGN.md`.
-4. Collect user assets from `.stitch/user-assets/` if any exist.
-5. Generate `DEPLOY.md` using the template in `references/state-and-pitfalls.md`.
-6. Create the zip: `zip -r "{project-name}-landing-page.zip" "{project-name}-landing-page/"`
-7. Tell the user: "Bundle is ready at `{path}`. See `DEPLOY.md` for the deployment checklist."
+4. Collect only approved/licensed assets from `.stitch/user-assets/` or the project asset folder.
+5. Run the validator with `--strict`; record browser widths, interaction checks, known limitations, privacy/form status and whether owner approval/publication is pending in `DEPLOY.md`.
+6. Generate `DEPLOY.md` using the template in `references/state-and-pitfalls.md`, updated to match the actual bundle and QA results.
+7. Create the zip: `zip -r "{project-name}-landing-page.zip" "{project-name}-landing-page/"`
+8. Tell the user the exact QA status; call the bundle deployment-ready only if every quality-playbook gate passed.
 
 ---
 
