@@ -27,7 +27,21 @@ if spec is None or spec.loader is None:
     raise RuntimeError(f"Unable to load Shopify helper at {SCRIPT}")
 shopify_admin = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = shopify_admin
-spec.loader.exec_module(shopify_admin)
+write_bytecode = sys.dont_write_bytecode
+sys.dont_write_bytecode = True
+try:
+    spec.loader.exec_module(shopify_admin)
+finally:
+    sys.dont_write_bytecode = write_bytecode
+
+
+def test_helper_test_import_leaves_no_generated_runtime_artifacts():
+    support_files = [
+        path.relative_to(SCRIPT.parent)
+        for path in SCRIPT.parent.rglob("*")
+        if path.is_file() and path != SCRIPT
+    ]
+    assert support_files == []
 
 
 def token_environment(**overrides: str) -> dict[str, str]:
