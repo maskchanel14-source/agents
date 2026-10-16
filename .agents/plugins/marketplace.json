@@ -107,7 +107,7 @@
     },
     {
       "name": "brand-landingpage",
-      "description": "Guides developers from brand discovery through iterative design to deployment-ready HTML via Stitch.",
+      "description": "Builds responsive, accessibility-aware, motion-aware landing pages with optional Stitch generation and static QA.",
       "source": {
         "source": "local",
         "path": "./plugins/brand-landingpage"

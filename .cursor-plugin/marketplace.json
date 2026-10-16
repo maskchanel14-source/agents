@@ -158,8 +158,8 @@
     {
       "name": "brand-landingpage",
       "source": "./plugins/brand-landingpage",
-      "version": "1.0.1",
-      "description": "Guides developers from brand discovery through iterative design to deployment-ready HTML via Stitch.",
+      "version": "1.1.0",
+      "description": "Builds responsive, accessibility-aware, motion-aware landing pages with optional Stitch generation and static QA.",
       "author": {
         "name": "Travis D. Elliott",
         "email": ""

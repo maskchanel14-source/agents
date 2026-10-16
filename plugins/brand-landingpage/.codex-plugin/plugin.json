@@ -1,7 +1,7 @@
 {
   "name": "brand-landingpage",
-  "version": "1.0.1",
-  "description": "Guides developers from brand discovery through iterative design to deployment-ready HTML via Stitch.",
+  "version": "1.1.0",
+  "description": "Builds responsive, accessibility-aware, motion-aware landing pages with optional Stitch generation and static QA.",
   "skills": "./skills/",
   "author": {
     "name": "Travis D. Elliott",
@@ -15,7 +15,7 @@
   ],
   "interface": {
     "displayName": "Brand Landingpage",
-    "shortDescription": "Guides developers from brand discovery through iterative design to deployment-ready HTML via Stitch.",
+    "shortDescription": "Builds responsive, accessibility-aware, motion-aware landing pages with optional Stitch generation and static QA.",
     "category": "Coding"
   }
 }

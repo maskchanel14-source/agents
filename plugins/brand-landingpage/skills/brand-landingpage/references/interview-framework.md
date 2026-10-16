@@ -1,15 +1,14 @@
-# Brand Discovery Interview Framework
+# Brand Brief and Feedback Framework
 
-## Interview Philosophy
+## Briefing Philosophy
 
-- Ask a maximum of 10 questions across all phases. Developers will lose patience faster than most -- they want to ship.
-- The user is technically literate. You can say "CTA," "hex value," "HTML," or "deploy." What needs translating is design language: "visual hierarchy," "brand identity," "color temperature," "typographic contrast."
-- If the user volunteers information unprompted (e.g., dumps a README or product description), extract answers from it and skip those questions.
-- When the user seems uncertain about design preferences, offer 2-3 concrete examples to choose from rather than waiting for them to articulate from scratch.
-- Treat the interview as a conversation, not a form. Acknowledge answers before moving on.
-- One question at a time. Never stack multiple questions in a single message.
-- Respect short answers. Developers tend to be terse. If the answer covers the question, move on.
-- **The user will try to skip this.** They'll say "just generate something" or "here's my README, figure it out." Push back gently. The interview is the skill's primary value -- without it, you're producing a generic template they could get from any page builder.
+- Extract product name, audience, offer, market/language, CTA and brand cues from the request and project files before asking anything.
+- Ask only for facts that affect truth, function, legal text or the primary user action. If the user says to proceed, document assumptions and build rather than blocking on preferences.
+- Cosmetic preferences (adjectives, fonts, light/dark, roundness) are optional. Infer a restrained, readable default and record it.
+- If clarification is essential, ask one concise, consolidated question rather than running a fixed questionnaire. Do not repeat answered questions.
+- Use examples only when they help the user decide; never require a design vocabulary lesson.
+- Treat the brief as a working record, not an approval ceremony. Do not ask permission for reversible design decisions or tool calls.
+- The user may directly edit HTML/CSS; support local changes rather than forcing a regeneration cycle.
 
 ---
 
@@ -47,20 +46,15 @@
 
 ### Transition Rule
 
-Move to Phase B when you have: project name + elevator pitch + target users + primary CTA. These four are non-negotiable.
-
-If the user tries to skip ahead ("just generate something, it's a CLI tool for managing databases"):
-- Extract what you can from their statement.
-- Ask only the essential gaps (CTA + brand feel at minimum -- 2 questions).
-- Default everything else with reasonable choices and tell them what you defaulted: "I'm going with a clean, modern look with a dark theme since this is a dev tool. We can adjust after you see it."
+Prefer a project name, one-sentence offer, target audience and primary CTA. If some are unknown, use a clearly marked placeholder where safe; ask only if the missing answer would change the page's truth or make its main action impossible. When the user asks for a fast build, extract what is available and proceed with documented defaults.
 
 ---
 
 ## Phase B: Brand Feel
 
-**Goal:** Understand the emotional impression the brand should make and whether it leans light or dark.
+**Goal:** Choose a coherent emotional direction. Use these as optional signals only when the brief/project files do not already provide them.
 
-### Core Questions
+### Optional Signals
 
 1. "Pick 3 words that describe how your product should come across to visitors."
    - Offer a menu if they hesitate:
@@ -95,16 +89,15 @@ Map the user's 3 adjectives to a Stitch `colorVariant` using the Color Variant D
 
 ### Transition Rule
 
-Move to Phase C when you have: 3 brand adjectives + light/dark direction.
-The reference product is a bonus signal, not a blocker.
+Brand adjectives, reference products and light/dark preferences are not blockers. If absent, infer a restrained direction from the audience and category; note the assumption and continue.
 
 ---
 
 ## Phase C: Visual Preferences
 
-**Goal:** Determine color, font feel, and shape direction for the design system.
+**Goal:** Use existing brand tokens when supplied; otherwise choose accessible, readable defaults appropriate to the business.
 
-### Core Questions
+### Optional Signals
 
 1. Color direction:
    - "Do you have existing brand colors -- maybe from your app's UI, your docs site, or your repo?"
@@ -137,37 +130,21 @@ The reference product is a bonus signal, not a blocker.
 
 ### Transition to Generation
 
-Confirm before proceeding:
-
-> "Here's the brand direction:
-> - Project: {name} -- {elevator pitch}
-> - Target users: {users}
-> - Primary CTA: {action}
-> - Brand feel: {adj1}, {adj2}, {adj3}
-> - Style: {light/dark} theme, {color} accent, {clean/serif} typography, {sharp/rounded} shapes
->
-> Look right?"
-
-If the user corrects anything, update before proceeding.
-Then: "Setting up the design system and generating the first draft. Takes about a minute."
+Write a short internal brief with known facts, chosen defaults and unresolved placeholders. Tell the user what direction you are taking as you build, but do not pause for confirmation of reversible design choices. Apply corrections immediately if the user provides them.
 
 ### Edge Cases
 
-- **User wants to skip entirely**: "Just make me a landing page, it's a CLI for managing Postgres backups." Extract what you can. Ask only CTA + brand feel (2 questions max). Default the rest and tell them: "I'm defaulting to dark theme, clean sans-serif, rounded corners, and a blue accent. We can change any of it after you see the first draft."
-- **User shares their app URL, repo, or docs**: Don't fetch or parse the linked content. Ask the user to describe the existing look in their own words — primary color, light vs dark theme, typography direction, overall vibe. Confirm their description: "So your app is dark theme, indigo accents, clean sans-serif — should the landing page match that, or go in a different direction?"
+- **User wants to skip entirely**: Extract available facts, choose safe visual defaults, mark missing copy as a placeholder and build the first draft. Do not ask extra preference questions.
+- **User shares their app URL, repo, or docs**: Inspect available project files or the supplied site when permitted and useful. Reuse verified tokens/content; do not invent details. If access fails, say what could not be checked and proceed with a documented assumption.
 - **User pastes a README or description**: Parse it for project name, pitch, target users, and features. Skip to the gaps.
 
 ---
 
 ## Feedback Facilitation Guide
 
-### After Each Generation, Ask These Three Questions
+### One Focused Review Prompt
 
-1. **First impression**: "What's your gut reaction in the first 5 seconds?"
-2. **Brand alignment**: "Does this feel like YOUR product?"
-3. **Issues**: "Is there anything that feels wrong, missing, or not quite right?"
-
-Do not ask "Do you like it?" -- this produces yes/no answers with no actionable information.
+After the responsive desktop/mobile pair and QA, present a concise preview summary and invite targeted corrections in one short prompt (for example: “The first pass is built and checked; tell me any specific change you want.”). Do not ask three separate questions after every generation or make progress wait on a response when the user asked you to complete the build. Apply any stated feedback directly.
 
 ### Guiding the User Toward Useful Feedback
 
@@ -186,7 +163,7 @@ Developers often give feedback in implementation terms. Redirect toward design i
 | "Make it pop" | Weak visual hierarchy | "What should stand out more -- the headline, the CTA button, or the overall contrast?" |
 | "I love the layout but not the colors" | Partial approval | Variant signal: keep layout, change COLOR_SCHEME only |
 | "Show me something totally different" | Fundamental rethink | REIMAGINE creative range |
-| "Can I just edit the HTML?" | Wants direct control | "Stitch handles the regeneration cycle, so let's iterate here first -- then you can hand-edit the final output." |
+| "Can I just edit the HTML?" | Wants direct control | Make the local change directly, preserve a versioned backup and rerun QA. |
 
 ### Design Dimensions to Highlight for the User
 
@@ -198,14 +175,11 @@ When presenting a design for review, draw the user's attention to specific eleme
 - **Reading flow**: "When you scan top to bottom, does the section order make sense for someone discovering your product?"
 - **Credibility**: "If you were evaluating this product for the first time, does this page make it look like a real, maintained project?"
 
-### Steering Toward Approval
+### Efficient Completion
 
-- After positive-but-uncommitted feedback: "What's the one thing that would make this feel right?"
-- After choosing from options: "Want me to tweak anything on this one, or lock it in?"
-- After 3+ rounds of minor tweaks: "This is looking solid. Want to keep iterating or ship it and refine later?"
-- After 5+ rounds: "What's the single most important change left? Let's nail that one thing."
-
-Developers often prefer to ship something decent and iterate rather than perfecting before launch. If you sense this, offer the exit: "This is in a good place. Want me to bundle it so you can deploy and see how it looks in the real context?"
+- Make one purposeful refinement pass after the initial review; continue when the user requests changes or a material QA defect remains.
+- Do not force a loop of repeated approvals for cosmetic choices. Give the user the bundle and accurate QA status when work is complete.
+- Public deployment is a separate, consequential action: perform it only when the user has authorized a deployment target and all required content/QA gates pass.
 
 ### Feedback Priority Framework
 
