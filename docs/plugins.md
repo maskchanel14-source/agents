@@ -258,15 +258,16 @@ Next.js, React + Vite, and Node.js project setup with pnpm and TypeScript best p
 | **api-scaffolding**           | REST/GraphQL API generation | `/plugin install api-scaffolding`           |
 | **api-testing-observability** | API testing and monitoring  | `/plugin install api-testing-observability` |
 
-### 📢 Marketing (5 plugins)
+### 📢 Marketing (6 plugins)
 
-| Plugin                         | Description                             | Install                                      |
-| ------------------------------ | --------------------------------------- | -------------------------------------------- |
-| **seo-content-creation**       | SEO content writing and planning        | `/plugin install seo-content-creation`       |
-| **seo-technical-optimization** | Meta tags, keywords, and schema markup  | `/plugin install seo-technical-optimization` |
-| **seo-analysis-monitoring**    | Content analysis and authority building | `/plugin install seo-analysis-monitoring`    |
-| **content-marketing**          | Content strategy and web research       | `/plugin install content-marketing`          |
-| **social-publishing**          | Multi-platform social media publishing  | `/plugin install social-publishing`          |
+| Plugin                         | Description                                                        | Install                                      |
+| ------------------------------ | ------------------------------------------------------------------ | -------------------------------------------- |
+| **seo-content-creation**       | SEO content writing and planning                                   | `/plugin install seo-content-creation`       |
+| **seo-technical-optimization** | Meta tags, keywords, and schema markup                             | `/plugin install seo-technical-optimization` |
+| **seo-analysis-monitoring**    | Content analysis and authority building                            | `/plugin install seo-analysis-monitoring`    |
+| **content-marketing**          | Content strategy and web research                                  | `/plugin install content-marketing`          |
+| **social-publishing**          | Multi-platform social media publishing                             | `/plugin install social-publishing`          |
+| **hermes-tweet**               | X/Twitter research and approval-gated operations through Hermes Tweet | `/plugin install hermes-tweet`                |
 
 ### 💼 Business (5 plugins)
 
