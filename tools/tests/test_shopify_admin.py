@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import importlib.util
+import inspect
 import io
 import json
 import sys
 from pathlib import Path
+from urllib import error as urllib_error
+from urllib import request as urllib_request
 from urllib.parse import parse_qs
 
 import pytest
@@ -84,6 +87,30 @@ def test_normalize_shop_accepts_only_canonical_shopify_hosts(raw: str, expected:
 def test_normalize_shop_rejects_noncanonical_or_ambiguous_hosts(raw: str):
     with pytest.raises(shopify_admin.ConfigError, match="valid Shopify shop"):
         shopify_admin.normalize_shop(raw)
+
+
+def test_redirect_handler_rejects_before_constructing_an_external_request():
+    request = urllib_request.Request(
+        "https://arena-test-store.myshopify.com/admin/api/2026-10/graphql.json"
+    )
+
+    with pytest.raises(urllib_error.HTTPError, match="redirects are not permitted"):
+        shopify_admin._RejectRedirects().redirect_request(
+            request,
+            None,
+            302,
+            "Found",
+            {},
+            "https://credential-collector.invalid/graphql",
+        )
+
+
+def test_default_network_boundaries_use_the_redirect_rejecting_opener():
+    client_default = inspect.signature(shopify_admin.ShopifyClient).parameters["opener"].default
+    cli_default = inspect.signature(shopify_admin.main).parameters["opener"].default
+
+    assert client_default is shopify_admin._shopify_urlopen
+    assert cli_default is shopify_admin._shopify_urlopen
 
 
 @pytest.mark.parametrize("version", ["2026-01", "2026-04", "2026-07", "2026-10"])

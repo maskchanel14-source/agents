@@ -50,7 +50,7 @@ public app). See Shopify's [legacy custom-app notice](https://shopify.dev/docs/a
 
 Use client credentials when the app acts only on stores in the same Shopify
 organization as the app. This is the simplest server-to-server flow and does
-not require a redirect handler.
+not require an OAuth callback or redirect handler.
 
 1. Open the app's **Settings** in the Dev Dashboard.
 2. Copy its **Client ID** and **Client secret** into the runtime's secret store.
@@ -66,7 +66,8 @@ export SHOPIFY_OPERATION_MODE="unrestricted"
 
 `SHOPIFY_SHOP` can be the subdomain (`your-store`) or canonical host
 (`your-store.myshopify.com`). Schemes, paths, ports, user information, uppercase
-names, and non-Shopify suffixes are rejected before networking.
+names, and non-Shopify suffixes are rejected before networking. HTTP redirects
+are rejected rather than forwarding an authenticated request to another host.
 
 The helper exchanges the client ID and secret in memory at Shopify's token
 endpoint and uses the acquired 24-hour token for that invocation. It never

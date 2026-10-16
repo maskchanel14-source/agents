@@ -83,6 +83,34 @@ class ApiError(ShopifyHelperError):
         self.retry_after = retry_after
 
 
+class _RejectRedirects(urllib_request.HTTPRedirectHandler):
+    """Prevent authenticated requests from following redirects to another host."""
+
+    def redirect_request(
+        self,
+        req: urllib_request.Request,
+        fp: Any,
+        code: int,
+        msg: str,
+        headers: Any,
+        newurl: str,
+    ) -> urllib_request.Request | None:
+        raise urllib_error.HTTPError(
+            req.full_url,
+            code,
+            "Shopify endpoint redirects are not permitted.",
+            headers,
+            fp,
+        )
+
+
+def _shopify_urlopen(request: urllib_request.Request, *, timeout: float) -> Any:
+    """Open one request without allowing a credential-bearing redirect."""
+
+    opener = urllib_request.build_opener(_RejectRedirects())
+    return opener.open(request, timeout=timeout)
+
+
 def normalize_shop(value: str) -> str:
     """Return a canonical ``*.myshopify.com`` host or reject unsafe input."""
 
@@ -357,7 +385,7 @@ class ShopifyClient:
         self,
         config: Config,
         *,
-        opener: Callable[..., Any] = urllib_request.urlopen,
+        opener: Callable[..., Any] = _shopify_urlopen,
         sleep: Callable[[float], None] = time.sleep,
         timeout: float = DEFAULT_TIMEOUT_SECONDS,
     ) -> None:
@@ -832,7 +860,7 @@ def main(
     stdin: TextIO = sys.stdin,
     stdout: TextIO = sys.stdout,
     stderr: TextIO = sys.stderr,
-    opener: Callable[..., Any] = urllib_request.urlopen,
+    opener: Callable[..., Any] = _shopify_urlopen,
     sleep: Callable[[float], None] = time.sleep,
 ) -> int:
     """CLI entry point; all normal output and failures are machine-readable JSON."""
