@@ -1,6 +1,6 @@
 # Complete Plugin Reference
 
-Browse all 94 marketplace plugins organized by category: 92 local plugins plus 2 external Claude Code marketplace entries (`pensyve` and `hol-guard`). The local source supports seven coding tools through native formats and adapters. Install commands below use Claude Code syntax. See the [tool setup guide](./harnesses.md) for other installation routes.
+Browse all 95 marketplace plugins organized by category: 93 local plugins plus 2 external Claude Code marketplace entries (`pensyve` and `hol-guard`). The local source supports seven coding tools through native formats and adapters. Install commands below use Claude Code syntax. See the [tool setup guide](./harnesses.md) for other installation routes.
 
 ## Quick Start - Essential Plugins
 
@@ -278,6 +278,14 @@ Next.js, React + Vite, and Node.js project setup with pnpm and TypeScript best p
 | **hr-legal-compliance**       | HR policies and legal templates      | `/plugin install hr-legal-compliance`       |
 | **customer-sales-automation** | Support and sales automation         | `/plugin install customer-sales-automation` |
 
+### 🛍️ Commerce (1 plugin)
+
+| Plugin                         | Description                                                                          | Install                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------ | -------------------------------------------- |
+| **shopify-product-management** | Chat-controlled Shopify catalog, variant, media, publication, and inventory management | `/plugin install shopify-product-management` |
+
+After installation, configure a Shopify Dev Dashboard app and credentials outside chat, then run `/shopify-product-management:shopify-products <request>`. The plugin uses Admin GraphQL API `2026-10`, supports same-organization client credentials or an already-issued Admin API token, and streams large JSONL batches without an application item cap.
+
 ### 💻 Languages (10 plugins)
 
 | Plugin                          | Description                              | Install                                       |
@@ -362,7 +370,7 @@ The marketplace commands in this section run inside Claude Code. Other tools use
 /plugin marketplace add wshobson/agents
 ```
 
-This makes all 94 marketplace plugins available for installation, but **does not load any agents or tools** into your context.
+This makes all 95 marketplace plugins available for installation, but **does not load any agents or tools** into your context.
 
 ### Step 2: Install Specific Plugins
 
@@ -416,7 +424,7 @@ Selectors, install paths, and gotchas: [harnesses.md](./harnesses.md#skills-only
 
 ## See Also
 
-- [Agent Skills](./agent-skills.md) - 186 specialized skills across plugins
+- [Agent Skills](./agent-skills.md) - 187 specialized skills across plugins
 - [Agent Reference](./agents.md) - Complete agent catalog
 - [Usage Guide](./usage.md) - Commands and workflows
 - [Architecture](./architecture.md) - Design principles

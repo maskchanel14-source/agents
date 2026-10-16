@@ -2444,6 +2444,21 @@
       "token_efficiency": 0.9692307692307692
     }
   },
+  "shopify-product-management/shopify-product-operations": {
+    "badge": "silver",
+    "composite": 76.57459207459206,
+    "digest": "b63940ab770efdf12dd4aa5118e6696f7e9122160a09f1f455a4d2f137ae31d1",
+    "static_score": 0.7545384615384616,
+    "sub_scores": {
+      "ecosystem_coherence": 0.5,
+      "frontmatter_quality": 0.5599999999999999,
+      "harness_portability": 1.0,
+      "orchestration_wiring": 1.0,
+      "progressive_disclosure": 0.8,
+      "structural_completeness": 0.5499999999999999,
+      "token_efficiency": 0.9815384615384616
+    }
+  },
   "signed-audit-trails/signed-audit-trails-recipe": {
     "badge": "silver",
     "composite": 74.2926592124453,

@@ -6,7 +6,7 @@
     "url": "https://github.com/wshobson"
   },
   "metadata": {
-    "description": "Production-ready workflow orchestration with 93 marketplace plugins, 202 local specialized agents, and 181 local skills - optimized for granular installation and minimal token usage",
+    "description": "Production-ready workflow orchestration with 95 marketplace plugins, 202 local specialized agents, and 187 local skills - optimized for granular installation and minimal token usage",
     "version": "1.7.1"
   },
   "plugins": [
@@ -737,6 +737,26 @@
       "homepage": "https://github.com/wshobson/agents",
       "license": "MIT",
       "category": "business"
+    },
+    {
+      "name": "shopify-product-management",
+      "source": "./plugins/shopify-product-management",
+      "description": "Chat-controlled Shopify product catalog management through Admin GraphQL API 2026-10, with credential-safe authentication, inventory, publication, media, and streamed batch workflows",
+      "version": "1.0.0",
+      "author": {
+        "name": "Seth Hobson",
+        "email": "seth@major7apps.com"
+      },
+      "license": "MIT",
+      "category": "business",
+      "keywords": [
+        "shopify",
+        "commerce",
+        "products",
+        "inventory",
+        "graphql",
+        "catalog"
+      ]
     },
     {
       "name": "content-marketing",

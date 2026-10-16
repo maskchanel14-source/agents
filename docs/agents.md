@@ -1,6 +1,6 @@
 # Agent Reference
 
-Reference for 201 local AI agents organized by category. The model column lists aliases in the shared Claude Code source format. Adapters provide agent formats and model mappings for other tools. See the [capability matrix](./harnesses.md) for setup and tool-specific limits.
+Reference for 202 local AI agents organized by category. The model column lists aliases in the shared Claude Code source format. Adapters provide agent formats and model mappings for other tools. See the [capability matrix](./harnesses.md) for setup and tool-specific limits.
 
 ## Agent Categories
 
@@ -183,6 +183,12 @@ Reference for 201 local AI agents organized by category. The model column lists 
 | ---------------------------------------------------------------------------- | ------ | ------------------------------------------------------- |
 | [business-analyst](../plugins/business-analytics/agents/business-analyst.md) | sonnet | Metrics analysis, reporting, KPI tracking               |
 
+#### Commerce
+
+| Agent                                                                                              | Model  | Description                                                                 |
+| -------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------- |
+| [shopify-product-manager](../plugins/shopify-product-management/agents/shopify-product-manager.md) | sonnet | Shopify product, variant, media, publication, and location-inventory operations |
+
 #### Marketing & Sales
 
 | Agent                                                                             | Model  | Description                                  |
@@ -236,9 +242,9 @@ Source agents specify Claude Code model aliases. Other tools use the [adapter mo
 | ------- | ----------- | --------------------------------------------------------------- |
 | Fable   | 2           | Longest-horizon autonomous work (tier above Opus; see criteria) |
 | Opus    | 54          | Critical architecture, security, code review, production coding |
-| Sonnet  | 70          | Complex tasks, support with intelligence                        |
+| Sonnet  | 71          | Complex tasks, support with intelligence                        |
 | Haiku   | 24          | Fast operational tasks                                          |
-| Inherit | 53          | Complex tasks where the user chooses the model at runtime       |
+| Inherit | 51          | Complex tasks where the user chooses the model at runtime       |
 
 ### Model Selection Criteria
 

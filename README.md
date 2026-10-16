@@ -5,7 +5,7 @@
 
 Use one collection of plugins, agents, skills, and commands across Claude Code, OpenAI Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi. A harness is the coding tool that loads and runs the components. Plugins cover Python and JavaScript development, code review, testing, infrastructure, security, and other work.
 
-The catalog contains 94 plugins, including 92 local plugins and 2 external entries. The local source contains 201 agents, 186 skills, and 106 commands. The components share a Markdown source, with installation and capabilities adapted to each harness.
+The catalog contains 95 plugins, including 93 local plugins and 2 external entries. The local source contains 202 agents, 187 skills, and 107 commands. The components share a Markdown source, with installation and capabilities adapted to each harness.
 
 ## Multi-harness support
 
@@ -35,8 +35,9 @@ Choose a plugin for the work you do:
 | [javascript-typescript](plugins/javascript-typescript/) | JavaScript and TypeScript development and project setup |
 | [developer-essentials](plugins/developer-essentials/) | Code review, debugging, Git, and testing patterns |
 | [security-scanning](plugins/security-scanning/) | Security review, dependency checks, and code scanning |
+| [shopify-product-management](plugins/shopify-product-management/) | Chat-controlled Shopify catalog, inventory, media, and publication operations |
 
-See the [plugin catalog](docs/plugins.md) for all 94 plugins and the [usage guide](docs/usage.md) for commands and examples.
+See the [plugin catalog](docs/plugins.md) for all 95 plugins and the [usage guide](docs/usage.md) for commands and examples.
 
 ### Claude Code
 
@@ -109,10 +110,10 @@ Pi's agents require its reference `subagent` extension or a compatible extension
 
 | Component | Count | Purpose |
 |---|---:|---|
-| Plugins | 94 | Installable groups of components, including 92 local plugins and 2 external entries |
-| Agents | 201 | Instructions for specialist subagents that handle delegated work |
-| Skills | 186 | Guidance and reference material that an agent loads when relevant |
-| Commands | 106 | Named workflows you invoke, such as project scaffolding or a security scan |
+| Plugins | 95 | Installable groups of components, including 93 local plugins and 2 external entries |
+| Agents | 202 | Instructions for specialist subagents that handle delegated work |
+| Skills | 187 | Guidance and reference material that an agent loads when relevant |
+| Commands | 107 | Named workflows you invoke, such as project scaffolding or a security scan |
 
 The agent, skill, and command counts cover local source files. External plugins provide their own components and installation requirements.
 
