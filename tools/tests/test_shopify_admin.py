@@ -398,6 +398,40 @@ def test_execute_redacts_config_and_acquired_secrets_from_transport_errors():
         assert secret not in message
 
 
+def test_execute_redacts_credentials_echoed_by_graphql_error_payloads():
+    opener = RecordingOpener(
+        FakeResponse(
+            {
+                "data": {
+                    "productUpdate": {
+                        "userErrors": [
+                            {
+                                "field": ["product"],
+                                "message": "Shopify rejected test-admin-token",
+                            }
+                        ]
+                    }
+                },
+                "errors": [{"message": "Header contained test-admin-token"}],
+                "extensions": {"debug": "test-admin-token"},
+            }
+        )
+    )
+    config = shopify_admin.Config.from_environ(
+        token_environment(SHOPIFY_OPERATION_MODE="unrestricted")
+    )
+    client = shopify_admin.ShopifyClient(config, opener=opener, sleep=lambda _: None)
+
+    result = client.execute(
+        'mutation Update { productUpdate(product: {title: "x"}) { userErrors { field message } } }',
+        {},
+    )
+
+    rendered = json.dumps(result.to_dict())
+    assert "test-admin-token" not in rendered
+    assert rendered.count("[REDACTED]") >= 3
+
+
 def test_safe_policy_blocks_before_authentication_or_networking():
     opener = RecordingOpener()
     client = shopify_admin.ShopifyClient(

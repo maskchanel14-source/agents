@@ -367,22 +367,42 @@ class ShopifyClient:
         self._timeout = timeout
         self._access_token: str | None = config.admin_access_token
         subdomain = config.shop[: -len(".myshopify.com")]
+        self._secret_values = set(config.secret_values())
         self._redaction_values = {
             config.shop,
             subdomain,
             config.api_version,
-            *config.secret_values(),
+            config.operation_mode,
+            *self._secret_values,
         }
 
-    def _redact(self, value: object) -> str:
+    @staticmethod
+    def _replace_known_values(value: object, known_values: set[str]) -> str:
         rendered = str(value)
         for secret in sorted(
-            (item for item in self._redaction_values if item),
+            (item for item in known_values if item),
             key=len,
             reverse=True,
         ):
             rendered = rendered.replace(secret, "[REDACTED]")
         return rendered
+
+    def _redact(self, value: object) -> str:
+        return self._replace_known_values(value, self._redaction_values)
+
+    def _sanitize_output(self, value: Any) -> Any:
+        """Recursively prevent known credentials from appearing in JSON output."""
+
+        if isinstance(value, str):
+            return self._replace_known_values(value, self._secret_values)
+        if isinstance(value, list):
+            return [self._sanitize_output(item) for item in value]
+        if isinstance(value, dict):
+            return {
+                self._sanitize_output(key): self._sanitize_output(item)
+                for key, item in value.items()
+            }
+        return value
 
     def _request_json(
         self,
@@ -466,6 +486,7 @@ class ShopifyClient:
         if not isinstance(token, str) or not token:
             raise ApiError("Shopify authentication did not return an access token.")
         self._access_token = token
+        self._secret_values.add(token)
         self._redaction_values.add(token)
         return token
 
@@ -506,6 +527,7 @@ class ShopifyClient:
             purpose="GraphQL",
             ambiguous_on_failure=kind == "mutation",
         )
+        payload = self._sanitize_output(payload)
         top_level_errors = payload.get("errors")
         if not isinstance(top_level_errors, list):
             top_level_errors = []
