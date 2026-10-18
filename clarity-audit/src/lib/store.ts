@@ -126,3 +126,61 @@ export async function persistToSupabase(table: string, row: Record<string, unkno
     // Persistence failure must never break the scan UX; logged server-side in production.
   }
 }
+
+// --- Durable reads (Supabase fallback) -------------------------------------
+// On serverless, each instance has its own memory: a scan saved by the POST
+// instance may not exist in the instance rendering /scan/[id]. These helpers
+// fall back to Supabase so production result links/badges/stats are durable.
+function sbConfig(): { url: string; key: string } | null {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  return url && key ? { url: url.replace(/\/$/, ""), key } : null;
+}
+
+async function sbGet(path: string): Promise<unknown[] | null> {
+  const cfg = sbConfig();
+  if (!cfg) return null;
+  try {
+    const res = await fetch(`${cfg.url}/rest/v1/${path}`, {
+      headers: { apikey: cfg.key, Authorization: `Bearer ${cfg.key}` },
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return Array.isArray(data) ? data : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getScanAsync(id: string): Promise<StoredScan | undefined> {
+  const mem = getScan(id);
+  if (mem) return mem;
+  const rows = await sbGet(`scan_results?select=report&scan_id=eq.${encodeURIComponent(id)}&limit=1`);
+  const report = (rows?.[0] as { report?: ScanReport } | undefined)?.report;
+  if (!report) return undefined;
+  const stored: StoredScan = { id, report, isPublic: true };
+  scans.set(id, stored); // hydrate local cache
+  return stored;
+}
+
+export async function aggregateStatsAsync() {
+  const base = aggregateStats();
+  const rows = await sbGet(`scans?select=score&order=created_at.desc&limit=300`);
+  if (!rows) return base;
+  const dbScores = rows.map((r) => (r as { score?: number }).score).filter((x): x is number => typeof x === "number");
+  const dbCount = dbScores.length;
+  const total = Math.max(base.scansCompleted, dbCount);
+  const averageScore = total >= 10 && dbCount > 0
+    ? Math.round(dbScores.reduce((a, b) => a + b, 0) / dbCount)
+    : base.averageScore;
+  const leadRows = await sbGet(`leads?select=id&limit=1000`);
+  const affRows = await sbGet(`affiliates?select=id&limit=1000`);
+  return {
+    ...base,
+    scansCompleted: total,
+    averageScore,
+    optIns: Math.max(base.optIns, leadRows?.length ?? 0),
+    affiliateApplications: Math.max(base.affiliateApplications, affRows?.length ?? 0),
+  };
+}

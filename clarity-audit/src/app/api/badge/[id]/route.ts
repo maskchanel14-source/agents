@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getScan } from "@/lib/store";
+import { getScanAsync } from "@/lib/store";
 import { demoReport } from "@/lib/demo";
 import { scoreColor } from "@/lib/scanner";
 
@@ -7,7 +7,7 @@ import { scoreColor } from "@/lib/scanner";
 export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const clean = id.replace(/\.svg$/, "");
-  const report = clean === "demo" ? demoReport() : getScan(clean)?.report;
+  const report = clean === "demo" ? demoReport() : (await getScanAsync(clean))?.report;
   const score = report?.score ?? 0;
   const label = report ? `${score}/100 · ${report.grade}` : "Check yours free";
   const color = report ? scoreColor(score) : "#111827";

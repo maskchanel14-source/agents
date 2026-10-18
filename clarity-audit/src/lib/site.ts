@@ -5,6 +5,8 @@ export const SITE = {
   // Placeholder until the human connects a payment provider — sales run as
   // honest waitlist/intent capture until then. Never fake a checkout.
   paymentsConnected: false,
+  // Human pastes provider checkout URLs here at activation (per offer slug).
+  checkoutUrls: {} as Record<string, string>,
   supportEmail: "support@example.com", // TODO(human): replace with real support inbox
   offers: [
     {

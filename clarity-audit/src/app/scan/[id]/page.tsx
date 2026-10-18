@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import { getScan, aggregateStats } from "@/lib/store";
+import { getScanAsync, aggregateStatsAsync } from "@/lib/store";
 import { demoReport } from "@/lib/demo";
 import { CATEGORIES, type ScanReport } from "@/lib/scanner";
 import { Container, Eyebrow, Btn, Card, ScoreRing, StatusPill } from "@/components/ui";
@@ -15,15 +15,15 @@ import { SITE } from "@/lib/site";
 export const instant = false;
 
 
-function loadReport(id: string): { report: ScanReport; isDemo: boolean } | null {
+async function loadReport(id: string): Promise<{ report: ScanReport; isDemo: boolean } | null> {
   if (id === "demo") return { report: demoReport(), isDemo: true };
-  const s = getScan(id);
+  const s = await getScanAsync(id);
   return s ? { report: s.report, isDemo: false } : null;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const loaded = loadReport(id);
+  const loaded = await loadReport(id);
   if (!loaded) return { title: "Scan not found" };
   const { report } = loaded;
   return {
@@ -38,10 +38,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function ScanResult({ params }: { params: Promise<{ id: string }> }) {
   await connection(); // per-request data (live store stats): render at request time
   const { id } = await params;
-  const loaded = loadReport(id);
+  const loaded = await loadReport(id);
   if (!loaded) notFound();
   const { report, isDemo } = loaded;
-  const stats = aggregateStats();
+  const stats = await aggregateStatsAsync();
   const paymentsLive = SITE.paymentsConnected;
 
   return (

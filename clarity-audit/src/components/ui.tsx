@@ -61,7 +61,7 @@ export function Footer() {
   const cols: { h: string; links: [string, string][] }[] = [
     { h: "Product", links: [["Free scanner", "/#scan"], ["Pricing", "/pricing"], ["Sample report", "/sample-report"], ["Methodology", "/methodology"], ["Widget & badge", "/widget"], ["5-Day Challenge", "/challenge"]] },
     { h: "Free tools", links: [["Headline Checker", "/tools/headline-checker"], ["CTA Checker", "/tools/cta-checker"], ["All tools", "/tools"], ["Data study", "/data/coach-landing-pages-2026"]] },
-    { h: "For", links: [["Coaches", "/niche/coaches"], ["Course creators", "/niche/course-creators"], ["Consultants", "/niche/consultants"], ["Affiliates & ambassadors", "/affiliates"]] },
+    { h: "For", links: [["Coaches", "/niche/coaches"], ["Course creators", "/niche/course-creators"], ["Consultants", "/niche/consultants"], ["Kajabi creators", "/for/kajabi"], ["Teachable creators", "/for/teachable"], ["Affiliates & ambassadors", "/affiliates"]] },
     { h: "Trust", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Refund policy", "/refund"], ["Support", "/support"], ["Operator dashboard", "/dashboard"]] },
   ];
   return (
