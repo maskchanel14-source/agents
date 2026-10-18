@@ -15,6 +15,6 @@ export async function POST(req: NextRequest) {
   const channelUrl = String(b.channelUrl ?? "").trim().slice(0, 300);
   if (!name || !EMAIL_RE.test(email) || !audience) return NextResponse.json({ error: "incomplete", message: "Add your name, a valid email, and a line about your audience." }, { status: 422 });
   affiliateApplications.push({ name, email, audience, channelUrl, createdAt: new Date().toISOString() });
-  persistToSupabase("affiliates", { name, email, audience, channel_url: channelUrl, status: "applied" });
+  await persistToSupabase("affiliates", { name, email, audience, channel_url: channelUrl, status: "applied" });
   return NextResponse.json({ ok: true });
 }
