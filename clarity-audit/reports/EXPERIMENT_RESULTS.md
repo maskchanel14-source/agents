@@ -2,10 +2,11 @@
 
 No live-traffic results yet (site not yet deployed to a public domain; see MORNING_REPORT). This file only records measured outcomes — never projections dressed as results.
 
-## Baseline instrumentation (Day 0 — 2026-10-18)
-- Funnel events available today: scan completed, opt-in (consented), affiliate application — via `/api/stats` aggregates and `/dashboard`.
-- QA-session sanity data (sandbox only, not market signal): github.com scored 73/100 ("Nearly there"); illustrative sample coach page 56/100 ("Foggy"); unit fixtures: strong page ≥75, weak page <35.
-- Verified mechanics: scan → result → share/badge/OG → opt-in → stats increment. SSRF probes (169.254.169.254, localhost) rejected. Rate-limit + consent error paths return friendly messages.
+## Baseline instrumentation (Day 0 — 2026-10-18, updated post-deploy)
+- Funnel events: scan completed, opt-in (consented), affiliate application — `/api/stats` (Supabase-backed) + `/dashboard`.
+- PRODUCTION verification: live scan of github.com = 73/100 on Vercel; result page hydrated from Supabase across deployments (durability proven); badge/OG/stats endpoints healthy.
+- Data-study pilot (REAL market data): 8 public coach/course pages attempted, 6 scanned via production. Median 80.5. Failure frequencies: audience-named 100% · email-capture 83% · cta-above-fold 83% · outcome-language 67%. 2/8 sites blocked automated fetching. Method + limits on /data/coach-landing-pages-2026.
+- Security: SSRF probes (169.254.169.254, localhost) rejected; rate limit + consent error paths friendly.
 
 ## Won
 - (none yet — first real cohort decides)

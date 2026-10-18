@@ -18,12 +18,11 @@ npm run test         # scanner + SSRF unit tests
 npm run typecheck && npm run lint && npm run build   # pre-push gate
 ```
 
-## Deploy (human steps, ~30 min)
-1. **Vercel:** import this repo/subdirectory → framework Next.js → set `NEXT_PUBLIC_SITE_URL=https://your-domain`.
-2. **Supabase:** create project → run `supabase/migrations/0001_init.sql` → set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` env vars (server-only). App works without it; with it, leads/scans persist.
-3. **Support inbox:** replace `support@example.com` in `src/lib/site.ts`.
-4. **Payments (when ready):** connect Lemon Squeezy/Stripe, wire checkout links, add signed webhook → flip `SITE.paymentsConnected`. See `reports/GO_NO_GO.md` — do not skip gates.
-5. **Email:** connect provider (SPF/DKIM/DMARC first), load `growth/email-sequences/SEQUENCES.md`.
+## Production (LIVE since 2026-10-18)
+- **Site:** https://clarity-audit-five.vercel.app — Vercel project `clarity-audit` (this repo, root `clarity-audit/`, production branch `main`; pushes to main auto-deploy)
+- **DB:** Supabase project `clarity-audit` (ref `yckbkpaqlwcfblgiqmno`) — schema in `supabase/migrations/`; env keys live in Vercel (never in git)
+- **Indexing:** IndexNow key in `public/` — resubmit after big content pushes; Google needs a one-time Search Console property + sitemap submit by the owner
+- **Remaining activation (account-holder steps):** payments (webhook ready at `/api/webhooks/payments`; set `PAYMENT_WEBHOOK_SECRET`, paste checkout URLs in `src/lib/site.ts`, flip `paymentsConnected`) · email (`RESEND_API_KEY` + `EMAIL_FROM` after SPF/DKIM/DMARC). See `reports/GO_NO_GO.md`.
 
 ## Guardrails encoded in the product
 No fake testimonials/counts/scarcity · averages hidden until n≥10 real scans · result pages noindex · aggregates are counts-only · scanner never logs in/submits forms · outreach assets are drafts requiring human approval · final refund/chargeback/legal decisions stay human.

@@ -7,7 +7,7 @@ export const SITE = {
   paymentsConnected: false,
   // Human pastes provider checkout URLs here at activation (per offer slug).
   checkoutUrls: {} as Record<string, string>,
-  supportEmail: "support@example.com", // TODO(human): replace with real support inbox
+  supportEmail: "smallsignalstudiolife@gmail.com", // owner inbox (Small Signal Studio) — swap for support@ custom domain when ready
   offers: [
     {
       slug: "quick-audit", name: "Quick Audit", price: 19, recommended: false,

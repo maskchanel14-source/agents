@@ -20,16 +20,16 @@ export default function WidgetPage() {
         <Card>
           <h2 className="font-bold">1 · Score badge (show off your improvement)</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--ink-2)]">After scanning, your result page gives you a badge snippet. Markdown (GitHub, Notion, blogs):</p>
-          <pre className={pre}>{`[![Clarity Score 78/100](YOUR_SITE/api/badge/YOUR_SCAN_ID.svg)](YOUR_SITE/scan/YOUR_SCAN_ID)`}</pre>
+          <pre className={pre}>{`[![Clarity Score 78/100](https://clarity-audit-five.vercel.app/api/badge/YOUR_SCAN_ID.svg)](https://clarity-audit-five.vercel.app/scan/YOUR_SCAN_ID)`}</pre>
           <p className="mt-3 text-[15px] text-[color:var(--ink-2)]">HTML:</p>
-          <pre className={pre}>{`<a href="YOUR_SITE/scan/YOUR_SCAN_ID">\n  <img src="YOUR_SITE/api/badge/YOUR_SCAN_ID.svg" alt="My landing page clarity score" width="280" height="64">\n</a>`}</pre>
+          <pre className={pre}>{`<a href="https://clarity-audit-five.vercel.app/scan/YOUR_SCAN_ID">\n  <img src="https://clarity-audit-five.vercel.app/api/badge/YOUR_SCAN_ID.svg" alt="My landing page clarity score" width="280" height="64">\n</a>`}</pre>
           <div className="mt-4"><img src="/api/badge/demo.svg" alt="Example clarity score badge" width={280} height={64} /><p className="mt-1.5 text-xs text-[color:var(--ink-3)]">Live preview (sample scan).</p></div>
         </Card>
 
         <Card>
           <h2 className="font-bold">2 · “Check your page free” text link</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--ink-2)]">The simplest embed. Add <code className="rounded bg-[color:var(--line)] px-1.5 py-0.5 font-mono text-[13px]">?ref=yourname</code> and scans from your link are attributed to you (ambassadors: this is your referral link).</p>
-          <pre className={pre}>{`<a href="YOUR_SITE/?ref=yourname#scan">Check your landing page clarity — free</a>`}</pre>
+          <pre className={pre}>{`<a href="https://clarity-audit-five.vercel.app/?ref=yourname#scan">Check your landing page clarity — free</a>`}</pre>
         </Card>
 
         <Card>
