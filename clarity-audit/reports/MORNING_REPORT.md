@@ -27,7 +27,8 @@
 
 ## Infrastructure (all owner-controlled, created tonight)
 - Vercel project `clarity-audit` (team: small signal studio) ← GitHub `agents` repo, root `clarity-audit/`, production branch `main`; env: NEXT_PUBLIC_SITE_URL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (sensitive)
-- Supabase project `clarity-audit` (ref yckbkpaqlwcfblgiqmno, ap-southeast-1): 18-table schema + RLS applied via migration; scans/leads persisted (verified: rows present)
+- Supabase project `clarity-audit` (ref yckbkpaqlwcfblgiqmno, ap-southeast-1): 18-table schema + RLS applied via migration; scans persisted (verified: 7/7 rows)
+- QA caught a real one pre-launch: unawaited DB writes died in serverless freeze (only 2/7 rows survived at first). Fixed (all writes awaited), pilot re-scanned, scores identical.
 - GitHub: PR #12 + #13 merged; this wave-3 in final PR
 
 ## Human Approval Queue (genuinely human-only remainders)
