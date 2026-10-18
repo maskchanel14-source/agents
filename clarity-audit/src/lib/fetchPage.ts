@@ -142,7 +142,7 @@ export async function fetchPublicPage(rawUrl: string): Promise<FetchedPage> {
         redirect: "manual",
         signal: ctrl.signal,
         headers: {
-          "User-Agent": "ClarityAuditScanner/1.0 (+https://clarity-audit.example/scanner) user-requested public page check",
+          "User-Agent": "ClarityAuditScanner/1.0 (+https://clarity-audit-five.vercel.app) user-requested public page check",
           Accept: "text/html,application/xhtml+xml",
         },
       });

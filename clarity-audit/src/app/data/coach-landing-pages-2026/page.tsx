@@ -21,8 +21,23 @@ export default function DataStudy() {
         <div className="mt-4"><StudyChart /></div>
       </Card>
 
+
+      <Card className="mt-6">
+        <h2 className="font-bold">Pilot batch — 18 Oct 2026 (n = 6 scanned, 2 unreachable)</h2>
+        <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--ink-2)]">
+          First run of the protocol: 8 public coach/course offer pages from search results for “business coaching program” and “online course sales page”. Six were scannable; two blocked automated fetching (itself a finding — if our politely-identified scanner can't read a page, some crawlers and slow devices fare worse). Individual sites are never scored-and-named; aggregates only.
+        </p>
+        <ul className="mt-4 space-y-2 text-[15px] leading-relaxed text-[color:var(--ink-2)]">
+          <li><strong className="text-[color:var(--ink)]">100% (6/6)</strong> failed to name their audience explicitly in the hero (“for [who]”) — the single most common clarity gap.</li>
+          <li><strong className="text-[color:var(--ink)]">83% (5/6)</strong> had no email-capture step for non-buyers, and <strong className="text-[color:var(--ink)]">83%</strong> buried the first CTA deep in the page.</li>
+          <li><strong className="text-[color:var(--ink)]">67% (4/6)</strong> used no outcome language above the fold.</li>
+          <li>Median score <strong className="text-[color:var(--ink)]">80.5/100</strong> — top-ranking pages skew strong (survivorship bias, noted below); the one JavaScript-rendered page scored 28 because its HTML ships almost no readable content, which is precisely what search crawlers see first.</li>
+        </ul>
+        <p className="mt-3 text-sm text-[color:var(--ink-3)]">Pilot limits: tiny n, search-top sample (visible businesses skew competent), HTML-structural checks only. The full 50-page batch with the documented frame comes next; the runner script is open in our repo.</p>
+      </Card>
+
       <section className="prose-audit mt-10">
-        <h2 className="mb-3 text-2xl font-bold text-[color:var(--ink)]">Batch-study protocol (in progress)</h2>
+        <h2 className="mb-3 text-2xl font-bold text-[color:var(--ink)]">Batch-study protocol (pilot done, full batch next)</h2>
         <p><strong>Sample frame:</strong> 50 publicly linked coaching offer/booking pages, gathered from public directories and search results for “business coach”, “life coach”, “mindset coach” — no login-walled, paywalled, or private pages. URLs will be listed in an appendix by category only; no page is publicly scored-and-named without its own scan being user-shared.</p>
         <p><strong>Instrument:</strong> the published 100-point rubric (<Link href="/methodology" className="underline">methodology</Link>), run by the same scanner available free on this site. Every check is deterministic and evidence-cited; results are reproducible by re-running any URL.</p>
         <p><strong>Analysis:</strong> failure frequency per check, median score, and co-occurrence of failures (e.g., “no price visible” × “no FAQ”). Aggregates only — no individual business is called out.</p>

@@ -1,12 +1,14 @@
 # clarity-score (open core)
 
-Score a landing page's HTML against a transparent **25-check / 100-point clarity rubric** — the same engine behind the free hosted [Clarity Audit](#hosted-version). Pure function, zero dependencies, MIT licensed.
+Score a landing page's HTML against a transparent **25-check / 100-point clarity rubric** — the same engine behind the free hosted [Clarity Audit](https://clarity-audit-five.vercel.app). Pure function, zero dependencies, MIT licensed.
 
 > Would a stranger understand the offer in 5 seconds? This library checks the structural signals: headline outcome + audience, CTA placement and wording, proof, price transparency, FAQ, form friction, and mobile basics. Every finding cites evidence found in the HTML and ships a concrete fix.
 
 ## Install
 
-Copy `index.mjs` into your project (single file, no build step), or vendor this folder.
+Copy `index.mjs` into your project (single file, no build step), or vendor this folder. Canonical source (until the standalone repo is published): https://github.com/maskchanel14-source/agents/tree/main/clarity-audit/open-source/clarity-score
+
+> Owner note: standalone-repo creation was blocked by integration permissions on 2026-10-18. To publish: `gh repo create clarity-score --public` from a clone of this folder (2 min), then update this link.
 
 ## Usage
 
@@ -43,7 +45,7 @@ Automated checks read HTML structure, not rendered design or real conversion dat
 
 ## Hosted version
 
-The hosted **Instant Website Clarity Audit** adds: an SSRF-hardened fetcher, shareable result pages with Open Graph images, score badges/widgets, and paid reports with headline/CTA rewrites and a 7-day fix plan. Free score, no email required. *(Link your deployment here.)*
+The hosted **Instant Website Clarity Audit** adds: an SSRF-hardened fetcher, shareable result pages with Open Graph images, score badges/widgets, and paid reports with headline/CTA rewrites and a 7-day fix plan. Free score, no email required. [clarity-audit-five.vercel.app](https://clarity-audit-five.vercel.app)
 
 ## License
 

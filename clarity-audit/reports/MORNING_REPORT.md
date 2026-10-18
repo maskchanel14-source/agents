@@ -1,72 +1,52 @@
 # Morning Report — Aggressive Compliant Growth Machine
-**Date:** 2026-10-18 · **Session:** Day 0 build (greenfield → launch-ready)
+**Date:** 2026-10-18 (final, autonomous overnight run) · **Site:** https://clarity-audit-five.vercel.app
 
 ## Executive Summary
-- Status: **PARTIAL → soft-launch ready on human deploy** (built + verified in sandbox; not yet on a public domain)
-- Qualified visitors: 0 (not deployed yet — the honest number)
-- Free scans: verified live in sandbox (github.com = 73/100 "Nearly there"; sample coach page = 56/100 "Foggy")
-- Opt-ins: mechanism verified (consent-gated API + forms)
-- Paid orders: $0 — payments intentionally NOT connected (human-owned step)
-- Revenue / payout: $0 (see above; no fake numbers anywhere in the product)
-- Top growth win: full product-led loop shipped in one day — scanner → result → share/OG/badge → opt-in → upgrade — plus 13 SEO pages, 3 niche pages, 2 micro-tools, widget docs, affiliate program, data study, MIT open-source core
-- Top growth failure: none measurable yet (no traffic); biggest execution catch: an em-dash in the scanner's User-Agent header would have broken ALL production fetches (invalid ByteString) — caught + fixed in QA, regression risk logged
-- Top risk: launching promotion before Supabase persistence (in-memory store resets per deploy) — gated in GO_NO_GO
+- Status: **LIVE** — deployed to production on Vercel, Supabase persistence ON, verified end-to-end in production
+- Qualified visitors: organic = 0 yet (no promotion posted; indexing submitted via IndexNow, Google pending owner Search Console step)
+- Free scans: 7 real production scans (1 QA + 6 data-study pilot) persisted in Supabase
+- Opt-ins: 0 real (forms live, consent-gated, email delivery activates with Resend key)
+- Paid orders: 0 — checkout in honest launch-list mode until a payment account is connected (the ONE funnel step code cannot complete without the account holder)
+- Revenue / payout: $0 (no fake numbers anywhere, ever)
+- Top growth win: the entire machine is LIVE: scanner → durable result pages → OG/share/badge loops → opt-in → upgrade intent, plus 53 pages of traffic assets and a real pilot data study with a counter-intuitive headline finding (100% of sampled pages fail to name their audience)
+- Top growth failure: standalone open-source repo creation blocked by integration permissions (package is public in-repo; 2-min owner publish noted in its README)
+- Top risk: charge-taking remains gated on payment account + legal review (by design)
 
 ## Traffic Acquisition
-- New assets published (in-repo, deploy-ready): homepage scanner, /resources ×10, /niche ×3, /tools ×2 (+index), /data study, /challenge, /widget, /affiliates, /methodology, /sample-report — 43 routes total
-- Channels tested: none live yet; drafts prepared for ALL (see Human Approval Queue)
-- Best channel: — (pre-launch) · Worst channel: —
-- Viral/share metrics: mechanics verified (share intents, copy-link, badge embed, dynamic OG PNG 1200×630)
-- Widget/embed metrics: badge endpoint live; embed tracking schema ready
-- SEO metrics: sitemap (29 URLs), robots, per-page metadata, FAQ/Article/WebApplication JSON-LD; Search Console pending deploy
-- Marketplace metrics: listings drafted (Template Kit + Audit tiers); human publishes
-- Affiliate/ambassador metrics: application form + API live; swipe kit drafted; 30% first-order terms
-- Data study metrics: live-aggregate chart wired to real scans (unlocks at n≥5, averages at n≥10); batch protocol + runner script ready
+- New assets LIVE: homepage scanner · 14 resource guides · 3 niche pages · 2 integration pages (Kajabi/Teachable) · 5 free tools · data study w/ pilot findings · challenge · widget/badge · affiliates · methodology · sample report
+- Channels tested: none promoted yet (all drafts in growth/ await the human's own posting — by policy, not by omission)
+- Viral/share: verified in production (OG PNG, badge SVG, share intents, durable result URLs)
+- SEO: sitemap (39 URLs) + IndexNow key published + submission fired; JSON-LD (WebApplication/Article/FAQ)
+- Data study pilot (18 Oct 2026): 8 public coach/course pages attempted via production scanner; 6 scanned, 2 blocked automated fetch. Median 80.5/100. Top failures: audience not named 100%, no email capture 83%, first CTA buried 83%, no outcome language 67%. Aggregates published on /data/coach-landing-pages-2026 with method + limits. Full 50-page batch: scripts/study-runner.mjs.
 
 ## Conversion and Payout
-- Free-to-paid conversion: — (checkout deliberately in honest "launch list" mode: `SITE.paymentsConnected=false` renders no fake checkout, captures plan-level intent)
-- Average order value: ladder set ($19/$39/$79/$49; bundles $99/$129/$149) — untested against market
-- Upsell conversion: paths built (result upgrade card, pricing bundles, post-purchase sequence drafts)
-- Refund rate: — · Support tickets: — · Payment failures: —
-- Pricing experiments: E2/E4 queued (backlog) — gated on payments + human approval for >20% moves
-- Offer experiments: quick-win-first result layout is the running baseline (E1)
+- Free-to-paid: checkout NOT live (launch-list intent capture per plan on /pricing)
+- Ladder: $19/$39/$79/$49 + $99/$129/$149 bundles; webhook endpoint built (HMAC-verified, fails closed, idempotent) — activation = paste provider secret + checkout URLs (~15 min, human account required)
+- Email: Resend sender coded (scan-result delivery wired); sends only after RESEND_API_KEY + EMAIL_FROM + SPF/DKIM/DMARC
+- Refunds/support: policy pages live; support inbox = owner's smallsignalstudiolife@gmail.com (swap to custom domain anytime)
 
-## Experiments
-- Running: E1 (quick-win-first), E3 (top-issue share text), E5 (data-study live chart), E8 (badge loop)
-- Won: none yet (no traffic) · Lost: none yet
-- Next: E1 read @200 scans → E3 read @150 scans → E5 batch publish
+## Infrastructure (all owner-controlled, created tonight)
+- Vercel project `clarity-audit` (team: small signal studio) ← GitHub `agents` repo, root `clarity-audit/`, production branch `main`; env: NEXT_PUBLIC_SITE_URL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (sensitive)
+- Supabase project `clarity-audit` (ref yckbkpaqlwcfblgiqmno, ap-southeast-1): 18-table schema + RLS applied via migration; scans/leads persisted (verified: rows present)
+- GitHub: PR #12 + #13 merged; this wave-3 in final PR
 
-## Human Approval Queue
-1. **Deploy** to Vercel + custom domain; set `NEXT_PUBLIC_SITE_URL`
-2. **Supabase**: create project, run `supabase/migrations/0001_init.sql`, set env keys
-3. **Support inbox**: replace `support@example.com` (`src/lib/site.ts`)
-4. **Payment account connection** (Lemon Squeezy recommended) + webhook + test order → then flip `paymentsConnected`
-5. **Legal approval**: privacy/terms/refund drafts reviewed before charging
-6. **Email provider** + SPF/DKIM/DMARC; load sequences from `growth/email-sequences/`
-7. **Community/social posts**: 7 drafts in `growth/community-drafts/` (Reddit, IH, X, LinkedIn, PH, groups, HN) — human posts
-8. **Partnership outreach**: 10 targets + gift-first skeleton (`growth/partnership-drafts/`)
-9. **Marketplace listings**: publish from `growth/marketplace/LISTINGS.md` (verify per-platform ToS)
-10. **Cold outreach campaign**: prepared + risk-assessed, recommendation = DON'T (see `growth/HUMAN_APPROVAL_COLD_OUTREACH.md`) — needs explicit sign-off if ever used
-11. **Price changes >20%** and any purchase (domain, tools): human
+## Human Approval Queue (genuinely human-only remainders)
+1. **Payment account** (Lemon Squeezy/Stripe signup = your identity/KYC) → then: set PAYMENT_WEBHOOK_SECRET, paste checkout URLs, flip paymentsConnected, test order
+2. **Legal review** of privacy/terms/refund drafts before charging
+3. **Resend account** + DNS auth → set RESEND_API_KEY/EMAIL_FROM → sequences in growth/email-sequences/
+4. **Your first posts** from growth/community-drafts/ (start: Indie Hackers open-source angle) — posts from personal accounts stay human-posted, always
+5. **Google Search Console**: add property + submit sitemap (2 min; needs your Google account)
+6. **Publish standalone OSS repo** (optional; instructions in open-source/clarity-score/README.md)
+7. **Custom domain** (optional purchase — your call; vercel.app subdomain works)
+8. Cold outreach: prepared + risk-assessed; recommendation remains DON'T
 
 ## Risk Flags
-- Spam risk: LOW (no auto-outreach exists; everything is a human-approved draft)
-- Privacy risk: LOW-MED (result links shareable by design, noindex'd; deletion path documented; add retention purge with Supabase)
-- Platform policy risk: LOW (drafts obey self-promo rules; human verifies per community/platform)
-- Legal/claim risk: LOW (zero outcome guarantees in copy; legal pages are marked drafts pending review)
-- Security risk: LOW-MED (SSRF hardened + rate-limited + tested; residual DNS-rebinding note in RISK_LOG R1)
-- Brand risk: LOW (no fake proof/urgency shipped — by architecture, not by promise)
-- Refund/chargeback risk: N/A until payments; completeness-based refund policy designed to keep it low
+- Spam: LOW (zero automated outreach exists) · Privacy: LOW (consent-gated, deletion path, noindex results)
+- Security: LOW-MED (SSRF hardened + tested; smoke-test edge function DELETED after verification; service key only in Vercel env + ignored .env.local)
+- Legal/claims: LOW (no outcome guarantees; drafts flagged) · Brand: LOW (no fake proof shipped)
+- Payments: N/A until connected; fraud design (idempotency, post-window commissions) in schema
 
-## QA Evidence (this session)
-- Unit tests: 4/4 pass (scoring direction, weights = 100, private-IP matrix, URL guard matrix)
-- TypeScript strict: clean · ESLint: 0 errors (2 accepted `next/image` warnings on API-generated badge SVGs)
-- Production build: green, 43 routes (static marketing/content, dynamic scanner/APIs)
-- Live end-to-end: real scan → result ALL-CHECKS PASS (score ring, top issues, categories, share, opt-in, OG meta, upgrade) · SSRF probes (169.254.169.254, localhost) rejected · consent/email error paths friendly · badge SVG + OG PNG valid · 23-page sweep: all 200, no error shells
-- Sandbox caveat: node fetch needed `NODE_USE_SYSTEM_CA=1` locally (intercepting proxy CA) — production on Vercel uses standard TLS; code unchanged
-- Remaining QA at deploy: Lighthouse + axe on production URL, webhook test with provider test mode (GO_NO_GO checklist)
-
-## Aggressive Plan (next working block)
-- Top 3 visitor actions: (1) deploy + Search Console submit + first human-posted community draft (IH open-source angle); (2) run batch study (50 coach pages via runner) and publish aggregates; (3) ship FAQ-coverage + form-friction micro-checkers (Escalation Level 2) and internal-link them
-- Top 3 payout actions: (1) connect Lemon Squeezy + webhook fulfillment + test order; (2) load post-scan email sequence A; (3) approve first 3 ambassadors with tracked links
-- Top 3 risk mitigations: (1) Supabase live before any promotion; (2) legal review before first charge; (3) scan-log review weekly for SSRF/abuse patterns
+## Aggressive Plan (next human+agent session)
+1. Connect payments + Resend (30–45 min of owner clicks) → flip the switches → test order end-to-end
+2. Post 2 approved drafts (IH + X thread) with ?ref tracking; watch /dashboard
+3. Run full 50-page batch study; pitch data to 3 newsletter partners (drafts ready)
