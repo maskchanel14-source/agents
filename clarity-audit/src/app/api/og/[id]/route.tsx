@@ -1,10 +1,10 @@
 import { ImageResponse } from "next/og";
-import { getScan } from "@/lib/store";
+import { getScanAsync } from "@/lib/store";
 import { demoReport } from "@/lib/demo";
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const report = id === "demo" ? demoReport() : getScan(id)?.report;
+  const report = id === "demo" ? demoReport() : (await getScanAsync(id))?.report;
   const score = report?.score ?? 0;
   const grade = report?.grade ?? "Score yours free";
   const issue = report?.topIssues[0]?.label ?? "";

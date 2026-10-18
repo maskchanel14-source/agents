@@ -144,6 +144,60 @@ export const RESOURCES: Article[] = [
     ],
     [{ q: "Do I need a sticky mobile CTA?", a: "On long sales pages, a slim sticky bottom bar with the primary CTA usually helps. Test it; remove it if it covers content or annoys." },
      { q: "What page size is acceptable?", a: "Keep total initial load under ~1.5 MB where you can; HTML itself under ~200 KB is a healthy target for a landing page." }]),
+
+  A("why-landing-page-not-converting",
+    "Why Is My Landing Page Not Converting? A 10-Minute Diagnosis",
+    "Traffic but no sales or bookings? Diagnose in order: clarity, trust, offer transparency, friction, then traffic quality. Free scanner runs the first four.",
+    "why is my landing page not converting", 7,
+    "Non-converting pages almost never have ten problems. They have one broken link in a chain of five. Diagnose in this order — each step assumes the previous one holds.",
+    [
+      { h: "Step 1: Can a stranger say what this is? (Clarity)", paras: ["Show the page for five seconds, hide it, ask: what's sold, for whom, what's the next click? Any wrong answer = your leak is here, at the top, and nothing below matters until it's fixed. This is the single most common cause we are built to catch."], list: ["Headline names an outcome, not a format", "Audience is named ('for coaches who…')", "One obvious primary button above the fold"] },
+      { h: "Step 2: Would a stranger trust it? (Proof)", paras: ["Cold visitors look for a reachable human, specific proof, and legal basics. Missing pieces don't always kill the sale loudly — they kill it as a vague 'let me think about it' that never returns. Run the Trust Signal Checker on your copy."] },
+      { h: "Step 3: Is the deal fully visible? (Transparency)", paras: ["Price discoverable only at checkout, deliverables described as vibes, no FAQ, no refund line. Each hidden answer is an exit. If a visitor must click 'buy' to learn what buying means, most won't."] },
+      { h: "Step 4: How hard is yes? (Friction)", paras: ["Count required fields before the first win. Nine-field applications before a free call, account creation before checkout, phone numbers demanded without a reason. Cut the first step to email (+name) and qualify later."] },
+      { h: "Step 5: Is it actually the traffic? (Fit)", paras: ["If clarity, trust, transparency, and friction all pass, the mismatch is upstream: the ad/post/referral promised something the page doesn't, or the audience was never buyers. Check that your traffic source's promise matches your headline word-for-word in spirit. And keep the honest caveat: clarity cannot rescue an offer the market doesn't want — it just stops you blaming the page for it."] },
+    ],
+    [{ q: "How do I know which step is broken?", a: "Run the free scanner: steps 1–4 map to its six categories with per-check evidence. Fix the earliest failing step first." },
+     { q: "My page converts at 1%. Is that bad?", a: "Depends on price, traffic warmth, and the action (email vs $997 checkout). Cold-to-sale at 1% can be healthy; warm-to-free-call at 1% is a five-alarm clarity fire. Context beats benchmarks." }]),
+
+  A("above-the-fold-checklist",
+    "Above the Fold: The 6 Elements Your First Screen Must Carry",
+    "What to put above the fold on a landing page: headline, subheadline, CTA, proof hint, visual, and nav discipline — with a 5-second self-test.",
+    "what to put above the fold landing page", 6,
+    "The fold is not magic — people scroll. But the first screen decides whether scrolling happens. These six elements earn the scroll.",
+    [
+      { h: "The six", paras: [], list: ["Headline: audience + outcome (20–90 characters)", "Subheadline: how it works / proof of mechanism in one line", "Primary CTA: verb + object + what happens next", "Proof hint: one specific number or name (only if true)", "Visual: the product, the person, or the result — not abstract stock fog", "Nav discipline: logo + at most 3 links (or none on campaign pages)"] },
+      { h: "What to evict from the first screen", paras: ["Full-screen hero videos that push the CTA below the fold on mobile. Carousels (three messages = no message). 'Welcome to my website.' Award badges from 2019. Anything that delays the answer to 'what is this and is it for me?'"] },
+      { h: "The 5-second self-test", paras: ["Screenshot the first screen on a phone. Give yourself five seconds. Could you brief a colleague on the offer from memory? If not, the fold is decoration pretending to be communication. Our scanner automates the checkable parts — H1, outcome language, audience, early CTA."] },
+    ],
+    [{ q: "Does fold placement matter on mobile?", a: "More, not less. The mobile first screen is smaller and the thumb is restless — headline + CTA must both fit without a scroll." },
+     { q: "Should the price be above the fold?", a: "For low-ticket offers, yes. For high-ticket, a 'from $X' anchor or a visible Pricing link in nav does the job." }]),
+
+  A("landing-page-form-best-practices",
+    "Landing Page Form Best Practices: How Many Fields Is Too Many?",
+    "Form friction kills more conversions than bad headlines. Field-count rules, ordering, sensitive-field timing, and the two-step pattern that fixes long forms.",
+    "landing page form best practices", 6,
+    "Every field is a tiny negotiation. The visitor asks: 'Is what I get worth what you're asking?' Fields that feel nosy, early, or unexplained lose that negotiation. Here is the practical rulebook.",
+    [
+      { h: "The field budget", paras: [], list: ["Lead magnet / email capture: 1 field (email), 2 max (+ first name)", "Free call booking: name + email (+ calendar does the rest); 2 qualifying questions max", "Paid checkout: only what the payment processor needs; account creation AFTER purchase", "Applications (high-ticket): longer is fine — friction as a filter is legitimate when capacity is truly limited; say so on the page"] },
+      { h: "Ordering and honesty", paras: ["Easy first (name, email), sensitive later (phone, budget, URLs), open-ended last. Beside any sensitive field, one clause of reason: 'Phone — only if we need to reschedule.' Unexplained data requests read as data harvesting, because sometimes they are."] },
+      { h: "The two-step fix", paras: ["Step 1: email (the small yes). Step 2 (thank-you page or follow-up): qualifying questions framed as personalization. Completion rates on step 2 are high precisely because commitment already happened. Check your current first step with the free Form Friction Checker."] },
+    ],
+    [{ q: "Is asking for a phone number always bad?", a: "No — for booked calls it's often necessary. It's bad unexplained and bad as field #1 before any value or commitment." },
+     { q: "Should I use multi-step forms?", a: "For anything over ~4 fields, yes — with a progress cue and the easy questions first." }]),
+
+  A("should-coaches-show-prices",
+    "Should Coaches Show Prices on Their Website? (Yes — Here's How)",
+    "Hidden coaching prices filter out your best buyers. The case for price transparency, three ways to show fees without boxing yourself in, and what to do instead of 'book a call to learn more'.",
+    "should coaches show prices on website", 6,
+    "The standard advice — hide prices so prospects 'get on a call first' — optimizes for call volume. What it actually produces is calls with people who were never going to pay your fee, and silence from the budget-aware professionals who would have.",
+    [
+      { h: "What hidden pricing actually filters", paras: ["Serious buyers research with a shortlist and a budget range. A missing price doesn't make you premium; it makes you uncomparable, so you fall off the list. Meanwhile the purely curious — no budget, no urgency — happily book free calls. You end up 'selling' hardest to the least qualified."] },
+      { h: "Three ways to show fees without a corner", paras: [], list: ["Exact price for a productized entry offer (audit, intensive, sprint) — bespoke work quoted after, anchored by it", "A range tied to scope ('Engagements run $3k–$8k depending on X')", "A 'from' anchor + what moves the number up ('from $250/session; packages from $1,800')"] },
+      { h: "If you still gate the number", paras: ["At minimum, publish who should NOT book on budget grounds ('If $X is a stretch, my free resources will serve you better right now'). It respects everyone's time — and reads as confidence, not gatekeeping. Then verify the rest of the page with the free scanner: price visibility is one of its 25 checks for a reason."] },
+    ],
+    [{ q: "Won't competitors undercut me?", a: "They can see your positioning anyway; clients who choose on price alone were going to churn on price alone." },
+     { q: "What about high-ticket ($10k+) coaching?", a: "Ranges and application filters are legitimate at true high-ticket with limited capacity. Still anchor: 'Applications open for Q3; engagements from $12k' respects the reader." }])
 ];
 
 export interface NichePage {

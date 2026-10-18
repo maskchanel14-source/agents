@@ -10,11 +10,14 @@ export default function Tools() {
     <Container className="py-14">
       <Eyebrow>Free tools</Eyebrow>
       <h1 className="mt-3 text-4xl font-extrabold tracking-tight">Fix the blur, one element at a time.</h1>
-      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[color:var(--ink-2)]">Every tool is free and shows its work. More checkers (FAQ coverage, trust signals, form friction) are on the roadmap — the full scanner already covers them today.</p>
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[color:var(--ink-2)]">Every tool is free and shows its work. The full scanner runs all of these checks (and more) against your live page automatically.</p>
       <div className="mt-9 grid gap-5 md:grid-cols-3">
         <Card><h2 className="font-bold">Landing Page Clarity Scanner</h2><p className="mt-2 text-[15px] text-[color:var(--ink-2)]">The full 100-point, evidence-based audit of your live page.</p><p className="mt-3 font-semibold text-[color:var(--accent)]">Use the form below ↓</p></Card>
         <Card><h2 className="font-bold">Headline Clarity Checker</h2><p className="mt-2 text-[15px] text-[color:var(--ink-2)]">Draft-stage feedback on outcome, audience, and length — runs in your browser.</p><Link href="/tools/headline-checker" className="mt-3 inline-block font-semibold text-[color:var(--accent)] underline-offset-4 hover:underline">Open the checker →</Link></Card>
         <Card><h2 className="font-bold">CTA Strength Checker</h2><p className="mt-2 text-[15px] text-[color:var(--ink-2)]">Score button text against verb + object + outcome.</p><Link href="/tools/cta-checker" className="mt-3 inline-block font-semibold text-[color:var(--accent)] underline-offset-4 hover:underline">Open the checker →</Link></Card>
+        <Card><h2 className="font-bold">FAQ Coverage Checker</h2><p className="mt-2 text-[15px] text-[color:var(--ink-2)]">Does your FAQ answer fit, time, delivery, after-pay, and refund?</p><Link href="/tools/faq-checker" className="mt-3 inline-block font-semibold text-[color:var(--accent)] underline-offset-4 hover:underline">Open the checker →</Link></Card>
+        <Card><h2 className="font-bold">Trust Signal Checker</h2><p className="mt-2 text-[15px] text-[color:var(--ink-2)]">Proof, reachability, price anchor, risk reversal — what strangers look for.</p><Link href="/tools/trust-checker" className="mt-3 inline-block font-semibold text-[color:var(--accent)] underline-offset-4 hover:underline">Open the checker →</Link></Card>
+        <Card><h2 className="font-bold">Form Friction Checker</h2><p className="mt-2 text-[15px] text-[color:var(--ink-2)]">How many toll booths stand between interest and action?</p><Link href="/tools/form-friction-checker" className="mt-3 inline-block font-semibold text-[color:var(--accent)] underline-offset-4 hover:underline">Open the checker →</Link></Card>
       </div>
       <div className="mt-10 max-w-2xl"><ScanForm /></div>
     </Container>

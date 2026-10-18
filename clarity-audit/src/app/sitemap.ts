@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date("2026-10-18T00:00:00Z"); // fixed build date: bump on content releases
   const staticPaths: [string, number][] = [
     ["/", 1], ["/pricing", 0.9], ["/methodology", 0.8], ["/sample-report", 0.9], ["/resources", 0.8],
-    ["/tools", 0.8], ["/tools/headline-checker", 0.7], ["/tools/cta-checker", 0.7],
+    ["/tools", 0.8], ["/tools/headline-checker", 0.7], ["/tools/cta-checker", 0.7], ["/tools/faq-checker", 0.7], ["/tools/trust-checker", 0.7], ["/tools/form-friction-checker", 0.7], ["/for/kajabi", 0.8], ["/for/teachable", 0.8],
     ["/challenge", 0.8], ["/widget", 0.6], ["/affiliates", 0.6], ["/data/coach-landing-pages-2026", 0.8],
     ["/privacy", 0.3], ["/terms", 0.3], ["/refund", 0.4], ["/support", 0.4],
   ];

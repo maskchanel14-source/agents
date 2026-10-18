@@ -1,3 +1,3 @@
 import { NextResponse } from "next/server";
-import { aggregateStats } from "@/lib/store";
-export async function GET() { return NextResponse.json(aggregateStats()); }
+import { aggregateStatsAsync } from "@/lib/store";
+export async function GET() { return NextResponse.json(await aggregateStatsAsync()); }

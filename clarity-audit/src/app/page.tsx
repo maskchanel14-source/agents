@@ -5,7 +5,7 @@ import { Container, Eyebrow, Btn, Card, FaqList, jsonLdScript } from "@/componen
 import { SITE } from "@/lib/site";
 
 const FAQS = [
-  { q: "Is the clarity score really free?", a: "Yes — score, top 3 issues, and a quick-win fix, with no email required. Paid tiers ($19–$79) add the full 20-check breakdown with rewrites and a 7-day fix plan." },
+  { q: "Is the clarity score really free?", a: "Yes — score, top 3 issues, and a quick-win fix, with no email required. Paid tiers ($19–$79) add the full 25-check breakdown with rewrites and a 7-day fix plan." },
   { q: "What does the scanner actually do to my page?", a: "It fetches your public HTML once, on your request, and checks it against a documented 100-point rubric (headline, CTA, proof, pricing, forms, mobile basics). It never logs in, never submits forms, and blocks private/internal addresses." },
   { q: "Who is this built for?", a: "Coaches, course creators, consultants, and small service businesses selling through landing pages. The rubric weights what those buyers check in the first five seconds." },
   { q: "Will a better score guarantee more sales?", a: "No — and beware anyone who promises that. Clarity removes friction between a qualified visitor and your offer; it cannot create demand for an offer nobody wants. It makes sure the demand you earn is not leaked by confusion." },
@@ -37,7 +37,7 @@ export default function Home() {
             <Link href="/methodology" className="text-sm font-semibold text-[color:var(--accent)] underline-offset-4 hover:underline">How scoring works (full rubric) →</Link>
           </div>
           <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-[color:var(--line)] pt-7">
-            {[["20", "evidence-based checks"], ["~10s", "from URL to score"], ["$0", "score + top issues free"]].map(([n, l]) => (
+            {[["25", "evidence-based checks"], ["~10s", "from URL to score"], ["$0", "score + top issues free"]].map(([n, l]) => (
               <div key={l}><dt className="sr-only">{l}</dt><dd className="text-2xl font-extrabold tracking-tight">{n}</dd><dd className="mt-0.5 text-sm text-[color:var(--ink-3)]">{l}</dd></div>
             ))}
           </dl>

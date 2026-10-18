@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { leads, rateLimit, persistToSupabase } from "@/lib/store";
+import { leads, rateLimit, persistToSupabase, getScanAsync } from "@/lib/store";
+import { sendEmail, scanResultEmailText } from "@/lib/email";
+import { siteUrl } from "@/lib/site";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -16,5 +18,17 @@ export async function POST(req: NextRequest) {
   leads.push(lead);
   persistToSupabase("leads", { email, source: lead.source, scan_id: lead.scanId ?? null, plan_interest: lead.plan ?? null });
   persistToSupabase("consent_events", { email, purpose: lead.source, granted: true });
+  // Deliver the promised scan-result email when a provider is configured.
+  if (lead.source === "scan-result" && lead.scanId) {
+    const scan = await getScanAsync(lead.scanId);
+    if (scan) {
+      const r = scan.report;
+      sendEmail({
+        to: email,
+        subject: `Your Clarity Score: ${r.score}/100 — here are your 3 fixes`,
+        text: scanResultEmailText(r.score, r.grade, r.topIssues.map((c) => `${c.label}: ${c.fix}`), `${siteUrl()}/scan/${lead.scanId}`),
+      }).catch(() => undefined);
+    }
+  }
   return NextResponse.json({ ok: true });
 }
