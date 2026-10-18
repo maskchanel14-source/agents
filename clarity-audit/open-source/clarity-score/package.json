@@ -1,0 +1,11 @@
+{
+  "name": "clarity-score",
+  "version": "0.1.0",
+  "description": "Score landing-page HTML against a transparent 25-check / 100-point clarity rubric. Zero dependencies.",
+  "type": "module",
+  "main": "index.mjs",
+  "exports": { ".": "./index.mjs" },
+  "files": ["index.mjs", "README.md", "LICENSE"],
+  "keywords": ["landing-page", "audit", "conversion", "clarity", "seo", "cRO"],
+  "license": "MIT"
+}
