@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
   if (!body.consent) return NextResponse.json({ error: "no_consent", message: "Tick the consent box so we may email you — we never mail without it." }, { status: 422 });
   const lead = { email, source: String(body.source ?? "site").slice(0, 60), scanId: body.scanId, plan: body.plan, consent: true, createdAt: new Date().toISOString() };
   leads.push(lead);
-  persistToSupabase("leads", { email, source: lead.source, scan_id: lead.scanId ?? null, plan_interest: lead.plan ?? null });
-  persistToSupabase("consent_events", { email, purpose: lead.source, granted: true });
+  await persistToSupabase("leads", { email, source: lead.source, scan_id: lead.scanId ?? null, plan_interest: lead.plan ?? null });
+  await persistToSupabase("consent_events", { email, purpose: lead.source, granted: true });
   // Deliver the promised scan-result email when a provider is configured.
   if (lead.source === "scan-result" && lead.scanId) {
     const scan = await getScanAsync(lead.scanId);
