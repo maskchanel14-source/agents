@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: polymarket-arb-bot
+Version: 0.1.0
+Summary: Polymarket arbitrage detector/executor with full cost modelling (paper-first).
+Requires-Python: >=3.11
+Requires-Dist: httpx==0.28.1
+Requires-Dist: websockets==17.3
+Requires-Dist: pyyaml==6.0.3
+Provides-Extra: dev
+Requires-Dist: pytest==9.1.1; extra == "dev"
+Requires-Dist: pytest-asyncio==1.4.0; extra == "dev"
+Requires-Dist: pytest-cov==7.1.0; extra == "dev"
+Requires-Dist: hypothesis==6.170.2; extra == "dev"
+Requires-Dist: ruff==0.17.1; extra == "dev"
