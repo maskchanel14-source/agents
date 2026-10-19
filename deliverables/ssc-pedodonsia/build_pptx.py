@@ -328,7 +328,7 @@ def build(path, notes_map):
     tx(s, M + 0.22, 2.38, 5.75, 1.6,
        "1.  Karies melewati line angle atau lebih dari 2 permukaan\n"
        "2.  Gigi setelah pulpotomi atau pulpektomi\n"
-       "3.  Hipoplasia, hipomineralisasi molar-insisivus (MIH), fraktur, atrisi\n"
+       "3.  Hipoplasia, hipomineralisasi molar-insisivus (MIH), fraktur, atau atrisi berat\n"
        "4.  Abutment space maintainer\n"
        "5.  Risiko karies tinggi atau perawatan dengan sedasi", size=10, color=INK2, spacing=1.22)
     card(s, M, 4.25, 6.2, 1.55)

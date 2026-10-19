@@ -80,7 +80,7 @@ Dokumen ini adalah acuan tunggal untuk presentasi, catatan pembicara, protokol, 
 | prognosis | prognosis |
 | indikasi | indication |
 | kontraindikasi | contraindication |
-| komplikasi | complication (menggantikan "penyulit" agar enak diucapkan) |
+| komplikasi | complication (istilah baku yang dipakai seragam di seluruh deck) |
 | keberhasilan | sukses (kecuali "success" dalam definisi kriteria) |
 | kegagalan | failure |
 | perawatan | treatment |
