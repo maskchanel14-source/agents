@@ -7,8 +7,10 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | Berkas | Isi | Dipakai untuk |
 |---|---|---|
 | `ssc-pedodonsia.html` | Deck utama, 18 slide, interaktif | Presentasi langsung, dibuka di browser |
+| `ssc-pedodonsia-standalone.html` | Deck yang sama dengan ilustrasi tertanam di dalam berkas | Dikirim lewat surel atau diunggah ke Drive |
 | `ssc-pedodonsia.pptx` | Cadangan statis 18 slide + catatan pembicara | Bila ruang presentasi hanya menyediakan PowerPoint |
 | `ssc-pedodonsia.pdf` | Cetakan 13,333 × 7,5 inci, 18 halaman | Dibagikan atau dicetak sebagai handout |
+| `ssc-pedodonsia-paket.zip` | Seluruh folder ini | Diunggah ke Drive untuk arsip |
 | `research_notes.md` | Catatan riset, 33 sumber Vancouver, tingkat bukti | Rujukan angka dan klaim |
 | `protokol_klinis.md` | Protokol lengkap 10 langkah + Hall + penyulit + checklist | Dibawa ke klinik |
 | `gaya_bahasa.md` | Repo humanizer yang dibaca, aturan yang diambil dan ditolak | Catatan metode penulisan |
@@ -20,6 +22,7 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `tools/build_art.py` | Penulis anotasi: titik penunjuk, garis, dan label di atas gambar | Regenerasi ilustrasi |
 | `tools/render_svg.js` | Render SVG ke JPEG 2x | Dipakai setelah `build_art.py` |
 | `tools/print_pdf.js` | Cetak deck HTML ke PDF 13,333 × 7,5 inci | Regenerasi handout |
+| `tools/make_standalone.py` | Menanam ilustrasi ke dalam HTML jadi satu berkas | Regenerasi versi Drive |
 
 ## Mengapa HTML menjadi versi utama
 
