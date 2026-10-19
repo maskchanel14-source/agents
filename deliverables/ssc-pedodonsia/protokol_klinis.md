@@ -487,7 +487,7 @@ Tanda benar:
 - Kontrol 1–2 minggu bila ada keluhan, lalu 6 bulan.
 - Segera kembali bila nyeri spontan, bengkak, crown lepas, atau kesulitan menggigit.
 
-## D. Kasus khusus dan penyulit
+## D. Kasus khusus dan komplikasi
 
 ### D1. Crown terlalu longgar
 

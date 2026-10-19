@@ -12,7 +12,7 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `ssc-pedodonsia.pdf` | Cetakan 13,333 × 7,5 inci, 16 halaman | Dibagikan atau dicetak sebagai handout |
 | `ssc-pedodonsia-paket.zip` | Seluruh folder ini | Diunggah ke Drive untuk arsip |
 | `research_notes.md` | Catatan riset, 33 sumber Vancouver, tingkat bukti | Rujukan angka dan klaim |
-| `protokol_klinis.md` | Protokol lengkap 10 langkah + penyulit + checklist | Dibawa ke klinik |
+| `protokol_klinis.md` | Protokol lengkap 10 langkah + komplikasi + checklist | Dibawa ke klinik |
 | `gaya_bahasa.md` | Repo humanizer yang dibaca, aturan yang diambil dan ditolak | Catatan metode penulisan |
 | `catatan_skill_repo.md` | Skill repo yang dipakai dan dilewati, beserta alasannya | Jejak pemakaian repo |
 | `daftar_istilah.md` | Istilah yang dibekukan dan aturan ejaan | QC konsistensi |
@@ -61,7 +61,7 @@ Catatan penting: gambar ini adalah render ilustrasi yang dibuat untuk deck, buka
 
 ## Catatan revisi
 
-- Slide 9, 10, dan 12 diperbaiki: panel tab yang tidak aktif tidak lagi ikut tercetak, kartu penyulit tidak lagi bertumpuk, dan teks yang terpotong sudah dipindahkan ke catatan pembicara.
+- Slide 9, 10, dan 12 diperbaiki: panel tab yang tidak aktif tidak lagi ikut tercetak, kartu komplikasi tidak lagi bertumpuk, dan teks yang terpotong sudah dipindahkan ke catatan pembicara.
 - Nomor daftar pustaka di slide sekarang sama dengan nomor di `research_notes.md`.
 - Pada PDF, slide bertab hanya menampilkan tab yang aktif saat dicetak. Untuk melihat tab lain, buka `ssc-pedodonsia.html`.
 - PDF dibuat ulang dari HTML dengan Chromium; ukuran halaman 13,333 x 7,5 inci.

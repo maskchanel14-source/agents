@@ -258,7 +258,7 @@ def build(path, notes_map):
              ("3", "Indikasi dan batas", "1:00", 4),
              ("4", "Anatomi dan preparasi", "0:45", 5),
              ("5", "Sepuluh langkah konvensional", "1:45", 6),
-             ("6", "Penyulit dan pencegahan", "1:15", 7),
+             ("6", "Komplikasi dan pencegahan", "1:15", 7),
              ("7", "Bukti dan alternatif estetik", "1:30", 8),
              ("8", "Kasus, kuis, penutup", "0:45", 10)]
     for i, (n, label, dur, target) in enumerate(items):
@@ -396,7 +396,7 @@ def build(path, notes_map):
 
     # 10 COMPLICATIONS
     s = blank(prs); slides.append(s)
-    header(s, "Penyulit", "Penyulit SSC bisa dicegah di langkah preparasi", 8, 28)
+    header(s, "Komplikasi", "Komplikasi SSC bisa dicegah di langkah preparasi", 8, 28)
     comps = [("Crown terasa longgar", "Biasanya ukuran terlalu besar atau crimping margin kurang rapat."),
              ("Crown tidak duduk", "Ada ledge, atau kontak proksimal belum putus."),
              ("Perdarahan gingiva", "Margin crown terlalu panjang, atau tepinya tajam."),
@@ -496,7 +496,7 @@ def build(path, notes_map):
 
     # 14 QUIZ
     s = blank(prs); slides.append(s)
-    header(s, "Kuis", "Lima soal menguji keputusan pada penyulit umum", 12, 28)
+    header(s, "Kuis", "Lima soal menguji keputusan saat komplikasi muncul", 12, 28)
     qs = ["1. Molar desidui, karies oklusal-distal luas, gigi vital tanpa nyeri spontan. Restorasi mana yang paling tepat?",
           "2. Pada molar desidui, berapa reduksi oklusal yang dianjurkan UK guideline?",
           "3. Crown tidak duduk, ada ledge. Apa langkah berikutnya?",
@@ -607,7 +607,7 @@ def build(path, notes_map):
             ty += 0.52 if len(ln) > 33 else 0.40
     fills = [
         ("Angka kunci", ["Keberhasilan SSC 96,1% (Chisini 2018)", "Gagal mayor: RR 0,18 (Cochrane 2015)", "Retensi 5 tahun 97,88% (Lampl 2025)", "MIH: SSC 94,4% vs 49,2% (Farias 2022)"]),
-        ("Penyulit dan tindakan", ["Longgar: pilih ukuran lebih kecil, crimp ulang", "Tidak duduk: periksa ledge dan sisa kontak", "Perforasi: ganti crown", "Lepas: sementasi ulang bila crown intak"]),
+        ("Komplikasi dan tindakan", ["Longgar: pilih ukuran lebih kecil, crimp ulang", "Tidak duduk: periksa ledge dan sisa kontak", "Perforasi: ganti crown", "Lepas: sementasi ulang bila crown intak"]),
     ]
     for i, (title, lines) in enumerate(fills):
         x = M + i * 6.1
