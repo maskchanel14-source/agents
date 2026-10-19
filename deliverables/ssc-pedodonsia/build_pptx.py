@@ -179,7 +179,7 @@ def bars(slide, x, y, w, h, data, vmax=100, color=TEAL, label_w=1.0, unit="%"):
         b.fill.fore_color.rgb = color
         b.line.fill.background()
         b.shadow.inherit = False
-        txt = ("%.2f" % val).rstrip("0").rstrip(".") if val % 1 else str(int(val))
+        txt = ("%.2f" % val).replace(".", ",") if val % 1 else str(int(val))
         tx(slide, x + label_w + bw - 0.02, yy, 0.72, row, txt + unit, size=9.5, color=INK, bold=True,
            anchor=MSO_ANCHOR.MIDDLE)
 
@@ -244,7 +244,7 @@ def build(path, notes_map):
         x = M + sum([1.05, 1.75, 1.1][:i]) + 0.12 * i
         b = card(s, x, 4.62, w, 0.34, fill=RGBColor(0xFD, 0xF1, 0xEC), line=RGBColor(0xE7, 0xC3, 0xB8), radius=0.5)
         tx(s, x, 4.66, w, 0.26, label, size=9.5, color=RGBColor(0xA3, 0x46, 0x2F), align=PP_ALIGN.CENTER)
-    tx(s, M, 5.18, 7.2, 0.5, "Materi edukasi. Bukan pengganti pertimbangan klinis pada pasien tertentu.",
+    tx(s, M, 5.18, 7.2, 0.5, "Materi edukasi, jadi tidak menggantikan pertimbangan klinis pada pasien tertentu.",
        size=9.5, color=MUTED)
     picture(s, "fig-cover.jpg", 9.25, 0.95, 3.5)
     footer(s, "Sumber angka dan sitasi ada di tiap slide serta di research_notes.md")
@@ -253,13 +253,13 @@ def build(path, notes_map):
     # 2 AGENDA
     s = blank(prs); slides.append(s)
     header(s, "Agenda", "Sembilan bagian, sepuluh menit", 2)
-    items = [("1", "Restorasi yang gagal berulang", "0:45", 2),
+    items = [("1", "Tambalan yang gagal berulang", "0:45", 2),
              ("2", "Mengapa SSC", "0:45", 3),
              ("3", "Indikasi dan batas", "1:00", 4),
-             ("4", "Gigi desidui dan preparasi", "0:45", 5),
+             ("4", "Anatomi dan preparasi", "0:45", 5),
              ("5", "Sepuluh langkah konvensional", "1:45", 6),
              ("6", "Hall Technique", "1:00", 7),
-             ("7", "Perbandingan dan penyulit", "1:00", 8),
+             ("7", "Konvensional dan Hall dibandingkan", "1:00", 8),
              ("8", "Bukti dan alternatif", "1:30", 10),
              ("9", "Kasus, kuis, penutup", "0:45", 12)]
     for i, (n, label, dur, target) in enumerate(items):
@@ -282,10 +282,10 @@ def build(path, notes_map):
 
     # 3 PROBLEM
     s = blank(prs); slides.append(s)
-    header(s, "Masalah klinis", "Tambalan berulang gagal pada gigi yang sama", 3)
-    fails = [("Tambalan pertama", "Tepi terbuka, karies kembali"),
-             ("Tambalan kedua", "Karies sekunder"),
-             ("Tambalan ketiga", "Nyeri, pulpa terlibat")]
+    header(s, "Masalah klinis", "Tambalan yang gagal berulang pada gigi yang sama", 3)
+    fails = [("Tambalan pertama", "Tepi tambalan terbuka dan karies muncul lagi"),
+             ("Tambalan kedua", "Karies sekunder terbentuk di bawah tambalan"),
+             ("Tambalan ketiga", "Nyeri muncul karena pulpa sudah terlibat")]
     for i, (a, b) in enumerate(fails):
         y = 1.95 + i * 1.05
         card(s, M, y, 5.9, 0.86)
@@ -295,7 +295,7 @@ def build(path, notes_map):
         tx(s, M + 0.58, y + 0.45, 4.9, 0.3, b, size=11.5, color=INK2)
     tx(s, M, 5.25, 5.6, 0.3, "Kasus ilustratif, bukan data penelitian.", size=8.5, color=MUTED)
     tx(s, 6.95, 1.75, 5.7, 1.3, "Setiap pengulangan menghilangkan lebih banyak dentin.", size=25, font=SERIF, color=INK, spacing=1.05)
-    tx(s, 6.95, 3.25, 5.55, 1.2, "Enamel gigi desidui sekitar 1 mm, dentin tipis, tanduk pulpa tinggi. Kapan berhenti menambal dan menutup seluruh gigi?",
+    tx(s, 6.95, 3.25, 5.55, 1.2, "Enamel gigi desidui hanya sekitar 1 mm, dentinnya tipis, dan tanduk pulpanya tinggi. Kapan kita berhenti menambal dan mulai menutup seluruh gigi?",
        size=13, color=INK2)
     b = card(s, 6.95, 4.68, 3.85, 0.44, fill=RGBColor(0xEE, 0xF6, 0xF4), line=RGBColor(0xBC, 0xD4, 0xD0), radius=0.5)
     tx(s, 7.05, 4.76, 3.7, 0.3, "Karies usia 5–6 tahun: 93%", size=10, color=RGBColor(0x22, 0x60, 0x5C))
@@ -305,14 +305,14 @@ def build(path, notes_map):
     # 4 WHY
     s = blank(prs); slides.append(s)
     header(s, "Prinsip", "SSC menutup seluruh mahkota dan tidak bergantung pada dinding yang tersisa", 4, 28)
-    stat(s, M, 1.95, 3.85, "96,1%", "", "success SSC pada 12 bulan, 31 studi", "Chisini 2018; SR/MA, I")
-    stat(s, M + 4.12, 1.95, 3.85, "0,18", "", "RR kegagalan mayor vs tambalan (95% CI 0,06–0,56)", "Cochrane 2015; I")
-    stat(s, M + 8.24, 1.95, 3.85, "92%", "", "success Hall vs 52% kontrol pada 60 bulan", "Innes 2011; RCT, II")
+    stat(s, M, 1.95, 3.85, "96,1%", "", "angka keberhasilan SSC, 31 studi", "Chisini 2018; SR/MA, I")
+    stat(s, M + 4.12, 1.95, 3.85, "0,18", "", "risiko kegagalan mayor crown dibanding tambalan (95% CI 0,06–0,56)", "Cochrane 2015; I")
+    stat(s, M + 8.24, 1.95, 3.85, "92%", "", "Hall 92%, kontrol 52%, pada 60 bulan", "Innes 2011; RCT, II")
     picture(s, "fig-why.jpg", M, 3.40, 4.70,
             "Penampang molar desidui dengan crown terpasang.")
-    cards = [("Retensi dari servikal", "Undercut di bawah bulbositas menahan crown, bukan semen."),
-             ("Tahan fraktur", "Logam menahan gaya oklusal pada dinding tipis."),
-             ("Lebih sedikit pengulangan", "Biaya awal lebih tinggi, retreatment lebih rendah.")]
+    cards = [("Retensi dari servikal", "Undercut di bawah bulbositas servikal menahan crown; semen hanya menutup margin."),
+             ("Tahan fraktur", "Logam menahan gaya oklusal pada dinding gigi yang tipis."),
+             ("Lebih sedikit pengulangan", "Biaya awalnya lebih tinggi, tetapi perawatan ulang lebih jarang.")]
     for i, (a, b) in enumerate(cards):
         y = 3.42 + i * 1.13
         card(s, 6.15, y, 6.05, 1.0)
@@ -327,23 +327,23 @@ def build(path, notes_map):
     card(s, M, 1.9, 6.2, 2.2)
     tx(s, M + 0.22, 2.03, 5.7, 0.3, "Pilih SSC", size=12, color=ACCENT, bold=True)
     tx(s, M + 0.22, 2.38, 5.75, 1.6,
-       "•  Lebih dari 2 permukaan, atau melewati line angle\n"
-       "•  Setelah pulpotomi atau pulpektomi\n"
-       "•  Hipoplasia, MIH, fraktur, atrisi\n"
-       "•  Abutment space maintainer, risiko karies tinggi", size=10.5, color=INK2, spacing=1.2)
+       "•  Karies lebih dari 2 permukaan, atau melewati line angle\n"
+       "•  Gigi setelah pulpotomi atau pulpektomi\n"
+       "•  Hipoplasia, MIH, fraktur, atau atrisi\n"
+       "•  Abutment space maintainer atau risiko karies tinggi", size=10.5, color=INK2, spacing=1.2)
     card(s, M, 4.25, 6.2, 1.55)
     tx(s, M + 0.22, 4.38, 5.7, 0.3, "Batas dan kontraindikasi", size=12, color=TEAL, bold=True)
     tx(s, M + 0.22, 4.72, 5.75, 1.0,
-       "•  Lebih dari setengah akar teresorpsi, alergi nikel\n"
-       "•  Gigi tidak restorable\n"
-       "•  Hall: nyeri spontan, abses, fistula, tanpa dentine bridge", size=10.5, color=INK2, spacing=1.2)
+       "•  Resorpsi akar lebih dari setengah, atau alergi nikel\n"
+       "•  Gigi tidak dapat direstorasi\n"
+       "•  Hall tidak dipakai bila ada nyeri spontan, abses, fistula, atau dentine bridge tidak terlihat", size=10.5, color=INK2, spacing=1.2)
     # alur keputusan sederhana
     tx(s, 7.35, 1.86, 5.0, 0.3, "ALUR KEPUTUSAN", size=8.5, color=ACCENT, bold=True, spc=80)
     bands = [
         ("Karies luas, lebih dari 2 permukaan, atau melewati line angle?", CARD, LINE, INK),
-        ("Tanda pulpa ireversibel?  Ya: pulpektomi atau ekstraksi, lalu SSC bila gigi dipertahankan.", PALE, RGBColor(0xDD, 0xC9, 0xA4), INK),
+        ("Tanda pulpa ireversibel? Ya: pulpektomi atau ekstraksi, lalu SSC bila gigi dipertahankan.", PALE, RGBColor(0xDD, 0xC9, 0xA4), INK),
         ("Tidak: Hall bila dentine bridge jelas, atau SSC konvensional.", RGBColor(0xEE, 0xF6, 0xF4), RGBColor(0xBC, 0xD4, 0xD0), INK),
-        ("Bukan kandidat SSC: gigi tidak restorable, akar teresorpsi, alergi nikel.", CARD, LINE, INK),
+        ("Tidak memenuhi syarat SSC: gigi tidak dapat direstorasi, akar teresorpsi, atau alergi nikel.", CARD, LINE, INK),
     ]
     ys5 = [2.2, 3.05, 3.9, 4.75]
     for (label, fill, ln, col), y in zip(bands, ys5):
@@ -359,10 +359,10 @@ def build(path, notes_map):
     # 6 PREP
     s = blank(prs); slides.append(s)
     header(s, "Anatomi dan preparasi", "Bentuk gigi desidui menentukan arah preparasi", 6, 28)
-    rules = [("Retensi ada di servikal", "Undercut di bawah bulbositas menahan crown."),
-             ("Bukal dan lingual tidak rutin", "Hanya bila kontur menghalangi seating."),
-             ("Enamel 1 mm", "Reduksi oklusal 1,0–1,5 mm, atau 1,5–2,0 mm menurut sumber lain."),
-             ("Kontak harus putus", "Probe melewati kontak mesial dan distal.")]
+    rules = [("Retensi ada di servikal", "Crown ditahan oleh undercut di bawah bulbositas servikal."),
+             ("Bukal dan lingual tidak rutin", "Dikurangi hanya bila konturnya menghalangi crown duduk."),
+             ("Enamel hanya 1 mm", "Reduksi oklusal 1,0–1,5 mm; sumber lain menyebut 1,5–2,0 mm untuk molar permanen."),
+             ("Kontak harus putus", "Probe harus bisa melewati kontak mesial dan distal.")]
     for i, (a, b) in enumerate(rules):
         y = 1.95 + i * 1.12
         card(s, M, y, 5.95, 0.98)
@@ -398,11 +398,11 @@ def build(path, notes_map):
     # 8 HALL
     s = blank(prs); slides.append(s)
     header(s, "Hall Technique", "Hall menutup karies tanpa anestesi dan tanpa preparasi", 8, 28)
-    hall_steps = [("1", "Nilai dan radiograf", "Vital, dentine bridge jelas. Karies tidak dibuang."),
-                  ("2", "Separator bila kontak ketat", "Mesial dan distal, 3–5 hari."),
-                  ("3", "Pilih crown", "Terkecil, menutup seluruh gigi, spring-back."),
-                  ("4", "Isi semen dua pertiga", "GIC atau RMGIC, semua dinding terlapisi."),
-                  ("5", "Seating dan bite", "Lindungi airway, gigit 2–3 menit.")]
+    hall_steps = [("1", "Nilai kondisi gigi dan radiograf", "Pastikan gigi vital dan dentine bridge terlihat; karies tidak dibuang."),
+                  ("2", "Pasang separator bila kontak ketat", "Pasang di mesial dan distal, lalu biarkan 3–5 hari."),
+                  ("3", "Pilih crown", "Pilih ukuran terkecil yang menutup seluruh gigi dan masih memberi spring-back."),
+                  ("4", "Isi dua pertiga crown dengan semen", "Pakai GIC atau RMGIC, dan lapisi semua dinding crown."),
+                  ("5", "Penempatan dan gigitan", "Jaga airway tetap bebas, lalu anak menggigit 2–3 menit.")]
     for i, (n, a, b) in enumerate(hall_steps):
         y = 1.9 + i * 0.9
         tx(s, M, y, 0.4, 0.35, n, size=15, font=SERIF, color=ACCENT)
@@ -410,7 +410,7 @@ def build(path, notes_map):
         tx(s, M + 0.38, y + 0.32, 5.5, 0.4, b, size=9.8, color=INK2)
         rule(s, M, y + 0.82, 5.9)
     card(s, M, 6.05, 5.9, 0.62, fill=PALE, line=RGBColor(0xE8, 0xD9, 0xC2))
-    tx(s, M + 0.14, 6.14, 5.6, 0.45, "Batas Hall: bukan untuk pulpitis ireversibel, abses, fistula, atau tanpa dentine bridge.",
+    tx(s, M + 0.14, 6.14, 5.6, 0.45, "Batas Hall: tidak dipakai pada pulpitis ireversibel, abses, fistula, atau gigi yang dentine bridge-nya tidak terlihat.",
        size=8.8, color=RGBColor(0x6B, 0x5A, 0x3E))
     picture(s, "fig-hall.jpg", 6.55, 2.0, 6.1,
             "Karies tetap di tempatnya, tertutup dari substrat oral.")
@@ -448,21 +448,21 @@ def build(path, notes_map):
     # 10 COMPLICATIONS
     s = blank(prs); slides.append(s)
     header(s, "Penyulit", "Penyulit SSC bisa dicegah di langkah preparasi", 10, 28)
-    comps = [("Crown longgar", "Ukuran terlalu besar atau crimping kurang."),
-             ("Crown tidak duduk", "Ledge atau kontak belum putus."),
-             ("Perdarahan gingiva", "Margin terlalu panjang atau tepi tajam."),
-             ("Perforasi crown", "Trimming berlebihan atau wear oklusal."),
-             ("Crown lepas", "Retensi buruk atau karies sekunder."),
-             ("Anak tidak kooperatif", "Cemas atau pengalaman buruk.")]
+    comps = [("Crown terasa longgar", "Biasanya ukuran terlalu besar atau crimping margin kurang rapat."),
+             ("Crown tidak duduk", "Ada ledge, atau kontak proksimal belum putus."),
+             ("Perdarahan gingiva", "Margin crown terlalu panjang, atau tepinya tajam."),
+             ("Perforasi crown", "Trimming terlalu banyak, atau logam aus di oklusal."),
+             ("Crown lepas", "Retensi kurang, atau ada karies sekunder di bawah margin."),
+             ("Anak tidak kooperatif", "Cemas, atau pernah punya pengalaman perawatan buruk.")]
     for i, (a, b) in enumerate(comps):
         x = M + (i % 3) * 4.05
         y = 1.9 + (i // 3) * 1.5
         card(s, x, y, 3.85, 1.3)
         tx(s, x + 0.18, y + 0.14, 3.5, 0.3, a, size=12, color=INK, bold=True)
         tx(s, x + 0.18, y + 0.5, 3.5, 0.6, b, size=10, color=INK2)
-    strip = [("Alergi nikel", "Sensitisasi 8–10% pada anak Eropa, reaksi klinis jarang. Kontraindikasi bila ada riwayat reaksi."),
-             ("MIH", "Survival 94,4% vs komposit 49,2% pada 24 bulan."),
-             ("Berkebutuhan khusus", "Lebih sedikit kunjungan.")]
+    strip = [("Alergi nikel", "Sensitisasi 8–10% pada anak di Eropa, reaksi klinis jarang. Jangan dipakai bila ada riwayat reaksi."),
+             ("MIH", "SSC bertahan pada 94,4% gigi, komposit 49,2%, setelah 24 bulan."),
+             ("Anak berkebutuhan khusus", "Perawatan selesai dalam lebih sedikit kunjungan.")]
     for i, (a, b) in enumerate(strip):
         x = M + i * 4.05
         card(s, x, 5.05, 3.85, 1.1, fill=RGBColor(0xFD, 0xF8, 0xEF))
@@ -473,29 +473,29 @@ def build(path, notes_map):
 
     # 11 EVIDENCE
     s = blank(prs); slides.append(s)
-    header(s, "Bukti", "Angka retensi dan angka kegagalan tidak bisa dibandingkan langsung", 11, 28)
+    header(s, "Bukti", "Angka retensi dan angka keberhasilan mengukur hal yang berbeda", 11, 28)
     card(s, M, 1.9, 5.85, 3.7)
-    tx(s, M + 0.22, 2.02, 5.4, 0.3, "Hall vs restorasi rutin, 60 bulan", size=11.5, color=INK, bold=True)
+    tx(s, M + 0.22, 2.02, 5.4, 0.3, "Hall dibanding restorasi rutin pada 60 bulan", size=11.5, color=INK, bold=True)
     tx(s, M + 0.22, 2.32, 5.4, 0.3, "RCT split-mouth, 132 anak (Innes 2011)", size=8.5, color=MUTED)
     bars(s, M + 0.22, 2.72, 5.3, 1.2, [("Hall", 92), ("Kontrol", 52)], color=TEAL)
-    tx(s, M + 0.22, 4.65, 5.3, 0.5, "Kegagalan mayor 3% vs 16,5%. NNT 8.", size=9, color=INK2)
+    tx(s, M + 0.22, 4.65, 5.3, 0.5, "Kegagalan mayor: 3% pada Hall, 16,5% pada kontrol. NNT 8.", size=9, color=INK2)
     card(s, M + 6.05, 1.9, 5.85, 3.7)
     tx(s, M + 6.27, 2.02, 5.4, 0.3, "Retensi 5 tahun per material", size=11.5, color=INK, bold=True)
     tx(s, M + 6.27, 2.32, 5.4, 0.3, "SR/MA 13 RCT + 5 studi klinis (Lampl 2025). Sumbu 80–100%.", size=8.5, color=MUTED)
     bars(s, M + 6.27, 2.68, 5.35, 2.4,
          [("SSC", 97.88), ("Zirkonia", 97.09), ("Komposit", 92.18), ("RMGIC", 90.30),
           ("Compomer", 88.90), ("Strip", 83.48)], vmax=100, color=TEAL, label_w=1.05)
-    tx(s, M, 5.78, 11.9, 0.4, "Angka retensi dan success tidak boleh dibandingkan langsung. Definisi kegagalan berbeda antar studi.",
+    tx(s, M, 5.78, 11.9, 0.4, "Angka retensi dan angka keberhasilan tidak bisa dibandingkan langsung karena definisi kegagalan berbeda antar studi.",
        size=9.5, color=INK2)
     footer(s, "Innes 2011; Lampl 2025; Chisini 2018; Innes 2015 Cochrane")
     notes(s, notes_map[10])
 
     # 12 ALTERNATIVES
     s = blank(prs); slides.append(s)
-    header(s, "Alternatif estetik", "Zirkonia lebih baik pada gingiva, belum pada retensi jangka panjang", 12, 27)
-    cols = [("Zirkonia", "Kegagalan: RR 0,48 (0,15–1,52). Gingiva: MD −0,32 (−0,42 sampai −0,23). Biaya, wear antagonis, sulit direparasi."),
-            ("Pre-veneered SSC", "Retensi 6 bulan 95% (Walia 2014). Veneer bisa fraktur. Bukti belum cukup menggantikan SSC."),
-            ("Strip crown", "Retensi 6 bulan 78% (Walia 2014). Sensitif kelembapan. Bukan pilihan utama molar posterior.")]
+    header(s, "Alternatif estetik", "Zirkonia lebih baik untuk gingiva, tetapi retensinya belum terbukti lebih unggul", 12, 27)
+    cols = [("Zirkonia", "Kegagalan klinis tidak berbeda bermakna dari SSC (RR 0,48; 95% CI 0,15–1,52), tetapi gingiva lebih sehat (MD −0,32). Biayanya lebih tinggi, menimbulkan keausan antagonis, dan sulit direparasi."),
+            ("Pre-veneered SSC", "Crown masih terpasang pada 95% gigi setelah 6 bulan (Walia 2014). Veneernya bisa fraktur, dan buktinya belum cukup untuk menggantikan SSC."),
+            ("Strip crown", "Crown masih terpasang pada 78% gigi setelah 6 bulan (Walia 2014). Tekniknya sensitif kelembapan, dan bukan pilihan pertama untuk molar posterior.")]
     for i, (title, body_txt) in enumerate(cols):
         y = 1.9 + i * 1.45
         card(s, M, y, 5.85, 1.3)
@@ -504,7 +504,7 @@ def build(path, notes_map):
     picture(s, "fig-alternatives.jpg", 6.75, 1.88, 5.95,
             "Zirkonia, pre-veneered SSC, dan SSC logam penuh.")
     card(s, 6.75, 4.92, 5.95, 1.55)
-    tx(s, 6.95, 5.02, 5.5, 0.3, "Retensi 6 bulan", size=10.5, color=INK, bold=True)
+    tx(s, 6.95, 5.02, 5.5, 0.3, "Crown yang masih terpasang setelah 6 bulan", size=10.5, color=INK, bold=True)
     tx(s, 6.95, 5.28, 5.5, 0.3, "RCT 129 gigi insisivus desidui (Walia 2014)", size=8.5, color=MUTED)
     bars(s, 6.95, 5.55, 5.5, 0.85, [("Zirkonia", 100), ("PVSSC", 95), ("Strip", 78)], color=TEAL, label_w=1.05)
     footer(s, "Patnana 2022; Pei & Chen 2023; Aiem 2017; Walia 2014")
@@ -541,8 +541,8 @@ def build(path, notes_map):
     # 14 QUIZ
     s = blank(prs); slides.append(s)
     header(s, "Kuis", "Lima soal menguji keputusan pada penyulit umum", 14, 28)
-    qs = ["1. Nyeri spontan malam, molar desidui. Hall atau konvensional?",
-          "2. Berapa reduksi oklusal yang paling banyak dipakai?",
+    qs = ["1. Molar desidui dengan nyeri spontan malam: Hall atau SSC konvensional?",
+          "2. Pada molar desidui, berapa reduksi oklusal yang dianjurkan UK guideline?",
           "3. Crown tidak duduk, ada ledge. Apa langkah berikutnya?",
           "4. Apa yang paling menentukan retensi jangka panjang?",
           "5. MIH berat pada molar permanen. Pilihan dengan bukti terkuat?"]
@@ -550,7 +550,7 @@ def build(path, notes_map):
         y = 1.9 + i * 0.86
         card(s, M, y, 11.55, 0.7)
         tx(s, M + 0.2, y + 0.2, 11.1, 0.34, q, size=11.5, color=INK)
-    tx(s, M, 6.2, 11.5, 0.3, "Jawaban: 1 konvensional, 2 1,0–1,5 mm, 3 periksa ledge, 4 kontur dan crimping, 5 SSC.",
+    tx(s, M, 6.2, 11.5, 0.3, "Kunci jawaban: 1 SSC konvensional setelah pulpektomi, 2 reduksi 1,0–1,5 mm, 3 periksa ledge dan sisa kontak, 4 kontur dan crimping margin, 5 SSC.",
        size=8.5, color=MUTED)
     footer(s, "Kindelan 2008; AAPD 2024; Farias 2022; Randall 2002")
     notes(s, notes_map[13] + " Kunci jawaban: 1 SSC konvensional setelah pulpotomi; 2 1,0–1,5 mm; 3 periksa ledge dan sisa kontak; 4 kontur dan crimping margin; 5 SSC.")
@@ -558,9 +558,9 @@ def build(path, notes_map):
     # 15 RECAP
     s = blank(prs); slides.append(s)
     header(s, "Penutup", "Tiga hal yang harus diingat", 15)
-    recap = [("1", "SSC menutup seluruh mahkota", "Retensi dari margin dan undercut servikal. Crimping lebih menentukan daripada semen."),
-             ("2", "Hall hanya untuk gigi vital dengan dentine bridge jelas", "Nyeri spontan atau abses mengubah rencana. Pilih konvensional setelah pulp therapy."),
-             ("3", "Baca angka sesuai definisinya", "Success, survival, dan retention bukan hal yang sama.")]
+    recap = [("1", "SSC menutup seluruh permukaan gigi", "Retensinya berasal dari margin dan undercut servikal, dan crimping margin lebih menentukan daripada jenis semen."),
+             ("2", "Hall hanya untuk gigi vital dengan dentine bridge yang jelas", "Nyeri spontan atau abses mengubah rencana, sehingga SSC konvensional dipasang setelah perawatan pulpa."),
+             ("3", "Baca angka sesuai definisinya", "Angka keberhasilan, angka gigi yang masih bertahan, dan angka crown yang masih terpasang mengukur hal berbeda.")]
     for i, (n, a, b) in enumerate(recap):
         y = 1.9 + i * 1.42
         card(s, M, y, 11.55, 1.24)
@@ -642,10 +642,10 @@ def build(path, notes_map):
     s = blank(prs); slides.append(s)
     header(s, "Lampiran", "Protokol satu halaman untuk dibawa ke klinik", 18, 26)
     cols = [
-        ("Sebelum tindakan", ["Riwayat nyeri, swelling, fistula", "Riwayat medis dan alergi nikel", "Karies, pulpa, gingiva, oklusi", "Radiograf dan dentine bridge", "Pilih teknik dan ukuran", "Informed consent", "Rencana behavior guidance"]),
+        ("Sebelum tindakan", ["Riwayat nyeri dan fistula", "Riwayat medis dan alergi nikel", "Karies, pulpa, gingiva, oklusi", "Radiograf dan dentine bridge", "Pilih teknik dan ukuran", "Informed consent", "Rencana behavior guidance"]),
         ("Konvensional 1–5", ["1 Anestesi dan isolasi", "2 Ukur dan pilih crown", "3 Ekskavasi, pulp therapy", "4 Reduksi oklusal 1,0–1,5 mm", "5 Reduksi proksimal, feather edge"]),
         ("Konvensional 6–10", ["6 Haluskan line angle", "7 Try-in", "8 Trim, crimp, contour", "9 Sementasi", "10 Cek akhir dan instruksi"]),
-        ("Hall, kontrol, kegagalan", ["Vital, dentine bridge jelas", "Separator 3–5 hari", "GIC dua pertiga, bite 2–3 menit", "Kontrol 6 bulan", "Radiograf 6–12 bulan", "Sukses, gagal minor, gagal mayor"]),
+        ("Hall, kontrol, kegagalan", ["Gigi vital, dentine bridge jelas", "Separator 3–5 hari", "GIC dua pertiga, bite 2–3 menit", "Kontrol 6 bulan", "Radiograf 6–12 bulan", "Berhasil, gagal minor, gagal mayor"]),
     ]
     for i, (title, lines) in enumerate(cols):
         x = M + i * 3.05
@@ -655,8 +655,8 @@ def build(path, notes_map):
             tx(s, x, ty, 2.9, 0.30, "□  " + ln, size=8.6, color=INK2)
             ty += 0.52 if len(ln) > 33 else 0.40
     fills = [
-        ("Angka kunci", ["Success SSC 96,1% (Chisini 2018)", "Gagal mayor RR 0,18 (Cochrane 2015)", "Hall 92% vs 52% (Innes 2011)", "Retensi 5 tahun 97,88% (Lampl 2025)"]),
-        ("Penyulit dan tindakan", ["Longgar: ukuran lebih kecil, crimp ulang", "Tidak duduk: periksa ledge dan kontak", "Perforasi: ganti crown", "Lepas: recement bila crown intak"]),
+        ("Angka kunci", ["Keberhasilan SSC 96,1% (Chisini 2018)", "Gagal mayor: RR 0,18 (Cochrane 2015)", "Hall 92% vs 52% (Innes 2011)", "Retensi 5 tahun 97,88% (Lampl 2025)"]),
+        ("Penyulit dan tindakan", ["Longgar: pilih ukuran lebih kecil, crimp ulang", "Tidak duduk: periksa ledge dan sisa kontak", "Perforasi: ganti crown", "Lepas: sementasi ulang bila crown intak"]),
     ]
     for i, (title, lines) in enumerate(fills):
         x = M + i * 6.1

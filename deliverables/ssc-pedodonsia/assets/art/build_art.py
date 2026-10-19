@@ -97,7 +97,7 @@ def p(x, y):
 body = [img("why.png", PX, PY, PW, PH)]
 right = PX + PW + 34
 rows = [
-    (p(470, 150), "coverage penuh", "seluruh korona tertutup logam", 92),
+    (p(470, 150), "menutup seluruh gigi", "seluruh korona tertutup logam", 92),
     (p(556, 420), "margin 1 mm subgingiva", "seal sekaligus retensi", 190),
     (p(120, 462), "bulbositas servikal", "undercut jadi sumber retensi", 300),
     (p(330, 600), "pulpa", "tanduk pulpa tinggi, dentin tipis", 404),
@@ -154,7 +154,7 @@ rows = [
 ]
 for (ax, ay), main, sub, ty in rows:
     body.append(callout(ax, ay, right, ty, main, sub, edge=PX3 + PW3))
-body.append(label(PX3, 470, "Semen GIC dua pertiga penuh mengisi seluruh dinding crown,",
+body.append(label(PX3, 470, "Semen GIC mengisi dua pertiga crown dan menyelimuti seluruh dinding,",
                   "lalu crown ditekan saat anak menggigit 2–3 menit.", "start", 13))
 arts["hall"] = (w, h, "".join(body), "Crown Hall menutup karies tanpa preparasi")
 
