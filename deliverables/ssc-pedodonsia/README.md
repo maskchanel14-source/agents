@@ -6,13 +6,13 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 
 | Berkas | Isi | Dipakai untuk |
 |---|---|---|
-| `ssc-pedodonsia.html` | Deck utama, 18 slide, interaktif | Presentasi langsung, dibuka di browser |
+| `ssc-pedodonsia.html` | Deck utama, 16 slide, interaktif | Presentasi langsung, dibuka di browser |
 | `ssc-pedodonsia-standalone.html` | Deck yang sama dengan ilustrasi tertanam di dalam berkas | Dikirim lewat surel atau diunggah ke Drive |
-| `ssc-pedodonsia.pptx` | Cadangan statis 18 slide + catatan pembicara | Bila ruang presentasi hanya menyediakan PowerPoint |
-| `ssc-pedodonsia.pdf` | Cetakan 13,333 × 7,5 inci, 18 halaman | Dibagikan atau dicetak sebagai handout |
+| `ssc-pedodonsia.pptx` | Cadangan statis 16 slide + catatan pembicara | Bila ruang presentasi hanya menyediakan PowerPoint |
+| `ssc-pedodonsia.pdf` | Cetakan 13,333 × 7,5 inci, 16 halaman | Dibagikan atau dicetak sebagai handout |
 | `ssc-pedodonsia-paket.zip` | Seluruh folder ini | Diunggah ke Drive untuk arsip |
 | `research_notes.md` | Catatan riset, 33 sumber Vancouver, tingkat bukti | Rujukan angka dan klaim |
-| `protokol_klinis.md` | Protokol lengkap 10 langkah + Hall + penyulit + checklist | Dibawa ke klinik |
+| `protokol_klinis.md` | Protokol lengkap 10 langkah + penyulit + checklist | Dibawa ke klinik |
 | `gaya_bahasa.md` | Repo humanizer yang dibaca, aturan yang diambil dan ditolak | Catatan metode penulisan |
 | `catatan_skill_repo.md` | Skill repo yang dipakai dan dilewati, beserta alasannya | Jejak pemakaian repo |
 | `daftar_istilah.md` | Istilah yang dibekukan dan aturan ejaan | QC konsistensi |
@@ -40,7 +40,7 @@ PowerPoint bisa memuat hyperlink dan catatan pembicara, tetapi tidak bisa menamp
 
 ## Ilustrasi
 
-Tujuh slide memakai ilustrasi anatomi beranotasi: sampul, prinsip SSC, preparasi, langkah klinis (instrumen), Hall Technique, dan alternatif estetik. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, gigi dengan karies tertutup crown Hall, deretan instrumen, dan tiga jenis mahkota posterior.
+Tujuh slide memakai ilustrasi anatomi beranotasi: sampul, prinsip SSC, preparasi, langkah klinis (instrumen), dan alternatif estetik. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, gigi dengan karies tertutup crown Hall, deretan instrumen, dan tiga jenis mahkota posterior.
 
 Cara kerjanya: gambar dasar ada di `assets/src`, dipotong ke `assets/art/photo-*.jpg`, lalu diberi titik penunjuk dan label oleh `assets/art/build_art.py`. Skrip itu menulis SVG, dan `tools/render_svg.js` mengubahnya menjadi JPEG 2x yang dipakai deck HTML maupun PPTX. Untuk mengubah label atau posisi penunjuk, sunting `build_art.py` lalu jalankan:
 
@@ -68,7 +68,7 @@ Catatan penting: gambar ini adalah render ilustrasi yang dibuat untuk deck, buka
 
 ### Revisi ilustrasi
 
-- Sketsa vektor lama pada sampul, slide prinsip, preparasi, Hall, dan alternatif diganti ilustrasi anatomi bergambar dengan label penunjuk.
+- Sketsa vektor lama pada sampul, slide prinsip, preparasi, dan alternatif diganti ilustrasi anatomi bergambar dengan label penunjuk.
 - Grafik retensi pada slide alternatif dipadatkan agar ilustrasi tiga mahkota mendapat ruang.
 - Panel langkah klinis menampilkan foto instrumen pada langkah 8 (trim, crimp, contour).
 - PDF dan PPTX dibangun ulang dari sumber yang sama supaya isi ketiga berkas tidak berbeda.

@@ -238,9 +238,9 @@ def build(path, notes_map):
     rule(s, M, 1.32, 0.9, ACCENT, 2.5)
     tx(s, M, 1.55, 8.1, 2.1, "Stainless steel crown pada gigi desidui dan gigi permanen muda",
        size=38, font=SERIF, color=INK, spacing=1.02)
-    tx(s, M, 3.72, 7.4, 0.75, "Indikasi, preparasi, Hall Technique, dan bukti klinis dalam sepuluh menit",
+    tx(s, M, 3.72, 7.4, 0.75, "Indikasi, preparasi, langkah pemasangan, dan bukti klinis dalam sembilan menit",
        size=15, color=INK2)
-    for i, (label, w) in enumerate([("10 menit", 1.05), ("Pemateri: [nama]", 1.75), ("[tanggal]", 1.1)]):
+    for i, (label, w) in enumerate([("9 menit", 1.05), ("Pemateri: [nama]", 1.75), ("[tanggal]", 1.1)]):
         x = M + sum([1.05, 1.75, 1.1][:i]) + 0.12 * i
         b = card(s, x, 4.62, w, 0.34, fill=RGBColor(0xFD, 0xF1, 0xEC), line=RGBColor(0xE7, 0xC3, 0xB8), radius=0.5)
         tx(s, x, 4.66, w, 0.26, label, size=9.5, color=RGBColor(0xA3, 0x46, 0x2F), align=PP_ALIGN.CENTER)
@@ -252,16 +252,15 @@ def build(path, notes_map):
 
     # 2 AGENDA
     s = blank(prs); slides.append(s)
-    header(s, "Agenda", "Sembilan bagian, sepuluh menit", 2)
+    header(s, "Agenda", "Delapan bagian, sembilan menit", 2)
     items = [("1", "Tambalan yang gagal berulang", "0:45", 2),
              ("2", "Mengapa SSC", "0:45", 3),
              ("3", "Indikasi dan batas", "1:00", 4),
              ("4", "Anatomi dan preparasi", "0:45", 5),
              ("5", "Sepuluh langkah konvensional", "1:45", 6),
-             ("6", "Hall Technique", "1:00", 7),
-             ("7", "Konvensional dan Hall dibandingkan", "1:00", 8),
-             ("8", "Bukti dan alternatif", "1:30", 10),
-             ("9", "Kasus, kuis, penutup", "0:45", 12)]
+             ("6", "Penyulit dan pencegahan", "1:15", 7),
+             ("7", "Bukti dan alternatif estetik", "1:30", 8),
+             ("8", "Kasus, kuis, penutup", "0:45", 10)]
     for i, (n, label, dur, target) in enumerate(items):
         col = 0 if i < 5 else 1
         row = i if i < 5 else i - 5
@@ -277,7 +276,7 @@ def build(path, notes_map):
         rule(s, x, y + 0.72, 5.75)
     tx(s, M, 6.25, 11.5, 0.6, "Klik bagian mana pun untuk melompat. Tombol Agenda di kanan atas mengembalikan ke halaman ini. Bagian kasus dan kuis dapat dilewati bila waktu tersisa kurang dari dua menit.",
        size=9, color=MUTED)
-    footer(s, "Total 9 menit 15 detik konten, sekitar 10 menit dengan perpindahan")
+    footer(s, "Total 8 menit 30 detik konten, sekitar 9 menit dengan perpindahan")
     notes(s, notes_map[1])
 
     # 3 PROBLEM
@@ -299,7 +298,7 @@ def build(path, notes_map):
        size=13, color=INK2)
     b = card(s, 6.95, 4.68, 3.85, 0.44, fill=RGBColor(0xEE, 0xF6, 0xF4), line=RGBColor(0xBC, 0xD4, 0xD0), radius=0.5)
     tx(s, 7.05, 4.76, 3.7, 0.3, "Karies usia 5–6 tahun: 93%", size=10, color=RGBColor(0x22, 0x60, 0x5C))
-    footer(s, "Kindelan 2008; AAPD 2025; Cochrane 2015; Innes 2011; Riskesdas 2018")
+    footer(s, "Kindelan 2008; AAPD 2025; Cochrane 2015; Lampl 2025; Riskesdas 2018")
     notes(s, notes_map[2])
 
     # 4 WHY
@@ -307,7 +306,7 @@ def build(path, notes_map):
     header(s, "Prinsip", "SSC menutup seluruh mahkota dan tidak bergantung pada dinding yang tersisa", 4, 28)
     stat(s, M, 1.95, 3.85, "96,1%", "", "angka keberhasilan SSC, 31 studi", "Chisini 2018; SR/MA, I")
     stat(s, M + 4.12, 1.95, 3.85, "0,18", "", "risiko kegagalan mayor crown dibanding tambalan (95% CI 0,06–0,56)", "Cochrane 2015; I")
-    stat(s, M + 8.24, 1.95, 3.85, "92%", "", "Hall 92%, kontrol 52%, pada 60 bulan", "Innes 2011; RCT, II")
+    stat(s, M + 8.24, 1.95, 3.85, "94,4%", "", "SSC bertahan pada MIH, komposit 49,2%, 24 bulan", "Farias 2022; kohort, III")
     picture(s, "fig-why.jpg", M, 3.40, 4.70,
             "Penampang molar desidui dengan crown terpasang.")
     cards = [("Retensi dari servikal", "Undercut di bawah bulbositas servikal menahan crown; semen hanya menutup margin."),
@@ -318,7 +317,7 @@ def build(path, notes_map):
         card(s, 6.15, y, 6.05, 1.0)
         tx(s, 6.35, y + 0.14, 5.6, 0.3, a, size=13, color=INK, bold=True)
         tx(s, 6.35, y + 0.48, 5.65, 0.44, b, size=10.5, color=INK2)
-    footer(s, "Chisini 2018; Innes 2015 Cochrane; Innes 2011; AAPD 2025")
+    footer(s, "Chisini 2018; Innes 2015 Cochrane; Farias 2022; AAPD 2025")
     notes(s, notes_map[3])
 
     # 5 INDICATION
@@ -336,13 +335,13 @@ def build(path, notes_map):
     tx(s, M + 0.22, 4.72, 5.75, 1.0,
        "•  Resorpsi akar lebih dari setengah, atau alergi nikel\n"
        "•  Gigi tidak dapat direstorasi\n"
-       "•  Hall tidak dipakai bila ada nyeri spontan, abses, fistula, atau dentine bridge tidak terlihat", size=10.5, color=INK2, spacing=1.2)
+       "•  Pulpa ireversibel: terapi pulpa lebih dulu, SSC dipasang setelahnya", size=10.5, color=INK2, spacing=1.2)
     # alur keputusan sederhana
     tx(s, 7.35, 1.86, 5.0, 0.3, "ALUR KEPUTUSAN", size=8.5, color=ACCENT, bold=True, spc=80)
     bands = [
         ("Karies luas, lebih dari 2 permukaan, atau melewati line angle?", CARD, LINE, INK),
         ("Tanda pulpa ireversibel? Ya: pulpektomi atau ekstraksi, lalu SSC bila gigi dipertahankan.", PALE, RGBColor(0xDD, 0xC9, 0xA4), INK),
-        ("Tidak: Hall bila dentine bridge jelas, atau SSC konvensional.", RGBColor(0xEE, 0xF6, 0xF4), RGBColor(0xBC, 0xD4, 0xD0), INK),
+        ("Tidak: pasang SSC konvensional, cukup satu kunjungan.", RGBColor(0xEE, 0xF6, 0xF4), RGBColor(0xBC, 0xD4, 0xD0), INK),
         ("Tidak memenuhi syarat SSC: gigi tidak dapat direstorasi, akar teresorpsi, atau alergi nikel.", CARD, LINE, INK),
     ]
     ys5 = [2.2, 3.05, 3.9, 4.75]
@@ -353,7 +352,7 @@ def build(path, notes_map):
             ar = s.shapes.add_shape(MSO_SHAPE.DOWN_ARROW, Inches(9.92), Inches(y + 0.7), Inches(0.18), Inches(0.14))
             ar.fill.solid(); ar.fill.fore_color.rgb = RGBColor(0x8F, 0xA3, 0xA0)
             ar.line.fill.background(); ar.shadow.inherit = False
-    footer(s, "Kindelan 2008; AAPD 2025; SDCEP 2025; Hall Technique Guide 2015")
+    footer(s, "Kindelan 2008; AAPD 2025; SDCEP 2025; Randall 2002")
     notes(s, notes_map[4])
 
     # 6 PREP
@@ -395,59 +394,9 @@ def build(path, notes_map):
     footer(s, "Kindelan 2008; Randall 2002; AAPD VPT 2024; AAPD 2023 anestesi")
     notes(s, notes_map[6])
 
-    # 8 HALL
-    s = blank(prs); slides.append(s)
-    header(s, "Hall Technique", "Hall menutup karies tanpa anestesi dan tanpa preparasi", 8, 28)
-    hall_steps = [("1", "Nilai kondisi gigi dan radiograf", "Pastikan gigi vital dan dentine bridge terlihat; karies tidak dibuang."),
-                  ("2", "Pasang separator bila kontak ketat", "Pasang di mesial dan distal, lalu biarkan 3–5 hari."),
-                  ("3", "Pilih crown", "Pilih ukuran terkecil yang menutup seluruh gigi dan masih memberi spring-back."),
-                  ("4", "Isi dua pertiga crown dengan semen", "Pakai GIC atau RMGIC, dan lapisi semua dinding crown."),
-                  ("5", "Penempatan dan gigitan", "Jaga airway tetap bebas, lalu anak menggigit 2–3 menit.")]
-    for i, (n, a, b) in enumerate(hall_steps):
-        y = 1.9 + i * 0.9
-        tx(s, M, y, 0.4, 0.35, n, size=15, font=SERIF, color=ACCENT)
-        tx(s, M + 0.38, y, 5.5, 0.3, a, size=12.5, color=INK, bold=True)
-        tx(s, M + 0.38, y + 0.32, 5.5, 0.4, b, size=9.8, color=INK2)
-        rule(s, M, y + 0.82, 5.9)
-    card(s, M, 6.05, 5.9, 0.62, fill=PALE, line=RGBColor(0xE8, 0xD9, 0xC2))
-    tx(s, M + 0.14, 6.14, 5.6, 0.45, "Batas Hall: tidak dipakai pada pulpitis ireversibel, abses, fistula, atau gigi yang dentine bridge-nya tidak terlihat.",
-       size=8.8, color=RGBColor(0x6B, 0x5A, 0x3E))
-    picture(s, "fig-hall.jpg", 6.55, 2.0, 6.1,
-            "Karies tetap di tempatnya, tertutup dari substrat oral.")
-    footer(s, "Innes 2007; Hall Technique Guide 2015; SDCEP 2025")
-    notes(s, notes_map[7])
-
-    # 9 COMPARE
-    s = blank(prs); slides.append(s)
-    header(s, "Dua teknik", "Hall lebih cepat, konvensional lebih terkontrol", 9, 28)
-    for i, (title, sub, wakt, anes, prep, kar, color) in enumerate([
-            ("SSC konvensional", "Anestesi, preparasi, ekskavasi", "17,4 ± 2,9", "Ya", "Ya", "Dibuang", TEAL),
-            ("Hall Technique", "Tanpa anestesi, tanpa preparasi", "7,1 ± 2,8", "Tidak", "Tidak", "Disegel", GOLD)]):
-        x = M + i * 6.1
-        card(s, x, 1.9, 5.8, 4.0)
-        tx(s, x + 0.24, 2.05, 5.2, 0.4, title, size=16, font=SERIF, color=INK)
-        tx(s, x + 0.24, 2.5, 5.2, 0.3, sub, size=9.5, color=MUTED)
-        rows = [("Waktu kursi", wakt + " menit"), ("Anestesi", anes), ("Preparasi", prep), ("Karies", kar)]
-        for j, (k, v) in enumerate(rows):
-            yy = 2.95 + j * 0.58
-            tx(s, x + 0.24, yy, 1.7, 0.3, k.upper(), size=8, color=MUTED, bold=True)
-            tx(s, x + 1.95, yy - 0.04, 3.6, 0.36, v, size=12, color=INK)
-        barw = 4.8 * (17.4 if i == 0 else 7.1) / 17.4
-        track = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x + 0.24), Inches(5.3), Inches(4.8), Inches(0.16))
-        track.adjustments[0] = 0.5; track.fill.solid(); track.fill.fore_color.rgb = RGBColor(0xEE, 0xE3, 0xD2)
-        track.line.fill.background(); track.shadow.inherit = False
-        b = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x + 0.24), Inches(5.3), Inches(barw), Inches(0.16))
-        b.adjustments[0] = 0.5; b.fill.solid(); b.fill.fore_color.rgb = color
-        b.line.fill.background(); b.shadow.inherit = False
-        tx(s, x + 0.24, 5.55, 5.2, 0.3, "Waktu prosedur (Mohamed 2026)", size=8, color=MUTED)
-    tx(s, M, 6.12, 11.9, 0.6, "Tidak ada RCT yang membandingkan Hall dengan SSC konvensional (Cochrane 2015). Penerimaan anak dan orang tua lebih baik pada Hall (Innes 2007).",
-       size=10, color=INK2)
-    footer(s, "Mohamed 2026; Innes 2007; Innes 2015 Cochrane")
-    notes(s, notes_map[8])
-
     # 10 COMPLICATIONS
     s = blank(prs); slides.append(s)
-    header(s, "Penyulit", "Penyulit SSC bisa dicegah di langkah preparasi", 10, 28)
+    header(s, "Penyulit", "Penyulit SSC bisa dicegah di langkah preparasi", 8, 28)
     comps = [("Crown terasa longgar", "Biasanya ukuran terlalu besar atau crimping margin kurang rapat."),
              ("Crown tidak duduk", "Ada ledge, atau kontak proksimal belum putus."),
              ("Perdarahan gingiva", "Margin crown terlalu panjang, atau tepinya tajam."),
@@ -469,30 +418,37 @@ def build(path, notes_map):
         tx(s, x + 0.18, 5.16, 3.5, 0.3, a, size=10.5, color=ACCENT, bold=True)
         tx(s, x + 0.18, 5.46, 3.5, 0.6, b, size=9.5, color=INK2)
     footer(s, "Kindelan 2008; Randall 2002; Farias 2022; Ahlström 2019")
-    notes(s, notes_map[9])
+    notes(s, notes_map[7])
 
-    # 11 EVIDENCE
+    # 9 EVIDENCE
     s = blank(prs); slides.append(s)
-    header(s, "Bukti", "Angka retensi dan angka keberhasilan mengukur hal yang berbeda", 11, 28)
-    card(s, M, 1.9, 5.85, 3.7)
-    tx(s, M + 0.22, 2.02, 5.4, 0.3, "Hall dibanding restorasi rutin pada 60 bulan", size=11.5, color=INK, bold=True)
-    tx(s, M + 0.22, 2.32, 5.4, 0.3, "RCT split-mouth, 132 anak (Innes 2011)", size=8.5, color=MUTED)
-    bars(s, M + 0.22, 2.72, 5.3, 1.2, [("Hall", 92), ("Kontrol", 52)], color=TEAL)
-    tx(s, M + 0.22, 4.65, 5.3, 0.5, "Kegagalan mayor: 3% pada Hall, 16,5% pada kontrol. NNT 8.", size=9, color=INK2)
-    card(s, M + 6.05, 1.9, 5.85, 3.7)
-    tx(s, M + 6.27, 2.02, 5.4, 0.3, "Retensi 5 tahun per material", size=11.5, color=INK, bold=True)
-    tx(s, M + 6.27, 2.32, 5.4, 0.3, "SR/MA 13 RCT + 5 studi klinis (Lampl 2025). Sumbu 80–100%.", size=8.5, color=MUTED)
-    bars(s, M + 6.27, 2.68, 5.35, 2.4,
+    header(s, "Bukti", "SSC unggul pada retensi lima tahun", 9, 28)
+    card(s, M, 1.9, 6.0, 4.35)
+    tx(s, M + 0.22, 2.02, 5.6, 0.3, "Retensi 5 tahun per material", size=11.5, color=INK, bold=True)
+    tx(s, M + 0.22, 2.32, 5.6, 0.3, "SR/MA 13 RCT + 5 studi klinis (Lampl 2025). Sumbu dipotong 80–100%.", size=8.5, color=MUTED)
+    bars(s, M + 0.22, 2.78, 5.5, 3.1,
          [("SSC", 97.88), ("Zirkonia", 97.09), ("Komposit", 92.18), ("RMGIC", 90.30),
-          ("Compomer", 88.90), ("Strip", 83.48)], vmax=100, color=TEAL, label_w=1.05)
-    tx(s, M, 5.78, 11.9, 0.4, "Angka retensi dan angka keberhasilan tidak bisa dibandingkan langsung karena definisi kegagalan berbeda antar studi.",
-       size=9.5, color=INK2)
-    footer(s, "Innes 2011; Lampl 2025; Chisini 2018; Innes 2015 Cochrane")
-    notes(s, notes_map[10])
+          ("Compomer", 88.90), ("Strip crown", 83.48)], vmax=100, color=TEAL, label_w=1.15)
+    card(s, M + 6.2, 1.9, 5.7, 4.35)
+    tx(s, M + 6.42, 2.02, 5.2, 0.3, "Angka pendukung untuk SSC", size=11.5, color=INK, bold=True)
+    tx(s, M + 6.42, 2.32, 5.2, 0.3, "Ketiganya dari studi berbeda, jadi dibaca terpisah.", size=8.5, color=MUTED)
+    angka = [("96,1%", "gigi SSC berhasil pada 12 bulan", "Chisini 2018; SR/MA, 31 studi"),
+             ("0,18", "risiko kegagalan mayor crown dibanding tambalan", "Cochrane 2015; tinjauan sistematis"),
+             ("94,4%", "SSC bertahan pada MIH, komposit 49,2%, 24 bulan", "Farias 2022; kohort")]
+    ys = [2.72, 3.85, 4.98]
+    for (v, lab, src), y in zip(angka, ys):
+        tx(s, M + 6.42, y, 2.2, 0.42, v, size=22, font=SERIF, color=INK)
+        tx(s, M + 6.42, y + 0.44, 5.1, 0.42, lab, size=10, color=INK2)
+        tx(s, M + 6.42, y + 0.84, 5.1, 0.22, src, size=8, color=MUTED)
+        if y < 4.9:
+            rule(s, M + 6.42, y + 1.09, 5.1)
+    tx(s, M, 6.36, 11.9, 0.36, "Retensi bukan keberhasilan: crown bisa masih terpasang sementara gigi di bawahnya sudah nekrotik.", size=9.5, color=INK2)
+    footer(s, "Lampl 2025; Chisini 2018; Innes 2015 Cochrane; Farias 2022")
+    notes(s, notes_map[8])
 
     # 12 ALTERNATIVES
     s = blank(prs); slides.append(s)
-    header(s, "Alternatif estetik", "Zirkonia lebih baik untuk gingiva, tetapi retensinya belum terbukti lebih unggul", 12, 27)
+    header(s, "Alternatif estetik", "Zirkonia lebih baik untuk gingiva, tetapi retensinya belum terbukti lebih unggul", 10, 27)
     cols = [("Zirkonia", "Kegagalan klinis tidak berbeda bermakna dari SSC (RR 0,48; 95% CI 0,15–1,52), tetapi gingiva lebih sehat (MD −0,32). Biayanya lebih tinggi, menimbulkan keausan antagonis, dan sulit direparasi."),
             ("Pre-veneered SSC", "Crown masih terpasang pada 95% gigi setelah 6 bulan (Walia 2014). Veneernya bisa fraktur, dan buktinya belum cukup untuk menggantikan SSC."),
             ("Strip crown", "Crown masih terpasang pada 78% gigi setelah 6 bulan (Walia 2014). Tekniknya sensitif kelembapan, dan bukan pilihan pertama untuk molar posterior.")]
@@ -508,11 +464,11 @@ def build(path, notes_map):
     tx(s, 6.95, 5.28, 5.5, 0.3, "RCT 129 gigi insisivus desidui (Walia 2014)", size=8.5, color=MUTED)
     bars(s, 6.95, 5.55, 5.5, 0.85, [("Zirkonia", 100), ("PVSSC", 95), ("Strip", 78)], color=TEAL, label_w=1.05)
     footer(s, "Patnana 2022; Pei & Chen 2023; Aiem 2017; Walia 2014")
-    notes(s, notes_map[11])
+    notes(s, notes_map[9])
 
     # 13 CASE
     s = blank(prs); slides.append(s)
-    header(s, "Kasus ilustratif", "Kasus: molar kedua desidui bawah kanan, karies oklusal-distal", 13, 26)
+    header(s, "Kasus ilustratif", "Kasus: molar kedua desidui bawah kanan, karies oklusal-distal", 11, 26)
     card(s, M, 1.85, 6.0, 1.95)
     tx(s, M + 0.2, 1.98, 5.6, 1.7,
        "Anak laki-laki, 7 tahun. Gigi 85, karies oklusal-distal luas.\n"
@@ -522,7 +478,7 @@ def build(path, notes_map):
     placeholder(s, M + 3.1, 3.98, 2.9, 1.45, "Radiograf", "Bitewing gigi 85. Ganti dengan radiograf Anda.")
     tx(s, M, 5.55, 5.9, 0.3, "Data fiktif untuk latihan keputusan.", size=8, color=MUTED)
     tx(s, 6.95, 1.85, 5.7, 0.3, "1. Apa keputusan Anda?", size=13, color=INK, bold=True)
-    opts = ["Hall Technique tanpa anestesi", "SSC konvensional dengan anestesi", "Komposit dua permukaan"]
+    opts = ["SSC konvensional dengan anestesi", "Komposit dua permukaan", "Pulpotomi lalu SSC"]
     for i, o in enumerate(opts):
         y = 2.22 + i * 0.5
         card(s, 6.95, y, 5.7, 0.4, radius=0.5)
@@ -536,12 +492,12 @@ def build(path, notes_map):
         tx(s, 7.1, y + 0.08, 5.4, 0.28, o, size=10.5, color=INK2)
     tx(s, 6.95, 6.05, 5.7, 0.5, "Jawaban dan alasan ada di catatan pembicara versi ini.", size=8, color=MUTED)
     footer(s, "Kindelan 2008; SDCEP 2025; Randall 2002")
-    notes(s, notes_map[12] + " Kunci: Hall atau SSC konvensional sama-sama dapat diterima. Bila crown tidak duduk, periksa ledge dan sisa kontak, jangan memaksa.")
+    notes(s, notes_map[10] + " Kunci: SSC konvensional paling tepat karena gigi masih vital dan dentine bridge terlihat, jadi pulpa belum perlu dibuka. Bila crown tidak duduk, periksa ledge dan sisa kontak, jangan memaksa.")
 
     # 14 QUIZ
     s = blank(prs); slides.append(s)
-    header(s, "Kuis", "Lima soal menguji keputusan pada penyulit umum", 14, 28)
-    qs = ["1. Molar desidui dengan nyeri spontan malam: Hall atau SSC konvensional?",
+    header(s, "Kuis", "Lima soal menguji keputusan pada penyulit umum", 12, 28)
+    qs = ["1. Molar desidui, karies oklusal-distal luas, gigi vital tanpa nyeri spontan. Restorasi mana yang paling tepat?",
           "2. Pada molar desidui, berapa reduksi oklusal yang dianjurkan UK guideline?",
           "3. Crown tidak duduk, ada ledge. Apa langkah berikutnya?",
           "4. Apa yang paling menentukan retensi jangka panjang?",
@@ -550,16 +506,16 @@ def build(path, notes_map):
         y = 1.9 + i * 0.86
         card(s, M, y, 11.55, 0.7)
         tx(s, M + 0.2, y + 0.2, 11.1, 0.34, q, size=11.5, color=INK)
-    tx(s, M, 6.2, 11.5, 0.3, "Kunci jawaban: 1 SSC konvensional setelah pulpektomi, 2 reduksi 1,0–1,5 mm, 3 periksa ledge dan sisa kontak, 4 kontur dan crimping margin, 5 SSC.",
+    tx(s, M, 6.2, 11.5, 0.3, "Kunci jawaban: 1 SSC konvensional, 2 reduksi 1,0–1,5 mm, 3 periksa ledge dan sisa kontak, 4 kontur dan crimping margin, 5 SSC.",
        size=8.5, color=MUTED)
     footer(s, "Kindelan 2008; AAPD 2024; Farias 2022; Randall 2002")
-    notes(s, notes_map[13] + " Kunci jawaban: 1 SSC konvensional setelah pulpotomi; 2 1,0–1,5 mm; 3 periksa ledge dan sisa kontak; 4 kontur dan crimping margin; 5 SSC.")
+    notes(s, notes_map[11] + " Kunci jawaban: 1 SSC konvensional; 2 1,0–1,5 mm; 3 periksa ledge dan sisa kontak; 4 kontur dan crimping margin; 5 SSC.")
 
     # 15 RECAP
     s = blank(prs); slides.append(s)
-    header(s, "Penutup", "Tiga hal yang harus diingat", 15)
+    header(s, "Penutup", "Tiga hal yang harus diingat", 13)
     recap = [("1", "SSC menutup seluruh permukaan gigi", "Retensinya berasal dari margin dan undercut servikal, dan crimping margin lebih menentukan daripada jenis semen."),
-             ("2", "Hall hanya untuk gigi vital dengan dentine bridge yang jelas", "Nyeri spontan atau abses mengubah rencana, sehingga SSC konvensional dipasang setelah perawatan pulpa."),
+             ("2", "Preparasi menentukan apakah crown duduk", "Kontak proksimal harus putus, line angle dihaluskan, dan margin berada 1 mm di bawah gingiva."),
              ("3", "Baca angka sesuai definisinya", "Angka keberhasilan, angka gigi yang masih bertahan, dan angka crown yang masih terpasang mengukur hal berbeda.")]
     for i, (n, a, b) in enumerate(recap):
         y = 1.9 + i * 1.42
@@ -570,47 +526,42 @@ def build(path, notes_map):
     tx(s, M, 6.2, 11.5, 0.4, "Materi edukasi. Keputusan klinis tetap mempertimbangkan kondisi pasien dan fasilitas.",
        size=9, color=MUTED)
     footer(s, "Kindelan 2008; AAPD 2025; Innes 2015 Cochrane; Lampl 2025")
-    notes(s, notes_map[14])
+    notes(s, notes_map[12])
 
     # 16-17 REFERENCES
     refs = [
         '1. American Academy of Pediatric Dentistry. Pediatric restorative dentistry. Reference Manual. Chicago: AAPD; 2025.',
         '2. Kindelan SA, Day P, Nichol R, Willmott N, Fayle SA. UK National Clinical Guidelines: stainless steel preformed crowns for primary molars. Int J Paediatr Dent. 2008;18(Suppl 1):20-28. doi:10.1111/j.1365-263X.2008.00935.x',
         '3. Innes NPT, Ricketts D, Chong LY, Keightley AJ, Lamont T, Santamaria RM. Preformed crowns for decayed primary molar teeth. Cochrane Database Syst Rev. 2015;(12):CD005512. doi:10.1002/14651858.CD005512.pub3',
-        '4. Innes NPT, Evans DJP, Stirrups DR. Sealing caries in primary molars: randomized control trial, 5-year results. J Dent Res. 2011;90(12):1405-1410. doi:10.1177/0022034511422064',
-        '5. Innes NPT, Evans DJP, Stirrups DR. The Hall Technique: acceptability and outcomes at 23 months. BMC Oral Health. 2007;7:18. doi:10.1186/1472-6831-7-18',
-        '6. Tedesco TK, Innes NP, Gallegos CL, et al. Success rate of Hall Technique for restoring carious primary molars: systematic review and meta-analysis. Evid Based Dent. 2025;26(1):65-66. doi:10.1038/s41432-024-01044-0',
-        '7. Seale NS. The use of stainless steel crowns. Pediatr Dent. 2002;24(5):501-505. PMID 12412965.',
-        '8. Randall RC. Preformed metal crowns for primary and permanent molar teeth: review of the literature. Pediatr Dent. 2002;24(5):489-500. PMID 12412964.',
-        '9. Seale NS, Randall R. The use of stainless steel crowns: a systematic literature review. Pediatr Dent. 2015;37(2):145-160. PMID 25905656.',
-        '10. Chisini LA, Collares K, Cademartori MG, et al. Restorations in primary teeth: a systematic review on survival and reasons for failures. Int J Paediatr Dent. 2018;28(2):123-139. doi:10.1111/ipd.12346',
-        '11. Joshi RS, Gokhale NS, Hugar SM, et al. Longevity of stainless steel crowns on primary molars: systematic review and meta-analysis. J Sci Soc. 2023;50(1):28-38. doi:10.4103/jss.jss_164_22',
-        '12. Lampl S, Gurunathan D, Mehta D, Jogikalmat K. Reasons for crown failures in primary teeth: systematic review and meta-analysis. Interact J Med Res. 2025;14:e57958. doi:10.2196/57958',
-        '13. Farias L, Campos MS, Dantas L, et al. Survival of stainless-steel crowns and composite resin restorations in molars affected by MIH. Int J Paediatr Dent. 2022;32(2):240-250. doi:10.1111/ipd.12849',
-        '14. Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars after vital pulp therapy. Int J Paediatr Dent. 2022;32(6):925-937. doi:10.1111/ipd.12971',
-        '15. AAPD. Molar-incisor hypomineralization. Reference Manual. Chicago: AAPD; 2025.',
-        '16. AAPD. Use of local anesthesia for pediatric dental patients. Reference Manual. Chicago: AAPD; 2025.',
-        '17. AAPD. Behavior guidance for the pediatric dental patient. Reference Manual. Chicago: AAPD; 2025.',
-        '18. AAPD. Informed consent. Reference Manual. Chicago: AAPD; 2025.',
-        '19. American Academy of Pediatric Dentistry. Caries-risk assessment and management for infants, children, and adolescents. Reference Manual. Chicago: AAPD; 2025.',
-        '20. Scottish Dental Clinical Effectiveness Programme. Prevention and management of dental caries in children. 3rd ed. Dundee: SDCEP; 2025.',
-        '21. Innes N, Evans D, Hall N. The Hall Technique. 4th ed. Dundee: University of Dundee; 2015.',
-        '22. Amlani DV, Brizuela M. Stainless steel crowns in primary dentition. StatPearls. Treasure Island: StatPearls Publishing; 2023. PMID 34662061.',
-        '23. Virupaxi S, Pai R, Mandroli P. Retentive strength of luting cements for stainless steel crowns: a systematic review. J Indian Soc Pedod Prev Dent. 2020;38(1):2-7. doi:10.4103/JISPPD.JISPPD_313_19',
-        '24. Patnana AK, Chugh VK, Chugh A, Vanga NRV, Kumar P. Effectiveness of zirconia crowns compared with stainless steel crowns in primary posterior teeth: systematic review and meta-analysis. J Am Dent Assoc. 2022;153(2):158-166.e5. doi:10.1016/j.adaj.2021.08.005',
-        '25. Pei SL, Chen MH. Comparison of periodontal health of primary teeth restored with zirconia and stainless steel crowns: systematic review and meta-analysis. J Formos Med Assoc. 2023;122(2):148-156. doi:10.1016/j.jfma.2022.08.015',
-        '26. Aiem E, Smaïl-Faugeron V, Muller-Bolla M. Aesthetic preformed paediatric crowns: systematic review. Int J Paediatr Dent. 2017;27(4):273-282. doi:10.1111/ipd.12260',
-        '27. Walia T, Salami AA, Bashiri R, Hamoodi OM, Rashid F. A randomised controlled trial of three aesthetic full-coronal restorations in primary maxillary teeth. Eur J Paediatr Dent. 2014;15(2):113-118. PMID 25102458.',
-        '28. Mohamed HA, Abdalla EM, HagOmer NA, Philip N. Conventional versus Hall technique for preformed metal crown restorations of carious primary molars: a randomised controlled trial. Eur Arch Paediatr Dent. 2026;27(2):599-606. doi:10.1007/s40368-025-01128-0',
-        '29. Ahlström MG, Thyssen JP, Wennervaldt M, Menné T, Johansen JD. Nickel allergy and allergic contact dermatitis. Contact Dermatitis. 2019;81(4):227-241. doi:10.1111/cod.13327',
-        '30. Kementerian Kesehatan RI. Laporan Nasional Riskesdas 2018. Jakarta: Badan Litbangkes; 2019.',
-        '31. Kementerian Kesehatan RI. Survei Kesehatan Indonesia 2023. Jakarta: Kemenkes RI; 2024.',
-        '32. AAPD. Use of vital pulp therapies in primary teeth with deep caries lesions. Reference Manual. Chicago: AAPD; 2025.',
-        '33. Miao C, Yang J, Zhu H, et al. Rubber dam isolation for restorative treatment in dental patients. Cochrane Database Syst Rev. 2021;5:CD009858. doi:10.1002/14651858.CD009858.pub3',
+        '4. Seale NS. The use of stainless steel crowns. Pediatr Dent. 2002;24(5):501-505. PMID 12412965.',
+        '5. Randall RC. Preformed metal crowns for primary and permanent molar teeth: review of the literature. Pediatr Dent. 2002;24(5):489-500. PMID 12412964.',
+        '6. Seale NS, Randall R. The use of stainless steel crowns: a systematic literature review. Pediatr Dent. 2015;37(2):145-160. PMID 25905656.',
+        '7. Chisini LA, Collares K, Cademartori MG, et al. Restorations in primary teeth: a systematic review on survival and reasons for failures. Int J Paediatr Dent. 2018;28(2):123-139. doi:10.1111/ipd.12346',
+        '8. Joshi RS, Gokhale NS, Hugar SM, et al. Longevity of stainless steel crowns on primary molars: systematic review and meta-analysis. J Sci Soc. 2023;50(1):28-38. doi:10.4103/jss.jss_164_22',
+        '9. Lampl S, Gurunathan D, Mehta D, Jogikalmat K. Reasons for crown failures in primary teeth: systematic review and meta-analysis. Interact J Med Res. 2025;14:e57958. doi:10.2196/57958',
+        '10. Farias L, Campos MS, Dantas L, et al. Survival of stainless-steel crowns and composite resin restorations in molars affected by MIH. Int J Paediatr Dent. 2022;32(2):240-250. doi:10.1111/ipd.12849',
+        '11. Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars after vital pulp therapy. Int J Paediatr Dent. 2022;32(6):925-937. doi:10.1111/ipd.12971',
+        '12. AAPD. Molar-incisor hypomineralization. Reference Manual. Chicago: AAPD; 2025.',
+        '13. AAPD. Use of local anesthesia for pediatric dental patients. Reference Manual. Chicago: AAPD; 2025.',
+        '14. AAPD. Behavior guidance for the pediatric dental patient. Reference Manual. Chicago: AAPD; 2025.',
+        '15. AAPD. Informed consent. Reference Manual. Chicago: AAPD; 2025.',
+        '16. American Academy of Pediatric Dentistry. Caries-risk assessment and management for infants, children, and adolescents. Reference Manual. Chicago: AAPD; 2025.',
+        '17. Scottish Dental Clinical Effectiveness Programme. Prevention and management of dental caries in children. 3rd ed. Dundee: SDCEP; 2025.',
+        '18. Amlani DV, Brizuela M. Stainless steel crowns in primary dentition. StatPearls. Treasure Island: StatPearls Publishing; 2023. PMID 34662061.',
+        '19. Virupaxi S, Pai R, Mandroli P. Retentive strength of luting cements for stainless steel crowns: a systematic review. J Indian Soc Pedod Prev Dent. 2020;38(1):2-7. doi:10.4103/JISPPD.JISPPD_313_19',
+        '20. Patnana AK, Chugh VK, Chugh A, Vanga NRV, Kumar P. Effectiveness of zirconia crowns compared with stainless steel crowns in primary posterior teeth: systematic review and meta-analysis. J Am Dent Assoc. 2022;153(2):158-166.e5. doi:10.1016/j.adaj.2021.08.005',
+        '21. Pei SL, Chen MH. Comparison of periodontal health of primary teeth restored with zirconia and stainless steel crowns: systematic review and meta-analysis. J Formos Med Assoc. 2023;122(2):148-156. doi:10.1016/j.jfma.2022.08.015',
+        '22. Aiem E, Smaïl-Faugeron V, Muller-Bolla M. Aesthetic preformed paediatric crowns: systematic review. Int J Paediatr Dent. 2017;27(4):273-282. doi:10.1111/ipd.12260',
+        '23. Walia T, Salami AA, Bashiri R, Hamoodi OM, Rashid F. A randomised controlled trial of three aesthetic full-coronal restorations in primary maxillary teeth. Eur J Paediatr Dent. 2014;15(2):113-118. PMID 25102458.',
+        '24. Ahlström MG, Thyssen JP, Wennervaldt M, Menné T, Johansen JD. Nickel allergy and allergic contact dermatitis. Contact Dermatitis. 2019;81(4):227-241. doi:10.1111/cod.13327',
+        '25. Kementerian Kesehatan RI. Laporan Nasional Riskesdas 2018. Jakarta: Badan Litbangkes; 2019.',
+        '26. Kementerian Kesehatan RI. Survei Kesehatan Indonesia 2023. Jakarta: Kemenkes RI; 2024.',
+        '27. AAPD. Use of vital pulp therapies in primary teeth with deep caries lesions. Reference Manual. Chicago: AAPD; 2025.',
+        '28. Miao C, Yang J, Zhu H, et al. Rubber dam isolation for restorative treatment in dental patients. Cochrane Database Syst Rev. 2021;5:CD009858. doi:10.1002/14651858.CD009858.pub3',
     ]
-    for part, (label, chunk) in enumerate([("Sumber 1–15", refs[:15]), ("Sumber 16–33", refs[15:])]):
+    for part, (label, chunk) in enumerate([("Sumber 1–12", refs[:12]), ("Sumber 13–28", refs[12:])]):
         s = blank(prs); slides.append(s)
-        header(s, "Daftar pustaka", label + " (Vancouver)", 16 + part, 26)
+        header(s, "Daftar pustaka", label + " (Vancouver)", 14 + part, 26)
         if part == 0:
             groups = [chunk[:8], chunk[8:]]
             xs = [M, M + 6.05]
@@ -636,16 +587,16 @@ def build(path, notes_map):
                 run.font.name = SANS
                 run.font.color.rgb = INK2
         footer(s, "Daftar lengkap dengan DOI dan PMID: research_notes.md")
-        notes(s, notes_map[15 + part])
+        notes(s, notes_map[13 + part])
 
     # 18 APPENDIX
     s = blank(prs); slides.append(s)
-    header(s, "Lampiran", "Protokol satu halaman untuk dibawa ke klinik", 18, 26)
+    header(s, "Lampiran", "Protokol satu halaman untuk dibawa ke klinik", 16, 26)
     cols = [
         ("Sebelum tindakan", ["Riwayat nyeri dan fistula", "Riwayat medis dan alergi nikel", "Karies, pulpa, gingiva, oklusi", "Radiograf dan dentine bridge", "Pilih teknik dan ukuran", "Informed consent", "Rencana behavior guidance"]),
         ("Konvensional 1–5", ["1 Anestesi dan isolasi", "2 Ukur dan pilih crown", "3 Ekskavasi, pulp therapy", "4 Reduksi oklusal 1,0–1,5 mm", "5 Reduksi proksimal, feather edge"]),
         ("Konvensional 6–10", ["6 Haluskan line angle", "7 Try-in", "8 Trim, crimp, contour", "9 Sementasi", "10 Cek akhir dan instruksi"]),
-        ("Hall, kontrol, kegagalan", ["Gigi vital, dentine bridge jelas", "Separator 3–5 hari", "GIC dua pertiga, bite 2–3 menit", "Kontrol 6 bulan", "Radiograf 6–12 bulan", "Berhasil, gagal minor, gagal mayor"]),
+        ("Preparasi, kontrol, kegagalan", ["Kontak proksimal putus", "Line angle dihaluskan", "Margin 1 mm di bawah gingiva", "Kontrol 6 bulan", "Radiograf 6–12 bulan", "Berhasil, gagal minor, gagal mayor"]),
     ]
     for i, (title, lines) in enumerate(cols):
         x = M + i * 3.05
@@ -655,7 +606,7 @@ def build(path, notes_map):
             tx(s, x, ty, 2.9, 0.30, "□  " + ln, size=8.6, color=INK2)
             ty += 0.52 if len(ln) > 33 else 0.40
     fills = [
-        ("Angka kunci", ["Keberhasilan SSC 96,1% (Chisini 2018)", "Gagal mayor: RR 0,18 (Cochrane 2015)", "Hall 92% vs 52% (Innes 2011)", "Retensi 5 tahun 97,88% (Lampl 2025)"]),
+        ("Angka kunci", ["Keberhasilan SSC 96,1% (Chisini 2018)", "Gagal mayor: RR 0,18 (Cochrane 2015)", "Retensi 5 tahun 97,88% (Lampl 2025)", "MIH: SSC 94,4% vs 49,2% (Farias 2022)"]),
         ("Penyulit dan tindakan", ["Longgar: pilih ukuran lebih kecil, crimp ulang", "Tidak duduk: periksa ledge dan sisa kontak", "Perforasi: ganti crown", "Lepas: sementasi ulang bila crown intak"]),
     ]
     for i, (title, lines) in enumerate(fills):
@@ -668,8 +619,8 @@ def build(path, notes_map):
             ty += 0.2
     tx(s, M, 6.3, 11.6, 0.35, "Protokol lengkap: protokol_klinis.md. Angka dan DOI: research_notes.md.",
        size=8, color=MUTED)
-    footer(s, "Kindelan 2008; Randall 2002; Hall Technique Guide 2015; AAPD 2025; SDCEP 2025")
-    notes(s, notes_map[17])
+    footer(s, "Kindelan 2008; Randall 2002; AAPD 2025; SDCEP 2025; Lampl 2025")
+    notes(s, notes_map[15])
 
     for b, target in agenda_links:
         b.click_action.target_slide = prs.slides[target]
@@ -701,6 +652,6 @@ def extract_notes(html_path):
 
 if __name__ == "__main__":
     nm = extract_notes("ssc-pedodonsia.html")
-    assert len(nm) == 18, len(nm)
+    assert len(nm) == 16, len(nm)
     n = build("ssc-pedodonsia.pptx", nm)
     print("slides:", n)
