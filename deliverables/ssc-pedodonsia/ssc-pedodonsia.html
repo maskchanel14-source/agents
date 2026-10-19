@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stainless steel crown pada gigi desidui dan gigi permanen muda</title>
+<style>
+:root{
+  --ink:#15323a; --ink2:#47646c; --muted:#7d8f93;
+  --paper:#fbf7ef; --paper2:#f3ece0; --card:#fffdf8;
+  --line:#e3d9c8; --accent:#c65b45; --teal:#2c6e6a; --gold:#bd9440;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#0f2429;font-family:var(--sans);color:var(--ink);overflow:hidden}
+button{font-family:inherit}
+#app{height:100vh;display:flex;flex-direction:column}
+
+/* chrome */
+.chrome{height:54px;flex:0 0 54px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;color:#dfe8e6;border-bottom:1px solid rgba(255,255,255,.09);background:#0f2429}
+.chrome .brand{font-size:11.5px;letter-spacing:.19em;text-transform:uppercase;color:#a9bcb9}
+.chrome .brand b{color:#f0e7d8;font-weight:600;letter-spacing:.14em}
+.chrome .tools{display:flex;align-items:center;gap:8px}
+.chrome button{background:rgba(255,255,255,.07);color:#e7efec;border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;padding:7px 13px;font-size:12.5px;letter-spacing:.02em;cursor:pointer}
+.chrome button:hover{background:rgba(255,255,255,.14)}
+.chrome button:focus-visible{outline:2px solid #e0b36a;outline-offset:2px}
+.chrome .count{font-size:12.5px;color:#9fb3b0;margin-right:6px;font-variant-numeric:tabular-nums}
+#stageWrap{position:relative;flex:1;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center center}
+
+/* slide base */
+.slide{position:absolute;inset:0;background:var(--paper);opacity:0;pointer-events:none;
+  transition:opacity .28s ease;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(21,50,58,.055) 1px,transparent 1px);
+  background-size:22px 22px;opacity:.55}
+.slide-inner{position:relative;height:100%;display:flex;flex-direction:column;padding:40px 56px 42px}
+.slide-head{margin-bottom:16px}
+.kicker{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:9px}
+h2{font-family:var(--serif);font-weight:600;font-size:38px;line-height:1.14;letter-spacing:-.008em;margin:0;max-width:1060px}
+h2.sm{font-size:33px}
+.lead{font-size:20px;line-height:1.5;color:var(--ink2);margin:10px 0 0;max-width:940px}
+.content{flex:1;min-height:0}
+.cite{position:absolute;left:56px;right:56px;bottom:14px;display:flex;justify-content:space-between;gap:20px;
+  font-size:11.5px;color:#8b999b;border-top:1px solid var(--line);padding-top:7px;letter-spacing:.01em}
+.cite span:last-child{white-space:nowrap}
+.pagenum{position:absolute;right:56px;top:34px;font-size:11.5px;color:#a8b4b4;letter-spacing:.14em}
+
+/* generic */
+.row{display:flex;gap:22px}
+.col{flex:1;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 1px 0 rgba(21,50,58,.03)}
+.card h3{font-size:18px;margin:0 0 6px;font-weight:650;letter-spacing:-.005em}
+.card p{font-size:18px;line-height:1.42;margin:0;color:var(--ink2)}
+.small{font-size:15px;line-height:1.42;color:var(--ink2)}
+.tiny{font-size:12.5px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;
+  border-radius:999px;padding:5px 11px;font-size:14px;color:var(--ink2)}
+.pill.acc{border-color:#e7c3b8;background:#fdf1ec;color:#a3462f}
+.pill.teal{border-color:#bcd4d0;background:#eef6f4;color:#22605c}
+.num-badge{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fbf7ef;display:flex;
+  align-items:center;justify-content:center;font-size:15px;font-weight:650;flex:0 0 34px}
+.rule{height:1px;background:var(--line);margin:12px 0}
+.kv{font-size:17px;line-height:1.45;color:var(--ink2)}
+.kv b{color:var(--ink);font-weight:650}
+.list{list-style:none;margin:0;padding:0}
+.list li{position:relative;padding-left:18px;font-size:17.5px;line-height:1.45;color:var(--ink2);margin-bottom:7px}
+.list li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.75}
+.list.teal li::before{background:var(--teal)}
+
+/* title */
+.title-grid{display:flex;height:100%;align-items:center;gap:36px}
+.title-grid .txt{flex:1.35}
+.title-grid .art{flex:.65;display:flex;align-items:center;justify-content:center}
+.title-kicker{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:18px}
+h1{font-family:var(--serif);font-size:63px;line-height:1.03;letter-spacing:-.018em;font-weight:600;margin:0 0 18px;max-width:760px}
+.title-sub{font-size:21px;line-height:1.45;color:var(--ink2);max-width:620px;margin:0 0 26px}
+.title-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.title-note{font-size:13.5px;color:var(--muted);max-width:580px;line-height:1.45}
+.art-crown{width:100%;max-width:330px}
+
+/* agenda */
+.agenda{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin-top:6px}
+.agenda button{display:flex;align-items:baseline;gap:14px;width:100%;text-align:left;background:transparent;
+  border:0;border-bottom:1px solid var(--line);padding:11px 4px;cursor:pointer;color:var(--ink)}
+.agenda button:hover{background:#f5eee2}
+.agenda button:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+.agenda .n{font-family:var(--serif);font-size:19px;color:var(--accent);width:22px;flex:0 0 22px}
+.agenda .t{font-size:17.5px;line-height:1.3;flex:1}
+.agenda .d{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.agenda-foot{margin-top:12px;font-size:13.5px;color:var(--muted)}
+
+/* hook */
+.hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;height:100%;align-items:center;padding-bottom:16px}
+.fail-stack{display:flex;flex-direction:column;gap:10px}
+.fail{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px}
+.fail .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);flex:0 0 10px}
+.fail b{font-size:17.5px;font-weight:650}
+.fail span{font-size:15.5px;color:var(--ink2)}
+.hook-quote{font-family:var(--serif);font-size:30px;line-height:1.24;letter-spacing:-.01em;margin:0 0 12px}
+.hook-side p{font-size:17px;line-height:1.48;color:var(--ink2);margin:0 0 10px}
+.hook-side p.hook-quote{font-family:var(--serif);font-size:29px;line-height:1.24;letter-spacing:-.01em;color:var(--ink);margin:0 0 12px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.stat .v{font-family:var(--serif);font-size:38px;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.stat .v em{font-style:normal;font-size:19px;color:var(--ink2)}
+.stat .l{font-size:14.5px;line-height:1.35;color:var(--ink2);margin-top:7px}
+.stat .s{font-size:11.5px;color:var(--muted);margin-top:6px}
+
+/* foot rule */
+.footnote{font-size:13.5px;color:var(--muted);line-height:1.4;margin-top:10px}
+
+/* steps */
+.steps-wrap{display:grid;grid-template-columns:296px 1fr;gap:22px;height:100%;min-height:0}
+.step-list{display:flex;flex-direction:column;gap:4px;overflow:auto;padding-right:4px}
+.step-list button{display:flex;align-items:center;gap:10px;text-align:left;background:transparent;border:1px solid transparent;
+  border-radius:10px;padding:7px 9px;cursor:pointer;color:var(--ink2);font-size:15px;line-height:1.25}
+.step-list button .n{font-size:12px;font-weight:700;color:#9aa8a8;width:17px;flex:0 0 17px;font-variant-numeric:tabular-nums}
+.step-list button:hover{background:#f4ecdf}
+.step-list button[aria-selected="true"]{background:#fff;border-color:var(--line);color:var(--ink);box-shadow:0 1px 0 rgba(21,50,58,.04)}
+.step-list button[aria-selected="true"] .n{color:var(--accent)}
+.step-panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 26px;display:flex;flex-direction:column;min-height:0}
+.step-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.step-title{font-family:var(--serif);font-size:28px;line-height:1.15;margin:0}
+.step-count{font-size:12px;color:var(--muted);letter-spacing:.08em;white-space:nowrap;padding-top:6px}
+.step-purpose{font-size:17.5px;line-height:1.45;color:var(--ink2);margin:8px 0 16px;max-width:820px}
+.step-cols{display:grid;grid-template-columns:1.15fr .85fr 1fr;gap:18px}
+.step-cols h4{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;font-weight:700}
+.step-cols p,.step-cols li{font-size:16px;line-height:1.45;color:var(--ink2);margin:0}
+.step-cols ul{list-style:none;margin:0;padding:0}
+.step-cols li{padding-left:13px;position:relative;margin-bottom:8px}
+.step-cols li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--teal);opacity:.7}
+.step-tools{display:flex;flex-wrap:wrap;gap:5px}
+.step-tools span{font-size:14px;background:#f4eee3;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:#5c6f72}
+details.err{border-top:1px solid var(--line);margin-top:14px;padding-top:10px}
+details.err summary{cursor:pointer;font-size:15px;font-weight:650;color:var(--accent);list-style:none;display:flex;align-items:center;gap:7px}
+details.err summary::-webkit-details-marker{display:none}
+details.err summary::before{content:"+";font-weight:700;width:14px}
+details.err[open] summary::before{content:"–"}
+.err-body{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}
+.err-item{font-size:14.5px;line-height:1.4;color:var(--ink2)}
+.err-item b{color:var(--ink);font-weight:650}
+.err-item span{color:var(--teal)}
+.step-note{font-size:14.5px;line-height:1.42;color:#5b7378;margin:12px 0 0;padding-left:11px;border-left:2px solid #cddbd7}
+.step-note b{color:var(--ink);font-weight:650}
+.step-nav{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:14px}
+.step-nav button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer;color:var(--ink)}
+.step-nav button:disabled{opacity:.35;cursor:default}
+.step-nav .dots{margin-left:auto;display:flex;gap:4px}
+.step-nav .dots i{width:5px;height:5px;border-radius:50%;background:#d9cfbf;display:block}
+.step-nav .dots i.on{background:var(--accent)}
+
+/* hall */
+.hall-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;height:100%;align-items:start}
+.hall-steps{counter-reset:h}
+.hall-step{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.hall-step:last-child{border-bottom:0}
+.hall-step .n{font-family:var(--serif);font-size:20px;color:var(--accent);width:22px;flex:0 0 22px;line-height:1.2}
+.hall-step b{font-size:16.5px;font-weight:650;display:block;margin-bottom:2px}
+.hall-step span{font-size:14.5px;line-height:1.38;color:var(--ink2)}
+.hall-note{margin-top:8px;background:#f7efe2;border:1px solid #e8d9c2;border-radius:12px;padding:10px 13px;font-size:14px;line-height:1.4;color:#6b5a3e}
+
+/* tabs */
+.tabbar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tabbar button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 15px;font-size:14px;cursor:pointer;color:var(--ink2)}
+.tabbar button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fbf7ef}
+.tabpanel{display:none}
+#tab-konv,#tab-hall{min-height:262px}
+#tab-zir,#tab-pv,#tab-strip{min-height:305px}
+.tabpanel.on{display:block}
+
+/* compare */
+.cmp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cmp-who{font-family:var(--serif);font-size:26px}
+.cmp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:10px}
+.metric{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.metric .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.metric .v{font-size:19px;font-weight:650;line-height:1.15}
+.metric .v small{font-size:13px;font-weight:400;color:var(--ink2)}
+.cmp-note{font-size:14.5px;line-height:1.45;color:var(--ink2);margin:0}
+.chairbar{margin-top:10px}
+.chairbar .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.bar{height:11px;border-radius:99px;background:#eee3d2;position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--teal);border-radius:99px}
+
+/* complications */
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;align-content:start}
+.comp{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;display:flex;flex-direction:column}
+.comp b{font-size:17px;display:block;margin-bottom:4px}
+.comp .cause{font-size:14.5px;line-height:1.4;color:var(--ink2)}
+.comp details{margin-top:7px}
+.comp summary{font-size:12.5px;color:var(--accent);cursor:pointer;font-weight:650;list-style:none}
+.comp summary::-webkit-details-marker{display:none}
+.comp summary::after{content:" +";font-weight:700}
+.comp details[open] summary::after{content:" –"}
+.comp .fix{font-size:13.8px;line-height:1.4;color:var(--ink2);margin-top:4px;padding-bottom:2px}
+
+/* charts */
+.chartgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.chartcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px 8px}
+.chartcard h3{font-size:15px;margin:0 0 2px;font-weight:650}
+.chartcard .sub{font-size:12px;color:var(--muted);margin-bottom:6px}
+.level{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.lvl{font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;color:var(--ink2)}
+.lvl b{color:var(--ink)}
+
+/* case */
+.case-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:26px;align-items:start}
+.case-facts{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.case-facts p{font-size:15.5px;line-height:1.45;margin:0 0 7px;color:var(--ink2)}
+.case-facts p b{color:var(--ink)}
+.photo{border:1.5px dashed #c9b9a1;border-radius:14px;background:#f6efe2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:10px;color:#8a7a62}
+.photo b{font-size:13.5px;display:block;color:#6f624e}
+.photo span{font-size:11.5px;line-height:1.35;max-width:190px;margin-top:3px}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.photos .photo{height:132px}
+.qbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:12px}
+.qbox.answered .choices{display:none}
+.qbox.answered{padding-bottom:13px}
+.qbox .reveal{display:none;background:none;border:0;color:var(--accent);font-size:12.5px;cursor:pointer;padding:6px 0 0;font-weight:650}
+.qbox.answered .reveal{display:inline-block}
+.qbox.answered .choices.open{display:flex}
+.qbox h3{font-size:16.5px;margin:0 0 7px}
+.choices{display:flex;flex-direction:column;gap:6px}
+.choices button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 12px;font-size:14.5px;cursor:pointer;color:var(--ink)}
+.choices button:hover{border-color:#b9cbc8;background:#f4faf8}
+.choices button:disabled{cursor:default;opacity:.75}
+.verdict{margin-top:9px;border-radius:11px;padding:9px 12px;font-size:14px;line-height:1.38;display:none}
+.verdict.show{display:block}
+.verdict.ok{background:#eef6f2;border:1px solid #bcd8cb;color:#28533f}
+.verdict.warn{background:#fdf1ec;border:1px solid #ecc8bb;color:#8a3f2b}
+.verdict b{display:block;margin-bottom:3px}
+
+/* quiz */
+.quiz-single{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 30px;max-width:1060px}
+#quiz .content{display:flex;flex-direction:column;justify-content:center}
+.qmeta{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+.qh{font-size:24px;font-weight:600;line-height:1.34;margin-bottom:16px;letter-spacing:-.004em}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qopts button{text-align:left;border:1px solid #e8dfd0;background:#fff;border-radius:10px;padding:12px 15px;font-size:17px;line-height:1.32;cursor:pointer;color:var(--ink2)}
+.qopts button:hover{border-color:#b9cbc8;background:#f6fbf9}
+.qopts button.right{background:#e9f4ee;border-color:#a9cfba;color:#1f5138;font-weight:650}
+.qopts button.wrong{background:#fbeae4;border-color:#e3b7a8;color:#8a3f2b}
+.qwhy{display:none;font-size:15.5px;line-height:1.45;margin-top:12px;color:#3f5c56;border-left:3px solid #b9d3cb;padding-left:12px;max-width:900px}
+.qwhy.show{display:block}
+.qnext{margin-top:14px;display:none}
+.qnext.show{display:block}
+.qnext button{border:0;background:var(--ink);color:#fbf7ef;border-radius:999px;padding:9px 18px;font-size:15px;cursor:pointer}
+.quiz-foot{display:flex;align-items:center;gap:16px;margin-top:12px;font-size:13.5px;color:var(--muted)}
+.quiz-foot button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer;color:var(--ink)}
+.score{font-weight:650;color:var(--ink)}
+
+/* recap */
+.recap{display:flex;flex-direction:column;gap:16px;margin-top:6px}
+.recap-item{display:flex;gap:20px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.recap-item .n{font-family:var(--serif);font-size:42px;line-height:.9;color:var(--accent);width:42px;flex:0 0 42px}
+.recap-item b{font-family:var(--serif);font-size:24px;font-weight:600;display:block;margin-bottom:4px;letter-spacing:-.005em}
+.recap-item p{font-size:16px;line-height:1.45;margin:0;color:var(--ink2)}
+.closing{margin-top:14px;font-size:13.5px;color:var(--muted)}
+
+/* refs */
+.refs{columns:3;column-gap:24px;font-size:11.9px;line-height:1.36;color:var(--ink2)}
+.refs p{margin:0 0 7px;break-inside:avoid}
+.refs b{color:var(--ink);font-weight:650}
+.refs .doi{color:#7d8f93;font-size:10.8px;word-break:break-word}
+
+/* appendix */
+.appx{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;font-size:14.4px;line-height:1.4;color:var(--ink2)}
+.appx h3{font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:0 0 6px;font-weight:700}
+.appx ul{list-style:none;margin:0 0 8px;padding:0}
+.appx li{position:relative;padding-left:17px;margin-bottom:7px}
+.appx li::before{content:"";position:absolute;left:0;top:4px;width:8px;height:8px;border:1px solid #b4c0be;border-radius:2px}
+.appx p{margin:0 0 5px}
+.appx b{color:var(--ink);font-weight:650}
+
+/* notes */
+#notesPanel{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;background:#f7f1e6;color:#243d43;
+  border-top:2px solid #c65b45;padding:16px 26px 20px;display:none;z-index:60;box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+#notesPanel.on{display:block}
+#notesPanel h4{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#a3462f;margin:0 0 6px}
+#notesBody{font-size:14.5px;line-height:1.55;max-width:1100px}
+#notesBody p{margin:0 0 6px}
+.hint{position:fixed;right:18px;bottom:10px;font-size:11px;color:#6f8481;z-index:50;letter-spacing:.03em}
+
+.slide.cover{background:linear-gradient(160deg,#fdf9f1 0%,#f8f1e3 100%)}
+.slide.cover .slide-inner{padding:46px 56px}
+.cover-rule{width:56px;height:3px;background:var(--accent);margin:0 0 22px}
+.cover-foot{position:absolute;left:56px;right:56px;bottom:20px;display:flex;justify-content:space-between;
+  font-size:11.5px;color:#8b999b;border-top:1px solid var(--line);padding-top:8px}
+
+@media print{
+  @page{size:13.333in 7.5in;margin:0}
+  body{background:#fff;overflow:visible}
+  .chrome,.hint,#notesPanel{display:none!important}
+  #stageWrap{overflow:visible}
+  #stage{transform:none!important;position:static;width:1280px;height:auto}
+  .slide{position:relative;display:block!important;opacity:1!important;page-break-after:always;break-after:page;
+    width:1280px;height:720px;pointer-events:auto}
+  details>div{display:block!important}
+  details summary{display:none!important}
+  .tabpanel{display:block!important}
+  .tabpanel+.tabpanel{margin-top:12px;border-top:1px dashed #ccc}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="chrome">
+    <div class="brand"><b>IIK Bhaktiwiyata</b> &nbsp;·&nbsp; Kedokteran Gigi &nbsp;·&nbsp; SSC pada gigi desidui</div>
+    <div class="tools">
+      <span class="count" id="counter">1 / 18</span>
+      <button type="button" data-goto="agenda">Agenda</button>
+      <button type="button" id="notesBtn">Catatan (N)</button>
+      <button type="button" onclick="window.print()">Cetak</button>
+    </div>
+  </header>
+  <div id="stageWrap">
+    <div id="stage">
+      <!-- 1 COVER -->
+      <section class="slide cover active" id="cover" data-label="Pembuka">
+        <div class="slide-inner">
+          <div class="title-grid">
+            <div class="txt">
+              <div class="title-kicker">IIK Bhaktiwiyata · Program Studi Kedokteran Gigi</div>
+              <div class="cover-rule"></div>
+              <h1>Stainless steel crown pada gigi desidui dan gigi permanen muda</h1>
+              <p class="title-sub">Indikasi, preparasi, Hall Technique, dan bukti klinis dalam sepuluh menit</p>
+              <div class="title-meta">
+                <span class="pill acc">10 menit</span>
+                <span class="pill">Pemateri: [nama]</span>
+                <span class="pill">[tanggal]</span>
+              </div>
+              <p class="title-note">Materi edukasi untuk mahasiswa dan dokter gigi. Bukan pengganti pertimbangan klinis pada pasien tertentu.</p>
+            </div>
+            <div class="art">
+              <svg class="art-crown" viewBox="0 0 320 370" role="img" aria-label="Ilustrasi mahkota stainless steel menutup gigi desidui">
+                <path d="M118 96 C118 62 138 48 160 48 C182 48 202 62 202 96 L202 236 C202 268 196 296 184 316 L170 342 L160 324 L150 342 L136 316 C124 296 118 268 118 236 Z" fill="#efe4d2" stroke="#d6c3a6" stroke-width="2"/>
+                <path d="M134 104 C134 84 144 74 160 74 C176 74 186 84 186 104 L186 214 L134 214 Z" fill="#fbf4e7" stroke="#dccbb2" stroke-width="1.5"/>
+                <path d="M104 86 C104 54 128 40 160 40 C192 40 216 54 216 86 L216 170 C216 186 206 196 194 199 L194 218 L178 218 L178 204 L142 204 L142 218 L126 218 L126 199 C114 196 104 186 104 170 Z" fill="#c65b45" fill-opacity=".10" stroke="#15323a" stroke-width="3.2" stroke-linejoin="round"/>
+                <path d="M117 90 C117 66 134 54 160 54 C186 54 203 66 203 90" fill="none" stroke="#c65b45" stroke-width="2.2" stroke-dasharray="5 5"/>
+                <circle cx="160" cy="28" r="3.4" fill="#bd9440"/>
+              </svg>
+            </div>
+          </div>
+          <div class="cover-foot">
+            <span>Sumber angka dan sitasi ada di setiap slide serta di research_notes.md</span>
+            <span>1</span>
+          </div>
+        </div>
+        <template class="notes"><p>Selamat pagi. Dalam sepuluh menit saya akan membahas satu restorasi yang sering dianggap kuno, padahal buktinya justru kuat: stainless steel crown. Fokusnya tiga hal praktis. Kapan memilih SSC, bagaimana memasangnya dengan dua teknik, dan apa yang membuatnya gagal. Saya akan memakai angka dari Cochrane, meta-analisis, dan RCT, dengan sitasi di tiap slide.</p></template>
+      </section>
+
+      <!-- 2 AGENDA -->
+      <section class="slide" id="agenda" data-label="Agenda">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Agenda</div>
+              <h2 class="sm">Sembilan bagian, sepuluh menit</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="agenda">
+              <button type="button" data-goto="problem"><span class="n">1</span><span class="t">Restorasi yang gagal berulang</span><span class="d">0:45</span></button>
+              <button type="button" data-goto="why"><span class="n">2</span><span class="t">Mengapa SSC</span><span class="d">0:45</span></button>
+              <button type="button" data-goto="indication"><span class="n">3</span><span class="t">Indikasi dan batas</span><span class="d">1:00</span></button>
+              <button type="button" data-goto="prep"><span class="n">4</span><span class="t">Gigi desidui dan preparasi</span><span class="d">0:45</span></button>
+              <button type="button" data-goto="steps"><span class="n">5</span><span class="t">Sepuluh langkah konvensional</span><span class="d">1:45</span></button>
+              <button type="button" data-goto="hall"><span class="n">6</span><span class="t">Hall Technique</span><span class="d">1:00</span></button>
+              <button type="button" data-goto="compare"><span class="n">7</span><span class="t">Perbandingan dan penyulit</span><span class="d">1:00</span></button>
+              <button type="button" data-goto="evidence"><span class="n">8</span><span class="t">Bukti dan alternatif</span><span class="d">1:30</span></button>
+              <button type="button" data-goto="case"><span class="n">9</span><span class="t">Kasus, kuis, penutup</span><span class="d">0:45</span></button>
+            </div>
+            <p class="agenda-foot">Sembilan bagian, total 9 menit 15 detik. Klik bagian mana pun untuk melompat. Bagian kasus dan kuis dapat dilewati bila waktu tersisa kurang dari dua menit.</p>
+            <div class="row" style="margin-top:20px">
+              <div class="col card" style="border-color:#bcd4d0;background:#f3f9f7;padding:14px 18px">
+                <h3 style="font-size:16px;color:#22605c">Bila waktu tinggal 8 menit</h3>
+                <p style="font-size:15px">Lewati bagian 8 dan 9, langsung ke penutup. Tiga angka di bagian 2 dan tabel preparasi tetap disampaikan.</p>
+              </div>
+              <div class="col card" style="border-color:#e2cfae;background:#fdf8ee;padding:14px 18px">
+                <h3 style="font-size:16px;color:#8a6a2f">Bila waktu tinggal 12 menit</h3>
+                <p style="font-size:15px">Kerjakan kuis lima soal dengan diskusi singkat tiap jawaban, lalu tutup dengan tiga hal yang harus diingat.</p>
+              </div>
+            </div>
+            <div class="rule" style="margin:18px 0 12px"></div>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px">
+              <div>
+                <div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Pertanyaan yang akan dijawab</div>
+                <p class="small" style="font-size:15px">Kapan SSC, kapan Hall, dan apa yang membuat keduanya gagal. Semua jawaban memakai angka dengan sumber.</p>
+              </div>
+              <div>
+                <div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Alat bantu</div>
+                <p class="small" style="font-size:15px">Lampiran satu halaman di slide 18 untuk dibawa ke klinik.</p>
+              </div>
+              <div>
+                <div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Sumber</div>
+                <p class="small" style="font-size:15px">33 rujukan Vancouver di research_notes.md.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Total 9 menit 15 detik konten, sekitar 10 menit dengan perpindahan</span><span>2</span></div>
+        </div>
+        <template class="notes"><p>Alurnya dari masalah ke solusi, lalu ke teknik dan bukti. Bagian lima adalah inti keterampilan: sepuluh langkah konvensional yang bisa dibuka satu per satu. Bagian enam membahas Hall Technique, bagian tujuh penyulit yang paling sering muncul. Saya akan berhenti di bagian kasus untuk keputusan bersama, jadi sisakan waktu di sana.</p></template>
+      </section>
+
+      <!-- 3 PROBLEM -->
+      <section class="slide" id="problem" data-label="Masalah">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Masalah klinis</div>
+              <h2>Tambalan berulang gagal pada gigi yang sama</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="hook-grid">
+              <div>
+                <div class="fail-stack">
+                  <div class="fail"><span class="dot"></span><div><b>Tambalan pertama</b><br><span>Tepi terbuka, karies kembali</span></div></div>
+                  <div class="fail"><span class="dot"></span><div><b>Tambalan kedua</b><br><span>Karies sekunder</span></div></div>
+                  <div class="fail"><span class="dot"></span><div><b>Tambalan ketiga</b><br><span>Nyeri, pulpa terlibat</span></div></div>
+                </div>
+                <p class="footnote">Urutan ini adalah kasus ilustratif, bukan data penelitian.</p>
+                <div class="card" style="margin-top:6px;border-color:#e2cfae;background:#fdf8ee">
+                  <p style="font-size:15.5px"><b>Intinya:</b> masalahnya bukan jenis tambalan, melainkan frekuensi pengulangan.</p>
+                </div>
+              </div>
+              <div class="hook-side">
+                <p class="hook-quote">Setiap pengulangan menghilangkan lebih banyak dentin.</p>
+                <p>Enamel gigi desidui sekitar 1 mm, dentin tipis, tanduk pulpa tinggi. Restorasi ketiga sering berakhir dengan pulpa terlibat.</p>
+                <p>Kapan berhenti menambal sebagian dan mulai menutup seluruh gigi?</p>
+                <span class="pill teal">Karies anak usia 5–6 tahun: 93% (Riskesdas 2018)</span>
+                <div class="stats" style="grid-template-columns:1fr 1fr;margin:14px 0 0;gap:12px">
+                  <div class="card" style="padding:12px 14px"><div class="tiny" style="margin-bottom:3px">Cochrane 2015</div><div style="font-family:var(--serif);font-size:26px;line-height:1;color:var(--ink)">0,18</div><div class="small" style="font-size:13.5px;margin-top:4px">RR kegagalan mayor, crown vs tambalan</div></div>
+                  <div class="card" style="padding:12px 14px"><div class="tiny" style="margin-bottom:3px">Innes 2011</div><div style="font-family:var(--serif);font-size:26px;line-height:1;color:var(--ink)">3% vs 16,5%</div><div class="small" style="font-size:13.5px;margin-top:4px">kegagalan mayor pada 60 bulan</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · AAPD 2025 · Cochrane 2015 · Innes 2011 · Riskesdas 2018</span><span>3</span></div>
+        </div>
+        <template class="notes"><p>Mulai dari pola yang kita semua lihat. Gigi susu ditambal, beberapa bulan kemudian tepinya terbuka, ditambal lagi, dan akhirnya pulpanya terlibat. Setiap kali kita mengulang, dinding gigi makin tipis. Pada gigi desidui, enamelnya hanya sekitar satu milimeter dan tanduk pulpanya tinggi. Jadi pertanyaannya bukan tambalan mana yang lebih baik, tetapi kapan kita berhenti menambal sebagian dan mulai menutup seluruh gigi.</p></template>
+      </section>
+
+      <!-- 4 WHY -->
+      <section class="slide" id="why" data-label="Mengapa SSC">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Prinsip</div>
+              <h2>SSC menutup seluruh mahkota dan tidak bergantung pada dinding yang tersisa</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="stats">
+              <div class="stat"><div class="v">96,1<em>%</em></div><div class="l">success SSC, 31 studi, follow-up bervariasi</div><div class="s">Chisini 2018 · SR/MA, I</div></div>
+              <div class="stat"><div class="v">0,18</div><div class="l">RR kegagalan mayor dibanding tambalan (95% CI 0,06–0,56)</div><div class="s">Cochrane 2015 · I</div></div>
+              <div class="stat"><div class="v">92<em>%</em></div><div class="l">success Hall vs 52% kontrol pada 60 bulan</div><div class="s">Innes 2011 · RCT, II</div></div>
+            </div>
+            <div class="row">
+              <div class="col" style="flex:1.05">
+                <svg viewBox="0 0 600 300" role="img" aria-label="Diagram penampang gigi dengan crown menutup seluruh mahkota" style="width:100%;height:248px">
+                  <path d="M150 88 C150 62 170 50 190 50 C210 50 230 62 230 88 L230 200 C230 226 224 250 214 268 L204 286 L190 272 L176 286 L166 268 C156 250 150 226 150 200 Z" fill="#f2e7d4" stroke="#d3bfa1" stroke-width="2"/>
+                  <path d="M130 100 C130 60 156 40 190 40 C224 40 250 60 250 100 L250 190 C250 208 239 219 226 222 L226 245 L208 245 L208 230 L172 230 L172 245 L154 245 L154 222 C141 219 130 208 130 190 Z" fill="#c65b45" fill-opacity=".10" stroke="#15323a" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M190 66 L190 214" stroke="#e0cfb4" stroke-width="2" stroke-dasharray="4 4"/>
+                  <path d="M250 112 L330 112" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="338" y="108" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a">coverage penuh</text>
+                  <text x="338" y="126" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">tidak bergantung pada dinding</text>
+                  <path d="M250 232 L330 232" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="338" y="228" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a">margin 1 mm subgingiva</text>
+                  <text x="338" y="246" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">seal dan retensi</text>
+                  <path d="M130 168 L70 168" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="56" y="150" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a" text-anchor="end">undercut</text>
+                  <text x="56" y="168" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a" text-anchor="end">servikal</text>
+                  <text x="56" y="186" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378" text-anchor="end">sumber retensi</text>
+                </svg>
+              </div>
+              <div class="col" style="flex:.95;display:flex;flex-direction:column;justify-content:center;gap:10px">
+                <div class="card"><h3>Menutup seluruh korona</h3><p>Tidak ada tepi restorasi.</p></div>
+                <div class="card"><h3>Tahan fraktur</h3><p>Logam menahan gaya oklusal pada dinding tipis.</p></div>
+                <div class="card"><h3>Lebih sedikit pengulangan</h3><p>Biaya awal lebih tinggi, retreatment lebih rendah.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Chisini 2018 · Innes 2015 Cochrane · Innes 2011 · AAPD 2025</span><span>4</span></div>
+        </div>
+        <template class="notes"><p>Tiga angka ini cukup untuk membawa pesan utama. Chisini melaporkan success 96,1 persen dari 31 studi, dengan lama follow-up yang berbeda-beda. Cochrane 2015 memberi angka yang lebih kuat: risiko kegagalan mayor 0,18 dibanding tambalan, artinya sekitar seperlima. Dan pada RCT lima tahun, Hall mencapai 92 persen dibanding 52 persen pada restorasi rutin. Perhatikan, angka-angka ini memakai definisi berbeda, jadi jangan disatukan.</p></template>
+      </section>
+
+      <!-- 5 INDICATION -->
+      <section class="slide" id="indication" data-label="Indikasi">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Seleksi kasus</div>
+              <h2>SSC dipilih saat karies melewati line angle atau pulpa sudah diterapi</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="row" style="height:100%">
+              <div class="col" style="flex:1.35">
+                <svg viewBox="0 0 650 396" role="img" aria-label="Alur keputusan pemilihan SSC" style="width:100%;height:392px">
+                  <defs>
+                    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M0 0 L10 5 L0 10 z" fill="#8fa3a0"/>
+                    </marker>
+                  </defs>
+                  <rect x="4" y="118" width="196" height="92" rx="12" fill="#fffdf8" stroke="#d8cbb8" stroke-width="1.6"/>
+                  <text x="18" y="146" font-family="Inter, sans-serif" font-size="14" fill="#15323a">Karies luas, lebih dari</text>
+                  <text x="18" y="165" font-family="Inter, sans-serif" font-size="14" fill="#15323a">2 permukaan, atau</text>
+                  <text x="18" y="184" font-family="Inter, sans-serif" font-size="14" fill="#15323a">melewati line angle?</text>
+
+                  <rect x="242" y="24" width="176" height="86" rx="12" fill="#fffdf8" stroke="#d8cbb8" stroke-width="1.6"/>
+                  <text x="256" y="52" font-family="Inter, sans-serif" font-size="14" fill="#15323a">Tanda pulpa</text>
+                  <text x="256" y="71" font-family="Inter, sans-serif" font-size="14" fill="#15323a">ireversibel?</text>
+                  <text x="256" y="92" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93">nyeri spontan, abses</text>
+
+                  <rect x="452" y="8" width="192" height="86" rx="12" fill="#eef6f4" stroke="#bcd4d0" stroke-width="1.6"/>
+                  <text x="466" y="34" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">Pulpotomi atau</text>
+                  <text x="466" y="53" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">pulpektomi, lalu</text>
+                  <text x="466" y="72" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">SSC konvensional</text>
+
+                  <rect x="452" y="126" width="192" height="96" rx="12" fill="#f7f0e0" stroke="#ddc9a4" stroke-width="1.6"/>
+                  <text x="466" y="154" font-family="Inter, sans-serif" font-size="13.5" fill="#5f4d2c">Hall atau SSC</text>
+                  <text x="466" y="173" font-family="Inter, sans-serif" font-size="13.5" fill="#5f4d2c">konvensional</text>
+                  <text x="466" y="196" font-family="Inter, sans-serif" font-size="11.5" fill="#7a6744">Hall bila dentine bridge jelas</text>
+
+                  <rect x="452" y="270" width="192" height="92" rx="12" fill="#fffdf8" stroke="#d8cbb8" stroke-width="1.6"/>
+                  <text x="466" y="297" font-family="Inter, sans-serif" font-size="13.5" fill="#15323a">Restorasi langsung</text>
+                  <text x="466" y="318" font-family="Inter, sans-serif" font-size="11.5" fill="#5b7378">bila 1 permukaan dan</text>
+                  <text x="466" y="336" font-family="Inter, sans-serif" font-size="11.5" fill="#5b7378">risiko karies rendah</text>
+
+                  <path d="M200 152 C222 152 220 67 240 67" fill="none" stroke="#8fa3a0" stroke-width="1.6" marker-end="url(#ar)"/>
+                  <text x="203" y="112" font-family="Inter, sans-serif" font-size="12" fill="#2c6e6a">Ya</text>
+                  <path d="M418 60 C432 60 438 51 452 51" fill="none" stroke="#8fa3a0" stroke-width="1.6" marker-end="url(#ar)"/>
+                  <text x="422" y="42" font-family="Inter, sans-serif" font-size="12" fill="#2c6e6a">Ya</text>
+                  <path d="M330 110 C330 146 386 174 452 174" fill="none" stroke="#8fa3a0" stroke-width="1.6" marker-end="url(#ar)"/>
+                  <text x="338" y="146" font-family="Inter, sans-serif" font-size="12" fill="#8a6a2f">Tidak</text>
+                  <path d="M102 210 L102 316 L452 316" fill="none" stroke="#8fa3a0" stroke-width="1.6" marker-end="url(#ar)"/>
+                  <text x="110" y="238" font-family="Inter, sans-serif" font-size="12" fill="#2c6e6a">Tidak</text>
+                </svg>
+              </div>
+              <div class="col" style="flex:.65;display:flex;flex-direction:column;gap:10px">
+                <div class="card">
+                  <h3 style="color:#a3462f">Kontraindikasi</h3>
+                  <p style="font-size:15.5px">Lebih dari setengah akar teresorpsi. Alergi nikel yang diketahui. Gigi tidak restorable.</p>
+                </div>
+                <div class="card">
+                  <h3 style="color:#2c6e6a">Hall: syarat tambahan</h3>
+                  <p style="font-size:15.5px">Vital, tanpa nyeri spontan, tanpa abses atau fistula, dan dentine bridge terlihat pada radiograf.</p>
+                </div>
+                <div class="card">
+                  <h3>Indikasi kuat lain</h3>
+                  <p style="font-size:15.5px">Abutment space maintainer. MIH berat. Anak dengan risiko karies tinggi. Perawatan dengan sedasi atau anestesi umum.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · AAPD 2025 · SDCEP 2025 · Hall Technique Guide 2015</span><span>5</span></div>
+        </div>
+        <template class="notes"><p>Alur ini yang saya pakai di klinik. Kalau karies sudah lebih dari dua permukaan atau melewati line angle, restorasi langsung mulai sulit dipertahankan, jadi arahnya ke SSC. Sebelum memilih Hall, periksa tanda pulpa ireversibel: nyeri spontan, abses, fistula. Kalau ada, Hall berhenti di situ, dan gigi perlu pulpotomi atau pulpektomi lebih dulu. Kontraindikasi yang sering terlupa adalah resorpsi akar lebih dari setengah dan alergi nikel.</p></template>
+      </section>
+      <!-- 6 PREP -->
+      <section class="slide" id="prep" data-label="Preparasi">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Anatomi dan preparasi</div>
+              <h2>Bentuk gigi desidui menentukan arah preparasi</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="row" style="height:100%;align-items:center">
+              <div class="col" style="flex:1.28">
+                <svg viewBox="0 0 620 430" role="img" aria-label="Penampang gigi desidui dengan garis preparasi dan ukuran reduksi" style="width:100%;height:418px">
+                  <!-- gingiva -->
+                  <path d="M60 342 C120 332 150 342 200 340 C250 338 268 344 300 342 C340 339 366 346 400 343 C450 339 500 348 560 341 L566 368 C516 364 470 372 420 369 C360 365 320 375 260 371 C210 368 160 373 112 369 Z" fill="#f3d3c9" opacity=".92"/>
+                  <!-- enamel -->
+                  <path d="M206 344 L206 200 C206 166 232 150 254 148 C262 128 288 128 296 148 C318 150 344 166 344 200 L344 344 Z" fill="#f8eeda" stroke="#d6c3a6" stroke-width="1.6"/>
+                  <!-- dentin -->
+                  <path d="M220 344 L220 206 C220 180 240 166 258 164 C266 148 284 148 292 164 C310 166 330 180 330 206 L330 344 Z" fill="#fcf6e8"/>
+                  <!-- pulp -->
+                  <path d="M262 236 C262 222 270 214 280 212 L282 198 L290 210 L296 202 L300 214 C312 218 320 226 320 238 L320 282 C320 288 316 290 312 290 L308 338 L300 338 L296 290 L286 290 L282 338 L274 338 L270 290 C266 290 262 288 262 282 Z" fill="#e2ab96" stroke="#cf9179" stroke-width="1"/>
+                  <!-- garis preparasi -->
+                  <path d="M188 344 L192 196 C192 158 224 138 250 134 C258 112 290 112 298 134 C324 138 356 158 356 196 L360 344" fill="none" stroke="#c65b45" stroke-width="2.6" stroke-dasharray="7 6"/>
+                  <!-- dimensi oklusal -->
+                  <path d="M400 134 L400 116" stroke="#15323a" stroke-width="1.4"/>
+                  <path d="M394 134 L406 134 M394 116 L406 116" stroke="#15323a" stroke-width="1.4"/>
+                  <text x="412" y="128" font-family="Inter, sans-serif" font-size="14" fill="#15323a">1,0–1,5 mm</text>
+                  <text x="412" y="146" font-family="Inter, sans-serif" font-size="12" fill="#5b7378">reduksi oklusal</text>
+                  <path d="M356 330 L430 306" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="436" y="303" font-family="Inter, sans-serif" font-size="14" fill="#15323a">feather edge,</text>
+                  <text x="436" y="320" font-family="Inter, sans-serif" font-size="14" fill="#15323a">tanpa ledge</text>
+                  <path d="M360 356 L430 368" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="436" y="365" font-family="Inter, sans-serif" font-size="14" fill="#15323a">margin 1 mm</text>
+                  <text x="436" y="382" font-family="Inter, sans-serif" font-size="14" fill="#15323a">subgingiva</text>
+                  <path d="M206 282 L150 282" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="142" y="270" font-family="Inter, sans-serif" font-size="14" fill="#15323a" text-anchor="end">bulbositas</text>
+                  <text x="142" y="288" font-family="Inter, sans-serif" font-size="14" fill="#15323a" text-anchor="end">servikal</text>
+                  <text x="142" y="306" font-family="Inter, sans-serif" font-size="12" fill="#5b7378" text-anchor="end">dipertahankan</text>
+                  <path d="M296 214 L352 194" stroke="#8fa3a0" stroke-width="1.3"/>
+                  <text x="358" y="192" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">konvergensi ringan</text>
+                  <text x="40" y="404" font-family="Inter, sans-serif" font-size="12" fill="#9a6a58">warna lebih gelap: jaringan keras yang dibuang</text>
+                  <text x="40" y="422" font-family="Inter, sans-serif" font-size="12" fill="#8b999b">garis putus-putus: permukaan setelah preparasi. Skema, bukan skala.</text>
+                </svg>
+              </div>
+              <div class="col" style="flex:.72;display:flex;flex-direction:column;gap:10px">
+                <div class="card"><h3>Retensi ada di servikal</h3><p style="font-size:16px">Undercut di bawah bulbositas menahan crown.</p></div>
+                <div class="card"><h3>Bukal dan lingual tidak rutin</h3><p style="font-size:16px">Hanya bila kontur menghalangi seating.</p></div>
+                <div class="card"><h3>Enamel 1 mm</h3><p style="font-size:16px">Reduksi 1,0–1,5 mm, atau 1,5–2,0 mm menurut sumber lain.</p></div>
+                <div class="card"><h3>Kontak harus putus</h3><p style="font-size:16px">Probe harus melewati kontak mesial dan distal.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · Randall 2002 · Amlani &amp; Brizuela 2023</span><span>6</span></div>
+        </div>
+        <template class="notes"><p>Ini yang sering salah pada preparasi. Kita cenderung mengurangi bukal dan lingual karena ingin crown mudah masuk, padahal retensi SSC justru berasal dari undercut servikal. Jadi pertahankan bulbositas, potong proksimal sampai kontak putus, dan berhenti dengan feather edge. Perhatikan juga angka reduksi oklusal: sumber UK memakai satu sampai satu setengah milimeter, sedangkan StatPearls dan Randall untuk molar permanen memakai satu setengah sampai dua milimeter.</p></template>
+      </section>
+
+      <!-- 7 STEPS -->
+      <section class="slide" id="steps" data-label="Sepuluh langkah">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:10px">
+            <div>
+              <div class="kicker">SSC konvensional</div>
+              <h2 class="sm">Sepuluh langkah, satu per satu</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="steps-wrap">
+              <div class="step-list" id="stepList" role="tablist" aria-label="Langkah SSC konvensional"></div>
+              <div class="step-panel" id="stepPanel" role="tabpanel" aria-live="polite"></div>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · Randall 2002 · AAPD VPT 2024 · AAPD 2023 anestesi · Innes 2015 Cochrane</span><span>7</span></div>
+        </div>
+        <template class="notes"><p>Sepuluh langkah ini yang akan saya uji di kuis nanti. Klik tiap langkah di kiri. Yang perlu ditekankan: nomor tiga, ekskavasi karies, harus selesai sebelum crown dipilih ulang, karena dinding yang hilang mengubah retensi. Nomor tujuh, try-in, adalah tempat kita berhenti dan memeriksa, bukan memaksa. Kalau crown belum duduk, hampir selalu ada ledge atau sisa kontak, bukan crown yang kurang besar.</p></template>
+      </section>
+
+      <!-- 8 HALL -->
+      <section class="slide" id="hall" data-label="Hall Technique">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Hall Technique</div>
+              <h2>Hall menutup karies tanpa anestesi dan tanpa preparasi</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="hall-grid">
+              <div>
+                <div class="hall-steps">
+                  <div class="hall-step"><span class="n">1</span><div><b>Nilai dan radiograf</b><span>Vital, dentine bridge jelas. Karies tidak dibuang.</span></div></div>
+                  <div class="hall-step"><span class="n">2</span><div><b>Separator bila kontak ketat</b><span>Mesial dan distal, 3–5 hari.</span></div></div>
+                  <div class="hall-step"><span class="n">3</span><div><b>Pilih crown</b><span>Terkecil, menutup seluruh gigi, ada spring-back.</span></div></div>
+                  <div class="hall-step"><span class="n">4</span><div><b>Isi semen dua pertiga</b><span>GIC atau RMGIC, semua dinding terlapisi.</span></div></div>
+                  <div class="hall-step"><span class="n">5</span><div><b>Seating dan bite</b><span>Lindungi airway, gigit 2–3 menit.</span></div></div>
+                </div>
+                <div class="hall-note"><b>Batas Hall:</b> bukan untuk pulpitis ireversibel, abses, fistula, atau gigi tanpa dentine bridge.</div>
+              </div>
+              <div>
+                <svg viewBox="0 0 520 350" role="img" aria-label="Crown Hall ditempatkan di atas gigi dengan lapisan semen dan separator di kontak proksimal" style="width:100%;height:330px">
+                  <!-- gingiva -->
+                  <path d="M60 300 C110 288 150 300 194 300 C238 300 278 288 328 300 L328 316 C280 306 240 318 194 318 C148 318 108 306 60 316 Z" fill="#f2cfc4" opacity=".9"/>
+                  <!-- akar -->
+                  <path d="M140 300 L140 336 C140 342 148 344 152 336 L160 314 L168 336 C172 344 180 342 180 336 L180 300 Z" fill="#f6ecda" stroke="#d8c6a8" stroke-width="1.4"/>
+                  <path d="M208 300 L208 336 C208 342 216 344 220 336 L228 314 L236 336 C240 344 248 342 248 336 L248 300 Z" fill="#f6ecda" stroke="#d8c6a8" stroke-width="1.4"/>
+                  <!-- gigi -->
+                  <path d="M140 300 L140 154 C140 118 164 100 194 100 C224 100 248 118 248 154 L248 300 Z" fill="#fbf4e6" stroke="#d9c8ab" stroke-width="1.6"/>
+                  <!-- karies -->
+                  <path d="M150 152 C162 146 176 152 176 166 C176 180 162 188 150 182 Z" fill="#c98f74" opacity=".75"/>
+                  <!-- semen -->
+                  <path d="M133 296 L133 152 C133 110 160 90 194 90 C228 90 255 110 255 152 L255 296" fill="none" stroke="#9fc4bd" stroke-width="9" opacity=".55"/>
+                  <!-- crown -->
+                  <path d="M124 302 L124 150 C124 104 154 80 194 80 C234 80 264 104 264 150 L264 302" fill="none" stroke="#c65b45" stroke-width="5.5" stroke-linejoin="round"/>
+                  <path d="M118 306 L118 150 C118 99 151 74 194 74 C237 74 270 99 270 150 L270 306" fill="none" stroke="#15323a" stroke-width="2" stroke-dasharray="6 5"/>
+                  <path d="M124 302 C124 302 118 306 118 306 M264 302 C264 302 270 306 270 306" stroke="#15323a" stroke-width="2"/>
+                  <rect x="292" y="232" width="72" height="26" rx="13" fill="#e6d3bd" stroke="#c9ae8c" stroke-width="1.6"/>
+                  <text x="328" y="249" font-family="Inter, sans-serif" font-size="10.5" fill="#6f5b3f" text-anchor="middle">separator</text>
+                  <path d="M296 240 L276 250" stroke="#c9ae8c" stroke-width="1.2"/>
+                  <path d="M194 30 L194 66" stroke="#8fa3a0" stroke-width="1.4"/>
+                  <text x="204" y="38" font-family="Inter, sans-serif" font-size="12.5" fill="#15323a">crown ditekan sampai semen set</text>
+                  <text x="204" y="55" font-family="Inter, sans-serif" font-size="11.5" fill="#5b7378">tanpa preparasi, tanpa anestesi</text>
+                  <path d="M180 140 L96 128" stroke="#8fa3a0" stroke-width="1.3"/>
+                  <text x="90" y="126" font-family="Inter, sans-serif" font-size="12" fill="#15323a" text-anchor="end">karies tidak dibuang</text>
+                  <path d="M252 232 L300 200" stroke="#8fa3a0" stroke-width="1.3"/>
+                  <text x="306" y="198" font-family="Inter, sans-serif" font-size="12" fill="#15323a">lapisan semen GIC</text>
+                  <text x="306" y="214" font-family="Inter, sans-serif" font-size="11" fill="#5b7378">dua pertiga penuh</text>
+                </svg>
+                <div class="small" style="margin-top:2px">Karies tetap di tempatnya, tertutup dari substrat oral. Skema, bukan skala.</div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Innes 2007 · Hall Technique Guide 2015 · SDCEP 2025 · Tedesco 2025</span><span>8</span></div>
+        </div>
+        <template class="notes"><p>Hall membalik logika kita. Karies tidak dibuang, gigi tidak dikurangi, dan tidak ada anestesi. Yang menentukan keberhasilan adalah seal margin. Dua hal yang harus disampaikan ke orang tua: crown akan terasa tinggi beberapa hari, dan bila kontak ketat, perlu kunjungan kedua untuk melepas separator setelah tiga sampai lima hari. Yang tidak boleh: memakai Hall pada gigi dengan nyeri spontan atau abses.</p></template>
+      </section>
+
+      <!-- 9 COMPARE -->
+      <section class="slide" id="compare" data-label="Perbandingan">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Dua teknik</div>
+              <h2>Hall lebih cepat, konvensional lebih terkontrol</h2>
+            </div>
+          </div>
+          <div class="content" style="display:flex;flex-direction:column">
+            <div class="tabbar" role="tablist" aria-label="Perbandingan teknik">
+              <button type="button" role="tab" aria-selected="true" data-tab="tab-konv">Konvensional</button>
+              <button type="button" role="tab" aria-selected="false" data-tab="tab-hall">Hall Technique</button>
+            </div>
+            <div class="tabpanel on" id="tab-konv" role="tabpanel">
+              <div class="cmp-top"><div class="cmp-who">SSC konvensional</div><span class="pill">Anestesi, preparasi, ekskavasi</span></div>
+              <div class="cmp-metrics">
+                <div class="metric"><div class="k">Waktu kursi</div><div class="v">17,4 <small>± 2,9 menit</small></div></div>
+                <div class="metric"><div class="k">Anestesi</div><div class="v">Ya</div></div>
+                <div class="metric"><div class="k">Preparasi</div><div class="v">Ya</div></div>
+                <div class="metric"><div class="k">Karies</div><div class="v">Dibuang</div></div>
+                <div class="metric"><div class="k">Kunjungan</div><div class="v">1</div></div>
+                <div class="metric"><div class="k">Isolasi</div><div class="v">Dianjurkan</div></div>
+              </div>
+              <div class="chairbar"><div class="lbl">Waktu prosedur, Mohamed 2026</div><div class="bar"><i style="width:100%"></i></div></div>
+              <p class="cmp-note" style="margin-top:12px">Operator mengontrol kontur dan margin. Pulpa bisa diterapi pada kunjungan yang sama. Butuh anestesi dan isolasi.</p>
+            </div>
+            <div class="tabpanel" id="tab-hall" role="tabpanel">
+              <div class="cmp-top"><div class="cmp-who">Hall Technique</div><span class="pill teal">Tanpa anestesi, tanpa preparasi</span></div>
+              <div class="cmp-metrics">
+                <div class="metric"><div class="k">Waktu kursi</div><div class="v">7,1 <small>± 2,8 menit</small></div></div>
+                <div class="metric"><div class="k">Anestesi</div><div class="v">Tidak</div></div>
+                <div class="metric"><div class="k">Preparasi</div><div class="v">Tidak</div></div>
+                <div class="metric"><div class="k">Karies</div><div class="v">Disegel</div></div>
+                <div class="metric"><div class="k">Kunjungan</div><div class="v">1–2</div></div>
+                <div class="metric"><div class="k">Isolasi</div><div class="v">Tidak wajib</div></div>
+              </div>
+              <div class="chairbar"><div class="lbl">Waktu prosedur, Mohamed 2026</div><div class="bar"><i style="width:41%"></i></div></div>
+              <p class="cmp-note" style="margin-top:12px">Lebih cepat dan lebih diterima. Bergantung pada seal, tanpa akses pulpa, kontak ketat perlu separator.</p>
+            </div>
+            <div class="rule"></div>
+            <div class="row">
+              <div class="col"><p class="cmp-note"><b>Bukti:</b> tidak ada RCT yang membandingkan Hall dengan SSC konvensional. Cochrane 2015 membandingkan crown dengan filling.</p></div>
+              <div class="col"><p class="cmp-note"><b>Penerimaan:</b> 77% anak dan 83% orang tua memilih Hall (Innes 2007); nyeri dilaporkan lebih rendah (Mohamed 2026).</p></div>
+            </div>
+            <div class="row" style="margin-top:14px">
+              <div class="col card" style="padding:13px 16px;border-color:#bcd4d0;background:#f3f9f7">
+                <h3 style="color:#22605c;font-size:17px">Pilih Hall bila</h3>
+                <p style="font-size:16px">Gigi vital, dentine bridge jelas, anak cemas, kontak masih bisa dibuka dengan separator.</p>
+              </div>
+              <div class="col card" style="padding:13px 16px;border-color:#e2cfae;background:#fdf8ee">
+                <h3 style="color:#8a6a2f;font-size:17px">Pilih konvensional bila</h3>
+                <p style="font-size:16px">Perlu pulp therapy, karies harus diekskavasi, atau operator ingin mengontrol margin dan kontak secara langsung.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Mohamed 2026 · Innes 2007 · Innes 2015 Cochrane</span><span>9</span></div>
+        </div>
+        <template class="notes"><p>Perbandingan ini jangan dibaca sebagai siapa yang menang. Hall menang di waktu dan penerimaan: tujuh koma satu menit dibanding tujuh belas koma empat menit. Konvensional menang di kontrol: kita bisa melihat dan mengobati pulpa, serta membentuk margin sendiri. Yang penting, sampai sekarang belum ada RCT yang membandingkan Hall dengan SSC konvensional. Jadi pilihan ditentukan oleh kondisi gigi, perilaku anak, dan kemampuan operator.</p></template>
+      </section>
+      <!-- 10 COMPLICATIONS -->
+      <section class="slide" id="complications" data-label="Penyulit">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:10px">
+            <div>
+              <div class="kicker">Penyulit</div>
+              <h2 class="sm">Penyulit SSC bisa dicegah di langkah preparasi</h2>
+            </div>
+          </div>
+          <div class="content" style="display:flex;flex-direction:column">
+            <div class="comp-grid" style="margin-bottom:14px">
+              <div class="comp"><div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Ukuran</div><b>Crown longgar</b><div class="cause">Ukuran terlalu besar atau crimping kurang.</div><details><summary>Penanganan</summary><div class="fix">Pilih ukuran lebih kecil dan crimp ulang margin. Jangan menambah semen untuk menutupi adaptasi buruk.</div></details></div>
+              <div class="comp"><div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Preparasi</div><b>Crown tidak duduk</b><div class="cause">Ledge atau kontak belum putus.</div><details><summary>Penanganan</summary><div class="fix">Periksa dan haluskan ledge, putuskan kontak. Ganti ukuran hanya setelah preparasi dinilai ulang.</div></details></div>
+              <div class="comp"><div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Margin</div><b>Perdarahan gingiva saat try-in</b><div class="cause">Margin terlalu panjang atau tepi tajam.</div><details><summary>Penanganan</summary><div class="fix">Potong margin, crimp, haluskan tepi. Irigasi dan tekan dengan gauze. Tunda sementasi bila menetap.</div></details></div>
+              <div class="comp"><div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Material</div><b>Perforasi crown</b><div class="cause">Trimming berlebihan atau wear oklusal.</div><details><summary>Penanganan</summary><div class="fix">Ganti crown bila perforasi besar atau mengenai margin. Perbaikan GIC hanya sementara.</div></details></div>
+              <div class="comp"><div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Retensi</div><b>Crown lepas</b><div class="cause">Retensi buruk atau karies sekunder.</div><details><summary>Penanganan</summary><div class="fix">Bersihkan semen lama dan recement bila crown intak. Bila karies atau pulpa terlibat, ubah rencana.</div></details></div>
+              <div class="comp"><div class="tiny" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Perilaku</div><b>Anak tidak kooperatif</b><div class="cause">Cemas atau pengalaman buruk.</div><details><summary>Penanganan</summary><div class="fix">Tell-show-do dan distraksi. Bila tidak memungkinkan, pertimbangkan sedasi atau anestesi umum.</div></details></div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <div class="col card" style="padding:12px 16px"><p style="font-size:15.5px"><b>Alergi nikel.</b> Sensitisasi 8–10% pada anak Eropa, reaksi klinis jarang. Tetap kontraindikasi bila ada riwayat reaksi.</p></div>
+              <div class="col card" style="padding:12px 16px"><p style="font-size:15.5px"><b>MIH.</b> Survival 94,4% vs komposit 49,2% pada 24 bulan.</p></div>
+              <div class="col card" style="padding:12px 16px"><p style="font-size:15.5px"><b>Berkebutuhan khusus.</b> Lebih sedikit kunjungan.</p></div>
+            </div>
+            <div class="card" style="margin-top:14px;padding:12px 18px;border-color:#e2cfae;background:#fdf8ee">
+              <p style="font-size:15.5px"><b>Rujuk bila:</b> perforasi berulang, karies sekunder luas, atau tanda pulpa ireversibel muncul setelah crown terpasang. Jangan recement gigi yang sudah tidak restorable.</p>
+            </div>
+          </div>
+          <div class="row" style="margin-top:auto;padding-bottom:6px">
+            <div class="col card" style="padding:12px 16px;border-color:#bcd4d0;background:#f3f9f7">
+              <p style="font-size:15px"><b>Pencegahan paling murah:</b> putuskan kontak sepenuhnya, haluskan ledge, dan verifikasi dengan probe sebelum crown dicoba.</p>
+            </div>
+            <div class="col card" style="padding:12px 16px">
+              <p style="font-size:15px"><b>Evaluasi tiap kontrol:</b> margin, oklusi, kontak, gingiva, mobilitas, dan tanda perforasi oklusal.</p>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · Randall 2002 · Farias 2022 · Ahlström 2019 · AAPD 2025</span><span>10</span></div>
+        </div>
+        <template class="notes"><p>Enam penyulit ini hampir semuanya bisa dilacak ke preparasi atau pemilihan ukuran. Crown longgar berarti crimping kurang, bukan semen kurang. Crown tidak duduk hampir selalu karena ledge atau kontak yang belum putus. Perdarahan saat try-in berarti margin terlalu panjang. Soal alergi nikel, angkanya sering ditakutkan berlebihan: sensitisasi pada anak Eropa sekitar delapan sampai sepuluh persen, tetapi reaksi klinis terhadap SSC jarang. Yang perlu diingat: jangan menambal masalah adaptasi dengan semen lebih banyak, dan jangan recement gigi yang sudah tidak restorable.</p></template>
+      </section>
+
+      <!-- 11 EVIDENCE -->
+      <section class="slide" id="evidence" data-label="Bukti">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Bukti</div>
+              <h2>Bukti terkuat ada pada kegagalan mayor, bukan pada estetika</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="chartgrid">
+              <div class="chartcard">
+                <h3>Hall vs restorasi rutin, 60 bulan</h3>
+                <div class="sub">Persentase success, RCT split-mouth, 132 anak (Innes 2011)</div>
+                <svg viewBox="0 0 430 250" role="img" aria-label="Grafik batang success Hall 92 persen dibanding kontrol 52 persen" style="width:100%;height:236px">
+                  <line x1="40" y1="200" x2="404" y2="200" stroke="#d8cbb8" stroke-width="1.2"/>
+                  <line x1="40" y1="120" x2="404" y2="120" stroke="#ece2d2" stroke-width="1" stroke-dasharray="4 5"/>
+                  <line x1="40" y1="40" x2="404" y2="40" stroke="#ece2d2" stroke-width="1" stroke-dasharray="4 5"/>
+                  <text x="30" y="204" font-family="Inter, sans-serif" font-size="12" fill="#7d8f93" text-anchor="end">0</text>
+                  <text x="30" y="124" font-family="Inter, sans-serif" font-size="12" fill="#7d8f93" text-anchor="end">50</text>
+                  <text x="30" y="44" font-family="Inter, sans-serif" font-size="12" fill="#7d8f93" text-anchor="end">100</text>
+                  <rect x="90" y="53" width="82" height="147" rx="6" fill="#2c6e6a"/>
+                  <rect x="232" y="117" width="82" height="83" rx="6" fill="#cbb79a"/>
+                  <text x="131" y="45" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#15323a" text-anchor="middle">92%</text>
+                  <text x="273" y="109" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#15323a" text-anchor="middle">52%</text>
+                  <text x="131" y="222" font-family="Inter, sans-serif" font-size="13.5" fill="#15323a" text-anchor="middle">Hall</text>
+                  <text x="273" y="222" font-family="Inter, sans-serif" font-size="13.5" fill="#15323a" text-anchor="middle">Kontrol</text>
+                  <text x="40" y="240" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93">Kegagalan mayor 3% vs 16,5%. NNT 8.</text>
+                </svg>
+              </div>
+              <div class="chartcard">
+                <h3>Retensi 5 tahun per material</h3>
+                <div class="sub">Meta-analisis, 13 RCT dan 5 studi klinis (Lampl 2025). Sumbu dipotong pada 80%.</div>
+                <svg viewBox="0 0 430 250" role="img" aria-label="Titik retensi lima tahun tiap material, SSC 97,88 persen sampai strip crown 83,48 persen" style="width:100%;height:236px">
+                  <line x1="100" y1="210" x2="404" y2="210" stroke="#d8cbb8" stroke-width="1.2"/>
+                  <g font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93">
+                    <line x1="100" y1="210" x2="100" y2="214" stroke="#d8cbb8"/><text x="100" y="228" text-anchor="middle">80</text>
+                    <line x1="175" y1="210" x2="175" y2="214" stroke="#d8cbb8"/><text x="175" y="228" text-anchor="middle">85</text>
+                    <line x1="250" y1="210" x2="250" y2="214" stroke="#d8cbb8"/><text x="250" y="228" text-anchor="middle">90</text>
+                    <line x1="325" y1="210" x2="325" y2="214" stroke="#d8cbb8"/><text x="325" y="228" text-anchor="middle">95</text>
+                    <line x1="400" y1="210" x2="400" y2="214" stroke="#d8cbb8"/><text x="400" y="228" text-anchor="middle">100</text>
+                  </g>
+                  <g font-family="Inter, sans-serif" font-size="12.5" fill="#15323a" text-anchor="end">
+                    <text x="92" y="44">SSC</text>
+                    <text x="92" y="74">Zirkonia</text>
+                    <text x="92" y="104">Komposit</text>
+                    <text x="92" y="134">RMGIC</text>
+                    <text x="92" y="164">Compomer</text>
+                    <text x="92" y="194">Strip</text>
+                  </g>
+                  <g stroke="#e7dccb" stroke-width="1" stroke-dasharray="3 4">
+                    <line x1="100" y1="40" x2="404" y2="40"/><line x1="100" y1="70" x2="404" y2="70"/>
+                    <line x1="100" y1="100" x2="404" y2="100"/><line x1="100" y1="130" x2="404" y2="130"/>
+                    <line x1="100" y1="160" x2="404" y2="160"/><line x1="100" y1="190" x2="404" y2="190"/>
+                  </g>
+                  <circle cx="368" cy="40" r="5.5" fill="#c65b45"/><text x="358" y="44" font-family="Inter, sans-serif" font-size="12" fill="#a3462f" text-anchor="end">97,88</text>
+                  <circle cx="356" cy="70" r="5" fill="#2c6e6a"/><text x="346" y="74" font-family="Inter, sans-serif" font-size="12" fill="#22605c" text-anchor="end">97,09</text>
+                  <circle cx="283" cy="100" r="5" fill="#2c6e6a"/><text x="273" y="104" font-family="Inter, sans-serif" font-size="12" fill="#22605c" text-anchor="end">92,18</text>
+                  <circle cx="255" cy="130" r="5" fill="#2c6e6a"/><text x="245" y="134" font-family="Inter, sans-serif" font-size="12" fill="#22605c" text-anchor="end">90,30</text>
+                  <circle cx="234" cy="160" r="5" fill="#2c6e6a"/><text x="224" y="164" font-family="Inter, sans-serif" font-size="12" fill="#22605c" text-anchor="end">88,90</text>
+                  <circle cx="152" cy="190" r="5" fill="#2c6e6a"/><text x="142" y="194" font-family="Inter, sans-serif" font-size="12" fill="#22605c" text-anchor="end">83,48</text>
+                </svg>
+              </div>
+            </div>
+            <div class="level">
+              <span class="lvl"><b>I</b> Cochrane dan SR/MA</span>
+              <span class="lvl"><b>II</b> RCT</span>
+              <span class="lvl"><b>III</b> kohort</span>
+              <span class="lvl" style="border-color:#e7c3b8;background:#fdf1ec;color:#8a3f2b">Retensi bukan success</span>
+            </div>
+            <p class="footnote">Angka retensi dan angka success tidak boleh dibandingkan langsung. Definisi kegagalan berbeda antar studi.</p>
+            <div class="row" style="margin-top:14px">
+              <div class="col card" style="padding:13px 17px;border-color:#e7c3b8;background:#fdf1ec">
+                <h3 style="font-size:16px;color:#8a3f2b">Yang belum ada</h3>
+                <p style="font-size:15px">RCT yang membandingkan Hall dengan SSC konvensional. Cochrane 2015 hanya membandingkan crown dengan filling.</p>
+              </div>
+              <div class="col card" style="padding:13px 17px">
+                <h3 style="font-size:16px">Yang perlu hati-hati</h3>
+                <p style="font-size:15px">Angka survival bukan angka keberhasilan klinis. Crown bisa masih terpasang tetapi gigi sudah nekrotik.</p>
+              </div>
+              <div class="col card" style="padding:13px 17px">
+                <h3 style="font-size:16px">Konteks Indonesia</h3>
+                <p style="font-size:15px">Data biaya dan ketersediaan SSC di fasilitas primer tidak ditemukan. Ini gap riset.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Innes 2011 · Lampl 2025 · Chisini 2018 · Innes 2015 Cochrane</span><span>11</span></div>
+        </div>
+        <template class="notes"><p>Dua grafik ini sengaja dipisah. Kiri, RCT lima tahun: Hall 92 persen, kontrol 52 persen. Kanan, meta-analisis 2025 tentang retensi lima tahun: SSC tertinggi, 97,88 persen. Perhatikan sumbu kanan dipotong pada 80 persen, jadi perbedaan tiga sampai empat persen terlihat besar. Dan retensi bukan success. Sebuah crown bisa masih terpasang tetapi sudah gagal secara klinis karena pulpanya nekrotik.</p></template>
+      </section>
+
+      <!-- 12 ALTERNATIVES -->
+      <section class="slide" id="alternatives" data-label="Alternatif">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Alternatif estetik</div>
+              <h2>Zirkonia lebih baik pada gingiva, belum pada retensi jangka panjang</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="row" style="height:100%;align-items:flex-start">
+              <div class="col" style="flex:1.15">
+                <div class="tabbar" role="tablist" aria-label="Alternatif mahkota">
+                  <button type="button" role="tab" aria-selected="true" data-tab="tab-zir">Zirkonia</button>
+                  <button type="button" role="tab" aria-selected="false" data-tab="tab-pv">Pre-veneered SSC</button>
+                  <button type="button" role="tab" aria-selected="false" data-tab="tab-strip">Strip crown</button>
+                </div>
+                <div class="tabpanel on" id="tab-zir" role="tabpanel">
+                  <div class="card" style="margin-bottom:9px"><h3>Kegagalan klinis</h3><p>RR 0,48 (95% CI 0,15–1,52; P = 0,21). Tidak bermakna, kualitas bukti rendah.</p></div>
+                  <div class="card" style="margin-bottom:9px"><h3>Kesehatan gingiva</h3><p>MD −0,32 (95% CI −0,42 sampai −0,23) lebih baik.</p></div>
+                  <div class="card"><h3>Keterbatasan</h3><p>Biaya, preparasi lebih invasif, wear antagonis, sulit direparasi.</p></div>
+                </div>
+                <div class="tabpanel" id="tab-pv" role="tabpanel">
+                  <div class="card" style="margin-bottom:9px"><h3>Retensi 6 bulan</h3><p>95% pada RCT 129 gigi insisivus desidui (Walia 2014).</p></div>
+                  <div class="card" style="margin-bottom:9px"><h3>Kelemahan</h3><p>Veneer bisa fraktur, bulk lebih besar.</p></div>
+                  <div class="card"><h3>Bukti</h3><p>SR 2017: belum cukup untuk menggantikan SSC.</p></div>
+                </div>
+                <div class="tabpanel" id="tab-strip" role="tabpanel">
+                  <div class="card" style="margin-bottom:9px"><h3>Retensi 6 bulan</h3><p>78% pada RCT yang sama, paling rendah di antara tiga kelompok (Walia 2014).</p></div>
+                  <div class="card" style="margin-bottom:9px"><h3>Kelemahan</h3><p>Sensitif kelembapan, fraktur lebih sering.</p></div>
+                  <div class="card"><h3>Posisi</h3><p>Bukan pilihan utama untuk molar posterior.</p></div>
+                </div>
+              </div>
+              <div class="col" style="flex:.85">
+                <div class="chartcard">
+                  <h3>Retensi 6 bulan, tiga mahkota estetik</h3>
+                  <div class="sub">RCT 129 gigi insisivus desidui (Walia 2014)</div>
+                  <svg viewBox="0 0 380 230" role="img" aria-label="Grafik retensi enam bulan zirkonia 100 persen, pre-veneered SSC 95 persen, strip crown 78 persen" style="width:100%;height:220px">
+                    <line x1="46" y1="180" x2="366" y2="180" stroke="#d8cbb8" stroke-width="1.2"/>
+                    <line x1="46" y1="80" x2="366" y2="80" stroke="#ece2d2" stroke-width="1" stroke-dasharray="4 5"/>
+                    <text x="36" y="184" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93" text-anchor="end">0</text>
+                    <text x="36" y="84" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93" text-anchor="end">100</text>
+                    <rect x="70" y="30" width="62" height="150" rx="5" fill="#2c6e6a"/>
+                    <rect x="164" y="37.5" width="62" height="142.5" rx="5" fill="#7fa39a"/>
+                    <rect x="258" y="63" width="62" height="117" rx="5" fill="#cbb79a"/>
+                    <text x="101" y="22" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#15323a" text-anchor="middle">100%</text>
+                    <text x="195" y="30" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#15323a" text-anchor="middle">95%</text>
+                    <text x="289" y="55" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#15323a" text-anchor="middle">78%</text>
+                    <text x="101" y="200" font-family="Inter, sans-serif" font-size="11.5" fill="#15323a" text-anchor="middle">Zirkonia</text>
+                    <text x="195" y="200" font-family="Inter, sans-serif" font-size="11.5" fill="#15323a" text-anchor="middle">PVSSC</text>
+                    <text x="289" y="200" font-family="Inter, sans-serif" font-size="11.5" fill="#15323a" text-anchor="middle">Strip</text>
+                    <text x="46" y="222" font-family="Inter, sans-serif" font-size="11" fill="#7d8f93">PVSSC: pre-veneered SSC</text>
+                  </svg>
+                </div>
+                <p class="footnote">Untuk molar posterior desidui, SSC tetap menjadi pembanding utama dalam SR dan meta-analisis.</p>
+                <div class="card" style="margin-top:10px;padding:13px 16px;border-color:#e7c3b3;background:#fdf5f0">
+                  <h3 style="font-size:15.5px;color:#8a3f2b">Pertimbangkan alternatif estetik bila</h3>
+                  <p style="font-size:14.5px">Gigi anterior, orang tua menolak logam setelah diskusi, atau ada alergi nikel. Sampaikan bahwa bukti jangka panjang masih terbatas dan biaya lebih tinggi.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Patnana 2022 · Pei &amp; Chen 2023 · Aiem 2017 · Walia 2014</span><span>12</span></div>
+        </div>
+        <template class="notes"><p>Kalau orang tua keberatan dengan logam, ini pilihannya. Zirkonia punya gingiva yang lebih baik, tetapi angka kegagalan klinisnya belum terbukti lebih rendah: RR nol koma empat delapan dengan rentang kepercayaan yang lebar. Pre-veneered SSC bagus pada retensi enam bulan, tetapi veneernya bisa fraktur. Strip crown paling rendah retensinya. Untuk molar posterior dengan karies luas, SSC masih standar pembandingnya.</p></template>
+      </section>
+      <!-- 13 CASE -->
+      <section class="slide" id="case" data-label="Kasus">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:10px">
+            <div>
+              <div class="kicker">Kasus ilustratif</div>
+              <h2 class="sm">Kasus: molar kedua desidui bawah kanan, karies oklusal-distal</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="case-grid">
+              <div>
+                <div class="case-facts">
+                  <p><b>Anak laki-laki, 7 tahun.</b> Gigi 85, karies oklusal-distal luas.</p>
+                  <p>Tidak ada nyeri spontan, tidak ada nyeri malam, tidak ada swelling atau fistula.</p>
+                  <p>Vital, perkusi negatif, mobilitas normal. Radiograf: lesi mendekati pulpa dengan dentine bridge terlihat.</p>
+                </div>
+                <div class="photos">
+                  <div class="photo"><b>Foto klinis</b><span>Okusal gigi 85, sebelum tindakan. Ganti dengan foto Anda.</span></div>
+                  <div class="photo"><b>Radiograf</b><span>Bitewing gigi 85. Ganti dengan radiograf Anda.</span></div>
+                </div>
+                <p class="footnote">Data pasien ini fiktif dan dipakai untuk latihan keputusan. Bukan rekam medis.</p>
+              </div>
+              <div>
+                <div class="qbox" id="caseQ1">
+                  <h3>1. Apa keputusan Anda?</h3>
+                  <div class="choices">
+                    <button type="button" data-case="hall">Hall Technique tanpa anestesi</button>
+                    <button type="button" data-case="konv">SSC konvensional dengan anestesi</button>
+                    <button type="button" data-case="komp">Komposit dua permukaan</button>
+                  </div>
+                  <div class="verdict show" id="caseV1" aria-live="polite" style="background:#f4f8f6;border:1px solid #dbe6e1;color:#3f5c56"><b>Pilih jawaban untuk melihat alasan.</b></div>
+                </div>
+                <div class="qbox" id="caseQ2">
+                  <h3>2. Saat try-in, crown belum duduk merata</h3>
+                  <p class="small" style="margin:0 0 7px">Tepi servikal terangkat di distal. Apa langkah berikutnya?</p>
+                  <div class="choices">
+                    <button type="button" data-case2="paksa">Tekan dengan bite stick sampai duduk</button>
+                    <button type="button" data-case2="periksa">Periksa ledge dan sisa kontak distal</button>
+                    <button type="button" data-case2="besar">Ganti crown satu ukuran lebih besar</button>
+                  </div>
+                  <div class="verdict show" id="caseV2" aria-live="polite" style="background:#f4f8f6;border:1px solid #dbe6e1;color:#3f5c56"><b>Pilih jawaban untuk melihat alasan.</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · SDCEP 2025 · Hall Technique Guide 2015 · Randall 2002</span><span>13</span></div>
+        </div>
+        <template class="notes"><p>Sekarang kita putuskan bersama. Anak tujuh tahun, gigi 85, karies oklusal-distal, vital, tanpa nyeri spontan, dan dentine bridge terlihat. Tanyakan ke audiens: Hall, konvensional, atau komposit? Setelah mereka memilih, lanjut ke pertanyaan kedua. Crown belum duduk di distal. Di sinilah kebanyakan orang langsung memilih crown lebih besar, padahal masalahnya biasanya ledge atau sisa kontak.</p></template>
+      </section>
+
+      <!-- 14 QUIZ -->
+      <section class="slide" id="quiz" data-label="Kuis">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:8px">
+            <div>
+              <div class="kicker">Kuis</div>
+              <h2 class="sm">Lima pertanyaan, jawaban langsung muncul</h2>
+              <p class="lead" style="font-size:17px;margin-top:8px">Pilih satu jawaban. Penjelasan dan kunci muncul langsung, skor dihitung di bawah.</p>
+            </div>
+          </div>
+          <div class="content">
+            <div class="quiz-single" id="quizWrap" aria-live="polite"></div>
+            <div class="quiz-foot">
+              <span>Skor: <span class="score" id="score">0 / 5</span></span>
+              <span id="quizStatus">Pilih satu jawaban.</span>
+              <button type="button" id="quizReset">Ulangi</button>
+            </div>
+          </div>
+          <div class="cite"><span>Jawaban dan penjelasan mengikuti Kindelan 2008, AAPD 2024, Farias 2022, Randall 2002</span><span>14</span></div>
+        </div>
+        <template class="notes"><p>Lima soal ini menguji empat hal: kontraindikasi Hall, angka reduksi oklusal, penanganan crown yang tidak duduk, dan faktor retensi. Kalau waktu habis, cukup kerjakan soal satu dan tiga. Jawaban yang salah tetap menampilkan penjelasan, jadi bisa dipakai untuk diskusi.</p></template>
+      </section>
+
+      <!-- 15 RECAP -->
+      <section class="slide" id="recap" data-label="Penutup">
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div>
+              <div class="kicker">Penutup</div>
+              <h2>Tiga hal yang harus diingat</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="recap">
+              <div class="recap-item"><div class="n">1</div><div><b>SSC menutup seluruh mahkota</b><p>Retensi berasal dari margin dan undercut servikal. Crimping lebih menentukan daripada semen.</p></div></div>
+              <div class="recap-item"><div class="n">2</div><div><b>Hall hanya untuk gigi vital dengan dentine bridge jelas</b><p>Nyeri spontan atau abses mengubah rencana. Pilih konvensional setelah pulp therapy.</p></div></div>
+              <div class="recap-item"><div class="n">3</div><div><b>Baca angka sesuai definisinya</b><p>Success, survival, dan retention bukan hal yang sama.</p></div></div>
+            </div>
+            <div class="row" style="margin-top:16px">
+              <div class="col card" style="border-color:#bcd4d0;background:#f3f9f7;padding:14px 18px">
+                <h3 style="font-size:16px;color:#22605c">Satu kalimat penutup</h3>
+                <p style="font-size:15.5px">Pada gigi berisiko tinggi, menutup seluruh gigi biasanya lebih murah daripada mengulang tambalan.</p>
+              </div>
+              <div class="col card" style="padding:14px 18px">
+                <h3 style="font-size:16px">Batas materi</h3>
+                <p style="font-size:15.5px">Materi edukasi. Keputusan klinis mempertimbangkan kondisi pasien, ketersediaan alat, dan kebijakan fasilitas.</p>
+              </div>
+            </div>
+            <p class="closing">Pertanyaan dan diskusi dibuka. Protokol lengkap serta daftar pustaka ada di dokumen pendamping.</p>
+          </div>
+          <div class="cite"><span>Ringkasan dari Kindelan 2008, AAPD 2025, Innes 2015 Cochrane, Lampl 2025</span><span>15</span></div>
+        </div>
+        <template class="notes"><p>Tiga hal. Satu, SSC adalah restorasi coverage penuh, dan retensinya ditentukan margin serta undercut, bukan semen. Dua, Hall hanya untuk gigi vital dengan dentine bridge jelas. Tiga, angka success, survival, dan retention tidak boleh dicampur. Kalau tiga hal ini terbawa pulang, presentasi ini berhasil. Protokol lengkap ada di dokumen pendamping. Terima kasih, saya buka sesi tanya jawab.</p></template>
+      </section>
+
+      <!-- 16 REFERENCES 1 -->
+      <section class="slide" id="refs1" data-label="Daftar pustaka 1">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:8px">
+            <div>
+              <div class="kicker">Daftar pustaka</div>
+              <h2 class="sm">Sumber 1–15 (Vancouver)</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="refs">
+              <p><b>1.</b> American Academy of Pediatric Dentistry. Pediatric restorative dentistry. The Reference Manual of Pediatric Dentistry. Chicago: AAPD; 2025. p. 473-486.</p>
+              <p><b>2.</b> Kindelan SA, Day P, Nichol R, Willmott N, Fayle SA. UK National Clinical Guidelines: stainless steel preformed crowns for primary molars. Int J Paediatr Dent. 2008;18(Suppl 1):20-28. <span class="doi">doi:10.1111/j.1365-263X.2008.00935.x</span></p>
+              <p><b>3.</b> Innes NPT, Ricketts D, Chong LY, Keightley AJ, Lamont T, Santamaria RM. Preformed crowns for decayed primary molar teeth. Cochrane Database Syst Rev. 2015;(12):CD005512. <span class="doi">doi:10.1002/14651858.CD005512.pub3</span></p>
+              <p><b>4.</b> Innes NPT, Evans DJP, Stirrups DR. Sealing caries in primary molars: randomized control trial, 5-year results. J Dent Res. 2011;90(12):1405-1410. <span class="doi">doi:10.1177/0022034511422064</span></p>
+              <p><b>5.</b> Innes NPT, Evans DJP, Stirrups DR. The Hall Technique: acceptability and outcomes at 23 months. BMC Oral Health. 2007;7:18. <span class="doi">doi:10.1186/1472-6831-7-18</span></p>
+              <p><b>6.</b> Tedesco TK, Innes NP, Gallegos CL, et al. Success rate of Hall Technique for restoring carious primary molars: systematic review and meta-analysis. Evid Based Dent. 2025;26(1):65-66. <span class="doi">doi:10.1038/s41432-024-01044-0</span></p>
+              <p><b>7.</b> Mohamed HA, Abdalla EM, HagOmer NA, Philip N. Conventional versus Hall technique for preformed metal crown restorations of carious primary molars: a randomised controlled trial. Eur Arch Paediatr Dent. 2026;27(2):599-606. <span class="doi">doi:10.1007/s40368-025-01128-0</span></p>
+              <p><b>8.</b> Chisini LA, Collares K, Cademartori MG, et al. Restorations in primary teeth: a systematic review on survival and reasons for failures. Int J Paediatr Dent. 2018;28(2):123-139. <span class="doi">doi:10.1111/ipd.12346</span></p>
+              <p><b>9.</b> Joshi RS, Gokhale NS, Hugar SM, et al. Longevity of stainless steel crowns on primary molars: systematic review and meta-analysis. J Sci Soc. 2023;50(1):28-38. <span class="doi">doi:10.4103/jss.jss_164_22</span></p>
+              <p><b>10.</b> Lampl S, Gurunathan D, Mehta D, Jogikalmat K. Reasons for crown failures in primary teeth: systematic review and meta-analysis. Interact J Med Res. 2025;14:e57958. <span class="doi">doi:10.2196/57958</span></p>
+              <p><b>11.</b> Randall RC. Preformed metal crowns for primary and permanent molar teeth: review of the literature. Pediatr Dent. 2002;24(5):489-500. PMID: 12412964.</p>
+              <p><b>12.</b> Amlani DV, Brizuela M. Stainless steel crowns in primary dentition. StatPearls. Treasure Island: StatPearls Publishing; 2023. PMID: 34662061.</p>
+              <p><b>13.</b> American Academy of Pediatric Dentistry. Use of vital pulp therapies in primary teeth with deep caries lesions. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>14.</b> American Academy of Pediatric Dentistry. Molar-incisor hypomineralization. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>15.</b> Farias L, Campos MS, Dantas L, et al. Survival of stainless-steel crowns and composite resin restorations in molars affected by MIH. Int J Paediatr Dent. 2022;32(2):240-250. <span class="doi">doi:10.1111/ipd.12849</span></p>
+            </div>
+          </div>
+          <div class="cite"><span>Daftar lengkap dengan DOI dan PMID ada di research_notes.md (33 sumber)</span><span>16</span></div>
+        </div>
+        <template class="notes"><p>Daftar pustaka ini memakai Vancouver. Nomor lengkap dengan DOI ada di dokumen research_notes.md yang menyertai presentasi. Sumber yang dipakai untuk angka di slide selalu dicantumkan juga di footer tiap slide.</p></template>
+      </section>
+
+      <!-- 17 REFERENCES 2 -->
+      <section class="slide" id="refs2" data-label="Daftar pustaka 2">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:8px">
+            <div>
+              <div class="kicker">Daftar pustaka</div>
+              <h2 class="sm">Sumber 16–33 (Vancouver)</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="refs">
+              <p><b>16.</b> Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars after vital pulp therapy: retrospective study up to 8.5 years. Int J Paediatr Dent. 2022. <span class="doi">doi:10.1111/ipd.12971</span></p>
+              <p><b>17.</b> Patnana AK, Chugh VK, Chugh A, Vanga NRV, Kumar P. Effectiveness of zirconia crowns compared with stainless steel crowns in primary posterior teeth: systematic review and meta-analysis. J Am Dent Assoc. 2022;153(2):158-166.e5. <span class="doi">doi:10.1016/j.adaj.2021.08.005</span></p>
+              <p><b>18.</b> Pei SL, Chen MH. Comparison of periodontal health of primary teeth restored with zirconia and stainless steel crowns: systematic review and meta-analysis. J Formos Med Assoc. 2023;122(2):148-156. <span class="doi">doi:10.1016/j.jfma.2022.08.015</span></p>
+              <p><b>19.</b> Aiem E, Smaïl-Faugeron V, Muller-Bolla M. Aesthetic preformed paediatric crowns: systematic review. Int J Paediatr Dent. 2017;27(4):273-282. <span class="doi">doi:10.1111/ipd.12260</span></p>
+              <p><b>20.</b> Walia T, Salami AA, Bashiri R, Hamoodi OM, Rashid F. A randomised controlled trial of three aesthetic full-coronal restorations in primary maxillary teeth. Eur J Paediatr Dent. 2014;15(2):113-118. PMID: 25102458.</p>
+              <p><b>21.</b> Virupaxi S, Pai R, Mandroli P. Retentive strength of luting cements for stainless steel crowns: a systematic review. J Indian Soc Pedod Prev Dent. 2020;38(1):2-7. <span class="doi">doi:10.4103/JISPPD.JISPPD_313_19</span></p>
+              <p><b>22.</b> Scottish Dental Clinical Effectiveness Programme. Prevention and management of dental caries in children. 3rd ed. Dundee: SDCEP; 2025.</p>
+              <p><b>23.</b> Innes N, Evans D, Hall N. The Hall Technique: a minimal intervention, child-centred approach to managing the carious primary molar. 4th ed. Dundee: University of Dundee; 2015.</p>
+              <p><b>24.</b> American Academy of Pediatric Dentistry. Behavior guidance for the pediatric dental patient. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>25.</b> American Academy of Pediatric Dentistry. Use of local anesthesia for pediatric dental patients. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>26.</b> American Academy of Pediatric Dentistry. Informed consent. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>27.</b> Ahlström MG, Thyssen JP, Wennervaldt M, Menné T, Johansen JD. Nickel allergy and allergic contact dermatitis: a clinical review. Contact Dermatitis. 2019;81(4):227-241. <span class="doi">doi:10.1111/cod.13327</span></p>
+              <p><b>28.</b> Kementerian Kesehatan RI. Laporan Nasional Riskesdas 2018. Jakarta: Badan Litbangkes; 2019.</p>
+              <p><b>29.</b> Kementerian Kesehatan RI. Survei Kesehatan Indonesia 2023. Jakarta: Kemenkes RI; 2024.</p>
+              <p><b>30.</b> Miao C, Yang J, Zhu H, et al. Rubber dam isolation for restorative treatment in dental patients. Cochrane Database Syst Rev. 2021;5:CD009858. <span class="doi">doi:10.1002/14651858.CD009858.pub3</span></p>
+              <p><b>31.</b> Seale NS. The use of stainless steel crowns. Pediatr Dent. 2002;24(5):501-505. PMID: 12412965.</p>
+              <p><b>32.</b> Seale NS, Randall R. The use of stainless steel crowns: a systematic literature review. Pediatr Dent. 2015;37(2):145-160. PMID: 25905656.</p>
+              <p><b>33.</b> American Academy of Pediatric Dentistry. Caries-risk assessment and management for infants, children, and adolescents. Reference Manual. Chicago: AAPD; 2025.</p>
+            </div>
+          </div>
+          <div class="cite"><span>Daftar lengkap dengan DOI dan PMID ada di research_notes.md (33 sumber)</span><span>17</span></div>
+        </div>
+        <template class="notes"><p>Referensi 16 sampai 30 melengkapi bagian kasus khusus, alternatif estetik, perilaku, dan epidemiologi Indonesia. Bila ada pertanyaan tentang satu angka, saya bisa tunjukkan halaman atau abstrak sumbernya.</p></template>
+      </section>
+
+      <!-- 18 APPENDIX -->
+      <section class="slide" id="appendix" data-label="Lampiran protokol">
+        <div class="slide-inner">
+          <div class="slide-head" style="margin-bottom:8px">
+            <div>
+              <div class="kicker">Lampiran</div>
+              <h2 class="sm">Protokol satu halaman untuk dibawa ke klinik</h2>
+            </div>
+          </div>
+          <div class="content">
+            <div class="appx">
+              <div>
+                <h3 style="font-size:14px;margin-bottom:8px">Sebelum tindakan</h3>
+                <ul>
+                  <li>Riwayat nyeri spontan, malam, swelling, fistula</li>
+                  <li>Riwayat medis, alergi nikel, obat</li>
+                  <li>Karies, pulpa, gingiva, oklusi, kontak</li>
+                  <li>Radiograf: kedalaman, dentine bridge, akar</li>
+                  <li>Pilih teknik dan ukuran crown</li>
+                  <li>Informed consent dan dokumentasi</li>
+                  <li>Rencana behavior guidance</li>
+                </ul>
+                <h3>Konvensional</h3>
+                <ul>
+                  <li><b>1</b> Anestesi sesuai berat badan, isolasi</li>
+                  <li><b>2</b> Ukur mesiodistal, pilih crown</li>
+                  <li><b>3</b> Ekskavasi, pulp therapy bila perlu</li>
+                  <li><b>4</b> Reduksi oklusal 1,0–1,5 mm</li>
+                  <li><b>5</b> Reduksi proksimal, feather edge</li>
+                  <li><b>6</b> Haluskan line angle</li>
+                  <li><b>7</b> Try-in: snap fit, margin, oklusi</li>
+                  <li><b>8</b> Trim, crimp, contour, polish</li>
+                  <li><b>9</b> Sementasi, buang semen, cek oklusi</li>
+                  <li><b>10</b> Cek akhir, instruksi, kontrol</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Hall Technique</h3>
+                <ul>
+                  <li>Vital, tanpa nyeri spontan, dentine bridge jelas</li>
+                  <li>Separator 3–5 hari bila kontak ketat</li>
+                  <li>Pilih crown dengan spring-back</li>
+                  <li>GIC dua pertiga, semua dinding terlapisi</li>
+                  <li>Lindungi airway, seating, bite 2–3 menit</li>
+                  <li>Buang semen, floss, cek oklusi</li>
+                  <li>Jelaskan gigitan tinggi sementara</li>
+                </ul>
+                <h3>Kontraindikasi</h3>
+                <ul>
+                  <li>Lebih dari setengah akar teresorpsi</li>
+                  <li>Alergi nikel</li>
+                  <li>Gigi tidak restorable</li>
+                  <li>Hall: pulpitis ireversibel, abses, fistula</li>
+                </ul>
+                <h3>Penyulit dan tindakan</h3>
+                <ul>
+                  <li>Longgar: ukuran lebih kecil, crimp ulang</li>
+                  <li>Tidak duduk: periksa ledge dan kontak</li>
+                  <li>Berdarah: potong margin, haluskan tepi</li>
+                  <li>Perforasi: ganti crown</li>
+                  <li>Lepas: recement bila intak, evaluasi karies</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Kontrol</h3>
+                <ul>
+                  <li>1–2 minggu bila ada keluhan</li>
+                  <li>6 bulan: margin, oklusi, gingiva, mobilitas</li>
+                  <li>Radiograf 6–12 bulan bila risiko tinggi</li>
+                  <li>Catat: sukses, gagal minor, gagal mayor</li>
+                </ul>
+                <h3>Kegagalan</h3>
+                <ul>
+                  <li>Minor: karies sekunder, crown lepas, perforasi</li>
+                  <li>Mayor: pulpitis ireversibel, abses, ekstraksi</li>
+                </ul>
+                <h3>Angka kunci</h3>
+                <ul>
+                  <li>Success SSC 96,1% (Chisini 2018)</li>
+                  <li>Kegagalan mayor RR 0,18 (Cochrane 2015)</li>
+                  <li>Hall 92% vs 52% pada 60 bulan (Innes 2011)</li>
+                  <li>Retensi 5 tahun 97,88% (Lampl 2025)</li>
+                  <li>MIH: 94,4% vs 49,2% pada 24 bulan (Farias 2022)</li>
+                </ul>
+                <p class="tiny" style="margin-top:8px">Protokol lengkap: protokol_klinis.md. Angka dan DOI: research_notes.md.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cite"><span>Kindelan 2008 · Randall 2002 · Hall Technique Guide 2015 · AAPD 2025 · SDCEP 2025</span><span>18</span></div>
+        </div>
+        <template class="notes"><p>Halaman ini bisa dicetak dan dibawa ke klinik. Semua langkah, kontraindikasi, penyulit, dan kriteria kontrol ada di satu halaman. Versi lengkap dengan tujuan, cara, instrumen, kesalahan, dan tanda benar ada di protokol_klinis.md.</p></template>
+      </section>
+
+    </div>
+  </div>
+</div>
+<div id="notesPanel"><h4>Catatan pembicara</h4><div id="notesBody"></div></div>
+<div class="hint">Panah kiri dan kanan untuk berpindah · N untuk catatan</div>
+<script>
+(function(){
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var counter = document.getElementById("counter");
+  var notesPanel = document.getElementById("notesPanel");
+  var notesBody = document.getElementById("notesBody");
+
+  function fit(){
+    var wrap = document.getElementById("stageWrap");
+    var s = Math.min((wrap.clientWidth - 28) / 1280, (wrap.clientHeight - 28) / 720);
+    stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
+  }
+  window.addEventListener("resize", fit);
+  fit();
+
+  var current = 0;
+  function show(i, push){
+    if(i < 0) i = 0;
+    if(i > slides.length - 1) i = slides.length - 1;
+    current = i;
+    slides.forEach(function(sl, k){ sl.classList.toggle("active", k === i); });
+    counter.textContent = (i + 1) + " / " + slides.length;
+    var tpl = slides[i].querySelector("template.notes");
+    notesBody.innerHTML = tpl ? tpl.innerHTML : "";
+    if(push !== false){
+      try{ history.replaceState(null, "", "#" + slides[i].id); }catch(e){}
+    }
+  }
+  function indexOfId(id){
+    for(var k = 0; k < slides.length; k++){ if(slides[k].id === id) return k; }
+    return -1;
+  }
+
+  document.addEventListener("click", function(ev){
+    var el = ev.target.closest("[data-goto]");
+    if(el){
+      var idx = indexOfId(el.getAttribute("data-goto"));
+      if(idx > -1) show(idx);
+      return;
+    }
+    var tab = ev.target.closest("[data-tab]");
+    if(tab){
+      var id = tab.getAttribute("data-tab");
+      var bar = tab.parentNode;
+      Array.prototype.forEach.call(bar.querySelectorAll("[data-tab]"), function(b){
+        b.setAttribute("aria-selected", b === tab ? "true" : "false");
+      });
+      var panel = document.getElementById(id);
+      if(panel){
+        Array.prototype.forEach.call(panel.parentNode.querySelectorAll(":scope > .tabpanel"), function(p){
+          p.classList.toggle("on", p === panel);
+        });
+      }
+    }
+  });
+
+  document.getElementById("notesBtn").addEventListener("click", function(){
+    notesPanel.classList.toggle("on");
+  });
+
+  document.addEventListener("keydown", function(ev){
+    var tag = (ev.target.tagName || "").toLowerCase();
+    if(tag === "input" || tag === "textarea") return;
+    if(ev.key === "ArrowRight" || ev.key === "PageDown" || ev.key === " "){
+      ev.preventDefault(); show(current + 1);
+    } else if(ev.key === "ArrowLeft" || ev.key === "PageUp"){
+      ev.preventDefault(); show(current - 1);
+    } else if(ev.key === "Home"){
+      ev.preventDefault(); show(0);
+    } else if(ev.key === "End"){
+      ev.preventDefault(); show(slides.length - 1);
+    } else if(ev.key === "n" || ev.key === "N"){
+      notesPanel.classList.toggle("on");
+    }
+  });
+
+  var start = indexOfId((location.hash || "").replace("#", ""));
+  show(start > -1 ? start : 0, false);
+
+  /* ---------- steps ---------- */
+  var steps = [
+    {t:"Anestesi dan isolasi",
+     p:"Mengendalikan nyeri dan menjaga area kerja tetap kering.",
+     how:["Hitung dosis dari berat badan","Pasang rubber dam atau cotton roll dan suction"],
+     tools:["Syringe aspirasi","Rubber dam dan clamp","Suction"],
+     good:["Anak tidak nyeri saat preparasi","Margin servikal terlihat dan kering"],
+     err:[["Dosis dewasa disalin ke anak","Hitung volume maksimum dari berat badan"],
+          ["Isolasi longgar saat sementasi","Cek ulang sebelum semen dicampur"],
+          ["Clamp menutupi margin","Reposisi clamp atau pilih ukuran lain"]],
+     note:"Dosis lidokain anak yang dipakai AAPD 4,4 mg/kg. Satu kartrid 1,7 mL berisi 34 mg, jadi hitung volume maksimum sebelum memilih kartrid."},
+    {t:"Ukur dan pilih ukuran",
+     p:"Memilih crown terkecil yang menutup seluruh gigi.",
+     how:["Ukur mesiodistal dengan caliper","Bandingkan dengan gigi contralateral"],
+     tools:["Caliper","Probe berskala","Crown kit"],
+     good:["Crown menutup semua cusp","Ada resistensi ringan saat ditekan"],
+     err:[["Memilih ukuran dengan mata","Ukur dan coba minimal dua ukuran"],
+          ["Crown terlalu kecil","Turunkan satu ukuran bila margin tidak mencapai gingiva"]],
+     note:"Bila gigi rusak berat, ukur gigi contralateral yang utuh sebagai pembanding (Kindelan 2008)."},
+    {t:"Ekskavasi dan pulp therapy",
+     p:"Mengendalikan infeksi sebelum gigi ditutup.",
+     how:["Buang karies lunak","Pulpotomi dengan calcium silicate bila pulpa terbuka"],
+     tools:["Excavator","Bur low-speed","MTA atau Biodentine"],
+     good:["Tidak ada karies lunak tersisa","Perdarahan sudah berhenti"],
+     err:[["Mengekspos pulpa tanpa rencana","Bekerja dengan depth guide dan arah keluar pulpa"],
+          ["Meninggalkan karies di margin","Periksa dinding dengan explorer"],
+          ["Sementasi saat masih berdarah","Hentikan perdarahan lebih dulu"]],
+     note:"AAPD 2024: IPT atau pulpotomi dengan calcium silicate. Calcium hydroxide tidak direkomendasikan untuk pulpotomi."},
+    {t:"Reduksi oklusal",
+     p:"Memberi ruang untuk ketebalan logam.",
+     how:["Buat depth groove 1,0–1,5 mm","Ikuti kontur cusp, jangan membuat datar"],
+     tools:["Bur 169L atau 245","High-speed","Articulating paper"],
+     good:["Ruang merata di seluruh oklusal","Kontur cusp masih terlihat"],
+     err:[["Reduksi kurang","Cek clearance dengan crown sebelum sementasi"],
+          ["Reduksi berlebihan","Gunakan stopper atau depth groove"],
+          ["Permukaan menjadi datar","Gerakkan bur mengikuti kontur"]],
+     note:"Ruang oklusal molar kedua desidui sempit. Kurangi bertahap dan cek dengan crown sebelum sementasi."},
+    {t:"Reduksi proksimal",
+     p:"Memutus kontak dan membuka jalan masuk crown.",
+     how:["Lindungi gigi tetangga dengan wedge","Potong dari bukal ke lingual sampai probe lewat"],
+     tools:["Bur tapered","Wedge","Probe"],
+     good:["Probe melewati kontak","Margin feather edge tanpa ledge"],
+     err:[["Kontak belum putus","Uji dengan probe, bukan dengan mata"],
+          ["Terbentuk ledge","Periksa dengan explorer lalu haluskan"],
+          ["Terlalu banyak taper","Pertahankan dinding mendekati sejajar"]],
+     note:"Kontak proksimal gigi desidui lebar dan datar. Jangan over-taper dinding, retensi akan hilang."},
+    {t:"Haluskan line angle",
+     p:"Mencegah crown tersangkut saat seating.",
+     how:["Bulatkan sudut oklusal dan proksimal","Haluskan margin dengan stone"],
+     tools:["Bur low-speed","Stone","Explorer"],
+     good:["Tidak ada sudut yang menangkap crown","Permukaan halus saat diusap explorer"],
+     err:[["Sudut tajam tertinggal","Periksa semua line angle dengan explorer"],
+          ["Menghaluskan berlebihan","Berhenti saat permukaan rata"]],
+     note:"Line angle tajam adalah penyebab tersering crown tersangkut saat try-in."},
+    {t:"Try-in",
+     p:"Memastikan crown duduk, menutup, dan oklusi benar.",
+     how:["Coba crown dengan tekanan jari","Periksa margin, oklusi, dan kontak"],
+     tools:["Crown","Articulating paper","Floss"],
+     good:["Crown duduk dengan snap fit","Margin 1 mm subgingiva tanpa blanching"],
+     err:[["Memaksa crown yang tidak duduk","Cari ledge atau sisa kontak"],
+          ["Margin menekan gingiva","Potong dan crimp ulang"],
+          ["Kontak terlalu ketat","Contour dengan pliers"]],
+     note:"Tiga penyebab utama crown tidak duduk: ledge, sisa kontak, dan ukuran yang salah."},
+    {t:"Trim, crimp, contour",
+     p:"Menyesuaikan margin dan kontur agar retentif.",
+     how:["Potong 1 mm di bawah free gingiva","Crimp margin, lalu contour kontak"],
+     tools:["Crown scissors","Crimping pliers","Contouring pliers"],
+     good:["Margin tipis mengikuti gingiva","Crown duduk dengan snap fit"],
+     err:[["Memotong terlalu banyak","Tandai level gingiva sebelum memotong"],
+          ["Crimping terlalu kuat","Crimp bertahap pada margin saja"],
+          ["Tepi tajam","Haluskan dengan rubber wheel"]],
+     note:"Crimp hanya pada margin. Crimping dinding mengurangi retensi dan bisa mendeformasi crown."},
+    {t:"Sementasi",
+     p:"Merekatkan crown dan menutup margin.",
+     how:["Isi dua pertiga crown, lapisi semua dinding","Tekan dan minta anak menggigit 2–3 menit"],
+     tools:["GIC atau RMGIC","Spatula dan pad","Cotton roll"],
+     good:["Semen keluar merata di margin","Oklusi tidak tinggi"],
+     err:[["Semen terlalu encer","Ikuti rasio pabrikan"],
+          ["Void di dalam crown","Isi penuh dan tekan perlahan"],
+          ["Semen tertinggal di sulkus","Bersihkan sebelum set dan gunakan floss"]],
+     note:"Semen bukan pengganti adaptasi. Kontur dan crimping lebih menentukan retensi (Kindelan 2008)."},
+    {t:"Cek akhir dan instruksi",
+     p:"Memastikan tidak ada masalah sebelum anak pulang.",
+     how:["Cek margin, oklusi, kontak, dan gingiva","Beri instruksi dan jadwal kontrol"],
+     tools:["Explorer","Articulating paper","Floss"],
+     good:["Tidak ada celah atau overhang","Gingiva tenang dan bersih"],
+     err:[["Hanya memeriksa oklusi","Periksa margin dan kontak juga"],
+          ["Tidak memberi instruksi","Sampaikan pantangan menggigit bibir"],
+          ["Kontrol tidak dijadwalkan","Tetapkan tanggal kontrol 6 bulan"]],
+     note:"Kontrol 6 bulan. Radiograf 6 sampai 12 bulan bila risiko karies tinggi (SDCEP 2025)."}
+  ];
+
+  var stepList = document.getElementById("stepList");
+  var stepPanel = document.getElementById("stepPanel");
+  var stepIdx = 0;
+
+  function renderStepList(){
+    stepList.innerHTML = steps.map(function(s, i){
+      return '<button type="button" role="tab" aria-selected="' + (i === stepIdx) + '" data-step="' + i + '">' +
+             '<span class="n">' + (i + 1) + '</span><span>' + s.t + '</span></button>';
+    }).join("");
+  }
+
+  function renderStep(){
+    var s = steps[stepIdx];
+    var dots = steps.map(function(_, i){ return '<i class="' + (i === stepIdx ? "on" : "") + '"></i>'; }).join("");
+    var errs = s.err.map(function(e){
+      return '<div class="err-item"><b>' + e[0] + '</b><br><span>Pencegahan: ' + e[1] + '</span></div>';
+    }).join("");
+    stepPanel.innerHTML =
+      '<div class="step-top"><h3 class="step-title">' + s.t + '</h3><span class="step-count">LANGKAH ' + (stepIdx + 1) + ' / 10</span></div>' +
+      '<p class="step-purpose">' + s.p + '</p>' +
+      '<div class="step-cols">' +
+        '<div><h4>Cara</h4><ul>' + s.how.map(function(x){ return "<li>" + x + "</li>"; }).join("") + '</ul></div>' +
+        '<div><h4>Instrumen</h4><div class="step-tools">' + s.tools.map(function(x){ return "<span>" + x + "</span>"; }).join("") + '</div></div>' +
+        '<div><h4>Tanda benar</h4><ul>' + s.good.map(function(x){ return "<li>" + x + "</li>"; }).join("") + '</ul></div>' +
+      '</div>' +
+      '<details class="err" open><summary>Kesalahan yang sering terjadi dan cara mencegahnya</summary><div class="err-body">' + errs + '</div></details>' +
+      '<p class="step-note"><b>Catatan:</b> ' + s.note + '</p>' +
+      '<div class="step-nav">' +
+        '<button type="button" id="prevStep"' + (stepIdx === 0 ? " disabled" : "") + '>Sebelumnya</button>' +
+        '<button type="button" id="nextStep"' + (stepIdx === steps.length - 1 ? " disabled" : "") + '>Berikutnya</button>' +
+        '<span class="dots">' + dots + '</span>' +
+      '</div>';
+    renderStepList();
+  }
+
+  stepList.addEventListener("click", function(ev){
+    var b = ev.target.closest("[data-step]");
+    if(!b) return;
+    stepIdx = parseInt(b.getAttribute("data-step"), 10);
+    renderStep();
+  });
+  stepPanel.addEventListener("click", function(ev){
+    if(ev.target.id === "prevStep" && stepIdx > 0){ stepIdx--; renderStep(); }
+    if(ev.target.id === "nextStep" && stepIdx < steps.length - 1){ stepIdx++; renderStep(); }
+  });
+  renderStep();
+
+  /* ---------- case ---------- */
+  var caseData = {
+    hall:{tone:"ok", title:"Dapat diterima",
+      body:"Gigi vital, tanpa tanda ireversibel, dan dentine bridge terlihat. Risiko utama ada pada seal margin dan kontak distal yang ketat, sehingga separator mungkin diperlukan."},
+    konv:{tone:"ok", title:"Dapat diterima",
+      body:"Anda bisa mengekskavasi karies dan memeriksa pulpa langsung. Waktu kursi dan kebutuhan anestesi lebih besar, tetapi kontrol terhadap margin lebih tinggi."},
+    komp:{tone:"warn", title:"Kurang tepat",
+      body:"Karies oklusal-distal luas pada gigi berisiko tinggi. Restorasi langsung dua permukaan berisiko gagal berulang, dan setiap pengulangan menghilangkan dentin."}
+  };
+  var caseData2 = {
+    paksa:{tone:"warn", title:"Jangan dipaksa",
+      body:"Menekan dengan bite stick saat crown belum duduk akan menekan gingiva dan bisa mendeformasi margin. Perbaiki penyebabnya lebih dulu."},
+    periksa:{tone:"ok", title:"Tepat",
+      body:"Periksa ledge, sisa kontak distal, dan arah seating. Sebagian besar crown yang tidak duduk karena preparasi, bukan karena ukuran crown."},
+    besar:{tone:"warn", title:"Belum tentu benar",
+      body:"Ukuran lebih besar tidak menghilangkan ledge. Ganti ukuran hanya setelah preparasi dan kontak dinilai ulang."}
+  };
+  function bindCase(sel, attr, out, data, next){
+    Array.prototype.forEach.call(document.querySelectorAll(sel), function(b){
+      b.addEventListener("click", function(){
+        var d = data[b.getAttribute(attr)];
+        var box = document.getElementById(out);
+        box.className = "verdict show " + d.tone;
+        box.innerHTML = "<b>" + d.title + "</b>" + d.body;
+        var qbox = box.closest(".qbox");
+        var choices = qbox.querySelector(".choices");
+        if(choices){
+          qbox.classList.add("answered");
+          if(!qbox.querySelector(".reveal")){
+            var rev = document.createElement("button");
+            rev.type = "button";
+            rev.className = "reveal";
+            rev.textContent = "Lihat semua pilihan";
+            rev.addEventListener("click", function(){
+              choices.classList.toggle("open");
+              rev.textContent = choices.classList.contains("open") ? "Sembunyikan pilihan" : "Lihat semua pilihan";
+            });
+            qbox.appendChild(rev);
+          }
+        }
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(x){ x.disabled = true; });
+        if(next) document.getElementById(next).style.display = "block";
+      });
+    });
+  }
+  bindCase("button[data-case]", "data-case", "caseV1", caseData, "caseQ2");
+  bindCase("button[data-case2]", "data-case2", "caseV2", caseData2, null);
+
+  /* ---------- quiz ---------- */
+  var questions = [
+    {q:"Molar dua desidui, karies oklusal dalam, nyeri spontan malam, tidak ada abses. Teknik yang tepat?",
+     o:["Hall Technique tanpa anestesi","SSC konvensional setelah pulpotomi","Komposit satu kali","Observasi 6 bulan"],a:1,
+     w:"Nyeri spontan menunjukkan pulpitis ireversibel. Hall tidak boleh dipakai. Lakukan pulp therapy lebih dulu, lalu SSC konvensional."},
+    {q:"Reduksi oklusal yang paling banyak dipakai untuk molar desidui?",
+     o:["0,5–1,0 mm","1,0–1,5 mm","2,0–2,5 mm","3,0 mm"],a:1,
+     w:"UK guideline memakai 1,0–1,5 mm. Sumber lain, termasuk StatPearls dan Randall untuk molar permanen, menyebut 1,5–2,0 mm."},
+    {q:"Crown belum duduk dan terlihat ledge pada preparasi. Tindakan berikutnya?",
+     o:["Pilih crown lebih besar","Paksa dengan bite stick","Perbaiki ledge dan sisa kontak","Tambah semen"],a:2,
+     w:"Ledge dan sisa kontak adalah penyebab tersering. Memaksa atau menambah semen tidak menghilangkan penyebabnya."},
+    {q:"Faktor yang paling menentukan retensi SSC jangka panjang?",
+     o:["Jenis semen","Kontur dan crimping margin","Warna crown","Teknik anestesi"],a:1,
+     w:"UK guideline menegaskan kontur dan crimping lebih penting daripada jenis semen. Semen membantu seal, bukan menggantikan adaptasi."},
+    {q:"Anak 8 tahun, MIH berat pada molar pertama permanen, hipersensitif. Pilihan dengan bukti terkuat?",
+     o:["Komposit","SSC","Sealant saja","Observasi"],a:1,
+     w:"Pada MIH berat, survival SSC 94,4% vs komposit 49,2% pada 24 bulan (Farias 2022, kohort)."}
+  ];
+  var quizWrap = document.getElementById("quizWrap");
+  var scoreEl = document.getElementById("score");
+  var statusEl = document.getElementById("quizStatus");
+  var qIndex = 0, correctCount = 0, locked = false;
+
+  function renderQuiz(){
+    qIndex = 0; correctCount = 0; locked = false;
+    scoreEl.textContent = "0 / 5";
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    locked = false;
+    var item = questions[qIndex];
+    var opts = item.o.map(function(o, oi){
+      return '<button type="button" data-o="' + oi + '">' + o + '</button>';
+    }).join("");
+    quizWrap.innerHTML =
+      '<div class="qmeta">Soal ' + (qIndex + 1) + ' dari 5</div>' +
+      '<div class="qh">' + item.q + '</div>' +
+      '<div class="qopts">' + opts + '</div>' +
+      '<div class="qwhy" id="qwhy">' + item.w + '</div>' +
+      '<div class="qnext" id="qnext"><button type="button" id="qnextBtn">' +
+        (qIndex === questions.length - 1 ? "Lihat skor" : "Soal berikutnya") + '</button></div>';
+    statusEl.textContent = "Pilih satu jawaban.";
+    scoreEl.textContent = correctCount + " / 5";
+  }
+
+  quizWrap.addEventListener("click", function(ev){
+    var b = ev.target.closest(".qopts button");
+    if(b && !locked){
+      locked = true;
+      var oi = parseInt(b.getAttribute("data-o"), 10);
+      var item = questions[qIndex];
+      Array.prototype.forEach.call(quizWrap.querySelectorAll(".qopts button"), function(x){
+        var xo = parseInt(x.getAttribute("data-o"), 10);
+        if(xo === item.a) x.classList.add("right");
+        if(x === b && xo !== item.a) x.classList.add("wrong");
+      });
+      if(oi === item.a){ correctCount++; statusEl.textContent = "Jawaban benar."; }
+      else { statusEl.textContent = "Belum tepat. Baca penjelasan di bawah."; }
+      document.getElementById("qwhy").classList.add("show");
+      document.getElementById("qnext").classList.add("show");
+      scoreEl.textContent = correctCount + " / 5";
+    }
+    if(ev.target.id === "qnextBtn"){
+      if(qIndex < questions.length - 1){
+        qIndex++;
+        renderQuestion();
+      } else {
+        renderEnd();
+      }
+    }
+  });
+
+  function renderEnd(){
+    var msg = correctCount >= 4 ? "Pemahaman baik. Pertahankan pemeriksaan preparasi sebelum sementasi."
+            : correctCount >= 3 ? "Cukup. Ulangi bagian kontraindikasi Hall dan penanganan crown yang tidak duduk."
+            : "Perlu diulang. Baca kembali protokol dan bagian penyulit.";
+    quizWrap.innerHTML =
+      '<div class="qmeta">Selesai</div>' +
+      '<div class="qh">Skor akhir: ' + correctCount + ' dari 5</div>' +
+      '<p class="small" style="font-size:18px;max-width:720px">' + msg + '</p>' +
+      '<div class="qnext show" style="margin-top:18px"><button type="button" id="qagain">Ulangi kuis</button></div>';
+    scoreEl.textContent = correctCount + " / 5";
+    statusEl.textContent = "Kuis selesai.";
+    document.getElementById("qagain").addEventListener("click", renderQuiz);
+  }
+
+  document.getElementById("quizReset").addEventListener("click", renderQuiz);
+
+  renderQuiz();
+})();
+</script>
+</body>
+</html>
