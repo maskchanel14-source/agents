@@ -104,9 +104,20 @@ class MarketWsClient:
                     except TimeoutError as exc:
                         raise ConnectionError("idle timeout") from exc
                     text = frame if isinstance(frame, str) else frame.decode("utf-8", "replace")
-                    for msg in parse_frame(text):
+                    try:
+                        msgs = parse_frame(text)
+                    except ValueError:  # malformed JSON frame: count and keep the session
+                        self.store.count_external("malformed_frame")
+                        continue
+                    for msg in msgs:
                         self.messages += 1
-                        self.store.apply_message(msg, self.clock_ms())
+                        try:
+                            self.store.apply_message(msg, self.clock_ms())
+                        except (ValueError, TypeError, KeyError, ArithmeticError):
+                            # one bad event must not drop the session; the asset is invalidated
+                            self.store.invalidate(str(msg.get("asset_id", "")), "malformed_event")
+                            self.store.count_external("malformed_event")
+                            continue
                         if self.on_event is not None:
                             self.on_event(msg)
             finally:

@@ -42,6 +42,10 @@ class BookStore:
     def _count(self, key: str) -> None:
         self.counters[key] = self.counters.get(key, 0) + 1
 
+    def count_external(self, key: str) -> None:
+        """Public counter hook for transport-level events (malformed frames, etc.)."""
+        self._count(key)
+
     # ---- meta ------------------------------------------------------------------
     def register(self, asset_id: str, tick: Decimal, min_size: Decimal, condition_id: str = "") -> None:
         b = self._books.setdefault(asset_id, _Book(tick=tick, min_size=min_size, condition_id=condition_id))

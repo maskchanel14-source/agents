@@ -202,6 +202,22 @@ class StateStore:
         ).fetchall()
         return {r["asset_id"]: Decimal(r["shares"]) for r in rows}
 
+    def positions_from_orders(self) -> dict[str, Decimal]:
+        """Independent recomputation of redeem-leg positions from the orders log.
+
+        Positions are only tracked for BUY legs of a redeem exit (merge/sell net to zero),
+        so the order log must reproduce the same totals. Used by reconciliation.
+        """
+        rows = self._conn.execute(
+            "SELECT asset_id, side, filled_shares, opp_id FROM orders WHERE mode=? AND status='matched'",
+            (self.mode,),
+        ).fetchall()
+        out: dict[str, Decimal] = {}
+        for r in rows:
+            if r["side"] == "BUY" and ":redeem:" in r["opp_id"]:
+                out[r["asset_id"]] = out.get(r["asset_id"], ZERO) + Decimal(r["filled_shares"])
+        return out
+
     # ---- pnl & events -----------------------------------------------------------
     def record_pnl(self, ts_ms: int, opp_id: str, kind: str, amount: Decimal) -> None:
         self._conn.execute(

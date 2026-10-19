@@ -15,7 +15,7 @@ from decimal import Decimal
 
 from ..book import available_shares
 from ..domain import MarketInfo, Opportunity, Side
-from ..money import ONE, ZERO
+from ..money import ONE
 from .common import (
     LegRejected,
     StrategyContext,
@@ -57,10 +57,6 @@ class IntraBinaryStrategy:
                 opp = self._buy_pair(ctx, m, yb, nb)
                 if opp is not None:
                     out.append(opp)
-            if yb.best_bid is not None and nb.best_bid is not None and yb.best_bid + nb.best_bid > ONE:
-                opp = self._split_sell(ctx, m, yb, nb)
-                if opp is not None:
-                    out.append(opp)
             if not _top_edge(books, m):
                 ctx.stats["A:no_top_edge"] += 1
         return out
@@ -99,42 +95,6 @@ class IntraBinaryStrategy:
             ctx.stats["A:buy_pair:no_size"] += 1
             return None
         ctx.stats["A:buy_pair:evaluated"] += 1
-        return best
-
-    def _split_sell(self, ctx, m, yb, nb) -> Opportunity | None:
-        # Splitting costs 1 pUSD per set; capital per share is therefore 1.
-        depth = min(available_shares(yb.bids), available_shares(nb.bids))
-        max_sh = max_shares_for_limits(ctx, ONE, depth)
-        days = days_to_end(m, ctx.now_ms)
-
-        def evaluate(size: Decimal) -> Opportunity:
-            try:
-                ly = build_leg(m, m.yes.asset_id, Side.SELL, size, yb, ctx)
-                ln = build_leg(m, m.no.asset_id, Side.SELL, size, nb, ctx)
-            except LegRejected as exc:
-                return reject_opportunity(ctx, NAME, m.condition_id, [exc.reason], "sell")
-            proceeds = ly.notional + ln.notional
-            return make_opportunity(
-                ctx=ctx,
-                strategy=NAME,
-                group_id=m.condition_id,
-                shares=size,
-                legs=(ly, ln),
-                gross_edge=proceeds - size,
-                capital=size,
-                gas_units_key="split",
-                exit_method="sell",
-                payout_notional=ZERO,
-                days=days,
-                ambiguous=m.ambiguous_resolution,
-                complete_group=True,
-            )
-
-        best = guarded_search(ctx, NAME, m.condition_id, max_sh, [yb.bids, nb.bids], evaluate)
-        if best is None:
-            ctx.stats["A:split_sell:no_size"] += 1
-            return None
-        ctx.stats["A:split_sell:evaluated"] += 1
         return best
 
 

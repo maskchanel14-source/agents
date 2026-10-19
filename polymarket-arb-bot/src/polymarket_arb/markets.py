@@ -127,6 +127,7 @@ def parse_market(d: dict[str, Any], event_meta: dict[str, Any] | None = None) ->
         fees_enabled=None if fees_enabled is None else bool(fees_enabled),
         fee_schedule=parse_fee_schedule(d.get("feeSchedule")),
         seconds_delay=int(d.get("secondsDelay") or 0),
+        extra={"liquidity": d.get("liquidityNum", d.get("liquidity"))},
     )
 
 

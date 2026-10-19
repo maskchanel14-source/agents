@@ -14,6 +14,7 @@ from .domain import Opportunity
 from .execution.base import ExecutionResult, Executor
 from .money import ZERO
 from .risk import KillSwitch, RiskManager
+from .state.reconcile import reconcile
 from .state.store import StateStore
 from .strategies.common import StrategyContext
 from .strategies.disabled import cross_logical, cross_venue
@@ -71,6 +72,7 @@ class Engine:
         if settings.strategies.get("cross_venue", False):
             self.strategies.append(cross_venue())  # always skipped (documented)
         self.markets_by_asset = universe.markets_by_asset()
+        self.reconcile_every = 20  # cycles between position reconciliations
         self.cycles = 0
         self.last_report: CycleReport | None = None
 
@@ -81,9 +83,26 @@ class Engine:
         event = opp.group_id.split(":", 1)[0]
         return opp.group_id, event
 
+    def reconcile_positions(self, now_ms: int) -> list[str]:
+        """Compare the position ledger with the orders log; any mismatch halts trading."""
+        diffs = reconcile(self.store.positions(), self.store.positions_from_orders())
+        if diffs:
+            detail = [{"asset": d.asset_id, "local": str(d.local), "remote": str(d.remote)} for d in diffs]
+            self.kill_switch.trigger_manual("reconcile_mismatch")
+            self.store.log_event(now_ms, "critical", "reconcile_mismatch", {"diffs": detail})
+            log.critical(
+                "position reconciliation mismatch; trading halted", extra={"fields": {"n": len(diffs)}}
+            )
+            self.stats["reconcile:mismatch"] += len(diffs)
+            return [f"reconcile:{d.asset_id}" for d in diffs]
+        self.stats["reconcile:ok"] += 1
+        return []
+
     async def cycle(self, now_ms: int) -> CycleReport:
         self.cycles += 1
         report = CycleReport(now_ms=now_ms)
+        if self.cycles % self.reconcile_every == 0:
+            self.reconcile_positions(now_ms)
         self.risk.daily_pnl = self.store.realized_pnl_since(utc_midnight_ms(now_ms))
         halts = self.risk.halt_reasons(now_ms)
         if halts:

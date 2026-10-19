@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from decimal import ROUND_DOWN, ROUND_UP, Decimal
+from decimal import ROUND_DOWN, ROUND_UP, Decimal, InvalidOperation
 
 ZERO = Decimal(0)
 ONE = Decimal(1)
@@ -12,7 +12,11 @@ USDC_QUANT = Decimal("0.000001")  # 6 dp, base unit of pUSD/USDC
 
 
 def dec(value: object) -> Decimal:
-    """Convert str/int/Decimal to Decimal. Floats are refused (precision bugs)."""
+    """Convert str/int/Decimal to Decimal. Floats are refused (precision bugs).
+
+    Malformed strings raise ``ValueError`` (not ``decimal.InvalidOperation``), so untrusted
+    exchange data can be rejected with one exception type.
+    """
     if isinstance(value, Decimal):
         return value
     if isinstance(value, bool):
@@ -20,7 +24,10 @@ def dec(value: object) -> Decimal:
     if isinstance(value, float):
         raise TypeError("float not allowed; pass str/int/Decimal")
     if isinstance(value, (int, str)):
-        return Decimal(value)
+        try:
+            return Decimal(value)
+        except InvalidOperation as exc:
+            raise ValueError(f"not a decimal: {value!r}") from exc
     raise TypeError(f"cannot convert {type(value).__name__} to Decimal")
 
 
