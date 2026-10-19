@@ -82,7 +82,13 @@ h1{font-family:var(--serif);font-size:63px;line-height:1.03;letter-spacing:-.018
 .title-sub{font-size:21px;line-height:1.45;color:var(--ink2);max-width:620px;margin:0 0 26px}
 .title-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .title-note{font-size:13.5px;color:var(--muted);max-width:580px;line-height:1.45}
-.art-crown{width:100%;max-width:330px}
+.art-crown{width:100%;max-width:378px;height:auto;display:block}
+.fig{display:block;width:100%;height:auto;border-radius:12px}
+.fig-wrap{display:flex;align-items:center;justify-content:center;height:100%;min-height:0}
+.step-body{display:flex;gap:20px;align-items:flex-start}
+.step-body .step-cols{flex:1;min-width:0}
+.step-art{flex:0 0 300px;margin:2px 0 0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.step-art img{display:block;width:100%;height:auto}
 
 /* agenda */
 .agenda{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin-top:6px}
@@ -158,7 +164,7 @@ details.err[open] summary::before{content:"–"}
 .step-nav .dots i.on{background:var(--accent)}
 
 /* hall */
-.hall-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;height:100%;align-items:start}
+.hall-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:30px;height:100%;align-items:start}
 .hall-steps{counter-reset:h}
 .hall-step{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
 .hall-step:last-child{border-bottom:0}
@@ -342,13 +348,7 @@ details.err[open] summary::before{content:"–"}
               <p class="title-note">Materi edukasi untuk mahasiswa dan dokter gigi. Bukan pengganti pertimbangan klinis pada pasien tertentu.</p>
             </div>
             <div class="art">
-              <svg class="art-crown" viewBox="0 0 320 370" role="img" aria-label="Ilustrasi mahkota stainless steel menutup gigi desidui">
-                <path d="M118 96 C118 62 138 48 160 48 C182 48 202 62 202 96 L202 236 C202 268 196 296 184 316 L170 342 L160 324 L150 342 L136 316 C124 296 118 268 118 236 Z" fill="#efe4d2" stroke="#d6c3a6" stroke-width="2"/>
-                <path d="M134 104 C134 84 144 74 160 74 C176 74 186 84 186 104 L186 214 L134 214 Z" fill="#fbf4e7" stroke="#dccbb2" stroke-width="1.5"/>
-                <path d="M104 86 C104 54 128 40 160 40 C192 40 216 54 216 86 L216 170 C216 186 206 196 194 199 L194 218 L178 218 L178 204 L142 204 L142 218 L126 218 L126 199 C114 196 104 186 104 170 Z" fill="#c65b45" fill-opacity=".10" stroke="#15323a" stroke-width="3.2" stroke-linejoin="round"/>
-                <path d="M117 90 C117 66 134 54 160 54 C186 54 203 66 203 90" fill="none" stroke="#c65b45" stroke-width="2.2" stroke-dasharray="5 5"/>
-                <circle cx="160" cy="28" r="3.4" fill="#bd9440"/>
-              </svg>
+              <img class="art-crown" src="assets/art/fig-cover.jpg" width="486" height="552" alt="Mahkota stainless steel untuk molar desidui, tampak okusal dan bukal">
             </div>
           </div>
           <div class="cover-foot">
@@ -461,31 +461,17 @@ details.err[open] summary::before{content:"–"}
             </div>
           </div>
           <div class="content">
-            <div class="stats">
-              <div class="stat"><div class="v">96,1<em>%</em></div><div class="l">success SSC, 31 studi, follow-up bervariasi</div><div class="s">Chisini 2018; SR/MA, I</div></div>
-              <div class="stat"><div class="v">0,18</div><div class="l">RR kegagalan mayor dibanding tambalan (95% CI 0,06–0,56)</div><div class="s">Cochrane 2015; I</div></div>
-              <div class="stat"><div class="v">92<em>%</em></div><div class="l">success Hall vs 52% kontrol pada 60 bulan</div><div class="s">Innes 2011; RCT, II</div></div>
+            <div class="stats" style="margin-bottom:14px">
+              <div class="stat" style="padding:12px 16px"><div class="v" style="font-size:32px">96,1<em>%</em></div><div class="l" style="margin-top:5px">success SSC, 31 studi</div><div class="s">Chisini 2018; SR/MA</div></div>
+              <div class="stat" style="padding:12px 16px"><div class="v" style="font-size:32px">0,18</div><div class="l" style="margin-top:5px">RR kegagalan mayor dibanding tambalan (95% CI 0,06–0,56)</div><div class="s">Cochrane 2015</div></div>
+              <div class="stat" style="padding:12px 16px"><div class="v" style="font-size:32px">92<em>%</em></div><div class="l" style="margin-top:5px">success Hall dibanding 52% kontrol, 60 bulan</div><div class="s">Innes 2011; RCT</div></div>
             </div>
             <div class="row">
-              <div class="col" style="flex:1.05">
-                <svg viewBox="0 0 600 300" role="img" aria-label="Diagram penampang gigi dengan crown menutup seluruh mahkota" style="width:100%;height:248px">
-                  <path d="M150 88 C150 62 170 50 190 50 C210 50 230 62 230 88 L230 200 C230 226 224 250 214 268 L204 286 L190 272 L176 286 L166 268 C156 250 150 226 150 200 Z" fill="#f2e7d4" stroke="#d3bfa1" stroke-width="2"/>
-                  <path d="M130 100 C130 60 156 40 190 40 C224 40 250 60 250 100 L250 190 C250 208 239 219 226 222 L226 245 L208 245 L208 230 L172 230 L172 245 L154 245 L154 222 C141 219 130 208 130 190 Z" fill="#c65b45" fill-opacity=".10" stroke="#15323a" stroke-width="3" stroke-linejoin="round"/>
-                  <path d="M190 66 L190 214" stroke="#e0cfb4" stroke-width="2" stroke-dasharray="4 4"/>
-                  <path d="M250 112 L330 112" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="338" y="108" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a">coverage penuh</text>
-                  <text x="338" y="126" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">tidak bergantung pada dinding</text>
-                  <path d="M250 232 L330 232" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="338" y="228" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a">margin 1 mm subgingiva</text>
-                  <text x="338" y="246" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">seal dan retensi</text>
-                  <path d="M130 168 L70 168" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="56" y="150" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a" text-anchor="end">undercut</text>
-                  <text x="56" y="168" font-family="Inter, sans-serif" font-size="14.5" fill="#15323a" text-anchor="end">servikal</text>
-                  <text x="56" y="186" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378" text-anchor="end">sumber retensi</text>
-                </svg>
+              <div class="col" style="flex:1.12;display:flex;align-items:center">
+                <img class="fig" src="assets/art/fig-why.jpg" width="720" height="472" alt="Penampang molar desidui dengan crown terpasang: coverage penuh, margin subgingiva, bulbositas servikal, pulpa" style="max-height:352px;width:auto;max-width:100%">
               </div>
-              <div class="col" style="flex:.95;display:flex;flex-direction:column;justify-content:center;gap:10px">
-                <div class="card"><h3>Menutup seluruh korona</h3><p>Tidak ada tepi restorasi.</p></div>
+              <div class="col" style="flex:.8;display:flex;flex-direction:column;justify-content:center;gap:10px">
+                <div class="card"><h3>Retensi dari servikal</h3><p>Undercut di bawah bulbositas menahan crown, bukan semen.</p></div>
                 <div class="card"><h3>Tahan fraktur</h3><p>Logam menahan gaya oklusal pada dinding tipis.</p></div>
                 <div class="card"><h3>Lebih sedikit pengulangan</h3><p>Biaya awal lebih tinggi, retreatment lebih rendah.</p></div>
               </div>
@@ -580,43 +566,13 @@ details.err[open] summary::before{content:"–"}
           </div>
           <div class="content">
             <div class="row" style="height:100%;align-items:center">
-              <div class="col" style="flex:1.28">
-                <svg viewBox="0 0 620 430" role="img" aria-label="Penampang gigi desidui dengan garis preparasi dan ukuran reduksi" style="width:100%;height:418px">
-                  <!-- gingiva -->
-                  <path d="M60 342 C120 332 150 342 200 340 C250 338 268 344 300 342 C340 339 366 346 400 343 C450 339 500 348 560 341 L566 368 C516 364 470 372 420 369 C360 365 320 375 260 371 C210 368 160 373 112 369 Z" fill="#f3d3c9" opacity=".92"/>
-                  <!-- enamel -->
-                  <path d="M206 344 L206 200 C206 166 232 150 254 148 C262 128 288 128 296 148 C318 150 344 166 344 200 L344 344 Z" fill="#f8eeda" stroke="#d6c3a6" stroke-width="1.6"/>
-                  <!-- dentin -->
-                  <path d="M220 344 L220 206 C220 180 240 166 258 164 C266 148 284 148 292 164 C310 166 330 180 330 206 L330 344 Z" fill="#fcf6e8"/>
-                  <!-- pulp -->
-                  <path d="M262 236 C262 222 270 214 280 212 L282 198 L290 210 L296 202 L300 214 C312 218 320 226 320 238 L320 282 C320 288 316 290 312 290 L308 338 L300 338 L296 290 L286 290 L282 338 L274 338 L270 290 C266 290 262 288 262 282 Z" fill="#e2ab96" stroke="#cf9179" stroke-width="1"/>
-                  <!-- garis preparasi -->
-                  <path d="M188 344 L192 196 C192 158 224 138 250 134 C258 112 290 112 298 134 C324 138 356 158 356 196 L360 344" fill="none" stroke="#c65b45" stroke-width="2.6" stroke-dasharray="7 6"/>
-                  <!-- dimensi oklusal -->
-                  <path d="M400 134 L400 116" stroke="#15323a" stroke-width="1.4"/>
-                  <path d="M394 134 L406 134 M394 116 L406 116" stroke="#15323a" stroke-width="1.4"/>
-                  <text x="412" y="128" font-family="Inter, sans-serif" font-size="14" fill="#15323a">1,0–1,5 mm</text>
-                  <text x="412" y="146" font-family="Inter, sans-serif" font-size="12" fill="#5b7378">reduksi oklusal</text>
-                  <path d="M356 330 L430 306" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="436" y="303" font-family="Inter, sans-serif" font-size="14" fill="#15323a">feather edge,</text>
-                  <text x="436" y="320" font-family="Inter, sans-serif" font-size="14" fill="#15323a">tanpa ledge</text>
-                  <path d="M360 356 L430 368" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="436" y="365" font-family="Inter, sans-serif" font-size="14" fill="#15323a">margin 1 mm</text>
-                  <text x="436" y="382" font-family="Inter, sans-serif" font-size="14" fill="#15323a">subgingiva</text>
-                  <path d="M206 282 L150 282" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="142" y="270" font-family="Inter, sans-serif" font-size="14" fill="#15323a" text-anchor="end">bulbositas</text>
-                  <text x="142" y="288" font-family="Inter, sans-serif" font-size="14" fill="#15323a" text-anchor="end">servikal</text>
-                  <text x="142" y="306" font-family="Inter, sans-serif" font-size="12" fill="#5b7378" text-anchor="end">dipertahankan</text>
-                  <path d="M296 214 L352 194" stroke="#8fa3a0" stroke-width="1.3"/>
-                  <text x="358" y="192" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">konvergensi ringan</text>
-                  <text x="40" y="404" font-family="Inter, sans-serif" font-size="12" fill="#9a6a58">warna gelap di tengah: pulpa</text>
-                  <text x="40" y="422" font-family="Inter, sans-serif" font-size="12" fill="#8b999b">garis putus-putus: batas preparasi. Skema, bukan skala.</text>
-                </svg>
+              <div class="col" style="flex:1.35">
+                <img class="fig" src="assets/art/fig-prep.jpg" width="790" height="552" alt="Preparasi molar desidui dengan crown di atasnya: reduksi oklusal 1,0 sampai 1,5 mm, feather edge, bulbositas servikal, margin servikal">
               </div>
               <div class="col" style="flex:.72;display:flex;flex-direction:column;gap:10px">
-                <div class="card"><h3>Retensi ada di servikal</h3><p style="font-size:16px">Undercut di bawah bulbositas menahan crown.</p></div>
                 <div class="card"><h3>Bukal dan lingual tidak rutin</h3><p style="font-size:16px">Hanya bila kontur menghalangi seating.</p></div>
-                <div class="card"><h3>Enamel 1 mm</h3><p style="font-size:16px">Reduksi 1,0–1,5 mm, atau 1,5–2,0 mm menurut sumber lain.</p></div>
+                <div class="card"><h3>Enamel desidui tipis</h3><p style="font-size:16px">Sekitar 1 mm, jadi reduksi berlebih cepat mencapai dentin.</p></div>
+                <div class="card"><h3>Sudut garis dihaluskan</h3><p style="font-size:16px">Line angle tajam menahan crown saat try-in.</p></div>
                 <div class="card"><h3>Kontak harus putus</h3><p style="font-size:16px">Probe harus melewati kontak mesial dan distal.</p></div>
               </div>
             </div>
@@ -665,38 +621,11 @@ details.err[open] summary::before{content:"–"}
                   <div class="hall-step"><span class="n">4</span><div><b>Isi semen dua pertiga</b><span>GIC atau RMGIC, semua dinding terlapisi.</span></div></div>
                   <div class="hall-step"><span class="n">5</span><div><b>Seating dan bite</b><span>Lindungi airway, gigit 2–3 menit.</span></div></div>
                 </div>
-                <div class="hall-note"><b>Batas Hall:</b> bukan untuk pulpitis ireversibel, abses, fistula, atau gigi tanpa dentine bridge.</div>
+                <div class="hall-note"><b>Saat menempatkan:</b> semprot airway dengan suction, jangan pernah melepas crown di dalam mulut sebelum semen set, dan rapikan kelebihan semen sebelum mengeras. Gigitan tinggi sementara biasanya menyesuaikan dalam beberapa minggu.</div>
               </div>
               <div>
-                <svg viewBox="0 0 520 350" role="img" aria-label="Crown Hall ditempatkan di atas gigi dengan lapisan semen dan separator di kontak proksimal" style="width:100%;height:330px">
-                  <!-- gingiva -->
-                  <path d="M60 300 C110 288 150 300 194 300 C238 300 278 288 328 300 L328 316 C280 306 240 318 194 318 C148 318 108 306 60 316 Z" fill="#f2cfc4" opacity=".9"/>
-                  <!-- akar -->
-                  <path d="M140 300 L140 336 C140 342 148 344 152 336 L160 314 L168 336 C172 344 180 342 180 336 L180 300 Z" fill="#f6ecda" stroke="#d8c6a8" stroke-width="1.4"/>
-                  <path d="M208 300 L208 336 C208 342 216 344 220 336 L228 314 L236 336 C240 344 248 342 248 336 L248 300 Z" fill="#f6ecda" stroke="#d8c6a8" stroke-width="1.4"/>
-                  <!-- gigi -->
-                  <path d="M140 300 L140 154 C140 118 164 100 194 100 C224 100 248 118 248 154 L248 300 Z" fill="#fbf4e6" stroke="#d9c8ab" stroke-width="1.6"/>
-                  <!-- karies -->
-                  <path d="M150 152 C162 146 176 152 176 166 C176 180 162 188 150 182 Z" fill="#c98f74" opacity=".75"/>
-                  <!-- semen -->
-                  <path d="M133 296 L133 152 C133 110 160 90 194 90 C228 90 255 110 255 152 L255 296" fill="none" stroke="#9fc4bd" stroke-width="9" opacity=".55"/>
-                  <!-- crown -->
-                  <path d="M124 302 L124 150 C124 104 154 80 194 80 C234 80 264 104 264 150 L264 302" fill="none" stroke="#c65b45" stroke-width="5.5" stroke-linejoin="round"/>
-                  <path d="M118 306 L118 150 C118 99 151 74 194 74 C237 74 270 99 270 150 L270 306" fill="none" stroke="#15323a" stroke-width="2" stroke-dasharray="6 5"/>
-                  <path d="M124 302 C124 302 118 306 118 306 M264 302 C264 302 270 306 270 306" stroke="#15323a" stroke-width="2"/>
-                  <rect x="292" y="232" width="72" height="26" rx="13" fill="#e6d3bd" stroke="#c9ae8c" stroke-width="1.6"/>
-                  <text x="328" y="249" font-family="Inter, sans-serif" font-size="10.5" fill="#6f5b3f" text-anchor="middle">separator</text>
-                  <path d="M296 240 L276 250" stroke="#c9ae8c" stroke-width="1.2"/>
-                  <path d="M194 30 L194 66" stroke="#8fa3a0" stroke-width="1.4"/>
-                  <text x="204" y="38" font-family="Inter, sans-serif" font-size="12.5" fill="#15323a">crown ditekan sampai semen set</text>
-                  <text x="204" y="55" font-family="Inter, sans-serif" font-size="11.5" fill="#5b7378">tanpa preparasi, tanpa anestesi</text>
-                  <path d="M180 140 L96 128" stroke="#8fa3a0" stroke-width="1.3"/>
-                  <text x="90" y="126" font-family="Inter, sans-serif" font-size="12" fill="#15323a" text-anchor="end">karies tidak dibuang</text>
-                  <path d="M252 232 L300 200" stroke="#8fa3a0" stroke-width="1.3"/>
-                  <text x="306" y="198" font-family="Inter, sans-serif" font-size="12" fill="#15323a">lapisan semen GIC</text>
-                  <text x="306" y="214" font-family="Inter, sans-serif" font-size="11" fill="#5b7378">dua pertiga penuh</text>
-                </svg>
-                <div class="small" style="margin-top:2px">Karies tetap di tempatnya, tertutup dari substrat oral. Skema, bukan skala.</div>
+                <img class="fig" src="assets/art/fig-hall.jpg" width="760" height="492" alt="Crown Hall menutup karies tanpa preparasi: karies tidak dibuang, margin di servikal, gingiva tertekan ringan">
+                
               </div>
             </div>
           </div>
@@ -922,30 +851,27 @@ details.err[open] summary::before{content:"–"}
                 </div>
               </div>
               <div class="col" style="flex:.85">
-                <div class="chartcard">
-                  <h3>Retensi 6 bulan, tiga mahkota estetik</h3>
+                <img class="fig" src="assets/art/fig-alternatives.jpg" width="690" height="300"
+                     alt="Tiga pilihan mahkota posterior anak: zirkonia monolitik, pre-veneered SSC dengan veneer bukal, dan SSC logam penuh">
+                <div class="chartcard" style="margin-top:10px;padding:14px 16px">
+                  <h3 style="font-size:16px">Retensi 6 bulan, tiga mahkota estetik</h3>
                   <div class="sub">RCT 129 gigi insisivus desidui (Walia 2014)</div>
-                  <svg viewBox="0 0 380 230" role="img" aria-label="Grafik retensi enam bulan zirkonia 100 persen, pre-veneered SSC 95 persen, strip crown 78 persen" style="width:100%;height:220px">
-                    <line x1="46" y1="180" x2="366" y2="180" stroke="#d8cbb8" stroke-width="1.2"/>
-                    <line x1="46" y1="80" x2="366" y2="80" stroke="#ece2d2" stroke-width="1" stroke-dasharray="4 5"/>
-                    <text x="36" y="184" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93" text-anchor="end">0</text>
-                    <text x="36" y="84" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93" text-anchor="end">100</text>
-                    <rect x="70" y="30" width="62" height="150" rx="5" fill="#2c6e6a"/>
-                    <rect x="164" y="37.5" width="62" height="142.5" rx="5" fill="#7fa39a"/>
-                    <rect x="258" y="63" width="62" height="117" rx="5" fill="#cbb79a"/>
-                    <text x="101" y="22" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#15323a" text-anchor="middle">100%</text>
-                    <text x="195" y="30" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#15323a" text-anchor="middle">95%</text>
-                    <text x="289" y="55" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#15323a" text-anchor="middle">78%</text>
-                    <text x="101" y="200" font-family="Inter, sans-serif" font-size="11.5" fill="#15323a" text-anchor="middle">Zirkonia</text>
-                    <text x="195" y="200" font-family="Inter, sans-serif" font-size="11.5" fill="#15323a" text-anchor="middle">PVSSC</text>
-                    <text x="289" y="200" font-family="Inter, sans-serif" font-size="11.5" fill="#15323a" text-anchor="middle">Strip</text>
-                    <text x="46" y="222" font-family="Inter, sans-serif" font-size="11" fill="#7d8f93">PVSSC: pre-veneered SSC</text>
+                  <svg viewBox="0 0 380 150" role="img" aria-label="Grafik retensi enam bulan: zirkonia 100 persen, pre-veneered SSC 95 persen, strip crown 78 persen" style="width:100%;height:116px">
+                    <line x1="40" y1="112" x2="366" y2="112" stroke="#d8cbb8" stroke-width="1.2"/>
+                    <rect x="74" y="28" width="56" height="84" rx="4" fill="#2c6e6a"/>
+                    <rect x="170" y="32" width="56" height="80" rx="4" fill="#7fa39a"/>
+                    <rect x="266" y="46.5" width="56" height="65.5" rx="4" fill="#cbb79a"/>
+                    <text x="102" y="20" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#15323a" text-anchor="middle">100%</text>
+                    <text x="198" y="24" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#15323a" text-anchor="middle">95%</text>
+                    <text x="294" y="38" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#15323a" text-anchor="middle">78%</text>
+                    <text x="102" y="130" font-family="Inter, sans-serif" font-size="12.5" fill="#15323a" text-anchor="middle">Zirkonia</text>
+                    <text x="198" y="130" font-family="Inter, sans-serif" font-size="12.5" fill="#15323a" text-anchor="middle">Pre-veneered</text>
+                    <text x="294" y="130" font-family="Inter, sans-serif" font-size="12.5" fill="#15323a" text-anchor="middle">Strip crown</text>
                   </svg>
                 </div>
-                <p class="footnote">Untuk molar posterior desidui, SSC tetap menjadi pembanding utama dalam SR dan meta-analisis.</p>
-                <div class="card" style="margin-top:10px;padding:13px 16px;border-color:#e7c3b3;background:#fdf5f0">
-                  <h3 style="font-size:15.5px;color:#8a3f2b">Pertimbangkan alternatif estetik bila</h3>
-                  <p style="font-size:14.5px">Gigi anterior, orang tua menolak logam setelah diskusi, atau ada alergi nikel. Sampaikan bahwa bukti jangka panjang masih terbatas dan biaya lebih tinggi.</p>
+                <div class="card" style="margin-top:10px;padding:12px 15px;border-color:#e7c3b3;background:#fdf5f0">
+                  <h3 style="font-size:15px;color:#8a3f2b">Alternatif estetik dipertimbangkan bila</h3>
+                  <p style="font-size:14px">Orang tua menolak logam setelah diskusi, gigi anterior, atau alergi nikel. Bukti jangka panjang masih terbatas.</p>
                 </div>
               </div>
             </div>
@@ -1308,6 +1234,10 @@ details.err[open] summary::before{content:"–"}
   show(start > -1 ? start : 0, false);
 
   /* ---------- steps ---------- */
+  var ART_INSTRUMENTS = "assets/art/fig-instruments.jpg";
+  var ART_INSTRUMENTS_ALT = "Instrumen pemasangan SSC: handpiece dengan bur, crown scissors, crimping pliers, contouring pliers, glass slab, dan tiga ukuran crown";
+  var ART_SETUP = "assets/art/fig-setup.jpg";
+  var ART_SETUP_ALT = "Syringe aspirasi, rubber dam dengan clamp, saliva ejector, dan cotton roll untuk anestesi dan isolasi";
   var steps = [
     {t:"Anestesi dan isolasi",
      p:"Mengendalikan nyeri dan menjaga area kerja tetap kering.",
@@ -1317,6 +1247,7 @@ details.err[open] summary::before{content:"–"}
      err:[["Dosis dewasa disalin ke anak","Hitung volume maksimum dari berat badan"],
           ["Isolasi longgar saat sementasi","Cek ulang sebelum semen dicampur"],
           ["Clamp menutupi margin","Reposisi clamp atau pilih ukuran lain"]],
+     art:ART_SETUP, artAlt:ART_SETUP_ALT,
      note:"Dosis lidokain anak yang dipakai AAPD 4,4 mg/kg, maksimum 300 mg. Satu kartrid 1,7 mL berisi 34 mg, jadi hitung volume maksimum sebelum memilih kartrid."},
     {t:"Ukur dan pilih ukuran",
      p:"Memilih crown terkecil yang menutup seluruh gigi.",
@@ -1378,6 +1309,7 @@ details.err[open] summary::before{content:"–"}
      err:[["Memotong terlalu banyak","Tandai level gingiva sebelum memotong"],
           ["Crimping terlalu kuat","Crimp bertahap pada margin saja"],
           ["Tepi tajam","Haluskan dengan rubber wheel"]],
+     art:ART_INSTRUMENTS, artAlt:ART_INSTRUMENTS_ALT,
      note:"Crimp hanya pada margin. Crimping dinding mengurangi retensi dan bisa mendeformasi crown."},
     {t:"Sementasi",
      p:"Merekatkan crown dan menutup margin.",
@@ -1419,10 +1351,13 @@ details.err[open] summary::before{content:"–"}
     stepPanel.innerHTML =
       '<div class="step-top"><h3 class="step-title">' + s.t + '</h3><span class="step-count">LANGKAH ' + (stepIdx + 1) + ' / 10</span></div>' +
       '<p class="step-purpose">' + s.p + '</p>' +
-      '<div class="step-cols">' +
-        '<div><h4>Cara</h4><ul>' + s.how.map(function(x){ return "<li>" + x + "</li>"; }).join("") + '</ul></div>' +
-        '<div><h4>Instrumen</h4><div class="step-tools">' + s.tools.map(function(x){ return "<span>" + x + "</span>"; }).join("") + '</div></div>' +
-        '<div><h4>Tanda benar</h4><ul>' + s.good.map(function(x){ return "<li>" + x + "</li>"; }).join("") + '</ul></div>' +
+      '<div class="step-body">' +
+        '<div class="step-cols">' +
+          '<div><h4>Cara</h4><ul>' + s.how.map(function(x){ return "<li>" + x + "</li>"; }).join("") + '</ul></div>' +
+          '<div><h4>Instrumen</h4><div class="step-tools">' + s.tools.map(function(x){ return "<span>" + x + "</span>"; }).join("") + '</div></div>' +
+          '<div><h4>Tanda benar</h4><ul>' + s.good.map(function(x){ return "<li>" + x + "</li>"; }).join("") + '</ul></div>' +
+        '</div>' +
+        (s.art ? '<figure class="step-art"><img src="' + s.art + '" alt="' + s.artAlt + '"></figure>' : '') +
       '</div>' +
       '<details class="err" open><summary>Kesalahan yang sering terjadi dan cara mencegahnya</summary><div class="err-body">' + errs + '</div></details>' +
       '<p class="step-note"><b>Catatan:</b> ' + s.note + '</p>' +

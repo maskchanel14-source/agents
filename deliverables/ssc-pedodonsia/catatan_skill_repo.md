@@ -20,6 +20,19 @@ Repo yang dibaca: `maskchanel14-source/agents` (katalog plugin, skill, agen, dan
 | Skrip pembangun PPTX milik repo | Tidak dijalankan. Skrip build dibuat khusus untuk deck ini (`build_pptx.py`) agar isi dan sitasi dapat diperiksa baris per baris. |
 | Agen atau perintah lain | Tidak relevan dengan pembuatan deck, riset klinis, atau penulisan. |
 
+## Revisi ilustrasi
+
+Pada revisi ini sketsa vektor lama pada slide 1, 4, 6, 7, 8, 12, dan 18 diganti ilustrasi anatomi bergambar. Skill repo yang dibaca untuk pekerjaan ini:
+
+| Skill atau aset | Lokasi | Dipakai untuk | Catatan |
+|---|---|---|---|
+| `photo-realism` (README dan `photo-realism-director`) | `plugins/photo-realism/` | Aturan "periksa piksel, jangan percaya respons alat" dan larangan memakai kata kualitas sebagai pengungkit realisme | Setiap render diperiksa manual, dan yang meleset (titik penunjuk jatuh di tempat salah, label terpotong) diperbaiki dengan mengubah koordinat, bukan menambah kata pada prompt |
+| `ui-design` | `plugins/ui-design/skills/` | Ukuran minimum label gambar dan kontras garis penunjuk | Label ilustrasi memakai 14,5–17 pt pada kanvas gambar, setara minimal 14 pt saat ditampilkan |
+
+Yang sengaja tidak diikuti dari `photo-realism`: logika kamera ponsel, grading era, dan cacat buatan. Ilustrasi ini dipakai untuk mengajar anatomi, jadi yang dibutuhkan justru latar netral, cahaya studio, dan bidang yang bersih. Keputusan ini dicatat supaya perbedaannya jelas, bukan kelalaian.
+
+Asal gambar: semua ilustrasi anatomi (mahkota, penampang gigi, instrumen) adalah render yang dibuat khusus untuk deck ini, bukan foto pasien dan bukan gambar berhak cipta dari internet. Foto klinis asli tetap dibutuhkan pada slide kasus dan pada placeholder radiograf.
+
 ## Hal yang perlu diketahui
 
 1. Skill PPTX menyarankan memilih kerangka narasi (misalnya SCQA atau pyramid) sebelum menulis. Prompt sudah menetapkan alur hook, mengapa SSC, teori, tatalaksana, bukti, kasus, kesimpulan. Alur dari prompt yang dipakai.

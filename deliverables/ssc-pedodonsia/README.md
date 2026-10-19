@@ -15,6 +15,11 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `catatan_skill_repo.md` | Skill repo yang dipakai dan dilewati, beserta alasannya | Jejak pemakaian repo |
 | `daftar_istilah.md` | Istilah yang dibekukan dan aturan ejaan | QC konsistensi |
 | `build_pptx.py` | Skrip pembangun PPTX dari struktur deck | Regenerasi bila isi berubah |
+| `assets/art/` | Enam ilustrasi anatomi beranotasi (`fig-*.svg` sumber, `fig-*.jpg` untuk deck) | Gambar slide 1, 4, 6, 7, 8, 12 |
+| `assets/src/` | Berkas ilustrasi asli tanpa anotasi | Arsip bila potongan gambar perlu dibuat ulang |
+| `tools/build_art.py` | Penulis anotasi: titik penunjuk, garis, dan label di atas gambar | Regenerasi ilustrasi |
+| `tools/render_svg.js` | Render SVG ke JPEG 2x | Dipakai setelah `build_art.py` |
+| `tools/print_pdf.js` | Cetak deck HTML ke PDF 13,333 × 7,5 inci | Regenerasi handout |
 
 ## Mengapa HTML menjadi versi utama
 
@@ -30,6 +35,21 @@ PowerPoint bisa memuat hyperlink dan catatan pembicara, tetapi tidak bisa menamp
 - Pada slide 13, pilih keputusan kasus; alasan muncul dan pilihan diringkas agar dua pertanyaan muat di satu layar.
 - Pada slide 14, lima soal ditampilkan satu per satu dengan penjelasan dan skor akhir.
 
+## Ilustrasi
+
+Tujuh slide memakai ilustrasi anatomi beranotasi: sampul, prinsip SSC, preparasi, langkah klinis (instrumen), Hall Technique, dan alternatif estetik. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, gigi dengan karies tertutup crown Hall, deretan instrumen, dan tiga jenis mahkota posterior.
+
+Cara kerjanya: gambar dasar ada di `assets/src`, dipotong ke `assets/art/photo-*.jpg`, lalu diberi titik penunjuk dan label oleh `assets/art/build_art.py`. Skrip itu menulis SVG, dan `tools/render_svg.js` mengubahnya menjadi JPEG 2x yang dipakai deck HTML maupun PPTX. Untuk mengubah label atau posisi penunjuk, sunting `build_art.py` lalu jalankan:
+
+```
+python3 assets/art/build_art.py
+NODE_PATH=<node_modules> node tools/render_svg.js 2
+python3 build_pptx.py
+NODE_PATH=<node_modules> node tools/print_pdf.js
+```
+
+Catatan penting: gambar ini adalah render ilustrasi yang dibuat untuk deck, bukan foto pasien dan bukan gambar berhak cipta dari internet. Untuk pengajaran, sebutkan bahwa ini ilustrasi skematik. Slide kasus tetap memakai placeholder yang harus diisi foto klinis dan radiograf milik sendiri.
+
 ## Yang perlu diganti sebelum dipakai
 
 1. Nama pemateri dan tanggal pada slide 1 (`[nama]`, `[tanggal]`).
@@ -42,6 +62,13 @@ PowerPoint bisa memuat hyperlink dan catatan pembicara, tetapi tidak bisa menamp
 - Nomor daftar pustaka di slide sekarang sama dengan nomor di `research_notes.md`.
 - Pada PDF, slide bertab hanya menampilkan tab yang aktif saat dicetak. Untuk melihat tab lain, buka `ssc-pedodonsia.html`.
 - PDF dibuat ulang dari HTML dengan Chromium; ukuran halaman 13,333 x 7,5 inci.
+
+### Revisi ilustrasi
+
+- Sketsa vektor lama pada sampul, slide prinsip, preparasi, Hall, dan alternatif diganti ilustrasi anatomi bergambar dengan label penunjuk.
+- Grafik retensi pada slide alternatif dipadatkan agar ilustrasi tiga mahkota mendapat ruang.
+- Panel langkah klinis menampilkan foto instrumen pada langkah 8 (trim, crimp, contour).
+- PDF dan PPTX dibangun ulang dari sumber yang sama supaya isi ketiga berkas tidak berbeda.
 
 ## Batasan
 

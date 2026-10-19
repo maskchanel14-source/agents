@@ -5,6 +5,7 @@ Deck HTML adalah versi utama karena interaktivitas (langkah bertahap, pop-up,
 tab, kasus bercabang, kuis) tidak dapat dibuat andal lewat python-pptx.
 PowerPoint di sini memuat hyperlink agenda dan catatan pembicara.
 """
+import os
 import re
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
@@ -200,6 +201,18 @@ def crown_shape(slide, x, y, scale=1.0):
     return shp
 
 
+ART = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "art")
+
+
+def picture(slide, name, x, y, w, caption=None):
+    """Tempatkan ilustrasi hasil assets/art dengan lebar tertentu; tinggi mengikuti rasio."""
+    pic = slide.shapes.add_picture(os.path.join(ART, name), Inches(x), Inches(y), width=Inches(w))
+    h = Emu(pic.height).inches
+    if caption:
+        tx(slide, x, y + h + 0.08, w, 0.3, caption, size=8.5, color=MUTED, align=PP_ALIGN.CENTER)
+    return h
+
+
 def new_deck():
     prs = Presentation()
     prs.slide_width = Inches(W)
@@ -233,8 +246,7 @@ def build(path, notes_map):
         tx(s, x, 4.66, w, 0.26, label, size=9.5, color=RGBColor(0xA3, 0x46, 0x2F), align=PP_ALIGN.CENTER)
     tx(s, M, 5.18, 7.2, 0.5, "Materi edukasi. Bukan pengganti pertimbangan klinis pada pasien tertentu.",
        size=9.5, color=MUTED)
-    crown_shape(s, 9.55, 1.25, 2.05)
-    tx(s, 9.9, 4.1, 3.0, 0.3, "SSC: coverage koronal penuh", size=9.5, color=MUTED, align=PP_ALIGN.CENTER)
+    picture(s, "fig-cover.jpg", 9.25, 0.95, 3.5)
     footer(s, "Sumber angka dan sitasi ada di tiap slide serta di research_notes.md")
     notes(s, notes_map[0])
 
@@ -296,16 +308,16 @@ def build(path, notes_map):
     stat(s, M, 1.95, 3.85, "96,1%", "", "success SSC pada 12 bulan, 31 studi", "Chisini 2018; SR/MA, I")
     stat(s, M + 4.12, 1.95, 3.85, "0,18", "", "RR kegagalan mayor vs tambalan (95% CI 0,06–0,56)", "Cochrane 2015; I")
     stat(s, M + 8.24, 1.95, 3.85, "92%", "", "success Hall vs 52% kontrol pada 60 bulan", "Innes 2011; RCT, II")
-    cards = [("Menutup seluruh korona", "Tidak ada tepi restorasi."),
+    picture(s, "fig-why.jpg", M, 3.40, 4.70,
+            "Penampang molar desidui dengan crown terpasang.")
+    cards = [("Retensi dari servikal", "Undercut di bawah bulbositas menahan crown, bukan semen."),
              ("Tahan fraktur", "Logam menahan gaya oklusal pada dinding tipis."),
              ("Lebih sedikit pengulangan", "Biaya awal lebih tinggi, retreatment lebih rendah.")]
     for i, (a, b) in enumerate(cards):
-        x = M + i * 4.12
-        card(s, x, 3.55, 3.85, 1.28)
-        tx(s, x + 0.2, 3.72, 3.45, 0.3, a, size=12, color=INK, bold=True)
-        tx(s, x + 0.2, 4.06, 3.45, 0.62, b, size=10.5, color=INK2)
-    tx(s, M, 5.15, 11.8, 0.7, "Retensi berasal dari undercut servikal dan adaptasi margin. Semen membantu seal, bukan menggantikan adaptasi.",
-       size=12, color=INK2)
+        y = 3.42 + i * 1.13
+        card(s, 6.15, y, 6.05, 1.0)
+        tx(s, 6.35, y + 0.14, 5.6, 0.3, a, size=13, color=INK, bold=True)
+        tx(s, 6.35, y + 0.48, 5.65, 0.44, b, size=10.5, color=INK2)
     footer(s, "Chisini 2018; Innes 2015 Cochrane; Innes 2011; AAPD 2025")
     notes(s, notes_map[3])
 
@@ -356,22 +368,8 @@ def build(path, notes_map):
         card(s, M, y, 5.95, 0.98)
         tx(s, M + 0.2, y + 0.12, 5.5, 0.3, a, size=12.5, color=INK, bold=True)
         tx(s, M + 0.2, y + 0.44, 5.55, 0.5, b, size=10, color=INK2)
-    # skema sederhana
-    card(s, 6.95, 1.9, 5.75, 4.4, fill=RGBColor(0xFD, 0xFA, 0xF4))
-    tooth = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(8.55), Inches(2.55), Inches(2.5), Inches(2.9))
-    tooth.adjustments[0] = 0.16
-    tooth.fill.solid(); tooth.fill.fore_color.rgb = RGBColor(0xFA, 0xF1, 0xDE)
-    tooth.line.color.rgb = RGBColor(0xD8, 0xC6, 0xA8); tooth.line.width = Pt(1.2); tooth.shadow.inherit = False
-    prep = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(8.78), Inches(2.85), Inches(2.04), Inches(2.3))
-    prep.adjustments[0] = 0.16
-    prep.fill.solid(); prep.fill.fore_color.rgb = RGBColor(0xF3, 0xCD, 0xC1)
-    prep.line.color.rgb = ACCENT; prep.line.width = Pt(1.4); prep.line.dash_style = 4; prep.shadow.inherit = False
-    crown_shape(s, 8.76, 2.2, 1.6)
-    tx(s, 6.98, 2.42, 1.5, 0.5, "1,0–1,5 mm\nreduksi oklusal", size=8.5, color=INK)
-    tx(s, 6.98, 4.2, 1.45, 0.5, "bulbositas\nservikal", size=8.5, color=INK)
-    tx(s, 10.82, 4.55, 1.7, 0.5, "margin 1 mm\nsubgingiva", size=8.5, color=INK)
-    tx(s, 10.82, 3.9, 1.7, 0.5, "feather edge,\ntanpa ledge", size=8.5, color=INK)
-    tx(s, 6.98, 5.9, 5.0, 0.3, "Skema: garis putus-putus adalah permukaan setelah preparasi.", size=8, color=MUTED)
+    picture(s, "fig-prep.jpg", 6.55, 1.88, 6.15,
+            "Garis dan angka untuk orientasi, bukan skala.")
     footer(s, "Kindelan 2008; Randall 2002; Amlani & Brizuela 2023")
     notes(s, notes_map[5])
 
@@ -414,20 +412,8 @@ def build(path, notes_map):
     card(s, M, 6.05, 5.9, 0.62, fill=PALE, line=RGBColor(0xE8, 0xD9, 0xC2))
     tx(s, M + 0.14, 6.14, 5.6, 0.45, "Batas Hall: bukan untuk pulpitis ireversibel, abses, fistula, atau tanpa dentine bridge.",
        size=8.8, color=RGBColor(0x6B, 0x5A, 0x3E))
-    card(s, 6.95, 1.9, 5.75, 4.2, fill=RGBColor(0xFD, 0xFA, 0xF4))
-    # dua gigi + crown
-    for gx in [7.6, 9.2]:
-        g = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(gx), Inches(3.0), Inches(1.25), Inches(2.1))
-        g.adjustments[0] = 0.18
-        g.fill.solid(); g.fill.fore_color.rgb = RGBColor(0xFA, 0xF1, 0xDE)
-        g.line.color.rgb = RGBColor(0xD8, 0xC6, 0xA8); g.line.width = Pt(1); g.shadow.inherit = False
-    cr = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.45), Inches(2.55), Inches(1.55), Inches(1.0))
-    cr.adjustments[0] = 0.12
-    cr.fill.solid(); cr.fill.fore_color.rgb = RGBColor(0xF6, 0xDF, 0xD7)
-    cr.line.color.rgb = INK; cr.line.width = Pt(1.6); cr.shadow.inherit = False
-    tx(s, 7.55, 2.78, 1.35, 0.4, "crown", size=9, color=INK, align=PP_ALIGN.CENTER)
-    tx(s, 8.95, 3.5, 1.3, 0.4, "separator", size=7.5, color=RGBColor(0x6F, 0x5B, 0x3F), align=PP_ALIGN.CENTER)
-    tx(s, 7.2, 5.3, 5.2, 0.55, "Karies tetap di tempatnya dan tertutup dari substrat oral.", size=9.5, color=INK2, align=PP_ALIGN.CENTER)
+    picture(s, "fig-hall.jpg", 6.55, 2.0, 6.1,
+            "Karies tetap di tempatnya, tertutup dari substrat oral.")
     footer(s, "Innes 2007; Hall Technique Guide 2015; SDCEP 2025")
     notes(s, notes_map[7])
 
@@ -507,23 +493,20 @@ def build(path, notes_map):
     # 12 ALTERNATIVES
     s = blank(prs); slides.append(s)
     header(s, "Alternatif estetik", "Zirkonia lebih baik pada gingiva, belum pada retensi jangka panjang", 12, 27)
-    cols = [("Zirkonia", ["Kegagalan: RR 0,48 (0,15–1,52)", "Gingiva: MD −0,32 (−0,42 sampai −0,23)", "Biaya, wear antagonis, sulit direparasi"]),
-            ("Pre-veneered SSC", ["Retensi 6 bulan: 95% (Walia 2014)", "Veneer bisa fraktur", "Bukti belum cukup menggantikan SSC"]),
-            ("Strip crown", ["Retensi 6 bulan: 78% (Walia 2014)", "Sensitif kelembapan", "Bukan pilihan utama molar posterior"])]
-    for i, (title, lines) in enumerate(cols):
-        x = M + i * 3.92
-        card(s, x, 1.9, 3.72, 2.55)
-        tx(s, x + 0.18, 2.02, 3.4, 0.3, title, size=12.5, color=INK, bold=True)
-        ty = 2.42
-        for ln in lines:
-            tx(s, x + 0.18, ty, 3.4, 0.42, "•  " + ln, size=9.3, color=INK2)
-            ty += 0.52
-    card(s, M, 4.65, 11.55, 1.55)
-    tx(s, M + 0.2, 4.75, 5.0, 0.3, "Retensi 6 bulan", size=10.5, color=INK, bold=True)
-    tx(s, M + 0.2, 5.02, 6.0, 0.3, "RCT 129 gigi insisivus desidui (Walia 2014)", size=8.5, color=MUTED)
-    bars(s, M + 0.2, 5.28, 6.2, 0.85, [("Zirkonia", 100), ("PVSSC", 95), ("Strip", 78)], color=TEAL, label_w=0.9)
-    tx(s, M + 6.65, 5.0, 4.7, 0.9, "Untuk molar posterior desidui, SSC tetap menjadi pembanding utama dalam SR dan meta-analisis.",
-       size=9.5, color=INK2)
+    cols = [("Zirkonia", "Kegagalan: RR 0,48 (0,15–1,52). Gingiva: MD −0,32 (−0,42 sampai −0,23). Biaya, wear antagonis, sulit direparasi."),
+            ("Pre-veneered SSC", "Retensi 6 bulan 95% (Walia 2014). Veneer bisa fraktur. Bukti belum cukup menggantikan SSC."),
+            ("Strip crown", "Retensi 6 bulan 78% (Walia 2014). Sensitif kelembapan. Bukan pilihan utama molar posterior.")]
+    for i, (title, body_txt) in enumerate(cols):
+        y = 1.9 + i * 1.45
+        card(s, M, y, 5.85, 1.3)
+        tx(s, M + 0.2, y + 0.13, 5.4, 0.3, title, size=12.5, color=INK, bold=True)
+        tx(s, M + 0.2, y + 0.47, 5.45, 0.72, body_txt, size=9.8, color=INK2, spacing=1.15)
+    picture(s, "fig-alternatives.jpg", 6.75, 1.88, 5.95,
+            "Zirkonia, pre-veneered SSC, dan SSC logam penuh.")
+    card(s, 6.75, 4.92, 5.95, 1.55)
+    tx(s, 6.95, 5.02, 5.5, 0.3, "Retensi 6 bulan", size=10.5, color=INK, bold=True)
+    tx(s, 6.95, 5.28, 5.5, 0.3, "RCT 129 gigi insisivus desidui (Walia 2014)", size=8.5, color=MUTED)
+    bars(s, 6.95, 5.55, 5.5, 0.85, [("Zirkonia", 100), ("PVSSC", 95), ("Strip", 78)], color=TEAL, label_w=1.05)
     footer(s, "Patnana 2022; Pei & Chen 2023; Aiem 2017; Walia 2014")
     notes(s, notes_map[11])
 
