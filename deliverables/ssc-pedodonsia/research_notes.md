@@ -9,7 +9,7 @@ Semua angka di bawah diambil dari sumber yang dibuka dan dibaca, bukan dari inga
 1. Preformed metal crown (PMC), yang sehari-hari disebut stainless steel crown (SSC), adalah mahkota logam prefabrikasi yang diadaptasi ke gigi dan direkatkan dengan luting cement. SSC memberi coverage koronal penuh, tahan fraktur, dan tidak bergantung pada kekuatan struktur gigi yang tersisa.
 2. Bukti terbaik menunjukkan SSC menurunkan risiko kegagalan mayor dan nyeri jangka panjang dibanding restorasi langsung pada molar desidui. Cochrane 2015: risk ratio kegagalan mayor 0,18 (95% CI 0,06–0,56) pada 12–48 bulan, kualitas bukti moderat [3].
 3. Hall Technique menutup karies tanpa anestesi, tanpa ekskavasi, dan tanpa preparasi. Pada RCT split-mouth 5 tahun, success 92% vs 52% pada kontrol, kegagalan mayor 3% vs 16,5% [4]. Namun tidak ada RCT yang membandingkan Hall dengan SSC konvensional [3].
-4. Pada MIH berat, SSC memiliki survival 24 bulan 94,4% vs komposit 49,2% [13]. Pada molar permanen muda setelah vital pulp therapy, kegagalan SSC tetap tinggi karena faktor pulpa dan erupsi, bukan hanya crown [14].
+4. Pada MIH berat, SSC memiliki survival 24 bulan 94,4% vs komposit 49,2% [13]. Pada molar permanen muda setelah vital pulp therapy, kegagalan SSC tetap tinggi karena faktor pulpa dan erupsi, di samping integritas crown [14].
 5. Alternatif estetik (zirkonia, pre-veneered SSC, strip crown) menambah pilihan, tetapi bukti jangka panjang pada molar desidui masih terbatas dan biayanya lebih tinggi. Untuk molar posterior desidui, SSC tetap standar pembanding.
 6. Data tarif nasional khusus SSC pediatrik di Indonesia tidak ditemukan. Status JKN untuk crown bergantung pada indikasi medis dan fasilitas; angka tarif yang beredar di situs klinik tidak dipakai sebagai bukti.
 
@@ -137,7 +137,7 @@ Lihat bagian 2. Tambahan: kontak sangat ketat memerlukan separator, dan anak har
 
 | Langkah | Angka | Sumber | Catatan |
 |---|---|---|---|
-| Reduksi oklusal | 1,0–1,5 mm | Kindelan et al. 2008 [2]; panduan 3M | Angka yang paling sering dipakai untuk molar desidui |
+| Reduksi oklusal | 1,0–1,5 mm | Kindelan et al. 2008 [2] | Angka yang paling sering dipakai untuk molar desidui |
 | Reduksi oklusal | 1,5–2,0 mm | Amlani & Brizuela 2023 [22]; Randall 2002 [8] | StatPearls menyebut 1,5–2,0 mm; Randall untuk molar permanen |
 | Reduksi proksimal | cukup untuk memutus kontak, sedikit konvergen ke oklusal, feather edge | Kindelan 2008 [2]; Randall 2002 [8] | Tidak ada angka universal; verifikasi dengan try-in |
 | Margin servikal | sekitar 1 mm subgingiva | Randall 2002 [8]; Amlani & Brizuela 2023 [22] | Harus tanpa ledge atau shoulder |
@@ -193,15 +193,12 @@ Kriteria Innes et al. yang dipakai luas [4][5]:
 
 - SR/MA Patnana 2022 (6 RCT, 497 gigi): zirkonia mungkin menurunkan kegagalan klinis (RR 0,48; 95% CI 0,15–1,52; P = 0,21; I² = 62%) dan memberi gingival health lebih baik (mean difference −0,32; 95% CI −0,42 sampai −0,23), tetapi kualitas bukti sangat rendah. Penulis tidak merekomendasikan satu material secara rutin [24].
 - SR/MA Pei & Chen 2023 (5 RCT, 160 anak): gingival index lebih rendah pada zirkonia, tetapi zirkonia lebih sering menyebabkan wear gigi antagonis dan chipping [25].
-- Meta-analysis 2026 (7 RCT, 700 crown): retensi tidak berbeda bermakna (OR 0,96; 95% CI 0,40–2,32; P = 0,93), gingiva dan plak lebih baik pada zirkonia [belum masuk daftar pustaka utama; dipakai sebagai data pendukung].
-- Studi retrospektif 2025: patologi radikular lebih sering pada zirkonia (18% vs 9%, P = 0,0025) dan loss of retention lebih sering (16% vs 3%, P = 0,009) [data pendukung; tidak dipakai di slide].
 - Keterbatasan: biaya lebih tinggi, teknik preparasi lebih invasif, sulit direparasi, wear antagonis, dan bukti jangka panjang terbatas.
 
 ### Pre-veneered SSC
 
 - Aiem et al. 2017, SR 7 studi: risiko bias tinggi; SSC tidak bisa digantikan oleh aesthetic preformed crown untuk molar desidui yang rusak berat karena bukti tidak cukup [26].
 - Walia et al. 2014, RCT 129 gigi insisivus desidui: retensi 6 bulan zirkonia 100%, pre-veneered SSC 95%, strip crown 78%; pre-veneered SSC menunjukkan peningkatan fraktur veneer [27].
-- Angka fraktur veneer dari studi lain: 32% kehilangan sebagian facing dan 24% kehilangan seluruh facing pada 38 crown dengan rata-rata usia 20,7 bulan [sumber: Roberts et al., Pediatr Dent 2001; data pendukung].
 - Keterbatasan: veneer bisa fraktur, sulit direparasi, bulk lebih besar, dan tidak bisa disterilisasi ulang dengan panas.
 
 ### Strip crown komposit
@@ -294,13 +291,13 @@ Untuk SSC, yang perlu dijelaskan:
 | 5-year retention SSC | SR/MA 2025 [12] | 97,88% | I |
 | SSC vs komposit pada MIH | Kohort 2022 [13] | 94,4% vs 49,2% pada 24 bulan | III |
 | SSC setelah VPT molar permanen | Kohort 2022 [14] | 35,7% gagal; survival 60 bulan 39,6% | III |
-| Zirkonia vs SSC | SR/MA 2022 [24] | RR 0,48 (0,15–1,52); bukti sangat rendah | I (kualitas rendah) |
-| Pre-veneered vs SSC | SR 2017 [26] | Tidak cukup bukti untuk menggantikan SSC | I (kualitas rendah) |
+| Zirkonia vs SSC | SR/MA 2022 [24] | RR 0,48 (0,15–1,52); bukti sangat rendah | I (kualitas sangat rendah) |
+| Pre-veneered vs SSC | SR 2017 [26] | Tidak cukup bukti untuk menggantikan SSC | I (kualitas sangat rendah) |
 | Semen | SR in vitro 2020 [23] | Resin self-adhesive > RMGIC > GIC | IV |
 
 ## Daftar pustaka (Vancouver)
 
-1. American Academy of Pediatric Dentistry. Pediatric restorative dentistry. The Reference Manual of Pediatric Dentistry. Chicago, IL: American Academy of Pediatric Dentistry; 2025:473-486.
+1. American Academy of Pediatric Dentistry. Pediatric restorative dentistry. The Reference Manual of Pediatric Dentistry. Chicago, IL: American Academy of Pediatric Dentistry; 2025.
 2. Kindelan SA, Day P, Nichol R, Willmott N, Fayle SA. UK National Clinical Guidelines in Paediatric Dentistry: stainless steel preformed crowns for primary molars. Int J Paediatr Dent. 2008;18(Suppl 1):20-28. doi:10.1111/j.1365-263X.2008.00935.x.
 3. Innes NPT, Ricketts D, Chong LY, Keightley AJ, Lamont T, Santamaria RM. Preformed crowns for decayed primary molar teeth. Cochrane Database Syst Rev. 2015;2015(12):CD005512. doi:10.1002/14651858.CD005512.pub3.
 4. Innes NPT, Evans DJP, Stirrups DR. Sealing caries in primary molars: randomized control trial, 5-year results. J Dent Res. 2011;90(12):1405-1410. doi:10.1177/0022034511422064.
@@ -313,7 +310,7 @@ Untuk SSC, yang perlu dijelaskan:
 11. Joshi RS, Gokhale NS, Hugar SM, Soneta S, Badakar CM, Saxena N. Longevity of stainless steel crowns on primary molars: a systematic review and meta-analysis. J Sci Soc. 2023;50(1):28-38. doi:10.4103/jss.jss_164_22.
 12. Lampl S, Gurunathan D, Mehta D, Jogikalmat K. Reasons for crown failures in primary teeth: systematic review and meta-analysis. Interact J Med Res. 2025;14:e57958. doi:10.2196/57958.
 13. Farias L, Campos MS, Dantas L, et al. Survival of stainless-steel crowns and composite resin restorations in molars affected by molar-incisor hypomineralization (MIH). Int J Paediatr Dent. 2022;32(2):240-250. doi:10.1111/ipd.12849.
-14. Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars that have undergone vital pulp therapy treatment in children and factors associated with their treatment failure: a retrospective study of up to 8.5 years. Int J Paediatr Dent. 2022. doi:10.1111/ipd.12971.
+14. Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars that have undergone vital pulp therapy treatment in children and factors associated with their treatment failure: a retrospective study of up to 8.5 years. Int J Paediatr Dent. 2022;32(6):925-937. doi:10.1111/ipd.12971.
 15. American Academy of Pediatric Dentistry. Molar-incisor hypomineralization. The Reference Manual of Pediatric Dentistry. Chicago, IL: American Academy of Pediatric Dentistry; 2025. Adopted 2024.
 16. American Academy of Pediatric Dentistry. Use of local anesthesia for pediatric dental patients. The Reference Manual of Pediatric Dentistry. Chicago, IL: American Academy of Pediatric Dentistry; 2025. Best practices, 2023 revision.
 17. American Academy of Pediatric Dentistry. Behavior guidance for the pediatric dental patient. The Reference Manual of Pediatric Dentistry. Chicago, IL: American Academy of Pediatric Dentistry; 2025. Best practices, 2023 revision.

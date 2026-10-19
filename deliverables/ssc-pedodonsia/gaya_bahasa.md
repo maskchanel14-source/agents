@@ -6,9 +6,9 @@ Dokumen ini mencatat repo humanizer yang dibaca, aturan yang diambil, aturan yan
 
 | Repo | Yang dibaca | Dipakai untuk |
 |---|---|---|
-| blader/humanizer | `SKILL.md` bagian katalog pola 7–24 | Pola ritme, struktur kalimat, dan larangan klise |
-| hardikpandya/stop-slop | `references/structures.md`, `references/phrases.md` | Deteksi struktur berulang dan frasa pengisi |
-| conorbronsdon/avoid-ai-writing | `SKILL.md`, `references/patterns.md` | Kontrak penyuntingan, larangan em dash, inflasi signifikansi, dan disiplin gaya |
+| [blader/humanizer](https://github.com/blader/humanizer) | `SKILL.md` bagian katalog pola 7–24 | Pola ritme, struktur kalimat, dan larangan klise |
+| [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop) | `references/structures.md`, `references/phrases.md` | Deteksi struktur berulang dan frasa pengisi |
+| [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) | `SKILL.md`, `references/patterns.md` | Kontrak penyuntingan, larangan em dash, inflasi signifikansi, dan disiplin gaya |
 
 Catatan: `avoid-ai-writing` versi di repo ini menaruh katalog pola di `references/patterns.md`, bukan di `skills/avoid-ai-writing/references/pattern-catalog.md`. Semua aturan yang diambil berasal dari file yang benar-benar ada dan sudah dibaca.
 

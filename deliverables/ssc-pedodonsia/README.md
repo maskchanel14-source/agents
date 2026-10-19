@@ -12,6 +12,7 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `research_notes.md` | Catatan riset, 33 sumber Vancouver, tingkat bukti | Rujukan angka dan klaim |
 | `protokol_klinis.md` | Protokol lengkap 10 langkah + Hall + penyulit + checklist | Dibawa ke klinik |
 | `gaya_bahasa.md` | Repo humanizer yang dibaca, aturan yang diambil dan ditolak | Catatan metode penulisan |
+| `catatan_skill_repo.md` | Skill repo yang dipakai dan dilewati, beserta alasannya | Jejak pemakaian repo |
 | `daftar_istilah.md` | Istilah yang dibekukan dan aturan ejaan | QC konsistensi |
 | `build_pptx.py` | Skrip pembangun PPTX dari struktur deck | Regenerasi bila isi berubah |
 
@@ -34,6 +35,13 @@ PowerPoint bisa memuat hyperlink dan catatan pembicara, tetapi tidak bisa menamp
 1. Nama pemateri dan tanggal pada slide 1 (`[nama]`, `[tanggal]`).
 2. Dua kotak placeholder pada slide 13: foto klinis okusal gigi 85 dan radiograf bitewing. Ganti dengan foto Anda sendiri, jangan memakai foto dari internet.
 3. Bila ingin menambah logo institusi, letakkan di sudut kanan bawah footer dan jaga tinggi maksimal 0,25 inci agar tidak menabrak nomor slide.
+
+## Catatan revisi
+
+- Slide 9, 10, dan 12 diperbaiki: panel tab yang tidak aktif tidak lagi ikut tercetak, kartu penyulit tidak lagi bertumpuk, dan teks yang terpotong sudah dipindahkan ke catatan pembicara.
+- Nomor daftar pustaka di slide sekarang sama dengan nomor di `research_notes.md`.
+- Pada PDF, slide bertab hanya menampilkan tab yang aktif saat dicetak. Untuk melihat tab lain, buka `ssc-pedodonsia.html`.
+- PDF dibuat ulang dari HTML dengan Chromium; ukuran halaman 13,333 x 7,5 inci.
 
 ## Batasan
 

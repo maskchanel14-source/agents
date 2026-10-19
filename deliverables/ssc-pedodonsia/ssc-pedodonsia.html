@@ -306,15 +306,16 @@ details.err[open] summary::before{content:"–"}
     width:1280px;height:720px;pointer-events:auto}
   details>div{display:block!important}
   details summary{display:none!important}
-  .tabpanel{display:block!important}
-  .tabpanel+.tabpanel{margin-top:12px;border-top:1px dashed #ccc}
+  .tabpanel{display:none!important}
+  .tabpanel.on{display:block!important}
+  .tabbar{display:none!important}
 }
 </style>
 </head>
 <body>
 <div id="app">
   <header class="chrome">
-    <div class="brand"><b>IIK Bhaktiwiyata</b> &nbsp;·&nbsp; Kedokteran Gigi &nbsp;·&nbsp; SSC pada gigi desidui</div>
+    <div class="brand"><b>IIK Bhaktiwiyata</b>, Kedokteran Gigi, SSC pada gigi desidui</div>
     <div class="tools">
       <span class="count" id="counter">1 / 18</span>
       <button type="button" data-goto="agenda">Agenda</button>
@@ -329,7 +330,7 @@ details.err[open] summary::before{content:"–"}
         <div class="slide-inner">
           <div class="title-grid">
             <div class="txt">
-              <div class="title-kicker">IIK Bhaktiwiyata · Program Studi Kedokteran Gigi</div>
+              <div class="title-kicker">IIK Bhaktiwiyata, Program Studi Kedokteran Gigi</div>
               <div class="cover-rule"></div>
               <h1>Stainless steel crown pada gigi desidui dan gigi permanen muda</h1>
               <p class="title-sub">Indikasi, preparasi, Hall Technique, dan bukti klinis dalam sepuluh menit</p>
@@ -445,9 +446,9 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Kindelan 2008 · AAPD 2025 · Cochrane 2015 · Innes 2011 · Riskesdas 2018</span><span>3</span></div>
+          <div class="cite"><span>Kindelan 2008; AAPD 2025; Cochrane 2015; Innes 2011; Riskesdas 2018</span><span>3</span></div>
         </div>
-        <template class="notes"><p>Mulai dari pola yang kita semua lihat. Gigi susu ditambal, beberapa bulan kemudian tepinya terbuka, ditambal lagi, dan akhirnya pulpanya terlibat. Setiap kali kita mengulang, dinding gigi makin tipis. Pada gigi desidui, enamelnya hanya sekitar satu milimeter dan tanduk pulpanya tinggi. Jadi pertanyaannya bukan tambalan mana yang lebih baik, tetapi kapan kita berhenti menambal sebagian dan mulai menutup seluruh gigi.</p></template>
+        <template class="notes"><p>Mulai dari pola yang kita semua lihat. Gigi desidui ditambal, beberapa bulan kemudian tepinya terbuka, ditambal lagi, dan akhirnya pulpanya terlibat. Setiap kali kita mengulang, dinding gigi makin tipis. Pada gigi desidui, enamelnya hanya sekitar satu milimeter dan tanduk pulpanya tinggi. Jadi pertanyaannya bergeser: kapan kita berhenti menambal sebagian dan mulai menutup seluruh gigi.</p></template>
       </section>
 
       <!-- 4 WHY -->
@@ -461,9 +462,9 @@ details.err[open] summary::before{content:"–"}
           </div>
           <div class="content">
             <div class="stats">
-              <div class="stat"><div class="v">96,1<em>%</em></div><div class="l">success SSC, 31 studi, follow-up bervariasi</div><div class="s">Chisini 2018 · SR/MA, I</div></div>
-              <div class="stat"><div class="v">0,18</div><div class="l">RR kegagalan mayor dibanding tambalan (95% CI 0,06–0,56)</div><div class="s">Cochrane 2015 · I</div></div>
-              <div class="stat"><div class="v">92<em>%</em></div><div class="l">success Hall vs 52% kontrol pada 60 bulan</div><div class="s">Innes 2011 · RCT, II</div></div>
+              <div class="stat"><div class="v">96,1<em>%</em></div><div class="l">success SSC, 31 studi, follow-up bervariasi</div><div class="s">Chisini 2018; SR/MA, I</div></div>
+              <div class="stat"><div class="v">0,18</div><div class="l">RR kegagalan mayor dibanding tambalan (95% CI 0,06–0,56)</div><div class="s">Cochrane 2015; I</div></div>
+              <div class="stat"><div class="v">92<em>%</em></div><div class="l">success Hall vs 52% kontrol pada 60 bulan</div><div class="s">Innes 2011; RCT, II</div></div>
             </div>
             <div class="row">
               <div class="col" style="flex:1.05">
@@ -490,7 +491,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Chisini 2018 · Innes 2015 Cochrane · Innes 2011 · AAPD 2025</span><span>4</span></div>
+          <div class="cite"><span>Chisini 2018; Innes 2015 Cochrane; Innes 2011; AAPD 2025</span><span>4</span></div>
         </div>
         <template class="notes"><p>Tiga angka ini cukup untuk membawa pesan utama. Chisini melaporkan success 96,1 persen dari 31 studi, dengan lama follow-up yang berbeda-beda. Cochrane 2015 memberi angka yang lebih kuat: risiko kegagalan mayor 0,18 dibanding tambalan, artinya sekitar seperlima. Dan pada RCT lima tahun, Hall mencapai 92 persen dibanding 52 persen pada restorasi rutin. Perhatikan, angka-angka ini memakai definisi berbeda, jadi jangan disatukan.</p></template>
       </section>
@@ -524,9 +525,9 @@ details.err[open] summary::before{content:"–"}
                   <text x="256" y="92" font-family="Inter, sans-serif" font-size="11.5" fill="#7d8f93">nyeri spontan, abses</text>
 
                   <rect x="452" y="8" width="192" height="86" rx="12" fill="#eef6f4" stroke="#bcd4d0" stroke-width="1.6"/>
-                  <text x="466" y="34" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">Pulpotomi atau</text>
-                  <text x="466" y="53" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">pulpektomi, lalu</text>
-                  <text x="466" y="72" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">SSC konvensional</text>
+                  <text x="466" y="34" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">Pulpektomi atau</text>
+                  <text x="466" y="53" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">ekstraksi, lalu SSC</text>
+                  <text x="466" y="72" font-family="Inter, sans-serif" font-size="13.5" fill="#1f4f4b">bila gigi dipertahankan</text>
 
                   <rect x="452" y="126" width="192" height="96" rx="12" fill="#f7f0e0" stroke="#ddc9a4" stroke-width="1.6"/>
                   <text x="466" y="154" font-family="Inter, sans-serif" font-size="13.5" fill="#5f4d2c">Hall atau SSC</text>
@@ -564,9 +565,9 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Kindelan 2008 · AAPD 2025 · SDCEP 2025 · Hall Technique Guide 2015</span><span>5</span></div>
+          <div class="cite"><span>Kindelan 2008; AAPD 2025; SDCEP 2025; Hall Technique Guide 2015</span><span>5</span></div>
         </div>
-        <template class="notes"><p>Alur ini yang saya pakai di klinik. Kalau karies sudah lebih dari dua permukaan atau melewati line angle, restorasi langsung mulai sulit dipertahankan, jadi arahnya ke SSC. Sebelum memilih Hall, periksa tanda pulpa ireversibel: nyeri spontan, abses, fistula. Kalau ada, Hall berhenti di situ, dan gigi perlu pulpotomi atau pulpektomi lebih dulu. Kontraindikasi yang sering terlupa adalah resorpsi akar lebih dari setengah dan alergi nikel.</p></template>
+        <template class="notes"><p>Alur ini dipakai untuk memilih teknik. Kalau karies sudah lebih dari dua permukaan atau melewati line angle, restorasi langsung mulai sulit dipertahankan, jadi arahnya ke SSC. Sebelum memilih Hall, periksa tanda pulpa ireversibel: nyeri spontan, abses, fistula. Kalau ada, Hall berhenti di situ, dan gigi perlu pulpektomi atau ekstraksi lebih dulu. Kontraindikasi yang sering terlupa adalah resorpsi akar lebih dari setengah dan alergi nikel.</p></template>
       </section>
       <!-- 6 PREP -->
       <section class="slide" id="prep" data-label="Preparasi">
@@ -608,8 +609,8 @@ details.err[open] summary::before{content:"–"}
                   <text x="142" y="306" font-family="Inter, sans-serif" font-size="12" fill="#5b7378" text-anchor="end">dipertahankan</text>
                   <path d="M296 214 L352 194" stroke="#8fa3a0" stroke-width="1.3"/>
                   <text x="358" y="192" font-family="Inter, sans-serif" font-size="12.5" fill="#5b7378">konvergensi ringan</text>
-                  <text x="40" y="404" font-family="Inter, sans-serif" font-size="12" fill="#9a6a58">warna lebih gelap: jaringan keras yang dibuang</text>
-                  <text x="40" y="422" font-family="Inter, sans-serif" font-size="12" fill="#8b999b">garis putus-putus: permukaan setelah preparasi. Skema, bukan skala.</text>
+                  <text x="40" y="404" font-family="Inter, sans-serif" font-size="12" fill="#9a6a58">warna gelap di tengah: pulpa</text>
+                  <text x="40" y="422" font-family="Inter, sans-serif" font-size="12" fill="#8b999b">garis putus-putus: batas preparasi. Skema, bukan skala.</text>
                 </svg>
               </div>
               <div class="col" style="flex:.72;display:flex;flex-direction:column;gap:10px">
@@ -620,7 +621,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Kindelan 2008 · Randall 2002 · Amlani &amp; Brizuela 2023</span><span>6</span></div>
+          <div class="cite"><span>Kindelan 2008; Randall 2002; Amlani &amp; Brizuela 2023</span><span>6</span></div>
         </div>
         <template class="notes"><p>Ini yang sering salah pada preparasi. Kita cenderung mengurangi bukal dan lingual karena ingin crown mudah masuk, padahal retensi SSC justru berasal dari undercut servikal. Jadi pertahankan bulbositas, potong proksimal sampai kontak putus, dan berhenti dengan feather edge. Perhatikan juga angka reduksi oklusal: sumber UK memakai satu sampai satu setengah milimeter, sedangkan StatPearls dan Randall untuk molar permanen memakai satu setengah sampai dua milimeter.</p></template>
       </section>
@@ -631,7 +632,7 @@ details.err[open] summary::before{content:"–"}
           <div class="slide-head" style="margin-bottom:10px">
             <div>
               <div class="kicker">SSC konvensional</div>
-              <h2 class="sm">Sepuluh langkah, satu per satu</h2>
+              <h2 class="sm">Urutan sepuluh langkah menentukan adaptasi akhir</h2>
             </div>
           </div>
           <div class="content">
@@ -640,7 +641,7 @@ details.err[open] summary::before{content:"–"}
               <div class="step-panel" id="stepPanel" role="tabpanel" aria-live="polite"></div>
             </div>
           </div>
-          <div class="cite"><span>Kindelan 2008 · Randall 2002 · AAPD VPT 2024 · AAPD 2023 anestesi · Innes 2015 Cochrane</span><span>7</span></div>
+          <div class="cite"><span>Kindelan 2008; Randall 2002; AAPD VPT 2024; AAPD 2023 anestesi; Miao 2021; Innes 2015 Cochrane</span><span>7</span></div>
         </div>
         <template class="notes"><p>Sepuluh langkah ini yang akan saya uji di kuis nanti. Klik tiap langkah di kiri. Yang perlu ditekankan: nomor tiga, ekskavasi karies, harus selesai sebelum crown dipilih ulang, karena dinding yang hilang mengubah retensi. Nomor tujuh, try-in, adalah tempat kita berhenti dan memeriksa, bukan memaksa. Kalau crown belum duduk, hampir selalu ada ledge atau sisa kontak, bukan crown yang kurang besar.</p></template>
       </section>
@@ -699,7 +700,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Innes 2007 · Hall Technique Guide 2015 · SDCEP 2025 · Tedesco 2025</span><span>8</span></div>
+          <div class="cite"><span>Innes 2007; Hall Technique Guide 2015; SDCEP 2025; Tedesco 2025</span><span>8</span></div>
         </div>
         <template class="notes"><p>Hall membalik logika kita. Karies tidak dibuang, gigi tidak dikurangi, dan tidak ada anestesi. Yang menentukan keberhasilan adalah seal margin. Dua hal yang harus disampaikan ke orang tua: crown akan terasa tinggi beberapa hari, dan bila kontak ketat, perlu kunjungan kedua untuk melepas separator setelah tiga sampai lima hari. Yang tidak boleh: memakai Hall pada gigi dengan nyeri spontan atau abses.</p></template>
       </section>
@@ -760,7 +761,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Mohamed 2026 · Innes 2007 · Innes 2015 Cochrane</span><span>9</span></div>
+          <div class="cite"><span>Mohamed 2026; Innes 2007; Innes 2015 Cochrane</span><span>9</span></div>
         </div>
         <template class="notes"><p>Perbandingan ini jangan dibaca sebagai siapa yang menang. Hall menang di waktu dan penerimaan: tujuh koma satu menit dibanding tujuh belas koma empat menit. Konvensional menang di kontrol: kita bisa melihat dan mengobati pulpa, serta membentuk margin sendiri. Yang penting, sampai sekarang belum ada RCT yang membandingkan Hall dengan SSC konvensional. Jadi pilihan ditentukan oleh kondisi gigi, perilaku anak, dan kemampuan operator.</p></template>
       </section>
@@ -791,17 +792,9 @@ details.err[open] summary::before{content:"–"}
               <p style="font-size:15.5px"><b>Rujuk bila:</b> perforasi berulang, karies sekunder luas, atau tanda pulpa ireversibel muncul setelah crown terpasang. Jangan recement gigi yang sudah tidak restorable.</p>
             </div>
           </div>
-          <div class="row" style="margin-top:auto;padding-bottom:6px">
-            <div class="col card" style="padding:12px 16px;border-color:#bcd4d0;background:#f3f9f7">
-              <p style="font-size:15px"><b>Pencegahan paling murah:</b> putuskan kontak sepenuhnya, haluskan ledge, dan verifikasi dengan probe sebelum crown dicoba.</p>
-            </div>
-            <div class="col card" style="padding:12px 16px">
-              <p style="font-size:15px"><b>Evaluasi tiap kontrol:</b> margin, oklusi, kontak, gingiva, mobilitas, dan tanda perforasi oklusal.</p>
-            </div>
-          </div>
-          <div class="cite"><span>Kindelan 2008 · Randall 2002 · Farias 2022 · Ahlström 2019 · AAPD 2025</span><span>10</span></div>
+          <div class="cite"><span>Kindelan 2008; Randall 2002; Farias 2022; Ahlström 2019; AAPD 2025</span><span>10</span></div>
         </div>
-        <template class="notes"><p>Enam penyulit ini hampir semuanya bisa dilacak ke preparasi atau pemilihan ukuran. Crown longgar berarti crimping kurang, bukan semen kurang. Crown tidak duduk hampir selalu karena ledge atau kontak yang belum putus. Perdarahan saat try-in berarti margin terlalu panjang. Soal alergi nikel, angkanya sering ditakutkan berlebihan: sensitisasi pada anak Eropa sekitar delapan sampai sepuluh persen, tetapi reaksi klinis terhadap SSC jarang. Yang perlu diingat: jangan menambal masalah adaptasi dengan semen lebih banyak, dan jangan recement gigi yang sudah tidak restorable.</p></template>
+        <template class="notes"><p>Enam penyulit ini hampir semuanya bisa dilacak ke preparasi atau pemilihan ukuran. Crown longgar berarti crimping kurang, bukan semen kurang. Crown tidak duduk hampir selalu karena ledge atau kontak yang belum putus. Perdarahan saat try-in berarti margin terlalu panjang. Soal alergi nikel, angkanya sering ditakutkan berlebihan: sensitisasi pada anak Eropa sekitar delapan sampai sepuluh persen, tetapi reaksi klinis terhadap SSC jarang. Yang perlu diingat: jangan menambal masalah adaptasi dengan semen lebih banyak, dan jangan recement gigi yang sudah tidak restorable. Pencegahan paling murah ada di preparasi: putuskan kontak sepenuhnya, haluskan ledge, dan verifikasi dengan probe sebelum crown dicoba. Pada tiap kontrol, periksa margin, oklusi, kontak, gingiva, mobilitas, dan tanda perforasi oklusal.</p></template>
       </section>
 
       <!-- 11 EVIDENCE -->
@@ -810,7 +803,7 @@ details.err[open] summary::before{content:"–"}
           <div class="slide-head">
             <div>
               <div class="kicker">Bukti</div>
-              <h2>Bukti terkuat ada pada kegagalan mayor, bukan pada estetika</h2>
+              <h2>Angka retensi dan angka kegagalan tidak bisa dibandingkan langsung</h2>
             </div>
           </div>
           <div class="content">
@@ -890,7 +883,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Innes 2011 · Lampl 2025 · Chisini 2018 · Innes 2015 Cochrane</span><span>11</span></div>
+          <div class="cite"><span>Innes 2011; Lampl 2025; Chisini 2018; Innes 2015 Cochrane</span><span>11</span></div>
         </div>
         <template class="notes"><p>Dua grafik ini sengaja dipisah. Kiri, RCT lima tahun: Hall 92 persen, kontrol 52 persen. Kanan, meta-analisis 2025 tentang retensi lima tahun: SSC tertinggi, 97,88 persen. Perhatikan sumbu kanan dipotong pada 80 persen, jadi perbedaan tiga sampai empat persen terlihat besar. Dan retensi bukan success. Sebuah crown bisa masih terpasang tetapi sudah gagal secara klinis karena pulpanya nekrotik.</p></template>
       </section>
@@ -913,7 +906,7 @@ details.err[open] summary::before{content:"–"}
                   <button type="button" role="tab" aria-selected="false" data-tab="tab-strip">Strip crown</button>
                 </div>
                 <div class="tabpanel on" id="tab-zir" role="tabpanel">
-                  <div class="card" style="margin-bottom:9px"><h3>Kegagalan klinis</h3><p>RR 0,48 (95% CI 0,15–1,52; P = 0,21). Tidak bermakna, kualitas bukti rendah.</p></div>
+                  <div class="card" style="margin-bottom:9px"><h3>Kegagalan klinis</h3><p>RR 0,48 (95% CI 0,15–1,52; P = 0,21). Tidak bermakna, kualitas bukti sangat rendah.</p></div>
                   <div class="card" style="margin-bottom:9px"><h3>Kesehatan gingiva</h3><p>MD −0,32 (95% CI −0,42 sampai −0,23) lebih baik.</p></div>
                   <div class="card"><h3>Keterbatasan</h3><p>Biaya, preparasi lebih invasif, wear antagonis, sulit direparasi.</p></div>
                 </div>
@@ -957,7 +950,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Patnana 2022 · Pei &amp; Chen 2023 · Aiem 2017 · Walia 2014</span><span>12</span></div>
+          <div class="cite"><span>Patnana 2022; Pei &amp; Chen 2023; Aiem 2017; Walia 2014</span><span>12</span></div>
         </div>
         <template class="notes"><p>Kalau orang tua keberatan dengan logam, ini pilihannya. Zirkonia punya gingiva yang lebih baik, tetapi angka kegagalan klinisnya belum terbukti lebih rendah: RR nol koma empat delapan dengan rentang kepercayaan yang lebar. Pre-veneered SSC bagus pada retensi enam bulan, tetapi veneernya bisa fraktur. Strip crown paling rendah retensinya. Untuk molar posterior dengan karies luas, SSC masih standar pembandingnya.</p></template>
       </section>
@@ -1007,7 +1000,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Kindelan 2008 · SDCEP 2025 · Hall Technique Guide 2015 · Randall 2002</span><span>13</span></div>
+          <div class="cite"><span>Kindelan 2008; SDCEP 2025; Hall Technique Guide 2015; Randall 2002</span><span>13</span></div>
         </div>
         <template class="notes"><p>Sekarang kita putuskan bersama. Anak tujuh tahun, gigi 85, karies oklusal-distal, vital, tanpa nyeri spontan, dan dentine bridge terlihat. Tanyakan ke audiens: Hall, konvensional, atau komposit? Setelah mereka memilih, lanjut ke pertanyaan kedua. Crown belum duduk di distal. Di sinilah kebanyakan orang langsung memilih crown lebih besar, padahal masalahnya biasanya ledge atau sisa kontak.</p></template>
       </section>
@@ -1018,7 +1011,7 @@ details.err[open] summary::before{content:"–"}
           <div class="slide-head" style="margin-bottom:8px">
             <div>
               <div class="kicker">Kuis</div>
-              <h2 class="sm">Lima pertanyaan, jawaban langsung muncul</h2>
+              <h2 class="sm">Lima soal menguji keputusan pada penyulit umum</h2>
               <p class="lead" style="font-size:17px;margin-top:8px">Pilih satu jawaban. Penjelasan dan kunci muncul langsung, skor dihitung di bawah.</p>
             </div>
           </div>
@@ -1077,22 +1070,21 @@ details.err[open] summary::before{content:"–"}
             </div>
           </div>
           <div class="content">
-            <div class="refs">
-              <p><b>1.</b> American Academy of Pediatric Dentistry. Pediatric restorative dentistry. The Reference Manual of Pediatric Dentistry. Chicago: AAPD; 2025. p. 473-486.</p>
+            <div class="refs"><p><b>1.</b> American Academy of Pediatric Dentistry. Pediatric restorative dentistry. The Reference Manual of Pediatric Dentistry. Chicago: AAPD; 2025.</p>
               <p><b>2.</b> Kindelan SA, Day P, Nichol R, Willmott N, Fayle SA. UK National Clinical Guidelines: stainless steel preformed crowns for primary molars. Int J Paediatr Dent. 2008;18(Suppl 1):20-28. <span class="doi">doi:10.1111/j.1365-263X.2008.00935.x</span></p>
               <p><b>3.</b> Innes NPT, Ricketts D, Chong LY, Keightley AJ, Lamont T, Santamaria RM. Preformed crowns for decayed primary molar teeth. Cochrane Database Syst Rev. 2015;(12):CD005512. <span class="doi">doi:10.1002/14651858.CD005512.pub3</span></p>
               <p><b>4.</b> Innes NPT, Evans DJP, Stirrups DR. Sealing caries in primary molars: randomized control trial, 5-year results. J Dent Res. 2011;90(12):1405-1410. <span class="doi">doi:10.1177/0022034511422064</span></p>
               <p><b>5.</b> Innes NPT, Evans DJP, Stirrups DR. The Hall Technique: acceptability and outcomes at 23 months. BMC Oral Health. 2007;7:18. <span class="doi">doi:10.1186/1472-6831-7-18</span></p>
               <p><b>6.</b> Tedesco TK, Innes NP, Gallegos CL, et al. Success rate of Hall Technique for restoring carious primary molars: systematic review and meta-analysis. Evid Based Dent. 2025;26(1):65-66. <span class="doi">doi:10.1038/s41432-024-01044-0</span></p>
-              <p><b>7.</b> Mohamed HA, Abdalla EM, HagOmer NA, Philip N. Conventional versus Hall technique for preformed metal crown restorations of carious primary molars: a randomised controlled trial. Eur Arch Paediatr Dent. 2026;27(2):599-606. <span class="doi">doi:10.1007/s40368-025-01128-0</span></p>
-              <p><b>8.</b> Chisini LA, Collares K, Cademartori MG, et al. Restorations in primary teeth: a systematic review on survival and reasons for failures. Int J Paediatr Dent. 2018;28(2):123-139. <span class="doi">doi:10.1111/ipd.12346</span></p>
-              <p><b>9.</b> Joshi RS, Gokhale NS, Hugar SM, et al. Longevity of stainless steel crowns on primary molars: systematic review and meta-analysis. J Sci Soc. 2023;50(1):28-38. <span class="doi">doi:10.4103/jss.jss_164_22</span></p>
-              <p><b>10.</b> Lampl S, Gurunathan D, Mehta D, Jogikalmat K. Reasons for crown failures in primary teeth: systematic review and meta-analysis. Interact J Med Res. 2025;14:e57958. <span class="doi">doi:10.2196/57958</span></p>
-              <p><b>11.</b> Randall RC. Preformed metal crowns for primary and permanent molar teeth: review of the literature. Pediatr Dent. 2002;24(5):489-500. PMID: 12412964.</p>
-              <p><b>12.</b> Amlani DV, Brizuela M. Stainless steel crowns in primary dentition. StatPearls. Treasure Island: StatPearls Publishing; 2023. PMID: 34662061.</p>
-              <p><b>13.</b> American Academy of Pediatric Dentistry. Use of vital pulp therapies in primary teeth with deep caries lesions. Reference Manual. Chicago: AAPD; 2025.</p>
-              <p><b>14.</b> American Academy of Pediatric Dentistry. Molar-incisor hypomineralization. Reference Manual. Chicago: AAPD; 2025.</p>
-              <p><b>15.</b> Farias L, Campos MS, Dantas L, et al. Survival of stainless-steel crowns and composite resin restorations in molars affected by MIH. Int J Paediatr Dent. 2022;32(2):240-250. <span class="doi">doi:10.1111/ipd.12849</span></p>
+              <p><b>7.</b> Seale NS. The use of stainless steel crowns. Pediatr Dent. 2002;24(5):501-505. PMID: 12412965.</p>
+              <p><b>8.</b> Randall RC. Preformed metal crowns for primary and permanent molar teeth: review of the literature. Pediatr Dent. 2002;24(5):489-500. PMID: 12412964.</p>
+              <p><b>9.</b> Seale NS, Randall R. The use of stainless steel crowns: a systematic literature review. Pediatr Dent. 2015;37(2):145-160. PMID: 25905656.</p>
+              <p><b>10.</b> Chisini LA, Collares K, Cademartori MG, et al. Restorations in primary teeth: a systematic review on survival and reasons for failures. Int J Paediatr Dent. 2018;28(2):123-139. <span class="doi">doi:10.1111/ipd.12346</span></p>
+              <p><b>11.</b> Joshi RS, Gokhale NS, Hugar SM, et al. Longevity of stainless steel crowns on primary molars: systematic review and meta-analysis. J Sci Soc. 2023;50(1):28-38. <span class="doi">doi:10.4103/jss.jss_164_22</span></p>
+              <p><b>12.</b> Lampl S, Gurunathan D, Mehta D, Jogikalmat K. Reasons for crown failures in primary teeth: systematic review and meta-analysis. Interact J Med Res. 2025;14:e57958. <span class="doi">doi:10.2196/57958</span></p>
+              <p><b>13.</b> Farias L, Campos MS, Dantas L, et al. Survival of stainless-steel crowns and composite resin restorations in molars affected by MIH. Int J Paediatr Dent. 2022;32(2):240-250. <span class="doi">doi:10.1111/ipd.12849</span></p>
+              <p><b>14.</b> Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars after vital pulp therapy: retrospective study up to 8.5 years. Int J Paediatr Dent. 2022;32(6):925-937. <span class="doi">doi:10.1111/ipd.12971</span></p>
+              <p><b>15.</b> American Academy of Pediatric Dentistry. Molar-incisor hypomineralization. Reference Manual. Chicago: AAPD; 2025.</p>
             </div>
           </div>
           <div class="cite"><span>Daftar lengkap dengan DOI dan PMID ada di research_notes.md (33 sumber)</span><span>16</span></div>
@@ -1110,30 +1102,29 @@ details.err[open] summary::before{content:"–"}
             </div>
           </div>
           <div class="content">
-            <div class="refs">
-              <p><b>16.</b> Chaipattanawan N, et al. Longevity of stainless steel crowns as interim restorations on young permanent first molars after vital pulp therapy: retrospective study up to 8.5 years. Int J Paediatr Dent. 2022. <span class="doi">doi:10.1111/ipd.12971</span></p>
-              <p><b>17.</b> Patnana AK, Chugh VK, Chugh A, Vanga NRV, Kumar P. Effectiveness of zirconia crowns compared with stainless steel crowns in primary posterior teeth: systematic review and meta-analysis. J Am Dent Assoc. 2022;153(2):158-166.e5. <span class="doi">doi:10.1016/j.adaj.2021.08.005</span></p>
-              <p><b>18.</b> Pei SL, Chen MH. Comparison of periodontal health of primary teeth restored with zirconia and stainless steel crowns: systematic review and meta-analysis. J Formos Med Assoc. 2023;122(2):148-156. <span class="doi">doi:10.1016/j.jfma.2022.08.015</span></p>
-              <p><b>19.</b> Aiem E, Smaïl-Faugeron V, Muller-Bolla M. Aesthetic preformed paediatric crowns: systematic review. Int J Paediatr Dent. 2017;27(4):273-282. <span class="doi">doi:10.1111/ipd.12260</span></p>
-              <p><b>20.</b> Walia T, Salami AA, Bashiri R, Hamoodi OM, Rashid F. A randomised controlled trial of three aesthetic full-coronal restorations in primary maxillary teeth. Eur J Paediatr Dent. 2014;15(2):113-118. PMID: 25102458.</p>
-              <p><b>21.</b> Virupaxi S, Pai R, Mandroli P. Retentive strength of luting cements for stainless steel crowns: a systematic review. J Indian Soc Pedod Prev Dent. 2020;38(1):2-7. <span class="doi">doi:10.4103/JISPPD.JISPPD_313_19</span></p>
-              <p><b>22.</b> Scottish Dental Clinical Effectiveness Programme. Prevention and management of dental caries in children. 3rd ed. Dundee: SDCEP; 2025.</p>
-              <p><b>23.</b> Innes N, Evans D, Hall N. The Hall Technique: a minimal intervention, child-centred approach to managing the carious primary molar. 4th ed. Dundee: University of Dundee; 2015.</p>
-              <p><b>24.</b> American Academy of Pediatric Dentistry. Behavior guidance for the pediatric dental patient. Reference Manual. Chicago: AAPD; 2025.</p>
-              <p><b>25.</b> American Academy of Pediatric Dentistry. Use of local anesthesia for pediatric dental patients. Reference Manual. Chicago: AAPD; 2025.</p>
-              <p><b>26.</b> American Academy of Pediatric Dentistry. Informed consent. Reference Manual. Chicago: AAPD; 2025.</p>
-              <p><b>27.</b> Ahlström MG, Thyssen JP, Wennervaldt M, Menné T, Johansen JD. Nickel allergy and allergic contact dermatitis: a clinical review. Contact Dermatitis. 2019;81(4):227-241. <span class="doi">doi:10.1111/cod.13327</span></p>
-              <p><b>28.</b> Kementerian Kesehatan RI. Laporan Nasional Riskesdas 2018. Jakarta: Badan Litbangkes; 2019.</p>
-              <p><b>29.</b> Kementerian Kesehatan RI. Survei Kesehatan Indonesia 2023. Jakarta: Kemenkes RI; 2024.</p>
-              <p><b>30.</b> Miao C, Yang J, Zhu H, et al. Rubber dam isolation for restorative treatment in dental patients. Cochrane Database Syst Rev. 2021;5:CD009858. <span class="doi">doi:10.1002/14651858.CD009858.pub3</span></p>
-              <p><b>31.</b> Seale NS. The use of stainless steel crowns. Pediatr Dent. 2002;24(5):501-505. PMID: 12412965.</p>
-              <p><b>32.</b> Seale NS, Randall R. The use of stainless steel crowns: a systematic literature review. Pediatr Dent. 2015;37(2):145-160. PMID: 25905656.</p>
-              <p><b>33.</b> American Academy of Pediatric Dentistry. Caries-risk assessment and management for infants, children, and adolescents. Reference Manual. Chicago: AAPD; 2025.</p>
+            <div class="refs"><p><b>16.</b> American Academy of Pediatric Dentistry. Use of local anesthesia for pediatric dental patients. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>17.</b> American Academy of Pediatric Dentistry. Behavior guidance for the pediatric dental patient. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>18.</b> American Academy of Pediatric Dentistry. Informed consent. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>19.</b> American Academy of Pediatric Dentistry. Caries-risk assessment and management for infants, children, and adolescents. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>20.</b> Scottish Dental Clinical Effectiveness Programme. Prevention and management of dental caries in children. 3rd ed. Dundee: SDCEP; 2025.</p>
+              <p><b>21.</b> Innes N, Evans D, Hall N. The Hall Technique: a minimal intervention, child-centred approach to managing the carious primary molar. 4th ed. Dundee: University of Dundee; 2015.</p>
+              <p><b>22.</b> Amlani DV, Brizuela M. Stainless steel crowns in primary dentition. StatPearls. Treasure Island: StatPearls Publishing; 2023. PMID: 34662061.</p>
+              <p><b>23.</b> Virupaxi S, Pai R, Mandroli P. Retentive strength of luting cements for stainless steel crowns: a systematic review. J Indian Soc Pedod Prev Dent. 2020;38(1):2-7. <span class="doi">doi:10.4103/JISPPD.JISPPD_313_19</span></p>
+              <p><b>24.</b> Patnana AK, Chugh VK, Chugh A, Vanga NRV, Kumar P. Effectiveness of zirconia crowns compared with stainless steel crowns in primary posterior teeth: systematic review and meta-analysis. J Am Dent Assoc. 2022;153(2):158-166.e5. <span class="doi">doi:10.1016/j.adaj.2021.08.005</span></p>
+              <p><b>25.</b> Pei SL, Chen MH. Comparison of periodontal health of primary teeth restored with zirconia and stainless steel crowns: systematic review and meta-analysis. J Formos Med Assoc. 2023;122(2):148-156. <span class="doi">doi:10.1016/j.jfma.2022.08.015</span></p>
+              <p><b>26.</b> Aiem E, Smaïl-Faugeron V, Muller-Bolla M. Aesthetic preformed paediatric crowns: systematic review. Int J Paediatr Dent. 2017;27(4):273-282. <span class="doi">doi:10.1111/ipd.12260</span></p>
+              <p><b>27.</b> Walia T, Salami AA, Bashiri R, Hamoodi OM, Rashid F. A randomised controlled trial of three aesthetic full-coronal restorations in primary maxillary teeth. Eur J Paediatr Dent. 2014;15(2):113-118. PMID: 25102458.</p>
+              <p><b>28.</b> Mohamed HA, Abdalla EM, HagOmer NA, Philip N. Conventional versus Hall technique for preformed metal crown restorations of carious primary molars: a randomised controlled trial. Eur Arch Paediatr Dent. 2026;27(2):599-606. <span class="doi">doi:10.1007/s40368-025-01128-0</span></p>
+              <p><b>29.</b> Ahlström MG, Thyssen JP, Wennervaldt M, Menné T, Johansen JD. Nickel allergy and allergic contact dermatitis: a clinical review. Contact Dermatitis. 2019;81(4):227-241. <span class="doi">doi:10.1111/cod.13327</span></p>
+              <p><b>30.</b> Kementerian Kesehatan RI. Laporan Nasional Riskesdas 2018. Jakarta: Badan Litbangkes; 2019.</p>
+              <p><b>31.</b> Kementerian Kesehatan RI. Survei Kesehatan Indonesia 2023. Jakarta: Kemenkes RI; 2024.</p>
+              <p><b>32.</b> American Academy of Pediatric Dentistry. Use of vital pulp therapies in primary teeth with deep caries lesions. Reference Manual. Chicago: AAPD; 2025.</p>
+              <p><b>33.</b> Miao C, Yang J, Zhu H, et al. Rubber dam isolation for restorative treatment in dental patients. Cochrane Database Syst Rev. 2021;5:CD009858. <span class="doi">doi:10.1002/14651858.CD009858.pub3</span></p>
             </div>
           </div>
           <div class="cite"><span>Daftar lengkap dengan DOI dan PMID ada di research_notes.md (33 sumber)</span><span>17</span></div>
         </div>
-        <template class="notes"><p>Referensi 16 sampai 30 melengkapi bagian kasus khusus, alternatif estetik, perilaku, dan epidemiologi Indonesia. Bila ada pertanyaan tentang satu angka, saya bisa tunjukkan halaman atau abstrak sumbernya.</p></template>
+        <template class="notes"><p>Referensi 16 sampai 33 melengkapi bagian kasus khusus, alternatif estetik, perilaku, dan epidemiologi Indonesia. Bila ada pertanyaan tentang satu angka, saya bisa tunjukkan halaman atau abstrak sumbernya.</p></template>
       </section>
 
       <!-- 18 APPENDIX -->
@@ -1224,7 +1215,7 @@ details.err[open] summary::before{content:"–"}
               </div>
             </div>
           </div>
-          <div class="cite"><span>Kindelan 2008 · Randall 2002 · Hall Technique Guide 2015 · AAPD 2025 · SDCEP 2025</span><span>18</span></div>
+          <div class="cite"><span>Kindelan 2008; Randall 2002; Hall Technique Guide 2015; AAPD 2025; SDCEP 2025</span><span>18</span></div>
         </div>
         <template class="notes"><p>Halaman ini bisa dicetak dan dibawa ke klinik. Semua langkah, kontraindikasi, penyulit, dan kriteria kontrol ada di satu halaman. Versi lengkap dengan tujuan, cara, instrumen, kesalahan, dan tanda benar ada di protokol_klinis.md.</p></template>
       </section>
@@ -1233,7 +1224,7 @@ details.err[open] summary::before{content:"–"}
   </div>
 </div>
 <div id="notesPanel"><h4>Catatan pembicara</h4><div id="notesBody"></div></div>
-<div class="hint">Panah kiri dan kanan untuk berpindah · N untuk catatan</div>
+
 <script>
 (function(){
   "use strict";
@@ -1326,7 +1317,7 @@ details.err[open] summary::before{content:"–"}
      err:[["Dosis dewasa disalin ke anak","Hitung volume maksimum dari berat badan"],
           ["Isolasi longgar saat sementasi","Cek ulang sebelum semen dicampur"],
           ["Clamp menutupi margin","Reposisi clamp atau pilih ukuran lain"]],
-     note:"Dosis lidokain anak yang dipakai AAPD 4,4 mg/kg. Satu kartrid 1,7 mL berisi 34 mg, jadi hitung volume maksimum sebelum memilih kartrid."},
+     note:"Dosis lidokain anak yang dipakai AAPD 4,4 mg/kg, maksimum 300 mg. Satu kartrid 1,7 mL berisi 34 mg, jadi hitung volume maksimum sebelum memilih kartrid."},
     {t:"Ukur dan pilih ukuran",
      p:"Memilih crown terkecil yang menutup seluruh gigi.",
      how:["Ukur mesiodistal dengan caliper","Bandingkan dengan gigi contralateral"],
@@ -1391,12 +1382,12 @@ details.err[open] summary::before{content:"–"}
     {t:"Sementasi",
      p:"Merekatkan crown dan menutup margin.",
      how:["Isi dua pertiga crown, lapisi semua dinding","Tekan dan minta anak menggigit 2–3 menit"],
-     tools:["GIC atau RMGIC","Spatula dan pad","Cotton roll"],
+     tools:["GIC, RMGIC, atau semen resin self-adhesive","Spatula dan pad","Cotton roll"],
      good:["Semen keluar merata di margin","Oklusi tidak tinggi"],
      err:[["Semen terlalu encer","Ikuti rasio pabrikan"],
           ["Void di dalam crown","Isi penuh dan tekan perlahan"],
           ["Semen tertinggal di sulkus","Bersihkan sebelum set dan gunakan floss"]],
-     note:"Semen bukan pengganti adaptasi. Kontur dan crimping lebih menentukan retensi (Kindelan 2008)."},
+     note:"Semen bukan pengganti adaptasi. Kontur dan crimping lebih menentukan retensi (Kindelan 2008). Pada uji in vitro, retensi semen resin self-adhesive lebih tinggi daripada RMGIC, dan RMGIC lebih tinggi daripada GIC (Virupaxi 2020); belum ada bukti klinis jangka panjang yang menunjukkan satu semen unggul."},
     {t:"Cek akhir dan instruksi",
      p:"Memastikan tidak ada masalah sebelum anak pulang.",
      how:["Cek margin, oklusi, kontak, dan gingiva","Beri instruksi dan jadwal kontrol"],
@@ -1506,8 +1497,8 @@ details.err[open] summary::before{content:"–"}
   /* ---------- quiz ---------- */
   var questions = [
     {q:"Molar dua desidui, karies oklusal dalam, nyeri spontan malam, tidak ada abses. Teknik yang tepat?",
-     o:["Hall Technique tanpa anestesi","SSC konvensional setelah pulpotomi","Komposit satu kali","Observasi 6 bulan"],a:1,
-     w:"Nyeri spontan menunjukkan pulpitis ireversibel. Hall tidak boleh dipakai. Lakukan pulp therapy lebih dulu, lalu SSC konvensional."},
+     o:["Hall Technique tanpa anestesi","SSC konvensional setelah pulpektomi","Komposit satu kali","Observasi 6 bulan"],a:1,
+     w:"Nyeri spontan menunjukkan pulpitis ireversibel. Hall tidak boleh dipakai. Gigi perlu pulpektomi atau ekstraksi; bila dipertahankan, SSC konvensional dipasang setelah perawatan saluran selesai."},
     {q:"Reduksi oklusal yang paling banyak dipakai untuk molar desidui?",
      o:["0,5–1,0 mm","1,0–1,5 mm","2,0–2,5 mm","3,0 mm"],a:1,
      w:"UK guideline memakai 1,0–1,5 mm. Sumber lain, termasuk StatPearls dan Randall untuk molar permanen, menyebut 1,5–2,0 mm."},
@@ -1594,6 +1585,20 @@ details.err[open] summary::before{content:"–"}
 
   renderQuiz();
 })();
+
+  // Buka semua detail saat mencetak agar isi penanganan ikut tercetak,
+  // lalu kembalikan kondisi semula setelah dialog cetak ditutup.
+  var closedBeforePrint = [];
+  window.addEventListener("beforeprint", function(){
+    closedBeforePrint = [];
+    Array.prototype.forEach.call(document.querySelectorAll("details"), function(d){
+      if(!d.open){ closedBeforePrint.push(d); d.open = true; }
+    });
+  });
+  window.addEventListener("afterprint", function(){
+    closedBeforePrint.forEach(function(d){ d.open = false; });
+    closedBeforePrint = [];
+  });
 </script>
 </body>
 </html>

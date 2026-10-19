@@ -83,7 +83,7 @@ Yang dijelaskan ke orang tua [18]:
 - Biaya dan status penjaminan.
 
 Contoh kalimat yang bisa dipakai:
-"Gigi ini sudah rusak di beberapa sisi. Tambalan biasa berisiko pecah atau karies lagi, terutama karena gigi susu lebih kecil dan enamelnya tipis. Mahkota stainless steel menutup seluruh gigi dan biasanya bertahan sampai gigi lepas. Tindakan ini perlu anestesi dan gigi akan sedikit dikurangi. Risikonya antara lain mahkota lepas, gigi terasa tinggi beberapa hari, atau infeksi pulpa yang memerlukan perawatan lanjutan. Alternatifnya tambalan, mahkota zirkonia yang lebih mahal, atau cabut. Setelah dipasang, kontrol tetap diperlukan."
+"Gigi ini sudah rusak di beberapa sisi. Tambalan biasa berisiko pecah atau karies lagi, terutama karena gigi desidui lebih kecil dan enamelnya tipis. Mahkota stainless steel menutup seluruh gigi dan biasanya bertahan sampai gigi lepas. Tindakan ini perlu anestesi dan gigi akan sedikit dikurangi. Risikonya antara lain mahkota lepas, gigi terasa tinggi beberapa hari, atau infeksi pulpa yang memerlukan perawatan lanjutan. Alternatifnya tambalan, mahkota zirkonia yang lebih mahal, atau cabut. Setelah dipasang, kontrol tetap diperlukan."
 
 Dokumentasikan diskusi dan tanda tangan orang tua atau wali. Anak yang sudah cukup umur memberi assent [18].
 
@@ -130,7 +130,7 @@ Tujuan: menghilangkan nyeri selama preparasi, try-in, dan sementasi.
 
 Cara:
 - Beri anestesi topikal pada mukosa.
-- Gunakan anestesi lokal sesuai berat badan. Untuk lidokain 2%, maximum dose kedokteran gigi anak yang dipakai AAPD adalah 4,4 mg/kg, walaupun maximum dose pabrikan 7 mg/kg [16].
+- Gunakan anestesi lokal sesuai berat badan. Untuk lidokain 2% dengan epinefrin 1:100.000, maximum dose yang dipakai AAPD adalah 4,4 mg/kg, tidak melebihi 300 mg, walaupun maximum dose pabrikan 7 mg/kg [16].
 - Hitung volume maksimum: 4,4 mg/kg × berat (kg) ÷ 20 mg/mL = mL. Satu kartrid 1,7 mL mengandung 34 mg lidokain [16].
 - Aspirasi sebelum injeksi.
 - Untuk molar bawah, bukal infiltration atau inferior alveolar nerve block sesuai kebutuhan; untuk molar atas, bukal infiltration dan pertimbangkan anestesi palatal bila diperlukan [22].
@@ -353,6 +353,14 @@ Tujuan: merekatkan crown dan menutup margin.
 Cara:
 - Isolasi dan keringkan gigi serta crown.
 - Pilih semen. GIC, RMGIC, atau semen resin bisa dipakai; pilihan berdasarkan kondisi isolasi, biaya, dan preferensi [2][23].
+
+| Semen | Kelebihan | Keterbatasan | Catatan bukti |
+|---|---|---|---|
+| GIC | Melepas fluoride, biaya rendah, manipulasi sederhana, relatif toleran terhadap kelembapan | Retensi in vitro paling rendah dari tiga pilihan | Dipakai pada Hall Technique [21] |
+| RMGIC | Retensi in vitro lebih tinggi dari GIC, tetap melepas fluoride | Waktu kerja dan cleanup lebih sulit | Pilihan kompromi [23] |
+| Semen resin self-adhesive | Retensi in vitro tertinggi | Sensitif kelembapan, lebih mahal, cleanup lebih sulit | Belum ada bukti klinis jangka panjang yang menunjukkan keunggulan [23] |
+
+Catatan: retensi klinis lebih ditentukan oleh kontur, crimping, dan adaptasi margin daripada jenis semen [2]. Perbedaan GIC, RMGIC, dan semen resin di atas berasal dari uji retensi in vitro, bukan dari RCT klinis [23].
 - Campur semen sesuai rasio pabrikan. Konsistensi luting, tidak terlalu encer atau terlalu kental.
 - Isi crown sekitar dua pertiga penuh dan pastikan seluruh dinding terlapisi, tanpa void [21].
 - Tempatkan crown di atas gigi, tekan dengan jari, lalu minta anak menggigit cotton roll atau bite stick sampai semen set. Untuk sementasi konvensional, hindari bite stick yang berlebihan karena bisa over-seat; ikuti panduan operator [22].
@@ -606,7 +614,7 @@ Penanganan:
 ### D9. Anak berkebutuhan khusus
 
 - SSC sering menjadi pilihan karena durability dan kebutuhan kunjungan lebih sedikit [1][2].
-- Pertimbangkan anestesi umum untuk perawatan komprehensif.
+- Pertimbangkan anestesi umum untuk perawatan menyeluruh.
 - Libatkan orang tua atau caregiver dalam instruksi pasca tindakan.
 - Sesuaikan kontrol dengan risiko karies dan kemampuan kooperasi.
 
@@ -686,7 +694,7 @@ Lepas bila:
 
 | Hal | Sumber A | Sumber B | Cara menyikapi |
 |---|---|---|---|
-| Reduksi oklusal | 1,0–1,5 mm (Kindelan 2008; panduan 3M) | 1,5–2,0 mm (Amlani 2023; Randall 2002 untuk molar permanen) | Pilih berdasarkan ruang dan ukuran gigi; verifikasi dengan try-in |
+| Reduksi oklusal | 1,0–1,5 mm (Kindelan 2008) | 1,5–2,0 mm (Amlani 2023; Randall 2002 untuk molar permanen) | Pilih berdasarkan ruang dan ukuran gigi; verifikasi dengan try-in |
 | Reduksi bukal/lingual | Tidak rutin (Kindelan 2008) | 0,5–1,0 mm bila bulge menghalangi (Randall 2002) | Pertahankan ridge servikal; kurangi hanya bila perlu |
 | Separator Hall | 3–5 hari (Hall Guide) | 2–5 hari (beberapa laporan) | 3–5 hari sebagai default; sesuaikan dengan kenyamanan dan kontak |
 | Semen | GIC cukup (Kindelan 2008) | Resin self-adhesive retensi in vitro tertinggi (Virupaxi 2020) | Pilih berdasarkan isolasi, biaya, dan pengalaman; contour/crimp lebih penting |
