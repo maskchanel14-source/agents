@@ -1,0 +1,77 @@
+# Default configuration. Mode defaults to PAPER. Live trading is additionally gated by
+# LIVE_TRADING=true in the environment AND the local file config/LIVE_CONFIRMED.txt.
+# Angka di sini konservatif; ubah sadar. Semua biaya dijelaskan di docs/COST_MODEL.md.
+
+mode: paper            # backtest | paper | live
+
+strategies:
+  intra_binary: true   # A: YES+NO dalam satu market
+  neg_risk: true       # B: multi-outcome / neg-risk (buy-all & convert)
+  cross_logical: false # C: dinonaktifkan — presisi kriteria resolusi tidak bisa dijamin
+  cross_venue: false   # D: dinonaktifkan secara default (fase terakhir, butuh kriteria identik)
+
+strategies_params:
+  exit_method_binary: merge   # merge = pasangan YES+NO digabung kembali jadi pUSD
+
+thresholds:
+  min_net_profit_usdc: 0.05   # net minimal per peluang (USDC), setelah SEMUA biaya + margin
+  min_net_pct: 0.002          # net minimal 0.2% dari modal terkunci
+  min_annualized_pct: 0.20    # tolak jika annualized < 20% (penting untuk resolusi lama)
+  max_book_age_ms: 1500       # snapshot lebih tua dari ini => ditolak (staleness)
+  max_book_skew_ms: 1000      # selisih waktu antar-leg yang lebih besar => ditolak
+  max_shares_per_trade: 500
+  min_shares: 5
+
+risk:
+  max_notional_per_trade: 50      # USDC per peluang
+  max_exposure_per_market: 100    # USDC terbuka per market (condition id)
+  max_exposure_per_event: 200     # USDC terbuka per event
+  max_total_exposure: 500         # USDC terbuka total
+  max_daily_loss: 25              # USDC; melewati ini => auto-halt sampai besok (UTC)
+  max_orders_per_minute: 30
+  max_consecutive_errors: 5       # circuit breaker
+  circuit_cooldown_s: 300
+  max_quoted_spread: 0.25         # spread best bid/ask lebih lebar dari ini = anomali
+
+costs:
+  gasless_relayer: false          # false = bot membayar gas on-chain (konservatif)
+  gas:
+    # Fallback saat RPC tidak terjangkau. Live: ganti dengan eth_gasPrice + POL/USD nyata.
+    fallback_gas_price_gwei: 200
+    fallback_pol_usd: 1.0
+  gas_units:                      # estimasi konservatif; ganti dengan eth_estimateGas live
+    merge: 250000
+    split: 250000
+    convert: 500000
+    redeem: 250000
+  safety_margin_rate: 0.001       # 10 bps modal, selalu dikurangkan
+  base_resolution_haircut: 0.001  # hanya jika posisi ditahan sampai resolusi
+  ambiguous_resolution_haircut: 0.01
+  per_day_resolution_haircut: 0.0002
+  uma_resolution_hours: 48
+  merge_lockup_hours: 0.25
+  sell_lockup_hours: 0.1
+  leg_fail_probability: 0.05      # peluang satu leg gagal isi (leg risk)
+  p_unknown_resolution: 0.005     # peluang resolusi 50/50 / tidak jelas (hanya posisi ditahan)
+  opportunity_cost_annual_rate: 0.04  # asumsi imbal hasil USDC menganggur (bukan kutipan pasar)
+
+data:
+  gamma_base: https://gamma-api.polymarket.com
+  clob_base: https://clob.polymarket.com
+  ws_url: wss://ws-subscriptions-clob.polymarket.com/ws/market
+  cache_ttl_s: 300
+  market_refresh_s: 600
+  events_page_size: 100
+  max_events: 500
+  http_timeout_s: 10
+  max_requests_per_10s: 200
+  scan_interval_ms: 500
+  max_assets: 400           # anggaran langganan WS (pasar paling likuid dulu)
+  exclude_ambiguous: true   # blacklist pasar dengan kriteria resolusi tipis/tidak jelas
+  blacklist_condition_ids: []  # daftar hitam manual (conditionId, huruf kecil)
+
+paths:
+  db: state/bot.sqlite
+  kill_switch: state/KILL_SWITCH   # adanya file ini => halt & cancel-all
+  recordings: data/recordings
+  reports: reports
