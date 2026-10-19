@@ -240,8 +240,9 @@ def build(path, notes_map):
        size=38, font=SERIF, color=INK, spacing=1.02)
     tx(s, M, 3.72, 7.4, 0.75, "Indikasi, preparasi, langkah pemasangan, dan bukti klinis dalam sembilan menit",
        size=15, color=INK2)
-    for i, (label, w) in enumerate([("9 menit", 1.05), ("Pemateri: [nama]", 1.75), ("[tanggal]", 1.1)]):
-        x = M + sum([1.05, 1.75, 1.1][:i]) + 0.12 * i
+    pills = [("9 menit", 1.05), ("Pemateri: Galeka Ali Prasetya", 2.08), ("20 Oktober 2026", 1.35)]
+    for i, (label, w) in enumerate(pills):
+        x = M + sum(p[1] for p in pills[:i]) + 0.12 * i
         b = card(s, x, 4.62, w, 0.34, fill=RGBColor(0xFD, 0xF1, 0xEC), line=RGBColor(0xE7, 0xC3, 0xB8), radius=0.5)
         tx(s, x, 4.66, w, 0.26, label, size=9.5, color=RGBColor(0xA3, 0x46, 0x2F), align=PP_ALIGN.CENTER)
     tx(s, M, 5.18, 7.2, 0.5, "Materi edukasi, jadi tidak menggantikan pertimbangan klinis pada pasien tertentu.",

@@ -51,12 +51,12 @@ python3 build_pptx.py
 NODE_PATH=<node_modules> node tools/print_pdf.js
 ```
 
-Catatan penting: gambar ini adalah render ilustrasi yang dibuat untuk deck, bukan foto pasien dan bukan gambar berhak cipta dari internet. Untuk pengajaran, sebutkan bahwa ini ilustrasi skematik. Slide kasus tetap memakai placeholder yang harus diisi foto klinis dan radiograf milik sendiri.
+Catatan penting: seluruh gambar di deck ini adalah render ilustrasi yang dibuat khusus untuk materi ini, bukan foto pasien dan bukan gambar berhak cipta dari internet. Slide kasus memakai dua gambar skematik (`fig-case-oklusal.jpg` dan `fig-case-bitewing.jpg`) dengan keterangan bahwa itu ilustrasi, bukan foto atau radiograf pasien. Kalau nanti dipakai foto klinis milik sendiri, ganti gambarnya sekaligus ubah catatan kaki di slide kasus.
 
 ## Yang perlu diganti sebelum dipakai
 
-1. Nama pemateri dan tanggal pada slide 1 (`[nama]`, `[tanggal]`).
-2. Dua kotak placeholder pada slide 13: foto klinis okusal gigi 85 dan radiograf bitewing. Ganti dengan foto Anda sendiri, jangan memakai foto dari internet.
+1. Slide 1 sudah terisi nama pemateri Galeka Ali Prasetya dan tanggal 20 Oktober 2026. Ubah di dua tempat bila dipakai lagi: `ssc-pedodonsia.html` (pill pada slide pembuka) dan `build_pptx.py` (daftar `pills`), lalu bangun ulang.
+2. Slide kasus memakai gambar skematik. Bila Anda sudah punya foto klinis okusal dan radiograf bitewing sendiri, ganti kedua berkas di `assets/art/`, sesuaikan lebar di CSS `.casefig` atau tinggi di `build_pptx.py`, dan perbarui catatan kaki "data pasien fiktif" agar sesuai.
 3. Bila ingin menambah logo institusi, letakkan di sudut kanan bawah footer dan jaga tinggi maksimal 0,25 inci agar tidak menabrak nomor slide.
 
 ## Catatan revisi
