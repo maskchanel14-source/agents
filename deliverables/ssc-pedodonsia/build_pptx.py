@@ -328,7 +328,7 @@ def build(path, notes_map):
     tx(s, M + 0.22, 2.38, 5.75, 1.6,
        "•  Karies lebih dari 2 permukaan, atau melewati line angle\n"
        "•  Gigi setelah pulpotomi atau pulpektomi\n"
-       "•  Hipoplasia, MIH, fraktur, atau atrisi\n"
+       "•  Hipoplasia, hipomineralisasi molar-insisivus (MIH), fraktur, atau atrisi\n"
        "•  Abutment space maintainer atau risiko karies tinggi", size=10.5, color=INK2, spacing=1.2)
     card(s, M, 4.25, 6.2, 1.55)
     tx(s, M + 0.22, 4.38, 5.7, 0.3, "Batas dan kontraindikasi", size=12, color=TEAL, bold=True)
@@ -410,7 +410,7 @@ def build(path, notes_map):
         tx(s, x + 0.18, y + 0.14, 3.5, 0.3, a, size=12, color=INK, bold=True)
         tx(s, x + 0.18, y + 0.5, 3.5, 0.6, b, size=10, color=INK2)
     strip = [("Alergi nikel", "Sensitisasi 8–10% pada anak di Eropa, reaksi klinis jarang. Jangan dipakai bila ada riwayat reaksi."),
-             ("MIH", "SSC bertahan pada 94,4% gigi, komposit 49,2%, setelah 24 bulan."),
+             ("Hipomineralisasi molar-insisivus (MIH)", "Enamel molar pertama permanen rapuh sejak erupsi, sehingga SSC bertahan pada 94,4% gigi, komposit 49,2%, setelah 24 bulan."),
              ("Anak berkebutuhan khusus", "Perawatan selesai dalam lebih sedikit kunjungan.")]
     for i, (a, b) in enumerate(strip):
         x = M + i * 4.05
@@ -434,7 +434,7 @@ def build(path, notes_map):
     tx(s, M + 6.42, 2.32, 5.2, 0.3, "Ketiganya dari studi berbeda, jadi dibaca terpisah.", size=8.5, color=MUTED)
     angka = [("96,1%", "gigi SSC berhasil pada 12 bulan", "Chisini 2018; SR/MA, 31 studi"),
              ("0,18", "risiko kegagalan mayor crown dibanding tambalan", "Cochrane 2015; tinjauan sistematis"),
-             ("94,4%", "SSC bertahan pada MIH, komposit 49,2%, 24 bulan", "Farias 2022; kohort")]
+             ("94,4%", "SSC bertahan pada gigi dengan MIH, komposit 49,2%, 24 bulan", "Farias 2022; kohort")]
     ys = [2.72, 3.85, 4.98]
     for (v, lab, src), y in zip(angka, ys):
         tx(s, M + 6.42, y, 2.2, 0.42, v, size=22, font=SERIF, color=INK)
@@ -501,7 +501,7 @@ def build(path, notes_map):
           "2. Pada molar desidui, berapa reduksi oklusal yang dianjurkan UK guideline?",
           "3. Crown tidak duduk, ada ledge. Apa langkah berikutnya?",
           "4. Apa yang paling menentukan retensi jangka panjang?",
-          "5. MIH berat pada molar permanen. Pilihan dengan bukti terkuat?"]
+          "5. Anak dengan MIH berat pada molar pertama permanen: perawatan dengan bukti terkuat?"]
     for i, q in enumerate(qs):
         y = 1.9 + i * 0.86
         card(s, M, y, 11.55, 0.7)
@@ -606,7 +606,7 @@ def build(path, notes_map):
             tx(s, x, ty, 2.9, 0.30, "□  " + ln, size=8.6, color=INK2)
             ty += 0.52 if len(ln) > 33 else 0.40
     fills = [
-        ("Angka kunci", ["Keberhasilan SSC 96,1% (Chisini 2018)", "Gagal mayor: RR 0,18 (Cochrane 2015)", "Retensi 5 tahun 97,88% (Lampl 2025)", "MIH: SSC 94,4% vs 49,2% (Farias 2022)"]),
+        ("Angka kunci", ["Keberhasilan SSC 96,1% (Chisini 2018)", "Gagal mayor: RR 0,18 (Cochrane 2015)", "Retensi 5 tahun 97,88% (Lampl 2025)", "MIH: SSC 94,4% dan 49,2% (Farias 2022)"]),
         ("Komplikasi dan tindakan", ["Longgar: pilih ukuran lebih kecil, crimp ulang", "Tidak duduk: periksa ledge dan sisa kontak", "Perforasi: ganti crown", "Lepas: sementasi ulang bila crown intak"]),
     ]
     for i, (title, lines) in enumerate(fills):

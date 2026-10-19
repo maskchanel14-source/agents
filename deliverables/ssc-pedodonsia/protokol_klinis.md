@@ -36,7 +36,7 @@ Pemeriksaan intraoral:
 SSC dipertimbangkan bila [1][2]:
 - karies lebih dari dua permukaan, atau satu sampai dua permukaan yang ekstensif;
 - gigi sudah atau akan menjalani pulpotomi/pulpektomi;
-- ada defek perkembangan, hipoplasia, hipomineralisasi, atau MIH;
+- ada defek perkembangan, hipoplasia, hipomineralisasi, atau MIH (hipomineralisasi molar-insisivus);
 - risiko karies tinggi, termasuk anak yang dirawat dengan sedasi atau anestesi umum;
 - gigi akan menjadi abutment space maintainer;
 - gigi fraktur atau kehilangan struktur luas;
@@ -602,7 +602,7 @@ Penanganan:
 - Bila perilaku tidak memungkinkan, pertimbangkan sedasi atau anestesi umum.
 - Jangan memaksa tindakan yang berisiko aspirasi atau trauma.
 
-### D8. MIH pada molar permanen muda
+### D8. MIH (hipomineralisasi molar-insisivus) pada molar permanen muda
 
 - SSC diindikasikan pada MIH berat dengan kehilangan enamel, hipersensitivitas, atau karies atipikal [15].
 - Preparasi lebih sulit karena enamel rapuh; gunakan bur tajam dan kontrol kedalaman.
