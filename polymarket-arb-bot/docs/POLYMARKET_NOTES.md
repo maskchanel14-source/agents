@@ -156,3 +156,27 @@ Sumber: https://docs.polymarket.com/getting-started/api.md
   SDK terpadu dan Protocol V2.
 - PyPI `polymarket` 0.1.2 — paket pihak ketiga (MattMaximo) untuk ekspor histori odds.
   **Tidak dipakai** (bukan SDK resmi).
+
+## 14. Addendum (English): neg-risk convert and verified sources
+
+Verified 2026-10-19 (sandbox fetch of the official docs; the bot does not fetch these at runtime).
+
+- **Negative-risk convert (basis of strategy B2).** Source:
+  https://docs.polymarket.com/concepts/negative-risk.md. One NO share of outcome *j* converts into
+  one YES share of every other outcome *i ≠ j*, with no collateral. Holding NO_j is therefore
+  equivalent to holding YES of all other outcomes. If `ask(NO_j) < Σ bid(YES_i)` (i ≠ j), buying NO_j,
+  converting, and selling the YES shares is a riskless edge before fees and gas. The bot models this as the
+  `convert` direction in `strategies/neg_risk.py`.
+- **Augmented neg-risk events** contain placeholder outcomes. Only named outcomes are traded. The bot skips
+  groups with `negRiskOther` or augmented flags, because the definition of the "Other" outcome changes.
+- **Exhaustiveness.** Strategy B1 (buy-all) is only valid when the outcome set is exhaustive. The bot checks
+  completeness (`completeness_reasons`) and rejects incomplete or missing-book groups, counting them in stats.
+- **Split / merge / redeem targets** (`https://docs.polymarket.com/trading/positions/manage`) are versioned by
+  `negRisk`. The bot does not submit any of these on-chain operations. Live submission is locked.
+- **Not verified from the sandbox:** the live CLOB order body. Required fields (maker, signer, salt,
+  nonce, feeRateBps) and `signatureType: 3` must be checked against the current order-signing docs before any
+  live use. See REPORT.md, pre-live checklist.
+- **Source URLs fetched (sandbox):** docs.polymarket.com/concepts/negative-risk.md,
+  /trading/positions/manage, /trading/fees.md, /market-data/prices-order-books.md,
+  /api-reference/wss/market, /concepts/resolution.md, /concepts/pusd.md,
+  /api-reference/rate-limits.md, help.polymarket.com/en/articles/13364163-geographic-restrictions.
