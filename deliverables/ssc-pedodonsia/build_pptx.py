@@ -324,18 +324,20 @@ def build(path, notes_map):
     s = blank(prs); slides.append(s)
     header(s, "Seleksi kasus", "SSC dipilih saat karies melewati line angle atau pulpa sudah diterapi", 5, 28)
     card(s, M, 1.9, 6.2, 2.2)
-    tx(s, M + 0.22, 2.03, 5.7, 0.3, "Pilih SSC", size=12, color=ACCENT, bold=True)
+    tx(s, M + 0.22, 2.03, 5.7, 0.3, "INDIKASI", size=10, color=RGBColor(0x22, 0x60, 0x5C), bold=True, spc=120)
     tx(s, M + 0.22, 2.38, 5.75, 1.6,
-       "•  Karies lebih dari 2 permukaan, atau melewati line angle\n"
-       "•  Gigi setelah pulpotomi atau pulpektomi\n"
-       "•  Hipoplasia, hipomineralisasi molar-insisivus (MIH), fraktur, atau atrisi\n"
-       "•  Abutment space maintainer atau risiko karies tinggi", size=10.5, color=INK2, spacing=1.2)
+       "1.  Karies melewati line angle atau lebih dari 2 permukaan\n"
+       "2.  Gigi setelah pulpotomi atau pulpektomi\n"
+       "3.  Hipoplasia, hipomineralisasi molar-insisivus (MIH), fraktur, atrisi\n"
+       "4.  Abutment space maintainer\n"
+       "5.  Risiko karies tinggi atau perawatan dengan sedasi", size=10, color=INK2, spacing=1.22)
     card(s, M, 4.25, 6.2, 1.55)
-    tx(s, M + 0.22, 4.38, 5.7, 0.3, "Batas dan kontraindikasi", size=12, color=TEAL, bold=True)
+    tx(s, M + 0.22, 4.38, 5.7, 0.3, "KONTRAINDIKASI", size=10, color=RGBColor(0xA3, 0x46, 0x2F), bold=True, spc=120)
     tx(s, M + 0.22, 4.72, 5.75, 1.0,
-       "•  Resorpsi akar lebih dari setengah, atau alergi nikel\n"
-       "•  Gigi tidak dapat direstorasi\n"
-       "•  Pulpa ireversibel: terapi pulpa lebih dulu, SSC dipasang setelahnya", size=10.5, color=INK2, spacing=1.2)
+       "1.  Resorpsi akar lebih dari setengah\n"
+       "2.  Alergi nikel yang diketahui\n"
+       "3.  Gigi tidak dapat direstorasi\n"
+       "4.  Pulpa ireversibel belum diterapi", size=10, color=INK2, spacing=1.24)
     # alur keputusan sederhana
     tx(s, 7.35, 1.86, 5.0, 0.3, "ALUR KEPUTUSAN", size=8.5, color=ACCENT, bold=True, spc=80)
     bands = [
@@ -474,9 +476,11 @@ def build(path, notes_map):
        "Anak laki-laki, 7 tahun. Gigi 85, karies oklusal-distal luas.\n"
        "Tidak ada nyeri spontan, swelling, atau fistula. Vital, perkusi negatif.\n"
        "Radiograf: lesi mendekati pulpa dengan dentine bridge terlihat.", size=10.2, color=INK2, spacing=1.25)
-    placeholder(s, M, 3.98, 2.9, 1.45, "Foto klinis", "Okusal gigi 85. Ganti dengan foto Anda.")
-    placeholder(s, M + 3.1, 3.98, 2.9, 1.45, "Radiograf", "Bitewing gigi 85. Ganti dengan radiograf Anda.")
-    tx(s, M, 5.55, 5.9, 0.3, "Data fiktif untuk latihan keputusan.", size=8, color=MUTED)
+    for nm, px, cap in [("fig-case-oklusal.jpg", M, "Pandangan oklusal: karies oklusal-distal, dinding mesial utuh."),
+                        ("fig-case-bitewing.jpg", M + 2.62, "Skema bitewing: lesi mendekati pulpa, dentine bridge terlihat.")]:
+        pic = s.shapes.add_picture(os.path.join(ART, nm), Inches(px), Inches(3.92), height=Inches(1.58))
+        tx(s, px, 5.56, 2.52, 0.44, cap, size=7.6, color=INK2, spacing=1.05)
+    tx(s, M, 6.06, 5.9, 0.3, "Data fiktif. Gambar ini ilustrasi skematik, bukan foto atau radiograf pasien.", size=7.6, color=MUTED)
     tx(s, 6.95, 1.85, 5.7, 0.3, "1. Apa keputusan Anda?", size=13, color=INK, bold=True)
     opts = ["SSC konvensional dengan anestesi", "Komposit dua permukaan", "Pulpotomi lalu SSC"]
     for i, o in enumerate(opts):

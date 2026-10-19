@@ -17,7 +17,7 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `catatan_skill_repo.md` | Skill repo yang dipakai dan dilewati, beserta alasannya | Jejak pemakaian repo |
 | `daftar_istilah.md` | Istilah yang dibekukan dan aturan ejaan | QC konsistensi |
 | `build_pptx.py` | Skrip pembangun PPTX dari struktur deck | Regenerasi bila isi berubah |
-| `assets/art/` | Enam ilustrasi anatomi beranotasi (`fig-*.svg` sumber, `fig-*.jpg` untuk deck) | Gambar slide 1, 4, 6, 7, 8, 12 |
+| `assets/art/` (termasuk dua ilustrasi skematik kasus: `fig-case-oklusal` dan `fig-case-bitewing`) | Enam ilustrasi anatomi beranotasi (`fig-*.svg` sumber, `fig-*.jpg` untuk deck) | Gambar slide 1, 4, 6, 7, 8, 12 |
 | `assets/src/` | Berkas ilustrasi asli tanpa anotasi | Arsip bila potongan gambar perlu dibuat ulang |
 | `tools/build_art.py` | Penulis anotasi: titik penunjuk, garis, dan label di atas gambar | Regenerasi ilustrasi |
 | `tools/render_svg.js` | Render SVG ke JPEG 2x | Dipakai setelah `build_art.py` |
@@ -40,7 +40,7 @@ PowerPoint bisa memuat hyperlink dan catatan pembicara, tetapi tidak bisa menamp
 
 ## Ilustrasi
 
-Tujuh slide memakai ilustrasi anatomi beranotasi: sampul, prinsip SSC, preparasi, langkah klinis (instrumen), dan alternatif estetik. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, gigi dengan karies tertutup crown Hall, deretan instrumen, dan tiga jenis mahkota posterior.
+Delapan slide memakai ilustrasi anatomi beranotasi: sampul, prinsip SSC, preparasi, langkah klinis (instrumen), dan alternatif estetik. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, gigi dengan karies tertutup crown Hall, deretan instrumen, dan tiga jenis mahkota posterior.
 
 Cara kerjanya: gambar dasar ada di `assets/src`, dipotong ke `assets/art/photo-*.jpg`, lalu diberi titik penunjuk dan label oleh `assets/art/build_art.py`. Skrip itu menulis SVG, dan `tools/render_svg.js` mengubahnya menjadi JPEG 2x yang dipakai deck HTML maupun PPTX. Untuk mengubah label atau posisi penunjuk, sunting `build_art.py` lalu jalankan:
 
