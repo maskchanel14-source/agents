@@ -15,8 +15,8 @@ Dokumen ini adalah acuan tunggal untuk presentasi, catatan pembicara, protokol, 
 | try-in | uji coba, fitting | Tahap mencoba crown sebelum sementasi |
 | crimping | pengkerutan margin | Penyesuaian margin servikal |
 | contouring | pembentukan kontur | Penyesuaian bentuk crown |
-| feather edge | tepi bulu, margin tipis | Margin preparasi tanpa ledge |
-| line angle | sudut garis | Sudut antara dua permukaan |
+| feather edge | tepi tipis | Margin preparasi tanpa undakan (ledge) |
+| line angle | sudut pertemuan | Garis tempat dua bidang gigi bertemu |
 | separator | separator ortodontik | Karet pemisah kontak |
 | luting | perekatan, sementasi | Luting cement = semen perekat |
 | luting cement | semen perekat | GIC, RMGIC, semen resin |
@@ -37,10 +37,10 @@ Dokumen ini adalah acuan tunggal untuk presentasi, catatan pembicara, protokol, 
 | space maintainer | space maintainer | Alat penjaga ruang |
 | seal | seal | Penutupan margin |
 | blanching | blanching | Pucat karena tekanan |
-| ledge | ledge | Tangga pada preparasi |
+| ledge | undakan | Tangga kecil pada preparasi yang menahan crown |
 | shoulder | shoulder | Bahu preparasi |
-| undercut | undercut | Daerah cekung retentif |
-| bulbosity | bulbositas | Kontur cembung servikal |
+| undercut | cekungan penahan | Cekungan di bawah tonjolan servikal yang menahan crown |
+| bulbosity | tonjolan servikal | Kontur cembung dekat gusi yang membentuk undercut |
 | free gingival margin | margin gingiva bebas | Tepi gingiva |
 | exfoliation | eksfoliasi | Pelepasan gigi desidui |
 | successor | successor | Gigi permanen pengganti |

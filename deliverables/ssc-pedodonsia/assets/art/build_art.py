@@ -99,7 +99,7 @@ right = PX + PW + 34
 rows = [
     (p(470, 150), "menutup seluruh gigi", "seluruh korona tertutup logam", 92),
     (p(556, 420), "margin 1 mm subgingiva", "seal sekaligus retensi", 190),
-    (p(120, 462), "bulbositas servikal", "undercut jadi sumber retensi", 300),
+    (p(120, 462), "tonjolan servikal", "cekungan jadi sumber retensi", 300),
     (p(330, 600), "pulpa", "tanduk pulpa tinggi, dentin tipis", 404),
 ]
 for (ax, ay), main, sub, ty in rows:
@@ -122,8 +122,8 @@ body = [img("prep.png", PX2, PY2, PW2, PH2)]
 right = PX2 + PW2 + 30
 rows = [
     (q(300, 528), "reduksi oklusal 1,0–1,5 mm", "sumber lain: 1,5–2,0 mm", 96),
-    (q(470, 655), "feather edge di proksimal", "kontak mesial dan distal putus", 196),
-    (q(200, 782), "bulbositas servikal", "dipertahankan, jangan diratakan", 300),
+    (q(470, 655), "tepi tipis di proksimal", "kontak dengan gigi sebelah terbuka", 196),
+    (q(200, 782), "tonjolan servikal", "dipertahankan, jangan diratakan", 300),
     (q(452, 800), "margin servikal", "crown duduk 1 mm subgingiva", 410),
 ]
 for (ax, ay), main, sub, ty in rows:

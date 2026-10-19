@@ -310,7 +310,7 @@ def build(path, notes_map):
     stat(s, M + 8.24, 1.95, 3.85, "94,4%", "", "SSC bertahan pada MIH, komposit 49,2%, 24 bulan", "Farias 2022; kohort, III")
     picture(s, "fig-why.jpg", M, 3.40, 4.70,
             "Penampang molar desidui dengan crown terpasang.")
-    cards = [("Retensi dari servikal", "Undercut di bawah bulbositas servikal menahan crown; semen hanya menutup margin."),
+    cards = [("Retensi dari servikal", "Cekungan di bawah tonjolan servikal (undercut) menahan crown; semen hanya menutup margin."),
              ("Tahan fraktur", "Logam menahan gaya oklusal pada dinding gigi yang tipis."),
              ("Lebih sedikit pengulangan", "Biaya awalnya lebih tinggi, tetapi perawatan ulang lebih jarang.")]
     for i, (a, b) in enumerate(cards):
@@ -361,10 +361,10 @@ def build(path, notes_map):
     # 6 PREP
     s = blank(prs); slides.append(s)
     header(s, "Anatomi dan preparasi", "Bentuk gigi desidui menentukan arah preparasi", 6, 28)
-    rules = [("Retensi ada di servikal", "Crown ditahan oleh undercut di bawah bulbositas servikal."),
-             ("Bukal dan lingual tidak rutin", "Dikurangi hanya bila konturnya menghalangi crown duduk."),
-             ("Enamel hanya 1 mm", "Reduksi oklusal 1,0–1,5 mm; sumber lain menyebut 1,5–2,0 mm untuk molar permanen."),
-             ("Kontak harus putus", "Probe harus bisa melewati kontak mesial dan distal.")]
+    rules = [("Permukaan bukal dan lingual dibiarkan utuh", "Sisi luar yang menghadap pipi dan sisi dalam yang menghadap lidah tidak dikurangi. Pengurangan hanya dilakukan bila ada tonjolan yang menahan crown."),
+             ("Oklusal dikurangi 1,0–1,5 mm", "Sebagian sumber memakai 1,5–2,0 mm untuk molar permanen, sedangkan enamel desidui hanya sekitar 1 mm, jadi reduksi berlebih cepat mencapai dentin."),
+             ("Sudut pertemuan dua bidang dibulatkan", "Line angle adalah garis tempat dua bidang gigi bertemu. Sudut tajam di sana menahan crown saat try-in."),
+             ("Kontak dengan gigi tetangga harus terbuka", "Probe harus bisa melewati celah mesial dan distal sebelum crown dicoba.")]
     for i, (a, b) in enumerate(rules):
         y = 1.95 + i * 1.12
         card(s, M, y, 5.95, 0.98)
@@ -520,7 +520,7 @@ def build(path, notes_map):
     s = blank(prs); slides.append(s)
     header(s, "Penutup", "Tiga hal yang harus diingat", 13)
     recap = [("1", "SSC menutup seluruh permukaan gigi", "Retensinya berasal dari margin dan undercut servikal, dan crimping margin lebih menentukan daripada jenis semen."),
-             ("2", "Preparasi menentukan apakah crown duduk", "Kontak proksimal harus putus, line angle dihaluskan, dan margin berada 1 mm di bawah gingiva."),
+             ("2", "Preparasi menentukan apakah crown duduk", "Kontak dengan gigi tetangga harus terbuka, sudut pertemuan dua bidang dibulatkan, dan margin berada 1 mm di bawah gingiva."),
              ("3", "Baca angka sesuai definisinya", "Angka keberhasilan, angka gigi yang masih bertahan, dan angka crown yang masih terpasang mengukur hal berbeda.")]
     for i, (n, a, b) in enumerate(recap):
         y = 1.9 + i * 1.42
