@@ -1,6 +1,6 @@
 # SSC pada gigi desidui dan gigi permanen muda: berkas presentasi
 
-Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditambah dokumen pendukung. Semua angka di slide dapat dilacak ke `research_notes.md`.
+Folder ini berisi satu paket presentasi sekitar 9 menit untuk IIK Bhaktiwiyata, ditambah dokumen pendukung. Semua angka di slide dapat dilacak ke `research_notes.md`.
 
 ## Berkas
 
@@ -11,7 +11,9 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `ssc-pedodonsia.pptx` | Cadangan statis 16 slide + catatan pembicara | Bila ruang presentasi hanya menyediakan PowerPoint |
 | `ssc-pedodonsia.pdf` | Cetakan 13,333 × 7,5 inci, 16 halaman | Dibagikan atau dicetak sebagai handout |
 | `ssc-pedodonsia-paket.zip` | Seluruh folder ini | Diunggah ke Drive untuk arsip |
-| `research_notes.md` | Catatan riset, 33 sumber Vancouver, tingkat bukti | Rujukan angka dan klaim |
+| `naskah_presentasi.md` | Naskah bicara per slide, berikut cadangan untuk tanya jawab | Dibaca sebelum dan saat tampil |
+| `naskah-presentasi.pdf` | Naskah yang sama dalam A4, 8 halaman | Dicetak dan dibawa ke podium |
+| `research_notes.md` | Catatan riset, 28 sumber Vancouver, tingkat bukti | Rujukan angka dan klaim |
 | `protokol_klinis.md` | Protokol lengkap 10 langkah + komplikasi + checklist | Dibawa ke klinik |
 | `gaya_bahasa.md` | Repo humanizer yang dibaca, aturan yang diambil dan ditolak | Catatan metode penulisan |
 | `catatan_skill_repo.md` | Skill repo yang dipakai dan dilewati, beserta alasannya | Jejak pemakaian repo |
@@ -19,10 +21,25 @@ Folder ini berisi satu paket presentasi 10 menit untuk IIK Bhaktiwiyata, ditamba
 | `build_pptx.py` | Skrip pembangun PPTX dari struktur deck | Regenerasi bila isi berubah |
 | `assets/art/` (termasuk dua ilustrasi skematik kasus: `fig-case-oklusal` dan `fig-case-bitewing`) | Enam ilustrasi anatomi beranotasi (`fig-*.svg` sumber, `fig-*.jpg` untuk deck) | Gambar slide 1, 4, 6, 7, 8, 12 |
 | `assets/src/` | Berkas ilustrasi asli tanpa anotasi | Arsip bila potongan gambar perlu dibuat ulang |
-| `tools/build_art.py` | Penulis anotasi: titik penunjuk, garis, dan label di atas gambar | Regenerasi ilustrasi |
-| `tools/render_svg.js` | Render SVG ke JPEG 2x | Dipakai setelah `build_art.py` |
+| `assets/art/build_art.py` | Penulis anotasi: titik penunjuk, garis, dan label di atas gambar | Regenerasi ilustrasi |
+| `tools/render_svg.js` | Render SVG ke PNG 2x, lalu dikonversi ke JPEG | Dipakai setelah `build_art.py` |
 | `tools/print_pdf.js` | Cetak deck HTML ke PDF 13,333 × 7,5 inci | Regenerasi handout |
+| `tools/build_script.py` | Ubah `naskah_presentasi.md` menjadi HTML A4 | Regenerasi naskah |
+| `tools/print_script.js` | Cetak naskah HTML ke PDF A4 | Regenerasi naskah cetak |
 | `tools/make_standalone.py` | Menanam ilustrasi ke dalam HTML jadi satu berkas | Regenerasi versi Drive |
+
+## Naskah bicara
+
+`naskah_presentasi.md` berisi kalimat yang diucapkan per slide, ditulis dengan bahasa lisan yang pendek-pendek. Di dalamnya ada penanda waktu, arahan panggung dalam tanda kurung, bagian "kalau waktu mepet", dan lima jawaban cadangan untuk tanya jawab.
+
+Versi cetaknya A4 dan dibuat dari berkas yang sama:
+
+```
+python3 tools/build_script.py
+NODE_PATH=<node_modules> node tools/print_script.js
+```
+
+Setiap slide dimulai di halaman baru, jadi naskah bisa diletakkan di podium dan dibuka per bagian.
 
 ## Mengapa HTML menjadi versi utama
 
@@ -34,15 +51,15 @@ PowerPoint bisa memuat hyperlink dan catatan pembicara, tetapi tidak bisa menamp
 - Tombol `Agenda` di kanan atas mengembalikan ke halaman agenda. Setiap butir agenda juga bisa diklik.
 - Tombol `Catatan (N)` membuka catatan pembicara. Tombol `Cetak` membuka dialog cetak; pilih lanskap dan aktifkan latar belakang grafis.
 - Pada slide 7, klik langkah di kolom kiri atau gunakan tombol Sebelumnya dan Berikutnya. Bagian kesalahan sudah terbuka dan bisa ditutup.
-- Pada slide 9 dan 12, klik tab untuk membandingkan.
-- Pada slide 13, pilih keputusan kasus; alasan muncul dan pilihan diringkas agar dua pertanyaan muat di satu layar.
-- Pada slide 14, lima soal ditampilkan satu per satu dengan penjelasan dan skor akhir.
+- Pada slide 9 dan 10, klik tab untuk membandingkan.
+- Pada slide 11, pilih keputusan kasus; alasan muncul dan pilihan diringkas agar dua pertanyaan muat di satu layar.
+- Pada slide 12, lima soal ditampilkan satu per satu dengan penjelasan dan skor akhir.
 
 ## Ilustrasi
 
-Delapan slide memakai ilustrasi anatomi beranotasi: sampul, prinsip SSC, preparasi, langkah klinis (instrumen), dan alternatif estetik. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, gigi dengan karies tertutup crown Hall, deretan instrumen, dan tiga jenis mahkota posterior.
+Delapan slide memakai ilustrasi: sampul, prinsip SSC, preparasi, langkah klinis, alternatif estetik, dan slide kasus. Isinya penampang molar desidui dengan crown terpasang, gigi yang sudah dipreparasi dengan crown di atasnya, deretan instrumen, tiga jenis mahkota posterior, dan dua gambar skematik kasus (pandangan oklusal dan bitewing) yang dibuat khusus untuk deck ini.
 
-Cara kerjanya: gambar dasar ada di `assets/src`, dipotong ke `assets/art/photo-*.jpg`, lalu diberi titik penunjuk dan label oleh `assets/art/build_art.py`. Skrip itu menulis SVG, dan `tools/render_svg.js` mengubahnya menjadi JPEG 2x yang dipakai deck HTML maupun PPTX. Untuk mengubah label atau posisi penunjuk, sunting `build_art.py` lalu jalankan:
+Cara kerjanya: gambar dasar ada di `assets/src`, dipotong ke `assets/art/photo-*.jpg`, lalu diberi titik penunjuk dan label oleh `assets/art/build_art.py`. Dua gambar kasus dibuat terpisah lewat `assets/art/build_case_svg.py`. Skrip itu menulis SVG, dan `tools/render_svg.js` mengubahnya menjadi JPEG 2x yang dipakai deck HTML maupun PPTX. Untuk mengubah label atau posisi penunjuk, sunting `build_art.py` lalu jalankan:
 
 ```
 python3 assets/art/build_art.py
