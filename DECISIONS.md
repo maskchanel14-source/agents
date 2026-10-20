@@ -41,7 +41,7 @@ DIPAKAI dari repo skills monorepo ini (guidance, bukan runtime):
 `tdd-workflows` (disiplin red-green-refactor untuk costs.py & strategies),
 `unit-testing` (struktur test & coverage), `debugging-toolkit` / `error-debugging`
 (akar masalah saat test gagal), `comprehensive-review` (review mandiri sebelum PR),
-`python-development/async-python-patterns` (arsitektur asyncio), 
+`python-development/async-python-patterns` (arsitektur asyncio),
 `python-development/python-anti-patterns` (checklist review),
 `ui-design/design-system-patterns` + `visual-design-foundations` (HUD design system),
 `blockchain-web3/web3-testing` (prinsip test untuk modul yang menyentuh on-chain),
@@ -123,10 +123,12 @@ spesifik, `frontend-mobile-development` (butuh framework build — kami pakai va
 - Live paper-run 30–60 menit terhadap data Polymarket asli: TIDAK mungkin dari sandbox
   (egress diblokir). Pengganti: replay fixture + recorder siap pakai + checklist untuk
   menjalankan `python -m bot --mode paper` di Windows (lihat REPORT.md).
+
 - Angka gas POL/USD live: fallback config konservatif, runtime RPC opsional.
 - Verifikasi emulator batch .bat: tidak tersedia di Linux → static lint + checklist manual.
 
 ## D10 (2026-10-20) Latihan angka: fixture sintetis vs live
+
 - Egress sandbox ke seluruh host Polymarket diblokir (fetch_page docs berhasil,
   koneksi langsung gagal), jadi angka feasibility/paper-run berasal dari fixture
   SINTETIS dengan peluang yang sengaja ditanam — dilabeli tegas di FEASIBILITY.md,
@@ -135,12 +137,14 @@ spesifik, `frontend-mobile-development` (butuh framework build — kami pakai va
   `scripts/take_screenshots.py`) disertakan untuk dijalankan user.
 
 ## D11 (2026-10-20) Formulasi fee dengan exponent
+
 - Fee `C × feeRate × p(1-p)` memakai `feeSchedule.exponent` sebagai pangkat
   `(p(1-p))^e` (default 1). Rumus resmi yang terdokumentasi adalah e=1; semua
   market ber-fee yang ditemui e=1, tapi generalisasi ini menjaga kebenaran bila
   Polymarket memperkenalkan fee non-linear. Min fee 0.00001 (sebelum pembulatan 5dp).
 
 ## D12 (2026-10-20) Strategi C tetap gated default OFF
+
 - C hanya mengeksekusi pasangan kriteria-resolusi IDENTIK LITERAL dengan harga
   yang memberi payoff deterministik dominan (YES1+NO2 < 1 atau NO1+YES2 < 1).
   Pasangan yang "tampak eksklusif" tapi kriterinya tidak identik → SKIP
@@ -149,6 +153,7 @@ spesifik, `frontend-mobile-development` (butuh framework build — kami pakai va
   review manual atas pasangan yang muncul.
 
 ## D13 (2026-10-20) Branch name deviation
+
 - User meminta PR dari `feat/polymarket-arb-bot`; platform mewajibkan kerja di
   branch sesi `arena/4cbec802-agents` (push ke branch lain ditolak platform).
   PR dibuka DARI branch sesi, dengan catatan deviasi ini di PR description.
@@ -156,12 +161,14 @@ spesifik, `frontend-mobile-development` (butuh framework build — kami pakai va
 ## D14 — Parser fee Gamma multi-bentuk + neg-risk dari event ter-embed (2026-10-20)
 
 Test coverage baru (T16) menemukan dua risiko live-data nyata:
+
 1. `parse_fee_schedule` hanya menerima bentuk ternormalisasi `{rate, exponent}`.
    API Gamma juga mengembalikan bentuk mentah (`baseFee`/`takerBaseFee`/`expScalar`,
    dengan `exponent = expScalar/1e16`) dan bentuk lama `fee.baseFee`. Tanpa dukungan
    ini, market valid akan salah ditandai `missing` (fail-closed, aman tapi kehilangan
    peluang) atau — lebih buruk — exponent salah. Keputusan: dukung ketiga bentuk,
    tetap fail-closed untuk bentuk tak dikenal.
+
 2. `parse_market` mengabaikan flag neg-risk/augmented bila hanya ada di `events[0]`
    yang ter-embed pada listing `/markets` (tanpa fetch event penuh). Keputusan:
    fallback ke `events[0]` ter-embed; fetch event penuh tetap diutamakan bila ada.

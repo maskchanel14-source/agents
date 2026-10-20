@@ -9,10 +9,13 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 - [x] T0.3 Scaffold: requirements, .env.example, config, DECISIONS, CHECKPOINT
 - [x] T1 `bot/costs.py` + `docs/COST_MODEL.md` + unit/property tests (fee tabel resmi,
       gas, slippage walk-the-book, rounding parity, partial fill) — 95% coverage
+
 - [x] T2 Data layer: Gamma discovery (paginasi penuh + keyset), CLOB REST (batch),
       WS feed (sharding + reconnect + delta), staleness, coverage metrics
+
 - [x] T3 Scanner menyeluruh (pipeline bertahap, ranking expected-net, dedup,
       SEMUA peluang ke SQLite + scan_runs)
+
 - [x] T4 Recorder (`python -m bot.record`) + fixture replay + `docs/FEASIBILITY.md`
 - [x] T5 Strategi A (buy pair + mint&sell) + tests
 - [x] T6 Strategi B (buy-all-YES/NO + konversi neg-risk, validasi exhaustive) + tests
@@ -20,6 +23,7 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 - [x] T8 Execution (fill model, paper FOK/FAK, live stub terkunci ganda) + tests
 - [x] T9 Dashboard HUD ARC-TERMINAL (server+SSE+token+2-step, frontend vanilla,
       waterfall/funnel/tabs/export/a11y/reduced-motion) + endpoint tests
+
 - [x] T10 Launcher .bat (CRLF/ASCII, menu, marker install, LIVE ketik-LIVE) + lint tests
       + README "Quick start Windows (CMD)" + checklist manual
 - [x] T11 Paper run (replay fixture penuh + paper executor) → logs/paper_run_summary.json
@@ -27,6 +31,7 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 - [x] T13 Backtest anti-lookahead + parameter sweep (36 kombinasi) → report_out/
 - [x] T14 Dokumentasi: README, REPORT.md, COST_MODEL, FEASIBILITY, POLYMARKET_NOTES;
       secret scan bersih; coverage report (report_out/coverage.txt)
+
 - [x] T15 PR dari branch sesi (setelah commit final)
 
 ## Status komponen (ringkas)
@@ -47,6 +52,7 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 1. Egress sandbox tidak mencapai Polymarket → verifikasi live (discovery/WS/fees
    runtime) dan paper-run 30–60 menit HARUS di mesin user. Tooling sudah siap:
    `python -m bot.record`, `python -m bot --mode paper`, `scripts/take_screenshots.py`.
+
 2. Screenshot dashboard butuh browser (blokir unduhan di sandbox) — script siap.
 
 ## Langkah berikutnya (jika sesi lanjut)

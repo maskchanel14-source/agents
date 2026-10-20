@@ -3,6 +3,7 @@
 Terakhir diperbarui: 2026-10-20.
 
 ## Status: ⚠️ GO BERSYARAT — menunggu rekaman live 2–4 jam dari mesin dengan
+
 akses jaringan Polymarket (angka di bawah dari fixture SINTETIS + pipeline asli,
 BUKAN data live — egress sandbox ke Polymarket diblokir, lihat DECISIONS.md D0/D9).
 
@@ -58,9 +59,11 @@ ini dan paper PnL memakai model tersebut (tidak optimis).
 
 - `max_capital_per_trade` berdampak linear pada net per peluang (ukuran optimal
   memakai penuh cap) — risiko konsentrasi dikontrol `risk/limits.py`, bukan di sini.
+
 - `safety_margin` 0.002→0.02: pada fixture ini jumlah valid stabil (edge yang
   ditanam cukup besar); pada data live margin ini adalah filter utama — JANGAN
   menurunkannya di bawah $0,005/pair tanpa bukti live.
+
 - `min_annualized_return` 0.05→0.30: tidak mengubah valid di fixture (edge pendek
   = annualized besar); pada market ber-EndDate jauh gate ini bekerja keras
   (terverifikasi unit test `test_annualized_gate_rejects`).
@@ -79,8 +82,10 @@ ini dan paper PnL memakai model tersebut (tidak optimis).
 | Sebaran alasan penolakan | _?_ | `rejection_stats` |
 
 **Kriteria go/no-go final** (berlaku untuk data live):
+
 - GO jika: ≥1 peluang bersih/jam dengan net edge > safety margin × 2 DAN lifetime
   median > 2× latency eksekusi (±1,5–3 detik) DAN fill-prob rata-rata ≥ 0,5.
+
 - NO-GO (untuk mode live; sistem tetap dipakai untuk paper/monitoring) jika:
   hampir semua peluang gugur setelah fee+slippage, atau lifetime < 1 detik
   (edge hanya hidup di dalam latency kita) — laporkan apa adanya.
@@ -91,9 +96,11 @@ Urutan "pemakan" edge (dari pengamatan pipeline):
 
 1. **Slippage walk-the-book** — tipisnya depth di sisi ask membuat harga efektif
    naik melewati $1 untuk pasangan YES+NO begitu ukuran > top level.
+
 2. **Trading fee taker** — market ber-fee (crypto 0.07 / sports 0.05) memotong
    ±$0,017–0,025 per pasang pada harga tengah; hanya market fee-0 / edge besar
    yang selamat.
+
 3. **Safety margin + haircut risiko** — disengaja: menahan eksekusi marginal.
 4. **Min order notional (5 USDC)** — menolak peluang mikro yang mungkin masih
    positif setelah biaya, karena tidak bisa dieksekusi legal.

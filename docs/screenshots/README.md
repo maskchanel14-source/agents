@@ -20,6 +20,7 @@ Hasil: `overview-desktop.png`, `scanner-desktop.png`, `risk-desktop.png`
 hasil jika ada (exit code 2).
 
 Checklist verifikasi visual:
+
 - [ ] Tidak ada elemen rusak/tumpang tindih di 1920x1080, 1366x768, 2560x1080
 - [ ] Boot sequence bisa di-skip
 - [ ] KPI terbaca < 3 detik tanpa scroll

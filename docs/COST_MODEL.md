@@ -15,17 +15,22 @@ fee = C × feeRate × (p × (1 - p)) ^ exponent
 
 - `C` = jumlah share, `p` = harga share (0..1), `feeRate`/`exponent` dari Gamma
   `feeSchedule` per market (`rate`, `exponent`, `takerOnly`, `rebateRate`).
+
 - Dokumen resmi menuliskan `fee = C × feeRate × p × (1 - p)` — itu kasus `exponent = 1`
   (semua market yang terdokumentasi). Interpretasi `exponent` = pangkat komponen
   harga `p(1-p)`; diuji unit test terhadap tabel resmi.
+
 - **Hanya taker bayar; maker 0.**
 - Pembulatan: **HALF_UP 5 desimal**; hasil < **0.00001 USDC** → 0.
 - Fee dihitung **per level walk-the-book** (tiap match di harga berbeda punya p
   berbeda) lalu dijumlahkan.
+
 - Tabel fee resmi (100 share, Crypto 0.07 dst.) diverifikasi unit test — nilai tabel
   di docs dibulatkan 2 desimal (cents), nilai presisi kita 5 desimal.
+
 - Kategori rate: Crypto 0.07 · Sports/Econ/Culture/Weather/Other 0.05 ·
   Finance/Politics/Mentions/Tech 0.04 · Geopolitics 0 · Combos 0.05.
+
 - **Fee schedule tidak tersedia → peluang INVALID** (fail-closed, `RejectReason.FEE_UNKNOWN`).
 
 ## 2. Slippage (walk-the-book)
@@ -36,6 +41,7 @@ fee = C × feeRate × (p × (1 - p)) ^ exponent
 - Ukuran trade = **min(depth semua leg, batas modal, batas risiko)**, dipilih dari
   kandidat breakpoint depth + batas modal, yang **net profit total maksimum**
   (edge per bundle menurun saat menyentuh level lebih dalam → optimum di breakpoint).
+
 - Size dibulatkan **floor** ke size decimals (2) — tidak pernah menambah ukuran.
 
 ## 3. Pembulatan / presisi order
@@ -52,6 +58,7 @@ Paritas dengan `py-clob-client` `ROUNDING_CONFIG` (diuji):
 | 0.0001 | 4 | 2 | 6 |
 
 Urutan (docs trading/place-orders):
+
 1. harga ≤ price decimals;
 2. share di-floor ke size decimals;
 3. USD amount: jika desimal > amount decimals → ceil ke amount+4, lalu floor ke amount;
@@ -65,10 +72,12 @@ BUY: `makerAmount` = USD, `takerAmount` = share. SELL: kebalikannya.
 - **Trading via CLOB tidak kena gas user** (matching off-chain, settlement on-chain
   oleh operator; sumber: concepts/prices-orderbook). Relayer API tersedia untuk tx
   wallet tanpa pegang POL.
+
 - Operasi user yang kena gas: `approve`, `split`, `merge`, `redeem`, `convert_neg_risk`.
 - `gas_cost = units × gas_price_gwei × 1e-9 × POL_USD`.
 - Nilai runtime: gas price & POL/USD dari RPC bila `POLYGON_RPC_URL` tersedia;
   fallback konservatif di config (`gas_price_gwei_fallback: 100`, `pol_usd_fallback: 0.25`).
+
 - Approval diamortisasi: `gas(approve) / amortize_approvals_over_trades` per order.
 - Strategi A jalur **merge** (YES+NO → 1 pUSD) kena `gas(merge)`; jalur hold-to-resolution
   kena `gas(redeem)` saat klaim; Strategi A2 (mint & sell) kena `gas(split)`.
@@ -91,6 +100,7 @@ BUY: `makerAmount` = USD, `takerAmount` = share. SELL: kebalikannya.
   - **hold ke resolusi** (bundle multi-outcome): sampai `endDate`.
 - Gate: `annualized_return ≥ min_annualized_return` (default 15%/tahun) atau
   peluang DITOLAK (`ANNUALIZED_TOO_LOW`).
+
 - Latency/staleness: snapshot berumur > `max_book_age_ms` (default 3000 ms) →
   DITOLAK (`STALE_DATA`).
 
@@ -108,6 +118,7 @@ Semua peluang (valid & ditolak) disimpan ke SQLite untuk dashboard & analisis.
 
 - **Taker rebate / maker rebate** — dibayar harian, tier-dependent (opsional, default
   OFF, tercatat terpisah jika diaktifkan).
+
 - Biaya deposit/withdraw via bridge/pihak ketiga (MoonPay dll) — di luar jalur bot.
 - Pajak — tanggung jawab user.
 
