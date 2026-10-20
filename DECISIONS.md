@@ -175,3 +175,14 @@ Test coverage baru (T16) menemukan dua risiko live-data nyata:
 
 Keduanya diverifikasi unit test melawan payload realistis (lihat
 `tests/test_data_engine_cli.py`, `tests/test_data_layer.py`).
+
+## D15 — resume_after_kill diimplementasikan, bukan dihapus (T19)
+
+- Opsi: (a) hapus `resume_after_kill` dari daftar aksi berbahaya dashboard, atau
+
+  (b) implementasikan dengan benar. Dipilih (b): operator yang sudah mengaktifkan
+  kill switch butuh jalan pulih yang sadar & tercatat tanpa menghapus file manual.
+  Implementasi: `RiskManager.resume()` (hapus file kill switch + bersihkan halt;
+  riwayat error circuit-breaker dipertahankan), endpoint tetap di balik token
+  lokal + body `{"confirm": "CONFIRM"}`, plus tombol RESUME di UI dengan dialog
+  konfirmasi yang sama seperti KILL.

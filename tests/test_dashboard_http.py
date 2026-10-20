@@ -26,6 +26,7 @@ NOW = 1_792_464_000_000
 
 class _FakeWs:
     def __init__(self):
+        self.assets_per_connection = 400
         self.stats = {"shards": 0, "connected": 0, "assets": 0, "reconnects": 0}
         self.on_event = None
 

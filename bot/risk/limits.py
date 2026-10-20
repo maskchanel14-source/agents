@@ -79,6 +79,17 @@ class RiskManager:
         if p.exists():
             p.unlink()
 
+    def resume(self) -> None:
+        """Pulihkan dari kill switch / halt manual (aksi sadar operator).
+
+        Menghapus file kill switch dan membersihkan state halt. Riwayat
+        error circuit-breaker TIDAK dihapus (tetap terlihat di snapshot).
+        """
+        self.clear_kill_switch()
+        self.state.halted = False
+        self.state.halt_reason = ""
+        self.state.halt_until = 0.0
+
     # -- circuit breaker ----------------------------------------------------
 
     def halt(self, reason: str) -> None:

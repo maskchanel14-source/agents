@@ -82,3 +82,10 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
       senyap) + lint correctness ruff (F401/F841/E722/F811) bersih di `bot/` &
       `tests/` dan dikunci di CI. Coverage: fill_model & notify >90%, total 88%.
       Suite: **172 hijau**.
+
+- [x] T19 Discovery loop & dashboard lanjutan teruji; **bug nyata diperbaiki**:
+      aksi `resume_after_kill` di dashboard dulu diiklankan (wajib konfirmasi dua
+      langkah) tapi tidak diimplementasikan — sekarang berfungsi via
+      `RiskManager.resume()` + tombol RESUME di UI (tetap wajib token + CONFIRM).
+      Coverage: engine 70%->83%, dashboard/server 68%->80%, total 89%.
+      Suite: **179 hijau**.

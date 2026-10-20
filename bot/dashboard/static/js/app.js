@@ -333,6 +333,15 @@ function setupControls() {
       });
     });
   });
+  $("#btn-resume").addEventListener("click", () => {
+    confirmDialog("Bersihkan KILL SWITCH dan lanjutkan trading? Pastikan penyebab halt sudah ditangani.", async () => {
+      await fetch("/api/control/resume_after_kill", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-ARC-Token": state.token },
+        body: JSON.stringify({ confirm: "CONFIRM" }),
+      });
+    });
+  });
 
   // sorting
   $$(".data-table th[data-sort]").forEach((th) => {

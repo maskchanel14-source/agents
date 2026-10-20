@@ -169,6 +169,10 @@ class DashboardServer:
             self.engine.risk.trigger_kill_switch("dashboard kill switch")
             log.warning("KILL SWITCH diaktifkan dari dashboard")
             return web.json_response({"ok": True, "killed": True})
+        if action == "resume_after_kill":
+            self.engine.risk.resume()
+            log.warning("kill switch DIBERSIHKAN dari dashboard (resume_after_kill)")
+            return web.json_response({"ok": True, "killed": False, "resumed": True})
         return web.json_response({"ok": False, "error": f"unknown action {action}"}, status=400)
 
     async def handle_export(self, request: web.Request) -> web.Response:
