@@ -1,0 +1,5 @@
+# Runtime dependencies — semua punya wheel Windows (tanpa compiler C/C++).
+aiohttp>=3.9,<4
+PyYAML>=6.0
+python-dotenv>=1.0
+websockets>=12.0

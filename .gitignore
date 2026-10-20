@@ -70,3 +70,19 @@ docs/superpowers/
 # Restored agent skills (from skills-lock.json; large, not versioned)
 .agents/skills/
 .agents/skill-index.md
+
+# === Polymarket arb bot (jangan commit rahasia/state runtime) ===
+.env
+live_trading.confirmed
+KILL_SWITCH
+*.db
+*.sqlite
+*.sqlite3
+logs/
+data/recordings/
+data/fixtures/generated/
+report_out/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
