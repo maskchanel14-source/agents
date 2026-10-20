@@ -198,3 +198,14 @@ def test_engine_smoke_and_dashboard_state(tmp_path: Path):
         db.close()
 
     asyncio.run(run())
+
+
+def test_notifier_default_off_and_send_noop():
+    from bot.monitoring.notify import Notifier
+    n = Notifier()  # default OFF
+    assert not n.enabled
+    import asyncio
+    assert asyncio.run(n.send("x")) is False
+    # enabled tapi tanpa kredensial -> tetap mati
+    n2 = Notifier(enabled=True)
+    assert not n2.enabled

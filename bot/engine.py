@@ -95,6 +95,7 @@ class BotEngine:
         self.db = db
         self.gamma = gamma
         self.http = http
+        self.notifier = None
         self.mode = mode
         self.root = root or Path.cwd()
         self.status = EngineStatus(mode=mode)
