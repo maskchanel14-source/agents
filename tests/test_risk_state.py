@@ -126,3 +126,38 @@ def test_state_db_trades_and_positions(tmp_path: Path):
     assert db.kv_get("recovery") == {"open_orders": []}
     db.record_scan_run(markets_total=100, markets_monitored=90, candidates=5, valid=1, rejected=4, coverage={})
     db.close()
+
+
+def test_risk_release_exposure_and_day_roll(tmp_path: Path):
+    import time as _time
+    rm = RiskManager(RiskConfig(max_exposure_per_market_usd=D("25")), root=tmp_path)
+    opp = _opp(capital="20")
+    assert rm.check_opportunity(opp)[0]
+    rm.commit_exposure(opp)
+    assert rm.state.total_exposure == D("20")
+    rm.release_exposure(opp)
+    assert rm.state.total_exposure == ZERO
+    # lagi setelah release
+    assert rm.check_opportunity(opp)[0]
+    # day roll mereset PnL harian
+    rm.record_realized_pnl(D("-5"))
+    assert rm.state.daily_realized_pnl == D("-5")
+    rm.state.daily_key = "2000-01-01"  # paksa roll
+    rm.roll_day(_time.time())
+    assert rm.state.daily_realized_pnl == ZERO
+
+
+def test_risk_halt_cooldown_expires(tmp_path: Path):
+    import time as _time
+    rm = RiskManager(RiskConfig(cooldown_seconds=0.05), root=tmp_path)
+    rm.halt("test")
+    assert rm.is_halted()
+    _time.sleep(0.08)
+    assert not rm.is_halted()  # cooldown selesai -> auto-resume
+
+
+def test_risk_snapshot_shape(tmp_path: Path):
+    rm = RiskManager(RiskConfig(), root=tmp_path)
+    snap = rm.snapshot()
+    for key in ("halted", "halt_reason", "kill_switch", "total_exposure", "daily_realized_pnl", "orders_last_minute"):
+        assert key in snap

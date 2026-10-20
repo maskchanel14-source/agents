@@ -7,6 +7,75 @@ Use one collection of plugins, agents, skills, and commands across Claude Code, 
 
 The catalog contains 95 plugins, including 93 local plugins and 2 external entries. The local source contains 202 agents, 187 skills, and 107 commands. The components share a Markdown source, with installation and capabilities adapted to each harness.
 
+## Polymarket Arbitrage Bot ("ARC-TERMINAL")
+
+Repo ini juga memuat **bot arbitrase Polymarket** (package `bot/`): scanner seluruh
+market aktif, model biaya presisi (`bot/costs.py`, Decimal, fee resmi
+`C × rate × p × (1-p)`), strategi A (intra-market binary), B (multi-outcome /
+neg-risk), C/D (gated), risk manager hard-limit, paper executor + dashboard HUD
+lokal. Dokumentasi: [`docs/POLYMARKET_NOTES.md`](docs/POLYMARKET_NOTES.md) ·
+[`docs/COST_MODEL.md`](docs/COST_MODEL.md) · [`docs/FEASIBILITY.md`](docs/FEASIBILITY.md) ·
+[`REPORT.md`](REPORT.md) · [`DECISIONS.md`](DECISIONS.md).
+
+> **Default mode = PAPER (simulasi, TANPA order asli).** Mode live terkunci
+> ganda (`LIVE_TRADING=true` + file `live_trading.confirmed`) dan TIDAK boleh
+> diaktifkan tanpa review manual. Bot TIDAK berisi mekanisme penghindar geoblock.
+
+### Quick start Windows (CMD)
+
+1. **Instal** [Python 3.11+](https://www.python.org/downloads/) (centang *Add
+   python.exe to PATH*) dan [Git](https://git-scm.com/download/win).
+2. **Clone** repo ini, lalu buka folder hasil clone di Explorer.
+3. **Klik dua kali `start_bot.bat`** — launcher otomatis: cek Python, buat
+   `venv\`, install dependency (sekali, pakai marker), dan membuat `.env` dari
+   `.env.example` (dibuka di Notepad untuk diisi).
+4. Pilih menu **`1` PAPER** — bot mulai, **dashboard "ARC-TERMINAL" terbuka
+   otomatis** di `http://127.0.0.1:8788/` (localhost only).
+5. Berhenti: `Ctrl+C` di jendela CMD (shutdown bersih) atau `stop_bot.bat`.
+
+Menu `start_bot.bat`: `1` PAPER · `2` BACKTEST · `3` LIVE (butuh ketik `LIVE`) ·
+`4` Edit `.env` · `5` Test suite · `6` Rekam data orderbook · `0` Keluar.
+
+Alternatif CLI langsung:
+
+```bat
+venv\Scripts\python.exe -m bot --mode paper
+venv\Scripts\python.exe -m bot --mode paper --no-dashboard --port 8788
+venv\Scripts\python.exe -m bot.backtest.run --sweep
+venv\Scripts\python.exe -m pytest tests/ -q
+```
+
+### Checklist tes manual Windows (5 menit)
+
+- [ ] `start_bot.bat` dari folder mana pun (klik dua kali) tetap berjalan
+- [ ] `venv\` dibuat otomatis; `.env` muncul dari `.env.example`
+- [ ] Menu `5` (test) — semua test hijau
+- [ ] Menu `1` PAPER — dashboard terbuka di browser, badge **PAPER** hijau
+- [ ] Dashboard menampilkan KPI, Scanner, Funnel, Risk (empty state wajar saat bot baru mulai)
+- [ ] `Ctrl+C` → bot berhenti tanpa error stack, jendela CMD tidak tertutup sendiri
+- [ ] Menu `3` LIVE tanpa ketik `LIVE` → kembali ke menu (tidak jalan)
+- [ ] `stop_bot.bat` membuat file `KILL_SWITCH` dan bot berhenti
+
+### Setup wallet untuk LIVE (jangan lakukan sebelum go-live)
+
+1. Buat **hot wallet khusus** (bukan wallet utama), saldo kecil USDC/pUSD di Polygon.
+2. Export private key ke `.env` (`POLYMARKET_PRIVATE_KEY`) — **jangan pernah commit**.
+3. Buat API key CLOB (L1 EIP-712 via Polymarket) → isi `POLYMARKET_API_KEY/SECRET/PASSPHRASE`.
+4. Set `LIVE_TRADING=true` di `.env` **dan** buat file `live_trading.confirmed`
+   (isian manual) di root repo. Pahami signature type: `0`=EOA, `1`=Proxy,
+   `2`=Safe, `3`=Deposit Wallet (lihat docs/trading/place-orders).
+5. Review `config/default.yaml` (risk limits, safety margin, caps) sebelum start.
+
+### Compliance & pembatasan wilayah
+
+Polymarket membatasi beberapa yurisdiksi (market punya flag `restricted` /
+geoblock; lihat ToS di polymarket.com). Bot ini **menghormati** pembatasan:
+market `restricted` di-skip, dan TIDAK ADA fitur untuk menghindari geoblock
+atau pembatasan akun. Pastikan penggunaan sesuai hukum setempat dan ToS
+Polymarket. Ringkasan: market geopolitics fee-free; fee taker per kategori
+(dokumentasi di `docs/COST_MODEL.md`); resolusi UMA (challenge 2 jam; dispute
+4–6 hari) — lihat `docs/POLYMARKET_NOTES.md` §9.
+
 ## Multi-harness support
 
 Choose the harness you use and follow its setup route. Available components depend on the installation route and the harness's capabilities.

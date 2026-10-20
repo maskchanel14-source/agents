@@ -509,3 +509,54 @@ def test_all_opportunities_recorded_even_rejected():
     assert opp.created_at is not None
     d = opp.cost.as_dict()
     assert "gross_edge" in d
+
+
+def test_weighted_bundle_and_sell_fee():
+    """shares_per_bundle != 1 dan fee sisi SELL dihitung dengan rumus sama."""
+    mkt = make_market("m1", fee_rate=D("0.04"))
+    yes_book = _fresh_book([], [("0.30", "500")])
+    no_book = _fresh_book([], [("0.20", "500")])
+    req = BundleRequest(
+        strategy="B_custom",
+        legs=[
+            LegInput(market=mkt, asset_id="y", side=Side.BUY, book=yes_book, shares_per_bundle=D("2")),
+            LegInput(market=mkt, asset_id="n", side=Side.BUY, book=no_book, shares_per_bundle=ONE),
+        ],
+        fixed_payout_per_bundle=D("1"),
+        exit_hours=D("2"),
+    )
+    model = CostModel(CostConfig(min_annualized_return=ZERO, safety_margin_usd=ZERO), GasModel(enabled=False))
+    res = model.evaluate(req, now_ms=NOW)
+    # per bundle: 2*0.30 + 1*0.20 = 0.80 -> net ~0.20
+    assert res.opportunity.valid, (res.opportunity.reject_reason, res.opportunity.reject_detail)
+    assert res.opportunity.bundle_size > ZERO
+    # verifikasi fee sisi SELL
+    from bot.models import FeeSchedule
+    fs = mkt.fee_schedule
+    sell_book = _fresh_book([("0.50", "10")], [])
+    walk = walk_the_book(sell_book, Side.SELL, D("5"))
+    fee = fee_for_walk(walk, fs)
+    assert fee == taker_fee(D("5"), D("0.50"), fs)
+
+
+def test_gas_included_in_bundle_costs():
+    mkt = make_market("m1", fee_rate=D("0"))
+    yes_book = _fresh_book([], [("0.40", "100")])
+    no_book = _fresh_book([], [("0.55", "100")])
+    req = BundleRequest(
+        strategy="A_intra_binary",
+        legs=[
+            LegInput(market=mkt, asset_id="y", side=Side.BUY, book=yes_book),
+            LegInput(market=mkt, asset_id="n", side=Side.BUY, book=no_book),
+        ],
+        fixed_payout_per_bundle=ONE,
+        exit_hours=D("2"),
+        gas_op="merge",
+        gas_op_count_per_bundle=ONE,
+    )
+    model = CostModel(CostConfig(min_annualized_return=ZERO, safety_margin_usd=ZERO),
+                      GasModel(enabled=True, gas_price_gwei=D("100"), pol_usd=D("0.25")))
+    res = model.evaluate(req, now_ms=NOW)
+    assert res.opportunity.valid
+    # gas total = (merge + amortisasi approval x2 leg) x size > 0
+    assert res.opportunity.cost.gas_cost > ZERO

@@ -125,3 +125,30 @@ spesifik, `frontend-mobile-development` (butuh framework build — kami pakai va
   menjalankan `python -m bot --mode paper` di Windows (lihat REPORT.md).
 - Angka gas POL/USD live: fallback config konservatif, runtime RPC opsional.
 - Verifikasi emulator batch .bat: tidak tersedia di Linux → static lint + checklist manual.
+
+## D10 (2026-10-20) Latihan angka: fixture sintetis vs live
+- Egress sandbox ke seluruh host Polymarket diblokir (fetch_page docs berhasil,
+  koneksi langsung gagal), jadi angka feasibility/paper-run berasal dari fixture
+  SINTETIS dengan peluang yang sengaja ditanam — dilabeli tegas di FEASIBILITY.md,
+  REPORT.md, dan nama file (`synthetic_small.json`). Tidak ada angka yang
+  diklaim sebagai profit live. Tooling untuk data live (`python -m bot.record`,
+  `scripts/take_screenshots.py`) disertakan untuk dijalankan user.
+
+## D11 (2026-10-20) Formulasi fee dengan exponent
+- Fee `C × feeRate × p(1-p)` memakai `feeSchedule.exponent` sebagai pangkat
+  `(p(1-p))^e` (default 1). Rumus resmi yang terdokumentasi adalah e=1; semua
+  market ber-fee yang ditemui e=1, tapi generalisasi ini menjaga kebenaran bila
+  Polymarket memperkenalkan fee non-linear. Min fee 0.00001 (sebelum pembulatan 5dp).
+
+## D12 (2026-10-20) Strategi C tetap gated default OFF
+- C hanya mengeksekusi pasangan kriteria-resolusi IDENTIK LITERAL dengan harga
+  yang memberi payoff deterministik dominan (YES1+NO2 < 1 atau NO1+YES2 < 1).
+  Pasangan yang "tampak eksklusif" tapi kriterinya tidak identik → SKIP
+  (kasus 2024-ELECTION-TRUMP/REP mis. saling eksklusif tetapi tidak exhaustive).
+  Strategi tetap mati secara default; aktifkan via `cross_market.enabled` setelah
+  review manual atas pasangan yang muncul.
+
+## D13 (2026-10-20) Branch name deviation
+- User meminta PR dari `feat/polymarket-arb-bot`; platform mewajibkan kerja di
+  branch sesi `arena/4cbec802-agents` (push ke branch lain ditolak platform).
+  PR dibuka DARI branch sesi, dengan catatan deviasi ini di PR description.
