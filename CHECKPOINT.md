@@ -68,3 +68,11 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
       Perbaikan nyata dari test baru: parser fee Gamma kini menerima 3 bentuk schedule
       (`rate/exponent`, `baseFee+takerBaseFee+expScalar`, `fee.baseFee`) dan `parse_market`
       membaca flag neg-risk dari `events[0]` ter-embed. Suite: **157 hijau**, coverage 83%.
+
+- [x] T17 Recorder/CLI/WS teruji end-to-end tanpa jaringan: `record()` dengan
+      Gamma/CLOB/WS/HTTP difake (markets_meta + recording.db + run_summary tertulis),
+      `record.main`, `cli.async_main` (live ditolak -> fallback paper, paper short-run),
+      WS shard proses pesan + skip JSON rusak + reconnect backoff. Coverage naik:
+      record.py 33%->85%, ws_feed 60%->85%, cli.py 33%->72%, total 83%->87%.
+      Suite: **164 hijau**. Artefak `report_out/` ter-regenerasi identik
+      (paper PnL tetap `4.58540081400000000`).

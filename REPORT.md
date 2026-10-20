@@ -23,7 +23,7 @@ Tanggal: 2026-10-20 · Sesi otonom · Branch: `arena/4cbec802-agents` (PR dari b
 | Paper-run summary | ✅ (dari fixture — live tidak mungkin dari sandbox) | `logs/paper_run_summary.json`: 566 peluang terdeteksi, 272 gugur setelah biaya, 3 dieksekusi (risk cap), PnL simulasi **+$4,59** setelah SEMUA biaya |
 | Docs: README (Quick start Windows + checklist + wallet setup + compliance), DECISIONS, CHECKPOINT, FEASIBILITY, COST_MODEL, POLYMARKET_NOTES | ✅ | File di root & `docs/` |
 | Secret scan | ✅ bersih | Tidak ada key/secret di repo; `.env` di gitignore; tidak ada mekanisme anti-geoblock |
-| Test suite | ✅ **157 hijau** | `report_out/coverage.txt` — total 83%; costs.py 95%, risk 98%, models 98%, state/scanner 96%, data layer 78–87%, engine 70% |
+| Test suite | ✅ **164 hijau** | `report_out/coverage.txt` — total 87%; costs.py 95%, risk 98%, models 98%, state/scanner 96%, data layer 78–87%, engine 70%, record/cli/ws_feed 72–85% |
 
 ## 2. Angka kunci (dari paper-run replay fixture SINTETIS — bukan live)
 
@@ -112,7 +112,7 @@ Sumber: `data/fixtures/synthetic_small.json` (4.800 event, 4 market, detik-granu
 ## 6. Cara memverifikasi sendiri (5 menit)
 
 ```bat
-venv\Scripts\python.exe -m pytest tests/ -q            :: 157 test hijau
+venv\Scripts\python.exe -m pytest tests/ -q            :: 164 test hijau
 venv\Scripts\python.exe -m bot.backtest.run --sweep    :: laporan feasibility sintetis
 venv\Scripts\python.exe -m bot.paper_run               :: paper run summary
 venv\Scripts\python.exe -m bot --mode paper            :: bot + dashboard HUD
