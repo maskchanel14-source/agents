@@ -85,6 +85,7 @@ class BotEngine:
         gamma: Optional[GammaClient] = None,
         mode: str = "paper",
         root: Optional[Path] = None,
+        http: Optional[HttpClient] = None,
     ) -> None:
         self.cfg = cfg
         self.hub = hub
@@ -93,6 +94,7 @@ class BotEngine:
         self.risk = risk
         self.db = db
         self.gamma = gamma
+        self.http = http
         self.mode = mode
         self.root = root or Path.cwd()
         self.status = EngineStatus(mode=mode)
@@ -121,6 +123,8 @@ class BotEngine:
             await asyncio.gather(*self._tasks, return_exceptions=True)
         self._tasks.clear()
         await self.hub.stop()
+        if self.http is not None:
+            await self.http.close()
         # shutdown bersih: batalkan order yang masih hidup (paper: cukup catat)
         await self._cancel_all_on_shutdown()
         log.info("engine stopped")
@@ -313,5 +317,5 @@ async def build_engine_async(cfg: dict, *, mode: str = "paper", root: Optional[P
     )
     return BotEngine(
         cfg, hub=hub, scanner=scanner, executor=executor, risk=risk, db=db,
-        gamma=gamma, mode=mode, root=root,
+        gamma=gamma, mode=mode, root=root, http=http,
     )
