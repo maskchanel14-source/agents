@@ -14,13 +14,11 @@ from __future__ import annotations
 import logging
 import time
 from dataclasses import dataclass, field
-from decimal import Decimal
 from typing import Optional, Sequence
 
 from .costs import CostModel
 from .data.feed import MarketDataHub
-from .decimal_utils import D, ZERO
-from .models import CoverageReport, Opportunity, RejectReason
+from .models import CoverageReport, Opportunity
 from .state.db import StateDB
 from .strategies.base import Strategy
 

@@ -6,7 +6,7 @@ Endpoint: https://clob.polymarket.com (docs/POLYMARKET_NOTES.md §3).
 from __future__ import annotations
 
 import logging
-from typing import Optional, Sequence
+from typing import Sequence
 
 from ..decimal_utils import D
 from ..models import OrderBookSnapshot

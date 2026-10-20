@@ -12,13 +12,12 @@ import json
 import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Optional
 
 from ..costs import CostConfig, CostModel, GasModel, make_market
 from ..decimal_utils import D, ONE
 from ..models import FeeSchedule, MarketMeta, OrderBookSnapshot
 from ..scanner import Scanner
-from ..state.db import StateDB
 from ..strategies.intra_market import IntraMarketBinary
 from ..strategies.multi_outcome import MultiOutcomeNegRisk
 

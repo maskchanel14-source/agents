@@ -8,7 +8,6 @@ from __future__ import annotations
 import asyncio
 import json
 import time
-from pathlib import Path
 
 import pytest
 
@@ -16,7 +15,7 @@ from bot.data.clob import ClobClient, parse_book
 from bot.data.feed import MarketDataHub
 from bot.data.gamma import GammaClient, parse_fee_schedule, parse_market
 from bot.data.http import HttpClient, RateLimiter
-from bot.data.ws_feed import MarketWsFeed, WsShard, apply_price_change
+from bot.data.ws_feed import MarketWsFeed, apply_price_change
 from bot.models import FeeSchedule, OrderBookSnapshot
 from bot.decimal_utils import D
 
@@ -382,7 +381,6 @@ def test_engine_lifecycle_and_dashboard_state(tmp_path):
     from bot.scanner import Scanner
     from bot.state.db import StateDB
     from bot.strategies.intra_market import IntraMarketBinary
-    from bot.models import MarketMeta, FeeSchedule
 
     cfg = {
         "discovery": {"refresh_seconds": 300, "page_size": 100},

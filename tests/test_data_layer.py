@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 
-import pytest
 
 from bot.data.clob import parse_book
 from bot.data.gamma import parse_fee_schedule, parse_market

@@ -13,14 +13,13 @@ from __future__ import annotations
 import argparse
 import json
 import time
-from decimal import Decimal
 from pathlib import Path
 
 from .backtest.replay import ReplayEvent, load_fixture_json, load_recording_db, markets_from_meta
 from .config.loader import ROOT, load_config
 from .costs import CostConfig, CostModel, GasModel
 from .data.feed import MarketDataHub
-from .decimal_utils import D, ZERO
+from .decimal_utils import ZERO
 from .execution.fill_model import FillModel, FillModelConfig
 from .execution.simulator import PaperExecutor
 from .risk.limits import RiskConfig, RiskManager

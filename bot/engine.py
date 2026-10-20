@@ -10,7 +10,6 @@ import asyncio
 import logging
 import time
 from dataclasses import dataclass, field
-from decimal import Decimal
 from pathlib import Path
 from typing import Optional
 
@@ -20,11 +19,10 @@ from .data.feed import MarketDataHub
 from .data.gamma import GammaClient
 from .data.http import HttpClient
 from .data.ws_feed import MarketWsFeed
-from .decimal_utils import D, ZERO
 from .execution.fill_model import FillModel, FillModelConfig
-from .execution.simulator import ExecutionResult, PaperExecutor
+from .execution.simulator import PaperExecutor
 from .risk.limits import RiskConfig, RiskManager
-from .scanner import ScanResult, Scanner
+from .scanner import Scanner
 from .state.db import StateDB
 from .strategies.cross_market import CrossMarketLogical
 from .strategies.cross_venue import CrossVenue

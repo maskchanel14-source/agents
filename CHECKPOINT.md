@@ -76,3 +76,9 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
       record.py 33%->85%, ws_feed 60%->85%, cli.py 33%->72%, total 83%->87%.
       Suite: **164 hijau**. Artefak `report_out/` ter-regenerasi identik
       (paper PnL tetap `4.58540081400000000`).
+
+- [x] T18 FillModel & Notifier teruji penuh (probabilitas leg/bundle, clamp,
+      partial-fill deterministik per seed; Telegram/Discord fake-session, gagal
+      senyap) + lint correctness ruff (F401/F841/E722/F811) bersih di `bot/` &
+      `tests/` dan dikunci di CI. Coverage: fill_model & notify >90%, total 88%.
+      Suite: **172 hijau**.

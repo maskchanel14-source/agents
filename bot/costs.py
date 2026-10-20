@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Iterable, Optional, Sequence
+from typing import Optional
 
 from .decimal_utils import (
     ONE,
@@ -29,11 +29,9 @@ from .decimal_utils import (
     dec_min,
     round_down,
     round_half_up,
-    round_price_for_tick,
     round_up,
 )
 from .models import (
-    BookLevel,
     CostBreakdown,
     FeeSchedule,
     LegPlan,

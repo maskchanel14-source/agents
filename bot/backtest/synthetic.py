@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import json
 import random
-from decimal import Decimal
 from pathlib import Path
 
 

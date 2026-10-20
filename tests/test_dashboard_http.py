@@ -7,15 +7,13 @@ dijalankan tanpa browser. Screenshot browser: lihat scripts/take_screenshots.py.
 from __future__ import annotations
 
 import asyncio
-import json
 
-import pytest
 from aiohttp.test_utils import TestClient, TestServer
 
 from bot.costs import CostConfig, CostModel, GasModel, make_market
 from bot.dashboard.server import DashboardServer
 from bot.data.feed import MarketDataHub
-from bot.decimal_utils import D, ONE
+from bot.decimal_utils import D
 from bot.engine import BotEngine
 from bot.models import OrderBookSnapshot
 from bot.risk.limits import RiskConfig, RiskManager

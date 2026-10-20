@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 from bot.costs import CostConfig, CostModel, GasModel, make_market
 from bot.data.feed import MarketDataHub
-from bot.decimal_utils import D, ONE, ZERO
+from bot.decimal_utils import D, ZERO
 from bot.models import OrderBookSnapshot
 from bot.strategies.cross_market import CrossMarketLogical, normalize_criteria
 from bot.strategies.cross_venue import CrossVenue

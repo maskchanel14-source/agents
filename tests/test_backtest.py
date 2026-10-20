@@ -51,7 +51,6 @@ def test_replay_no_lookahead_semantics():
     boleh memanfaatkan 'peluang' yang baru muncul di bucket berikutnya)."""
     from bot.backtest.replay import ReplayHub
     from bot.costs import make_market
-    from bot.models import OrderBookSnapshot
 
     m = make_market("m1", fee_rate=D("0"))
     hub = ReplayHub({"m1": m})

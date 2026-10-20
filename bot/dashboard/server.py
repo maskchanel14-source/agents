@@ -13,11 +13,9 @@ import csv
 import io
 import json
 import logging
-import mimetypes
 import secrets
 import time
 from pathlib import Path
-from typing import Optional
 
 from aiohttp import web
 

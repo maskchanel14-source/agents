@@ -6,14 +6,10 @@ fee tidak tersedia -> INVALID, dan verifikasi terhadap TABEL FEE RESMI.
 
 from __future__ import annotations
 
-from decimal import Decimal
 
 import pytest
 
 from bot.costs import (
-    FEE_MIN_USD,
-    FEE_ROUNDING_PLACES,
-    ROUNDING_CONFIG,
     BundleRequest,
     CostConfig,
     CostModel,
@@ -531,7 +527,6 @@ def test_weighted_bundle_and_sell_fee():
     assert res.opportunity.valid, (res.opportunity.reject_reason, res.opportunity.reject_detail)
     assert res.opportunity.bundle_size > ZERO
     # verifikasi fee sisi SELL
-    from bot.models import FeeSchedule
     fs = mkt.fee_schedule
     sell_book = _fresh_book([("0.50", "10")], [])
     walk = walk_the_book(sell_book, Side.SELL, D("5"))

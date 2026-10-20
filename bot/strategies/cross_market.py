@@ -21,7 +21,7 @@ from typing import Optional
 
 from ..costs import BundleRequest, LegInput
 from ..data.feed import MarketDataHub
-from ..decimal_utils import D, ONE, ZERO
+from ..decimal_utils import D, ONE
 from ..models import MarketMeta, Opportunity, Side
 from .base import Strategy
 

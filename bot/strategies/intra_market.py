@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Optional
 
-from ..costs import BundleRequest, CostModel, LegInput
+from ..costs import BundleRequest, LegInput
 from ..data.feed import MarketDataHub
 from ..decimal_utils import D, ONE, ZERO
 from ..models import Opportunity, Side
@@ -33,14 +33,9 @@ class IntraMarketBinary(Strategy):
             if not meta.tradeable or meta.restricted:
                 continue
             if not meta.fee_schedule.available:
-                # fail-closed: tetap dicatat sebagai penolakan
-                req = BundleRequest(
-                    strategy=self.name,
-                    legs=[],
-                    opportunity_id=f"{self.name}-{meta.market_id}-fee_unknown",
-                    meta={"market": meta.market_id},
-                )
-                continue  # tanpa book tidak bisa evaluasi; coverage mencatat skip
+                # fail-closed: fee tidak diketahui -> market dilewati;
+                # coverage/skip stats mencatat alasannya di lapisan scanner
+                continue
             yes_book = hub.get_book(meta.yes_asset_id)
             no_book = hub.get_book(meta.no_asset_id)
             if yes_book is None or no_book is None:

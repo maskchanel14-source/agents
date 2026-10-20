@@ -8,7 +8,6 @@ Invariant yang dijaga:
 
 from __future__ import annotations
 
-from decimal import Decimal
 
 from hypothesis import given, settings, strategies as st
 

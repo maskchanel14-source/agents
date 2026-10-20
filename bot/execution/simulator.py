@@ -14,7 +14,7 @@ from typing import Optional
 
 from ..costs import CostModel
 from ..decimal_utils import D, ZERO
-from ..models import LegPlan, Opportunity, RejectReason, Side
+from ..models import LegPlan, Opportunity
 from ..risk.limits import RiskManager
 from ..state.db import StateDB
 from .fill_model import FillModel, FillModelConfig
@@ -69,9 +69,8 @@ class PaperExecutor:
         partial = False
 
         for leg in opp.legs:
-            # estimasi peluang terisi tiap leg
-            walk = leg.walk
-            # book asli tidak tersedia di sini — pakai meta dari walk & config
+            # estimasi peluang terisi tiap leg (book asli tidak tersedia di sini;
+            # pakai probabilitas dasar dari konfigurasi fill model)
             p = self.fill_model.cfg.base_fill_prob
             if order_type == "FOK":
                 # FOK: kalau simulasi gagal penuh, order dibatalkan seluruhnya

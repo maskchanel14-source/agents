@@ -8,7 +8,6 @@ from pathlib import Path
 
 from ..config.loader import ROOT, load_config
 from ..costs import CostConfig
-from ..decimal_utils import D
 from .replay import load_fixture_json, load_recording_db, markets_from_meta, run_replay
 from .sweep import sweep
 

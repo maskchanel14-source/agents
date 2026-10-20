@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Any, AsyncIterator, Optional
 
 from ..decimal_utils import D, ZERO, ONE
@@ -119,7 +119,6 @@ def parse_market(raw: dict, *, event_raw: Optional[dict] = None) -> Optional[Mar
         return None
 
     outcomes = _parse_json_array(raw.get("outcomes"))
-    prices = _parse_json_array(raw.get("outcomePrices"))
     if version == "v2":
         asset_ids = _parse_json_array(raw.get("positionIds"))
     else:

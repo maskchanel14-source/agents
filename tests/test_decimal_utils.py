@@ -9,7 +9,6 @@ from hypothesis import given, strategies as st
 
 from bot.decimal_utils import (
     D,
-    ONE,
     ZERO,
     dec_max,
     dec_min,

@@ -42,7 +42,10 @@ jobs:
           uv venv --python 3.11 .venv
 
       - name: Install dependencies
-        run: uv pip install --python .venv/bin/python -r requirements-dev.txt
+        run: uv pip install --python .venv/bin/python -r requirements-dev.txt ruff
+
+      - name: Lint (correctness rules only)
+        run: .venv/bin/python -m ruff check bot/ tests/ --select F401,F841,E722,F811
 
       - name: Run bot test suite
         run: .venv/bin/python -m pytest tests/ -q
