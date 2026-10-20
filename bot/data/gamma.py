@@ -11,7 +11,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Any, AsyncIterator, Optional
 
-from ..decimal_utils import D, ZERO
+from ..decimal_utils import D, ZERO, ONE
 from ..models import FeeSchedule, MarketMeta
 from .http import LIMITS, HttpClient
 
@@ -47,33 +47,69 @@ def _parse_dt(value: Any) -> Optional[datetime]:
 
 
 def parse_fee_schedule(raw: dict) -> FeeSchedule:
-    """Parse `feesEnabled` + `feeSchedule` Gamma. Hilang -> source='missing' (INVALID)."""
+    """Parse fee schedule Gamma -> FeeSchedule. Hilang -> source='missing' (INVALID).
+
+    Menerima tiga bentuk yang beredar di API/docs:
+    1. `feeSchedule` ternormalisasi: {rate, exponent, takerOnly, rebateRate}
+    2. `feeSchedule` mentah: {baseFee|takerBaseFee|makerBaseFee, expScalar, expBase, ...}
+       dengan `exponent = expScalar / 1e16` (rumus fee resmi `p(1-p)^e`).
+    3. `fee` lama: {baseFee, expScalar, ...}.
+    `feesEnabled: false` eksplisit = fee 0 (valid). Sisanya -> missing (fail-closed).
+    """
     if not raw:
         return FeeSchedule.missing()
-    sched = raw.get("feeSchedule")
-    if sched is None:
-        # beberapa market fee-free eksplisit memakai feesEnabled=false tanpa schedule
-        if raw.get("feesEnabled") is False:
-            return FeeSchedule(
-                fees_enabled=False,
-                rate=ZERO,
-                exponent=D("1"),
-                taker_only=True,
-                rebate_rate=ZERO,
-                source="gamma",
-            )
-        return FeeSchedule.missing()
-    try:
+
+    def _mk(rate, exponent, taker_only, rebate=ZERO, fees_enabled=True) -> FeeSchedule:
         return FeeSchedule(
-            fees_enabled=bool(raw.get("feesEnabled", True)),
-            rate=D(str(sched.get("rate", "0"))),
-            exponent=D(str(sched.get("exponent", "1"))),
-            taker_only=bool(sched.get("takerOnly", True)),
-            rebate_rate=D(str(sched.get("rebateRate", "0"))),
+            fees_enabled=fees_enabled,
+            rate=rate,
+            exponent=exponent,
+            taker_only=taker_only,
+            rebate_rate=rebate,
             source="gamma",
         )
-    except Exception:
-        return FeeSchedule.missing()
+
+    def _from_raw_shape(sched: dict) -> FeeSchedule:
+        base = sched.get("baseFee")
+        taker = sched.get("takerBaseFee")
+        maker = sched.get("makerBaseFee")
+        rate_src = taker if taker is not None else base
+        rate = D(str(rate_src)) if rate_src is not None else ZERO
+        maker_val = D(str(maker)) if maker is not None else ZERO
+        exp_scalar = sched.get("expScalar")
+        if exp_scalar is not None:
+            exponent = D(str(exp_scalar)) / D("1e16")
+        else:
+            exponent = D(str(sched.get("expBase", "1")))
+            if exponent > 10:  # expBase bukan exponent; default 1
+                exponent = ONE
+        taker_only = maker_val == ZERO
+        return _mk(rate, exponent, taker_only)
+
+    sched = raw.get("feeSchedule")
+    if sched is not None:
+        try:
+            if "rate" in sched or "exponent" in sched:
+                return _mk(
+                    D(str(sched.get("rate", "0"))),
+                    D(str(sched.get("exponent", "1"))),
+                    bool(sched.get("takerOnly", True)),
+                    D(str(sched.get("rebateRate", "0"))),
+                )
+            return _from_raw_shape(sched)
+        except Exception:
+            return FeeSchedule.missing()
+
+    fee = raw.get("fee")
+    if fee is not None and isinstance(fee, dict):
+        try:
+            return _from_raw_shape(fee)
+        except Exception:
+            return FeeSchedule.missing()
+
+    if raw.get("feesEnabled") is False:
+        return _mk(ZERO, ONE, True, fees_enabled=False)
+    return FeeSchedule.missing()
 
 
 def parse_market(raw: dict, *, event_raw: Optional[dict] = None) -> Optional[MarketMeta]:
@@ -100,11 +136,11 @@ def parse_market(raw: dict, *, event_raw: Optional[dict] = None) -> Optional[Mar
         elif low in ("no", "n") and i < len(asset_ids):
             no_idx = i
 
-    ev = event_raw or {}
+    events = raw.get("events") or []
+    # event_raw (fetch penuh) diutamakan; fallback ke events[0] yang ter-embed di listing
+    ev = event_raw or (events[0] if events and isinstance(events[0], dict) else {})
     trading = ev.get("trading") or {}
     neg_risk_augmented = bool(trading.get("negRiskAugmented")) or bool(ev.get("negRiskAugmented"))
-
-    events = raw.get("events") or []
     event_id = str(ev.get("id") or (events[0].get("id") if events and isinstance(events[0], dict) else "") or raw.get("eventId") or "")
     end_date = _parse_dt(raw.get("endDate")) or _parse_dt(ev.get("endDate"))
 

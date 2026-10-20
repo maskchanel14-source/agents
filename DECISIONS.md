@@ -152,3 +152,19 @@ spesifik, `frontend-mobile-development` (butuh framework build — kami pakai va
 - User meminta PR dari `feat/polymarket-arb-bot`; platform mewajibkan kerja di
   branch sesi `arena/4cbec802-agents` (push ke branch lain ditolak platform).
   PR dibuka DARI branch sesi, dengan catatan deviasi ini di PR description.
+
+## D14 — Parser fee Gamma multi-bentuk + neg-risk dari event ter-embed (2026-10-20)
+
+Test coverage baru (T16) menemukan dua risiko live-data nyata:
+1. `parse_fee_schedule` hanya menerima bentuk ternormalisasi `{rate, exponent}`.
+   API Gamma juga mengembalikan bentuk mentah (`baseFee`/`takerBaseFee`/`expScalar`,
+   dengan `exponent = expScalar/1e16`) dan bentuk lama `fee.baseFee`. Tanpa dukungan
+   ini, market valid akan salah ditandai `missing` (fail-closed, aman tapi kehilangan
+   peluang) atau — lebih buruk — exponent salah. Keputusan: dukung ketiga bentuk,
+   tetap fail-closed untuk bentuk tak dikenal.
+2. `parse_market` mengabaikan flag neg-risk/augmented bila hanya ada di `events[0]`
+   yang ter-embed pada listing `/markets` (tanpa fetch event penuh). Keputusan:
+   fallback ke `events[0]` ter-embed; fetch event penuh tetap diutamakan bila ada.
+
+Keduanya diverifikasi unit test melawan payload realistis (lihat
+`tests/test_data_engine_cli.py`, `tests/test_data_layer.py`).

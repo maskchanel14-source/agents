@@ -8,7 +8,7 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 - [x] T0.2 Riset dokumentasi resmi Polymarket → `docs/POLYMARKET_NOTES.md`
 - [x] T0.3 Scaffold: requirements, .env.example, config, DECISIONS, CHECKPOINT
 - [x] T1 `bot/costs.py` + `docs/COST_MODEL.md` + unit/property tests (fee tabel resmi,
-      gas, slippage walk-the-book, rounding parity, partial fill) — 89% coverage
+      gas, slippage walk-the-book, rounding parity, partial fill) — 95% coverage
 - [x] T2 Data layer: Gamma discovery (paginasi penuh + keyset), CLOB REST (batch),
       WS feed (sharding + reconnect + delta), staleness, coverage metrics
 - [x] T3 Scanner menyeluruh (pipeline bertahap, ranking expected-net, dedup,
@@ -16,7 +16,7 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 - [x] T4 Recorder (`python -m bot.record`) + fixture replay + `docs/FEASIBILITY.md`
 - [x] T5 Strategi A (buy pair + mint&sell) + tests
 - [x] T6 Strategi B (buy-all-YES/NO + konversi neg-risk, validasi exhaustive) + tests
-- [x] T7 Risk layer (limits, kill switch, circuit breaker, order rate) + tests (88%)
+- [x] T7 Risk layer (limits, kill switch, circuit breaker, order rate) + tests (98%)
 - [x] T8 Execution (fill model, paper FOK/FAK, live stub terkunci ganda) + tests
 - [x] T9 Dashboard HUD ARC-TERMINAL (server+SSE+token+2-step, frontend vanilla,
       waterfall/funnel/tabs/export/a11y/reduced-motion) + endpoint tests
@@ -54,3 +54,11 @@ Terakhir diperbarui: 2026-10-20 (sesi otonom selesai — semua task inti).
 1. Isi `docs/FEASIBILITY.md` bagian template dengan data rekaman live.
 2. Jalankan `scripts/take_screenshots.py` setelah bot live-data jalan.
 3. Review hasil live-paper vs model sebelum membuka `LIVE_TRADING`.
+
+- [x] T16 Hardening lanjutan: test data layer/engine/CLI (pagination Gamma, batch CLOB,
+      HTTP 429/5xx retry, delta WS, sharding, staleness, lifecycle engine, live-gate),
+      e2e entrypoint (synthetic→backtest CLI→paper CLI), soak dashboard 200 req +
+      SSE multi-event, skala scanner 500 market, CI GitHub Actions `polymarket-bot.yml`.
+      Perbaikan nyata dari test baru: parser fee Gamma kini menerima 3 bentuk schedule
+      (`rate/exponent`, `baseFee+takerBaseFee+expScalar`, `fee.baseFee`) dan `parse_market`
+      membaca flag neg-risk dari `events[0]` ter-embed. Suite: **157 hijau**, coverage 83%.

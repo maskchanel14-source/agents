@@ -7,14 +7,14 @@ Tanggal: 2026-10-20 · Sesi otonom · Branch: `arena/4cbec802-agents` (PR dari b
 | Komponen | Status | Bukti |
 |---|---|---|
 | Riset dokumentasi resmi (fee, neg-risk, orderbook, WS, auth, resolusi, rate limit, order wire format) | ✅ | `docs/POLYMARKET_NOTES.md` (sumber URL per klaim, diakses 2026-10-20) |
-| `bot/costs.py` — model biaya tunggal, 100% Decimal | ✅ | 89% coverage; unit test cocok dengan **tabel fee resmi** docs (26 kasus) + property tests identitas konservasi kas |
+| `bot/costs.py` — model biaya tunggal, 100% Decimal | ✅ | 95% coverage; unit test cocok dengan **tabel fee resmi** docs (26 kasus) + property tests identitas konservasi kas |
 | `docs/COST_MODEL.md` — rumus + sumber | ✅ | File tersedia; rumus `fee = C × rate × (p(1-p))^e`, rounding 5dp, min fee 0.00001 |
 | Strategi A (intra-market binary: buy pair + mint&sell) | ✅ | `tests/test_strategies.py` end-to-end |
 | Strategi B (multi-outcome/neg-risk: buy-all-YES, buy-all-NO, konversi) + validasi exhaustive | ✅ | Test membuktikan skip saat ada outcome "Other" & saat tanpa flag neg-risk |
 | Strategi C (cross-market logis) | ✅ gated, default **OFF** | Hanya pasangan kriteria-resolusi **identik literal** (payoff terbukti deterministik); keraguan → skip. Aktifkan via config setelah review. |
 | Strategi D (cross-venue) | ⏭ SKIP (stub) | Tidak ada venue dengan kriteria resolusi terverifikasi identik (DECISIONS D4) |
 | Scanner menyeluruh + ranking + SQLite (SEMUA peluang tercatat) | ✅ | `bot/scanner.py`; `tests/test_execution_scanner.py` memverifikasi persist & ranking |
-| Risk layer (hard limits, kill switch, circuit breaker, order-rate, reconciliation hook) | ✅ | 88% coverage `bot/risk/limits.py`; test tiap limit |
+| Risk layer (hard limits, kill switch, circuit breaker, order-rate, reconciliation hook) | ✅ | 98% coverage `bot/risk/limits.py`; test tiap limit |
 | Paper executor + fill probability model (FOK/FAK) | ✅ | `tests/test_execution_scanner.py` (FOK all-or-nothing, FAK partial, risk reject) |
 | Live executor | ✅ terkunci | Menolak semua aksi tanpa `LIVE_TRADING=true` + `live_trading.confirmed` (test memverifikasi penolakan) |
 | Dashboard HUD "ARC-TERMINAL" (vanilla JS, offline, 127.0.0.1, SSE, token+2-step, export CSV/JSON, waterfall, funnel, tab, a11y, reduced-motion) | ✅ | `tests/test_dashboard_http.py` (index/state/SSE/token/2-step/export); screenshot: lihat keterbatasan §3 |
@@ -23,7 +23,7 @@ Tanggal: 2026-10-20 · Sesi otonom · Branch: `arena/4cbec802-agents` (PR dari b
 | Paper-run summary | ✅ (dari fixture — live tidak mungkin dari sandbox) | `logs/paper_run_summary.json`: 566 peluang terdeteksi, 272 gugur setelah biaya, 3 dieksekusi (risk cap), PnL simulasi **+$4,59** setelah SEMUA biaya |
 | Docs: README (Quick start Windows + checklist + wallet setup + compliance), DECISIONS, CHECKPOINT, FEASIBILITY, COST_MODEL, POLYMARKET_NOTES | ✅ | File di root & `docs/` |
 | Secret scan | ✅ bersih | Tidak ada key/secret di repo; `.env` di gitignore; tidak ada mekanisme anti-geoblock |
-| Test suite | ✅ **129 hijau** | `report_out/coverage.txt` — costs.py 89%, risk 88%, models 98%, state 96% |
+| Test suite | ✅ **157 hijau** | `report_out/coverage.txt` — total 83%; costs.py 95%, risk 98%, models 98%, state/scanner 96%, data layer 78–87%, engine 70% |
 
 ## 2. Angka kunci (dari paper-run replay fixture SINTETIS — bukan live)
 
@@ -96,7 +96,7 @@ Sumber: `data/fixtures/synthetic_small.json` (4.800 event, 4 market, detik-granu
 ## 6. Cara memverifikasi sendiri (5 menit)
 
 ```bat
-venv\Scripts\python.exe -m pytest tests/ -q            :: 129 test hijau
+venv\Scripts\python.exe -m pytest tests/ -q            :: 157 test hijau
 venv\Scripts\python.exe -m bot.backtest.run --sweep    :: laporan feasibility sintetis
 venv\Scripts\python.exe -m bot.paper_run               :: paper run summary
 venv\Scripts\python.exe -m bot --mode paper            :: bot + dashboard HUD
