@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARC-TERMINAL — Polymarket Arbitrage HUD</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div id="boot-overlay" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="reactor small"></div>
+    <div class="boot-lines" id="boot-lines"></div>
+    <button id="boot-skip" class="btn ghost">SKIP »</button>
+  </div>
+</div>
+
+<header class="topbar" role="banner">
+  <div class="brand">
+    <div class="reactor" id="reactor" title="System status"></div>
+    <div class="brand-text">
+      <h1>ARC-TERMINAL</h1>
+      <span class="sub">POLYMARKET ARBITRAGE HUD</span>
+    </div>
+  </div>
+  <div class="top-status" role="status" aria-live="polite">
+    <span class="badge mode" id="mode-badge">PAPER</span>
+    <span class="conn" id="conn-ws"><i></i>WS <b>—</b></span>
+    <span class="conn" id="conn-api"><i></i>API <b>—</b></span>
+    <span class="conn" id="conn-feed"><i></i>DATA <b>—</b></span>
+    <span class="clock" id="clock">--:--:--</span>
+    <span class="uptime" id="uptime">up 0s</span>
+  </div>
+  <div class="top-actions">
+    <button class="btn ghost" id="btn-pause" title="Pause/resume dashboard updates">PAUSE</button>
+    <button class="btn danger" id="btn-kill" title="Kill switch — stops trading immediately">KILL SWITCH</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button class="tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+  <button class="tab" data-tab="scanner" role="tab" aria-selected="false">Scanner</button>
+  <button class="tab" data-tab="positions" role="tab" aria-selected="false">Positions &amp; Orders</button>
+  <button class="tab" data-tab="pnl" role="tab" aria-selected="false">PnL &amp; Analytics</button>
+  <button class="tab" data-tab="risk" role="tab" aria-selected="false">Risk</button>
+  <button class="tab" data-tab="log" role="tab" aria-selected="false">Log</button>
+  <button class="tab" data-tab="settings" role="tab" aria-selected="false">Settings</button>
+</nav>
+
+<main id="main">
+  <!-- ============ OVERVIEW ============ -->
+  <section class="tabpanel active" id="tab-overview" role="tabpanel">
+    <div class="kpi-row" id="kpi-row">
+      <div class="kpi panel"><span class="kpi-label" data-tip="Simulated net profit today (paper) / realized today">NET PNL TODAY</span><span class="kpi-value" id="kpi-pnl-today">$0.00</span></div>
+      <div class="kpi panel"><span class="kpi-label" data-tip="Total realized + unrealized net PnL">TOTAL PNL</span><span class="kpi-value" id="kpi-pnl-total">$0.00</span></div>
+      <div class="kpi panel"><span class="kpi-label" data-tip="Opportunities passing ALL cost gates right now">VALID OPPS</span><span class="kpi-value" id="kpi-valid">0</span></div>
+      <div class="kpi panel"><span class="kpi-label" data-tip="Capital currently deployed in open positions">CAPITAL USED</span><span class="kpi-value" id="kpi-capital">$0.00</span></div>
+      <div class="kpi panel"><span class="kpi-label" data-tip="Bot engine status">BOT STATUS</span><span class="kpi-value" id="kpi-status">—</span></div>
+      <div class="kpi panel"><span class="kpi-label" data-tip="Markets monitored vs total active markets">COVERAGE</span><span class="kpi-value" id="kpi-coverage">0 / 0</span></div>
+    </div>
+
+    <div class="grid-2-1">
+      <div class="panel" id="scanner-mini">
+        <div class="panel-head"><h2>OPPORTUNITY SCANNER <span class="live-dot"></span></h2>
+          <span class="panel-note" id="scanner-note">top ranked by expected net profit</span></div>
+        <div class="table-wrap">
+          <table class="data-table" id="mini-table">
+            <thead><tr>
+              <th data-sort="strategy">Strategy</th><th data-sort="markets">Market</th>
+              <th data-sort="gross">Gross</th><th data-sort="fees">Fees</th>
+              <th data-sort="net">Net</th><th data-sort="net_pct">Net %</th>
+              <th data-sort="ann">Ann.</th><th data-sort="size">Size</th><th>Status</th>
+            </tr></thead>
+            <tbody id="mini-tbody">
+              <tr class="empty-row"><td colspan="9">Menunggu data… (belum ada peluang terdeteksi)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="side-stack">
+        <div class="panel" id="funnel-panel">
+          <div class="panel-head"><h2>SCAN FUNNEL</h2></div>
+          <div id="funnel" class="funnel">
+            <div class="funnel-stage"><span>Total market</span><b id="fn-total">0</b></div>
+            <div class="funnel-stage"><span>Dipantau</span><b id="fn-monitored">0</b></div>
+            <div class="funnel-stage"><span>Kandidat</span><b id="fn-candidates">0</b></div>
+            <div class="funnel-stage"><span>Lolos biaya</span><b id="fn-valid">0</b></div>
+            <div class="funnel-stage"><span>Dieksekusi</span><b id="fn-executed">0</b></div>
+          </div>
+          <div class="reject-list" id="reject-list" aria-label="Rejection reasons"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>RISK METERS</h2></div>
+          <div class="meters">
+            <div class="meter"><span>Daily loss</span><div class="bar"><i id="risk-daily"></i></div><b id="risk-daily-v">0%</b></div>
+            <div class="meter"><span>Total exposure</span><div class="bar"><i id="risk-exp"></i></div><b id="risk-exp-v">0%</b></div>
+            <div class="meter status-line"><span>Circuit breaker</span><b id="risk-cb">OK</b></div>
+            <div class="meter status-line"><span>Kill switch</span><b id="risk-ks">ARMED</b></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>SYSTEM HEALTH</h2></div>
+          <ul class="health" id="health-list">
+            <li><span>Uptime</span><b id="h-uptime">—</b></li>
+            <li><span>Mem RSS</span><b id="h-rss">—</b></li>
+            <li><span>Last scan</span><b id="h-scan">—</b></li>
+            <li><span>WS reconnects</span><b id="h-reconn">—</b></li>
+            <li><span>Stale assets</span><b id="h-stale">—</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCANNER ============ -->
+  <section class="tabpanel" id="tab-scanner" role="tabpanel">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>OPPORTUNITY SCANNER — FULL FEED</h2>
+        <div class="filters">
+          <input type="search" id="f-search" placeholder="cari market / id…" aria-label="Search market">
+          <select id="f-strategy" aria-label="Filter strategy">
+            <option value="">semua strategi</option>
+            <option>A_intra_binary</option><option>A_intra_binary_sell</option>
+            <option>B_multi_outcome</option><option>B_multi_outcome_no</option>
+            <option>B_multi_outcome_convert</option><option>C_cross_market</option>
+          </select>
+          <select id="f-status" aria-label="Filter status">
+            <option value="">semua status</option><option value="valid">valid</option>
+            <option value="rejected">ditolak</option>
+          </select>
+          <input type="number" id="f-minprofit" placeholder="min net $" step="0.001" aria-label="Minimum net profit">
+          <button class="btn ghost" id="btn-export-csv">EXPORT CSV</button>
+          <button class="btn ghost" id="btn-export-json">EXPORT JSON</button>
+        </div>
+      </div>
+      <div class="table-wrap tall">
+        <table class="data-table" id="full-table">
+          <thead><tr>
+            <th data-sort="ts">Time</th><th data-sort="strategy">Strategy</th>
+            <th data-sort="markets">Markets</th><th data-sort="gross">Gross</th>
+            <th data-sort="fees">Fees</th><th data-sort="slip">Slippage</th>
+            <th data-sort="gas">Gas</th><th data-sort="net">Net $</th>
+            <th data-sort="net_pct">Net %</th><th data-sort="ann">Annualized</th>
+            <th data-sort="size">Size</th><th data-sort="fill">Fill p</th><th>Status</th>
+          </tr></thead>
+          <tbody id="full-tbody">
+            <tr class="empty-row"><td colspan="13">Belum ada data — scanner akan mengisi tabel ini secara real-time.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="detail-panel">
+      <div class="panel-head"><h2>DETAIL — <span id="detail-title">waterfall biaya</span></h2>
+        <button class="btn ghost" id="btn-close-detail">TUTUP</button></div>
+      <div class="detail-grid">
+        <div><h3>COST WATERFALL</h3><div id="waterfall" class="waterfall"></div></div>
+        <div><h3>DECISION TIMELINE</h3><ol id="timeline" class="timeline"></ol></div>
+        <div><h3>RESOLUTION CRITERIA</h3><p id="detail-criteria" class="criteria">—</p></div>
+        <div><h3>DEPTH CHART (legs)</h3><div id="depth-charts"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POSITIONS ============ -->
+  <section class="tabpanel" id="tab-positions" role="tabpanel">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h2>OPEN POSITIONS</h2></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Market</th><th>Asset</th><th>Label</th><th>Shares</th><th>Avg price</th><th>Updated</th></tr></thead>
+            <tbody id="pos-tbody"><tr class="empty-row"><td colspan="6">Tidak ada posisi terbuka.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>CAPITAL &amp; BALANCES</h2></div>
+        <ul class="health">
+          <li><span>Modal terpakai</span><b id="bal-used">$0.00</b></li>
+          <li><span>Modal tersedia (cap)</span><b id="bal-avail">—</b></li>
+          <li><span>USDC/pUSD wallet</span><b id="bal-usdc">n/a (paper)</b></li>
+          <li><span>POL gas</span><b id="bal-pol">n/a (paper)</b></li>
+        </ul>
+        <div class="panel-head" style="margin-top:12px"><h2>RECENT EXECUTIONS</h2></div>
+        <ul class="health" id="exec-list"><li><span>—</span><b>belum ada eksekusi</b></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PNL ============ -->
+  <section class="tabpanel" id="tab-pnl" role="tabpanel">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h2>EQUITY CURVE</h2></div>
+        <canvas id="equity-canvas" width="900" height="320" aria-label="Equity curve chart"></canvas>
+        <div class="empty-note" id="equity-empty">Belum cukup data untuk kurva — terisi otomatis seiring waktu.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>PNL SUMMARY</h2></div>
+        <ul class="health">
+          <li><span>Realized</span><b id="pnl-realized">$0.00</b></li>
+          <li><span>Unrealized</span><b id="pnl-unrealized">$0.00</b></li>
+          <li><span>Win rate</span><b id="pnl-winrate">—</b></li>
+          <li><span>Jumlah trade</span><b id="pnl-trades">0</b></li>
+          <li><span>Rata-rata net edge</span><b id="pnl-avgedge">—</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RISK ============ -->
+  <section class="tabpanel" id="tab-risk" role="tabpanel">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h2>RISK LIMITS (read-only)</h2></div>
+        <ul class="health" id="risk-limits"></ul>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>EVENTS &amp; ALERTS</h2></div>
+        <ul class="health" id="alert-list"><li><span>—</span><b>tidak ada alert</b></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOG ============ -->
+  <section class="tabpanel" id="tab-log" role="tabpanel">
+    <div class="panel">
+      <div class="panel-head"><h2>LOG STREAM</h2>
+        <div class="filters">
+          <select id="f-loglevel" aria-label="Filter log level">
+            <option value="">semua</option><option>INFO</option><option>WARNING</option><option>ERROR</option>
+          </select>
+          <button class="btn ghost" id="btn-log-clear">CLEAR VIEW</button>
+        </div>
+      </div>
+      <div class="log-stream" id="log-stream" role="log" aria-live="polite">
+        <div class="empty-row">Menunggu log…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section class="tabpanel" id="tab-settings" role="tabpanel">
+    <div class="panel">
+      <div class="panel-head"><h2>RUNTIME PARAMETERS (read-only)</h2></div>
+      <p class="muted">Parameter sensitif hanya bisa diubah lewat <code>config/default.yaml</code> / <code>.env</code>
+        lalu restart bot — sengaja tidak bisa diedit dari dashboard.</p>
+      <ul class="health" id="settings-list"></ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>ARC-TERMINAL v0.1 · localhost only · sound: off · original design (no copyrighted assets)</span>
+  <span id="foot-right">updates: <b id="fps-ind">4</b> fps · data: SSE</span>
+</footer>
+
+<div id="confirm-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="modal-box panel">
+    <h2 id="confirm-title">KONFIRMASI DUA LANGKAH</h2>
+    <p id="confirm-msg">Aksi ini berbahaya. Ketik <code>CONFIRM</code> untuk melanjutkan.</p>
+    <input type="text" id="confirm-input" placeholder="ketik CONFIRM" aria-label="Type CONFIRM">
+    <div class="modal-actions">
+      <button class="btn ghost" id="confirm-cancel">BATAL</button>
+      <button class="btn danger" id="confirm-ok" disabled>JALANKAN</button>
+    </div>
+  </div>
+</div>
+
+<script>window.__ARC_TOKEN__ = "__ARC_TOKEN__";</script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
