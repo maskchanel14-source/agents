@@ -1,0 +1,4 @@
+# OPTIONAL — hanya untuk mode LIVE trading (butuh review keamanan manual).
+# Mode paper/backtest TIDAK membutuhkan file ini.
+# py-clob-client adalah client resmi Polymarket (github.com/Polymarket/py-clob-client).
+py-clob-client>=0.34

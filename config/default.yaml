@@ -1,0 +1,152 @@
+# =============================================================
+# config/default.yaml — parameter bot arbitrase Polymarket
+# (sumber kebenaran kedua setelah env; semua angka bisa di-override)
+# =============================================================
+
+mode: paper            # paper | backtest | live  (live tetap butuh LIVE_TRADING=true + live_trading.confirmed)
+
+# ---------- API endpoints (resmi, lihat docs/POLYMARKET_NOTES.md) ----------
+endpoints:
+  gamma: "https://gamma-api.polymarket.com"
+  clob: "https://clob.polymarket.com"
+  data: "https://data-api.polymarket.com"
+  ws_market: "wss://ws-subscriptions-clob.polymarket.com/ws/market"
+
+# ---------- Discovery / scanner ----------
+discovery:
+  page_size: 100            # Gamma limit per request
+  refresh_seconds: 300      # refresh penuh metadata berkala
+  include_closed: false
+  max_markets: 0            # 0 = tanpa batas (SEMUA market aktif)
+  skip_if_missing_fee: true # fee tidak tersedia -> market tidak ditrade (fail-closed)
+
+ws:
+  assets_per_connection: 400   # sharding koneksi WS (default konservatif)
+  reconnect_min_seconds: 1
+  reconnect_max_seconds: 60
+  ping_interval_seconds: 20
+  stale_after_ms: 3000         # snapshot lebih tua dari ini -> data stale (tolak peluang)
+  rest_reconcile_seconds: 60   # rekonsiliasi REST berkala (hash compare)
+  rest_batch_size: 20          # POST /books batch
+
+# ---------- Cost model (lihat docs/COST_MODEL.md) ----------
+costs:
+  safety_margin_usd: 0.005       # margin keamanan per bundle ($ per pasang)
+  safety_margin_pct: 0.0         # alternatif % dari notional (dipakai yang lebih besar)
+  min_net_profit_usd: 0.0        # net harus > max(safety_margin, ini)
+  min_annualized_return: 0.15    # 15%/tahun minimum (opportunity cost modal)
+  fee_rounding_places: 5         # dokumen resmi: fee dibulatkan 5 desimal
+  fee_min_usd: "0.00001"         # di bawah ini fee dibulatkan jadi 0
+  fee_exponent_default: 1        # exponent komponen harga (p*(1-p))^e
+  # Gas (Polygon) — hanya operasi on-chain user; trading CLOB tidak kena gas user
+  gas:
+    enabled: true
+    gas_price_gwei_fallback: 100.0
+    pol_usd_fallback: 0.25
+    gas_units:
+      approve: 60000
+      split: 150000
+      merge: 150000
+      redeem: 120000
+      convert_neg_risk: 250000
+    amortize_approvals_over_trades: 20
+  # Risiko
+  leg_risk_haircut_pct: 0.002    # expected loss unhedged per bundle (FOK default kecil)
+  latency_ms: 350                # asumsi latency order (dipakai fill model & staleness)
+  max_book_age_ms: 3000
+  resolution_haircut_pct_per_day: 0.0002  # penalti modal terkunci/hari
+  resolution_haircut_ambiguous_pct: 0.01  # market kriteria ambigu
+  lookback_days_min: 0.25        # resolusi < 6 jam: haircut khusus (UMA 2 jam challenge)
+  # Pembulatan (parity dengan py-clob-client ROUNDING_CONFIG)
+  rounding:
+    size_decimals: 2
+    price_decimals_by_tick:
+      "0.1": 1
+      "0.01": 2
+      "0.005": 3
+      "0.0025": 4
+      "0.001": 3
+      "0.0001": 4
+    amount_decimals_by_tick:
+      "0.1": 3
+      "0.01": 4
+      "0.005": 5
+      "0.0025": 6
+      "0.001": 5
+      "0.0001": 6
+
+# ---------- Risk (hard limit, tidak bisa di-bypass strategi) ----------
+risk:
+  max_capital_per_trade_usd: 50.0
+  max_exposure_per_market_usd: 100.0
+  max_exposure_per_event_usd: 150.0
+  max_total_exposure_usd: 500.0
+  max_daily_loss_usd: 50.0
+  max_orders_per_minute: 30
+  kill_switch_file: "KILL_SWITCH"
+  circuit_breaker:
+    consecutive_errors: 10
+    error_window_seconds: 60
+    halt_on_stale_data_seconds: 30
+    cooldown_seconds: 120
+
+# ---------- Fill probability model (paper trading realistis) ----------
+fill_model:
+  base_fill_prob: 0.95          # FOK, book segar, size <= 25% top-of-book
+  depth_penalty: 0.5            # pengurang saat size mendekati depth
+  staleness_penalty_per_ms: 0.0002
+  latency_penalty_per_ms: 0.00005
+  min_fill_prob: 0.05
+
+# ---------- Strategi ----------
+strategies:
+  A_intra_binary:
+    enabled: true
+  B_multi_outcome:
+    enabled: true
+    require_exhaustive: true     # tolak jika ada outcome "Other"/placeholder tidak jelas
+    augmented_neg_risk: named_only  # named_only | skip
+  C_cross_market:
+    enabled: false               # aktifkan hanya jika presisi terjamin (lihat DECISIONS D4)
+    min_resolution_text_similarity: 0.9
+  D_cross_venue:
+    enabled: false               # butuh venue lain dengan kriteria identik
+
+# ---------- Eksekusi ----------
+execution:
+  order_type_primary: FOK        # FOK | FAK
+  order_type_fallback: FAK
+  max_slippage_ticks: 2          # guard max/min price = harga estimasi + N tick
+  cancel_on_shutdown: true
+  paper_fill_with_fill_model: true
+
+# ---------- State / SQLite ----------
+state:
+  db_path: "logs/bot_state.db"
+  reconcile_on_start: true
+  reconcile_interval_seconds: 300
+
+# ---------- Monitoring / logging ----------
+monitoring:
+  log_dir: "logs"
+  log_level: "INFO"
+  log_max_bytes: 10485760
+  log_backup_count: 5
+  metrics_flush_seconds: 10
+  notifications_enabled: false
+
+# ---------- Dashboard ----------
+dashboard:
+  enabled: true
+  host: "127.0.0.1"
+  port: 8788
+  open_browser: true
+  throttle_fps: 4
+
+# ---------- Backtest ----------
+backtest:
+  fixture_path: "data/fixtures"
+  sweep:
+    safety_margin_usd: [0.002, 0.005, 0.01, 0.02]
+    min_annualized_return: [0.05, 0.15, 0.30]
+    max_capital_per_trade_usd: [25.0, 50.0, 100.0]

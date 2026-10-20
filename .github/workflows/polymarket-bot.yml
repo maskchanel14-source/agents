@@ -1,0 +1,62 @@
+name: Polymarket Bot
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "bot/**"
+      - "tests/**"
+      - "config/**"
+      - "requirements*.txt"
+      - ".github/workflows/polymarket-bot.yml"
+  push:
+    branches: [main]
+    paths:
+      - "bot/**"
+      - "tests/**"
+      - "config/**"
+      - "requirements*.txt"
+      - ".github/workflows/polymarket-bot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bot-tests:
+    name: Bot tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@e58605a9b6da7c637471fab8847a5e5a6b8df081 # v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python 3.11 venv
+        run: |
+          uv python install 3.11
+          uv venv --python 3.11 .venv
+
+      - name: Install dependencies
+        run: uv pip install --python .venv/bin/python -r requirements-dev.txt ruff
+
+      - name: Lint (correctness rules only)
+        run: .venv/bin/python -m ruff check bot/ tests/ --select F401,F841,E722,F811
+
+      - name: Run bot test suite
+        run: .venv/bin/python -m pytest tests/ -q
+
+      - name: Byte-compile launcher contract (CRLF check)
+        run: |
+          .venv/bin/python - << 'PY'
+          from pathlib import Path
+          for name in ("start_bot.bat", "start_bot_background.bat", "stop_bot.bat"):
+              data = Path(name).read_bytes()
+              assert b"\r\n" in data, f"{name}: bukan CRLF"
+              data.decode("ascii")
+          print("bat CRLF+ASCII OK")
+          PY

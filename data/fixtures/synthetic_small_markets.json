@@ -1,0 +1,50 @@
+{
+ "m-alpha": {
+  "slug": "will-x-happen",
+  "question": "Will X happen?",
+  "event_id": "evt-1",
+  "neg_risk": false,
+  "tick": "0.01",
+  "min_notional": "5",
+  "fee_rate": "0.04",
+  "yes": "yes-alpha",
+  "no": "no-alpha",
+  "criteria": "Resolves Yes if X happens."
+ },
+ "m-beta-1": {
+  "slug": "winner-a",
+  "question": "Will A win?",
+  "event_id": "evt-2",
+  "neg_risk": true,
+  "tick": "0.01",
+  "min_notional": "5",
+  "fee_rate": "0.04",
+  "yes": "yes-beta-1",
+  "no": "no-beta-1",
+  "criteria": "Resolves Yes if A wins."
+ },
+ "m-beta-2": {
+  "slug": "winner-b",
+  "question": "Will B win?",
+  "event_id": "evt-2",
+  "neg_risk": true,
+  "tick": "0.01",
+  "min_notional": "5",
+  "fee_rate": "0.04",
+  "yes": "yes-beta-2",
+  "no": "no-beta-2",
+  "criteria": "Resolves Yes if B wins."
+ },
+ "m-beta-3": {
+  "slug": "winner-c",
+  "question": "Will C win?",
+  "event_id": "evt-2",
+  "neg_risk": true,
+  "tick": "0.01",
+  "min_notional": "5",
+  "fee_rate": "0.04",
+  "yes": "yes-beta-3",
+  "no": "no-beta-3",
+  "criteria": "Resolves Yes if C wins."
+ }
+}
