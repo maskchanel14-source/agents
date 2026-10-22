@@ -70,3 +70,7 @@ docs/superpowers/
 # Restored agent skills (from skills-lock.json; large, not versioned)
 .agents/skills/
 .agents/skill-index.md
+
+# Local production deliverables and connector staging; keep media out of Git.
+output/
+google_drive/
