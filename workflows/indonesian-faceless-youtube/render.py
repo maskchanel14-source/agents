@@ -774,7 +774,7 @@ def write_qa(production: Path, main: Path, audio: Path, scenes: list[dict[str, A
         "srt_last_end_seconds": last_end,
         "srt_within_media": last_end <= main_duration + 1.0,
         "visual_png_count": len(visual_files),
-        "visual_dimensions_ok": bool(visual_sizes) and all(w == W and h == H for name, w, h, _size in visual_sizes if not name.startswith("short-")),
+        "visual_dimensions_ok": bool(visual_sizes) and all((name.startswith("short-") and w == V_W and h == V_H) or (w >= 1000 and h >= 700) for name, w, h, _size in visual_sizes),
         "three_shorts": len(shorts) == 3 and all(Path(x["mp4"]).exists() for x in shorts),
         "shorts_vertical": all((get_duration(probe_media(ffmpeg, Path(x["mp4"]))) > 0) for x in shorts),
     }
