@@ -113,7 +113,7 @@
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/brainstorming/SKILL.md",
-      "computedHash": "fc6339f0e5b48c63279bd4f6c6340db55301b69ccc37a13e1e52bd5b3062746c"
+      "computedHash": "759eaa3b4b3d06d9e1c98c24bcd58eeb4d2faf724b3239f81e8559aa41e28fdd"
     },
     "brand-guidelines": {
       "source": "anthropics/skills",
@@ -217,6 +217,12 @@
       "skillPath": "skills/code-simplification/SKILL.md",
       "computedHash": "7973e746e8e2ea5004d520da970c15a106824b8d6be1bcff48908aec021f3677"
     },
+    "color-font-skill": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/pptx-plugin/skills/color-font-skill/SKILL.md",
+      "computedHash": "24edb711f29ff1da66616248f070a02f4c60258abae37965525b74352872c50a"
+    },
     "consciousness-council": {
       "source": "K-Dense-AI/scientific-agent-skills",
       "sourceType": "github",
@@ -306,6 +312,12 @@
       "sourceType": "github",
       "skillPath": "skills/deprecation-and-migration/SKILL.md",
       "computedHash": "0d7b2002e250c02a260f6bc502d7a798ab8e8ca0c020c54d7b0f16053935c72c"
+    },
+    "design-style-skill": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/pptx-plugin/skills/design-style-skill/SKILL.md",
+      "computedHash": "8d63f7a0d6564e94d819b78b4376b85aa75baf317150e9bcdc1e9da32dd0b45a"
     },
     "dhdna-profiler": {
       "source": "K-Dense-AI/scientific-agent-skills",
@@ -613,6 +625,12 @@
       "skillPath": "skills/iso-standards-readiness/SKILL.md",
       "computedHash": "eadd4a663255d0c37a553263a38ab7197ebe76ada8d2c5c054b0dfe9cec04d4c"
     },
+    "kami": {
+      "source": "tw93/Kami",
+      "sourceType": "github",
+      "skillPath": "skills/kami/SKILL.md",
+      "computedHash": "ac024c6e828224ffd1134f76f19b78f5cc6ad068d9d23e11eab0e2d14de69647"
+    },
     "lab-hardware-cad": {
       "source": "K-Dense-AI/scientific-agent-skills",
       "sourceType": "github",
@@ -720,6 +738,12 @@
       "sourceType": "github",
       "skillPath": "skills/medchem/SKILL.md",
       "computedHash": "be6461b35d3b2900866e0fc72dc214ba38b5a177ca2c2193d4f880864437ebc8"
+    },
+    "minimax-pdf": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "skills/minimax-pdf/SKILL.md",
+      "computedHash": "db641f4619ccf2e415693e9e150e61016ed2ad45a485587664f03449b5ee5823"
     },
     "modal": {
       "source": "K-Dense-AI/scientific-agent-skills",
@@ -937,17 +961,53 @@
       "skillPath": "skills/polars-bio/SKILL.md",
       "computedHash": "a67e6826d2dff7cf9854963f2d8ac2315d6a7ab4ee1e54c187ff3440e470ca6a"
     },
+    "ppt-editing-skill": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/pptx-plugin/skills/ppt-editing-skill/SKILL.md",
+      "computedHash": "d4dccdb5668505415e80f200cc3dbaf81037981e20ddaca519df6d1368067fbc"
+    },
+    "ppt-master": {
+      "source": "hugohe3/ppt-master",
+      "sourceType": "github",
+      "skillPath": "skills/ppt-master/SKILL.md",
+      "computedHash": "68463e93f2874a951405bde434c467953abc71f49dffd2f3964629d4cceb027c"
+    },
+    "ppt-orchestra-skill": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/pptx-plugin/skills/ppt-orchestra-skill/SKILL.md",
+      "computedHash": "2c06ba4d4619bcdeb702b5b1017796b503a4fd3f54ce2c525910bcfeb61e0f1e"
+    },
     "pptx": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/pptx/SKILL.md",
       "computedHash": "82eaf5daede5a1779aa17ccf06597cb209a0c2bd41d3a2f18bd45e0301a387fb"
     },
+    "pptx-design-styles": {
+      "source": "corazzon/pptx-design-styles",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "9801c5a5d399077f45291ff24edf0596efb640bfc7579f8056ccc19ff11ef36b"
+    },
+    "pptx-generator": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "skills/pptx-generator/SKILL.md",
+      "computedHash": "956dcd3e9c6d0b4f174f65ae0046dc51217df2436a38aea08a91f75701db6b52"
+    },
     "pptx-posters": {
       "source": "K-Dense-AI/scientific-agent-skills",
       "sourceType": "github",
       "skillPath": "skills/pptx-posters/SKILL.md",
       "computedHash": "a986ccf2f7dcd8c26fffc24be3539f5b66b93dc757e7d67c47b4b4e1c1f9ccdb"
+    },
+    "presentation-skill": {
+      "source": "siril9/presentation-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "0f37f41b9cbdda4b70b603d70cc64e94de3e995facccf4445f7891443d00d1f4"
     },
     "primekg": {
       "source": "K-Dense-AI/scientific-agent-skills",
@@ -1266,6 +1326,12 @@
       "sourceType": "github",
       "skillPath": "skills/slack-gif-creator/SKILL.md",
       "computedHash": "fab4fcfcaed371071069d61a3ab94dff15d10d36403ff269d147ea986cd98083"
+    },
+    "slide-making-skill": {
+      "source": "MiniMax-AI/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/pptx-plugin/skills/slide-making-skill/SKILL.md",
+      "computedHash": "8e8edc83469ed594f87a58304eb3433893513779f87802ebe8fd33c871e576a2"
     },
     "source-driven-development": {
       "source": "addyosmani/agent-skills",
