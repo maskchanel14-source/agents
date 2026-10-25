@@ -1,0 +1,50 @@
+{
+  "name": "po-pilot-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that turns wholesale purchase orders into validated Shopify draft orders — live SKU matching, price-mismatch flags, PO dedupe, net terms, invoice send. For non-Plus Shopify brands drowning in emailed PDFs and spreadsheets.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "po-pilot-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "shopify",
+    "wholesale",
+    "b2b",
+    "purchase-order",
+    "draft-order",
+    "net-30",
+    "claude",
+    "ai-agent"
+  ],
+  "license": "MIT",
+  "author": "maskchanel14",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maskchanel14-source/po-pilot-mcp.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.9.0"
+  }
+}

@@ -1,0 +1,26 @@
+From: reorders@bayandmain.com
+To: orders@yourbrand.com
+Subject: PO-2291 — fall reorder
+
+Hi team,
+
+Please process the following for our two locations. Ship to the Pearl District store unless noted.
+
+ITEM                          QTY        UNIT PRICE
+-----------------------------------------------
+ORG-COFFEE-12OZ               48         $18.00
+CERAMIC-MUG-NAVY              24         $9.50
+TOTE-CANVAS-NAT               25         $7.25      <- we usually get these by the dozen?
+GIFT-BOX-SM                   60         $2.10
+DECAF-COFFEE-12OZ             1 case of 12   (price?)
+
+PO number: PO-2291
+Terms: Net 30 as usual
+Need delivery by: Nov 14
+
+Also — the navy mugs last time had a few chipped, can we get 2 extra as spares?
+
+Thanks!
+Dana
+Bay & Main Provisions
+(503) 555-0142

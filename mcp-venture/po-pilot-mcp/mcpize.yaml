@@ -1,0 +1,45 @@
+# mcpize.yaml — PO Pilot hosted deployment + metered billing
+# Docs: https://mcpize.com/blog/make-money-with-mcp
+# NOTE: MCPize evolves its schema — before `mcpize deploy`, diff this against
+# https://mcpize.com/docs (their published example uses `limits.calls_per_day`;
+# monthly limits below implement the launch plan: free 1,000 req/mo, Pro $19 for 50K req/mo).
+
+name: po-pilot-mcp
+version: 0.1.0
+description: >-
+  Wholesale purchase-order intake for Shopify: validates PO line items against
+  the live catalog (SKU match, price-mismatch and case-pack flags), creates
+  draft orders with PO dedupe, net-15/30/60 terms and tags, optionally emails
+  the invoice, and reports net-terms aging so you can chase unpaid invoices.
+runtime: node
+entry: dist/index.js
+
+# Secrets the hosted runtime injects per subscriber (each merchant brings their
+# own Shopify custom-app token — you never hold customer credentials centrally).
+env:
+  - SHOPIFY_STORE_DOMAIN
+  - SHOPIFY_ADMIN_TOKEN
+  - PO_PILOT_DISCOUNT_PCT
+  - PO_PILOT_TAGS
+
+pricing:
+  model: subscription
+  currency: usd
+  tiers:
+    - name: free
+      price: 0
+      limits:
+        calls_per_month: 1000        # ≈ 50-100 POs/mo at 4 calls per PO
+      features:
+        - match_catalog_items
+        - find_customer
+        - create_draft_order
+        - list_draft_orders
+    - name: pro
+      price: 19
+      limits:
+        calls_per_month: 50000
+      features:
+        - everything_in_free
+        - invoice_send_at_volume
+        - priority_support

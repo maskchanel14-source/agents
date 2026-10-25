@@ -1,0 +1,95 @@
+{
+  "name": "PO Pilot — Monday Collections Chaser (net-30 aging + reminder drafts)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## PO Pilot n8n template #2: Monday collections\n\n**Flow:** Weekly schedule → pull OPEN / INVOICE_SENT draft orders from Shopify → compute net-terms aging → draft a polite reminder email per overdue buyer in Gmail (**drafts only — you press send**).\n\n**Setup (5 min):**\n1. HTTP node: replace `YOUR-STORE.myshopify.com` + `YOUR_SHOPIFY_ADMIN_TOKEN` (scopes: read_draft_orders).\n2. Gmail node: connect your Google account; emails land in Drafts for review.\n3. Schedule: default Monday 08:00. Adjust timezone in workflow settings.\n\nPairs with template #1 — the drafts it creates carry the `wholesale` + `po-*` tags and 'Payment terms: NET 30' note this workflow reads.",
+        "height": 420,
+        "width": 400
+      },
+      "id": "note-setup",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-620, -80]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "Every Monday 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-180, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://YOUR-STORE.myshopify.com/admin/api/2026-10/graphql.json",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "X-Shopify-Access-Token", "value": "YOUR_SHOPIFY_ADMIN_TOKEN" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: '{ draftOrders(first: 50, sortKey: CREATED_AT, reverse: true) { nodes { id name status invoiceUrl createdAt totalPrice email tags note customer { displayName } } } }' }) }}",
+        "options": {}
+      },
+      "id": "list-drafts",
+      "name": "Pull Draft Orders",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Net-terms aging: keep only overdue OPEN / INVOICE_SENT wholesale drafts and write each reminder.\nconst nodes = $json?.data?.draftOrders?.nodes ?? [];\nconst out = [];\nfor (const d of nodes) {\n  if (d.status === 'COMPLETED') continue;\n  const tags = d.tags || [];\n  if (!tags.includes('wholesale') && !tags.some(t => t.startsWith('po-'))) continue; // wholesale drafts only\n  const daysOpen = Math.floor((Date.now() - Date.parse(d.createdAt)) / 86400000);\n  const m = /payment terms:\\s*net-(\\d+)/i.exec(d.note || '');\n  const netDays = m ? parseInt(m[1], 10) : 30; // assume net-30 when note missing\n  if (daysOpen <= netDays) continue;\n  const daysOver = daysOpen - netDays;\n  const po = tags.find(t => t.startsWith('po-'))?.replace(/^po-/, '') || d.name;\n  const name = d.customer?.displayName || 'there';\n  out.push({ json: {\n    name: d.name, po, daysOver, total: d.totalPrice, invoiceUrl: d.invoiceUrl,\n    to: d.email || '',\n    subject: `Friendly reminder — invoice ${d.name}${po ? ` (PO ${po})` : ''}`,\n    body: `Hi ${name},\\n\\nHope you're doing well! Quick reminder that invoice ${d.name}${po ? ` for PO ${po}` : ''} ($${d.total}) is ${daysOver} day${daysOver === 1 ? '' : 's'} past its net-${netDays} terms.\\n\\nYou can pay in one click here: ${d.invoiceUrl || '(invoice link in Shopify Admin → Orders → Drafts)'}\\n\\nIf it's already in motion, thank you — and ignore this note.\\n\\nBest,\\nThe team`,\n  } });\n}\nif (out.length === 0) out.push({ json: { skipped: 'Nothing overdue this week 🎉' } });\nreturn out;"
+      },
+      "id": "aging",
+      "name": "Compute Aging + Write Reminders",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [260, 0]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "gmail-draft",
+      "name": "Save as Gmail Draft",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [480, 0],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "n8n Gmail node creates DRAFTS when 'Send' is off — review, then hit send. Items with empty `to` are skipped automatically (filter: to not empty)."
+    }
+  ],
+  "connections": {
+    "Every Monday 08:00": { "main": [[{ "node": "Pull Draft Orders", "type": "main", "index": 0 }]] },
+    "Pull Draft Orders": { "main": [[{ "node": "Compute Aging + Write Reminders", "type": "main", "index": 0 }]] },
+    "Compute Aging + Write Reminders": { "main": [[{ "node": "Save as Gmail Draft", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "templateCredsSetupCompleted": false, "description": "PO Pilot bundle template #2 — weekly net-30/60 aging over Shopify draft orders; writes polite reminder emails as Gmail drafts for one-click review." }
+}

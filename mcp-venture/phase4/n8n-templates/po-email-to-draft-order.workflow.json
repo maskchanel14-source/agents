@@ -1,0 +1,177 @@
+{
+  "name": "PO Pilot — Wholesale PO Inbox → Shopify Draft Order",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## PO Pilot n8n template #1: hands-off PO intake\n\n**Flow:** IMAP inbox → PDF→text → AI extraction (JSON) → Shopify SKU lookup → draft order with NET terms + tags.\n\n**Setup (10 min):**\n1. In `Wholesale PO Inbox`: connect your IMAP credentials (e.g. orders@yourbrand.com), keep *Download Attachments* on.\n2. In BOTH HTTP nodes: replace `YOUR-STORE.myshopify.com` and `YOUR_SHOPIFY_ADMIN_TOKEN` (custom app token, scopes: read_products, write_draft_orders).\n3. In `Extract Lines (AI)`: connect your OpenAI credential (or swap this node for the Anthropic node — same prompt works).\n4. In `Build Line Items`: set your wholesale multiplier (default 0.6 = 40% off catalog).\n5. Activate. Every new PO email becomes a draft order in Shopify Admin → Orders → Drafts.\n\n**Safety:** AI extraction is best-effort. The Code nodes flag `no_match`, `price_mismatch`, `case_pack` and `low_inventory` warnings into the draft-order note — review flagged drafts before sending invoices.",
+        "height": 560,
+        "width": 420
+      },
+      "id": "note-setup",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-660, -120]
+    },
+    {
+      "parameters": {
+        "mailbox": "IMAP",
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "id": "imap-trigger",
+      "name": "Wholesale PO Inbox",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [-200, 0]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "data"
+      },
+      "id": "extract-file",
+      "name": "PO Text (PDF/DOCX)",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [20, 0],
+      "notesInFlow": true,
+      "notes": "If the PO arrived as plain email text (no attachment), bypass this node and map `{{ $json.text }}` from the trigger instead."
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "modelId": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "content": "You extract wholesale purchase orders into strict JSON.\n\nFrom this PO email + attachment text, return ONLY JSON with this shape:\n{\n  \"po_number\": \"string or empty\",\n  \"buyer\": { \"company\": \"string\", \"email\": \"string\", \"phone\": \"string\" },\n  \"terms\": \"net-15 | net-30 | net-60 | due-on-receipt\",\n  \"lines\": [\n    { \"sku\": \"\", \"title\": \"\", \"variant_title\": \"\", \"quantity\": 0, \"unit_price\": 0.0, \"case_pack\": null }\n  ]\n}\n\nRules: convert cases to units ('4 cases of 12' -> quantity 48, case_pack 12); quantity is always an integer; unit_price is a number or null; keep SKU text exactly as printed; if a line is unreadable, include it with title and quantity 0 so a human sees it.\n\nPO EMAIL:\nSubject: {{ $json.subject }}\nFrom: {{ $json.from }}\nBody: {{ $json.textBody || $json.html || '' }}\nAttachment text: {{ $('PO Text (PDF/DOCX)').item.json.text || $('PO Text (PDF/DOCX)').item.json.data || '' }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "id": "ai-extract",
+      "name": "Extract Lines (AI)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [240, 0],
+      "credentials": {
+        "openAiApi": {
+          "id": "REPLACE_ME",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize AI output into a clean PO object (works with OpenAI/Anthropic node shapes)\nconst raw = $input.first().json;\nlet out = raw?.output ?? raw?.message?.content ?? raw;\nif (typeof out === 'string') {\n  try { out = JSON.parse(out); }\n  catch (e) {\n    const m = out.match(/\\{[\\s\\S]*\\}/);\n    out = m ? JSON.parse(m[0]) : { lines: [] };\n  }\n}\nconst lines = (out.lines ?? out.items ?? [])\n  .map((l) => ({\n    sku: (l.sku ?? '').toString().trim(),\n    title: (l.title ?? l.product ?? '').toString().trim(),\n    variant_title: (l.variant_title ?? l.variant ?? '').toString().trim(),\n    quantity: parseInt(l.quantity ?? l.qty ?? 0, 10) || 0,\n    unit_price: l.unit_price != null && l.unit_price !== '' ? parseFloat(l.unit_price) || undefined : undefined,\n    case_pack: l.case_pack ? parseInt(l.case_pack, 10) || undefined : undefined,\n  }))\n  .filter((l) => (l.sku || l.title) && l.quantity > 0);\n\nif (lines.length === 0) {\n  throw new Error('No readable line items in PO email — skipped (check the AI node output).');\n}\nreturn [{ json: {\n  po_number: (out.po_number ?? '').toString().trim(),\n  buyer: out.buyer ?? {},\n  terms: out.terms ?? 'net-30',\n  lines,\n} }];"
+      },
+      "id": "parse-json",
+      "name": "Parse AI JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 0]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "lines"
+      },
+      "id": "split-lines",
+      "name": "Split Lines",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [680, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://YOUR-STORE.myshopify.com/admin/api/2026-10/graphql.json",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "X-Shopify-Access-Token", "value": "YOUR_SHOPIFY_ADMIN_TOKEN" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: 'query($q: String!) { products(query: $q, first: 3) { nodes { id title variants(first: 10) { nodes { id sku title price inventoryQuantity } } } } }', variables: { q: $json.sku ? 'sku:' + $json.sku : $json.title } }) }}",
+        "options": {}
+      },
+      "id": "lookup-variant",
+      "name": "Lookup Variant (Shopify)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Match the PO line to a Shopify variant, price it wholesale, collect warnings.\nconst WHOLESALE_MULTIPLIER = 0.6; // <-- your default wholesale = 40% off catalog. Change me.\nconst line = $('Split Lines').item.json;\nconst products = $json?.data?.products?.nodes ?? [];\n\nlet variant = null, product = null;\nouter: for (const p of products) {\n  for (const v of p.variants.nodes) {\n    if (line.sku && (v.sku || '').toLowerCase() === line.sku.toLowerCase()) { variant = v; product = p; break outer; }\n  }\n}\nif (!variant && products.length) {\n  product = products[0];\n  const vs = product.variants.nodes;\n  variant = (line.variant_title && vs.find(v => (v.title || '').toLowerCase().includes(line.variant_title.toLowerCase()))) || (vs.length === 1 ? vs[0] : vs[0]);\n}\nif (!variant) return [{ json: { line_item: null, error: 'no_match', line } }];\n\nconst catalog = parseFloat(variant.price) || 0;\nconst suggested = Math.round(catalog * WHOLESALE_MULTIPLIER * 100) / 100;\nconst unitPrice = line.unit_price ?? suggested;\nconst warnings = [];\nif (line.unit_price != null && Math.abs(line.unit_price - suggested) > 0.02) warnings.push(`price_mismatch: PO ${line.unit_price} vs suggested ${suggested}`);\nif (line.quantity > (variant.inventoryQuantity ?? 0)) warnings.push(`low_inventory: ordered ${line.quantity}, on hand ${variant.inventoryQuantity}`);\nif (line.case_pack && line.quantity % line.case_pack !== 0) warnings.push(`case_pack: qty ${line.quantity} not a multiple of ${line.case_pack}`);\n\nreturn [{ json: {\n  line_item: { variantId: variant.id, quantity: line.quantity, originalUnitPrice: String(unitPrice) },\n  warnings, sku: variant.sku, product_title: product?.title,\n} }];"
+      },
+      "id": "build-line",
+      "name": "Build Line Items",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 0]
+    },
+    {
+      "parameters": {},
+      "id": "aggregate-lines",
+      "name": "Collect Lines",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [1340, 0],
+      "notesInFlow": true,
+      "notes": "Default mode: aggregates all line items back into ONE item (list under `data`)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Assemble the draftOrderCreate GraphQL variables: clean lines + warnings in the note.\nconst items = ($json.data ?? []).filter(d => d.line_item);\nconst flagged = ($json.data ?? []).filter(d => d.error || (d.warnings && d.warnings.length));\nconst po = $('Parse AI JSON').first().json;\nif (items.length === 0) throw new Error('No matched line items — draft order NOT created. Review the PO manually.');\n\nconst poSlug = (po.po_number || '').toUpperCase().replace(/[^A-Z0-9]+/g, '-').replace(/^-|-$/g, '');\nconst noteLines = [\n  `Payment terms: ${String(po.terms || 'net-30').toUpperCase()}`,\n  po.po_number ? `PO number: ${po.po_number}` : null,\n  po.buyer?.company ? `Buyer: ${po.buyer.company}` : null,\n  'Created via n8n (PO Pilot template).',\n  flagged.length ? '⚠ NEEDS REVIEW:\\n- ' + flagged.map(f => f.error ? `${f.line?.sku || f.line?.title}: ${f.error}` : `${f.sku}: ${f.warnings.join('; ')}`).join('\\n- ') : null,\n].filter(Boolean);\n\nreturn [{ json: { variables: { input: {\n  lineItems: items.map(i => i.line_item),\n  note: noteLines.join('\\n'),\n  noteAttributes: [\n    ...(po.po_number ? [{ key: 'PO Number', value: po.po_number }] : []),\n    { key: 'Payment Terms', value: po.terms || 'net-30' },\n  ],\n  tags: ['wholesale', 'n8n', ...(poSlug ? ['po-' + poSlug] : [])],\n  ...(po.buyer?.email ? { email: po.buyer.email } : {}),\n} } } }];"
+      },
+      "id": "assemble-input",
+      "name": "Assemble Draft Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://YOUR-STORE.myshopify.com/admin/api/2026-10/graphql.json",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "X-Shopify-Access-Token", "value": "YOUR_SHOPIFY_ADMIN_TOKEN" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: 'mutation($input: DraftOrderInput!) { draftOrderCreate(input: $input) { draftOrder { id name invoiceUrl totalPrice } userErrors { field message } } }', variables: $json.variables }) }}",
+        "options": {}
+      },
+      "id": "create-draft",
+      "name": "Create Draft Order",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1780, 0]
+    }
+  ],
+  "connections": {
+    "Wholesale PO Inbox": { "main": [[{ "node": "PO Text (PDF/DOCX)", "type": "main", "index": 0 }]] },
+    "PO Text (PDF/DOCX)": { "main": [[{ "node": "Extract Lines (AI)", "type": "main", "index": 0 }]] },
+    "Extract Lines (AI)": { "main": [[{ "node": "Parse AI JSON", "type": "main", "index": 0 }]] },
+    "Parse AI JSON": { "main": [[{ "node": "Split Lines", "type": "main", "index": 0 }]] },
+    "Split Lines": { "main": [[{ "node": "Lookup Variant (Shopify)", "type": "main", "index": 0 }]] },
+    "Lookup Variant (Shopify)": { "main": [[{ "node": "Build Line Items", "type": "main", "index": 0 }]] },
+    "Build Line Items": { "main": [[{ "node": "Collect Lines", "type": "main", "index": 0 }]] },
+    "Collect Lines": { "main": [[{ "node": "Assemble Draft Input", "type": "main", "index": 0 }]] },
+    "Assemble Draft Input": { "main": [[{ "node": "Create Draft Order", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "templateCredsSetupCompleted": false, "description": "PO Pilot bundle template #1 — automated wholesale PO intake: IMAP → AI extraction → Shopify catalog validation → draft order with net terms, PO tags and review warnings." }
+}
