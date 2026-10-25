@@ -19,7 +19,7 @@ Zero-cost MCP product sprint (Surabaya → US wholesale Shopify brands). Every p
 ```bash
 # 1) Publish the server (npm account: maskchanel14; name verified available 2026-10-25)
 cd mcp-venture/po-pilot-mcp
-npm install && npm run build
+npm ci && npm run build && npm run smoke
 npm publish --access public
 
 # 2) Deploy hosted + metered billing (free 1,000 req/mo, Pro $19 / 50K — see mcpize.yaml)
@@ -27,7 +27,7 @@ npm i -g mcpize   # or per mcpize.com docs
 mcpize deploy
 
 # 3) Gumroad $49 bundle — upload: source zip, n8n templates (phase4/n8n-templates/*.json),
-#    Loom links (record from po-pilot-mcp/loom-script.md), prompt pack; copy = phase4/gumroad-listing.md
+#    prompt pack + Loom script are in phase4/po-pilot-gumroad-bundle.zip; listing = phase4/gumroad-listing.md
 
 # 4) Upwork productized project $500/$950/$1,500 — copy = phase4/upwork-productized.md
 # 5) Reddit launch (r/shopify first) — copy + sequence = phase4/reddit-launch.md
@@ -37,4 +37,6 @@ mcpize deploy
 
 - [x] MVP built, typechecked (tsc strict), smoke-tested: handshake, 4 tools listed, unconfigured→setup-guide, bad-GID guard, network-failure → structured errors (server never crashed)
 - [ ] npm publish (owner) · [ ] mcpize deploy (owner) · [ ] Gumroad live (owner) · [ ] Upwork listing (owner) · [ ] Reddit launch (owner)
-- Optional next: create GitHub repo `maskchanel14-source/po-pilot-mcp` and push `po-pilot-mcp/` as its root (package.json already points there); register on Smithery + Glama for discovery backlinks.
+- [x] Offline CI workflow + `npm run smoke` added; `npm pack --dry-run` verified the npm artifact contains only the built runtime, README, and license.
+- [x] Gumroad upload zip generated at `phase4/po-pilot-gumroad-bundle.zip`; rebuild with `python3 package-bundle.py` after edits. Includes source, both n8n templates, prompt pack, and Loom script; excludes dependencies/build outputs/secrets.
+- [ ] Optional discovery setup: create the dedicated GitHub repo `maskchanel14-source/po-pilot-mcp` from this package (package.json already points there), then submit to Smithery + Glama for backlinks.

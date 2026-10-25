@@ -69,7 +69,7 @@ Because you should own your order desk. The source is MIT — modify it, self-ho
 
 ## Gumroad settings checklist
 - [ ] Price $49, PWYW enabled above $49, coupon `EARLYPO` ($29, 50 uses, expires in 14 days)
-- [ ] Files: `po-pilot-mcp-source.zip`, `n8n-templates.zip`, Loom links PDF, prompt pack PDF, `upwork-productized.md` bonus
+- [ ] Files: `phase4/po-pilot-gumroad-bundle.zip` (source + both n8n templates + 10-prompt pack + Loom script), recorded Loom links/PDF, `upwork-productized.md` bonus
 - [ ] Cover: 1280×720, big "20 min → 20 sec" + Shopify-green accent
 - [ ] URL: `yourhandle.gumroad.com/l/po-pilot-bundle`
 - [ ] Workflow: enable "Receive future updates" (update posts = re-engagement emails)
