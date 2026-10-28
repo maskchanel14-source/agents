@@ -165,9 +165,22 @@ mengalahkan nama studio. **PO Pilot** sudah menjadi nama produk, sudah dipakai d
 halaman audit, dan `popilot.io` tampak bebas. Mengirim sebagai PO Pilot
 menghilangkan tabrakan nama sepenuhnya.
 
-Itu keputusan pemilik brand, bukan keputusan teknis. Sampai diputuskan, yang
-berlaku sekarang: display name **Small Signal Studio**, tanpa tautan domain, dan
-tanda tangan hanya menunjuk halaman audit.
+Itu keputusan pemilik brand, bukan keputusan teknis, dan sudah diambil pemiliknya
+pada 29 Oktober 2026:
+
+> **Keputusan: tetap memakai nama Small Signal Studio, tetap mengirim dari
+> `smallsignalstudiolife@gmail.com`. Pembelian domain ditunda.**
+
+Jadi yang berlaku sampai ada keputusan baru: display name **Small Signal Studio**,
+tanpa tautan domain, tanda tangan hanya menunjuk halaman audit. Jangan buka lagi
+pertanyaan ini di run berikutnya tanpa alasan baru, dan jangan pernah memakai
+`smallsignalstudio.com` seolah milik sendiri.
+
+Konsekuensi yang diterima sadar: tidak ada DKIM dan DMARC, jadi plafon
+deliverability lebih rendah, dan nama kita bertabrakan dengan entitas di .com itu.
+Keduanya dibayar dengan kerja tambahan di sisi kualitas daftar, bukan diabaikan.
+Itu juga alasan aturan stop di bagian 5 lebih ketat dari biasanya: tanpa domain
+terautentikasi, satu keluhan spam jauh lebih merusak.
 
 ```
 Small Signal Studio
