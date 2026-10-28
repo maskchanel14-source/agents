@@ -77,6 +77,18 @@ Fase dihitung dari tanggal kiriman pertama di `ledger.json`.
 | Tetap | 15+ | 30 | 3 menit | 15 |
 | Langit-langit mutlak | kapan pun | 40 | — | 15 |
 
+**Amandemen 29 Oktober 2026.** Pemilik akun meminta 20 email terkirim dalam 24
+jam. Fase 1 dinaikkan dari 10 ke 20 per hari, jarak antar email dari 4 ke 3 menit,
+plafon per jam tetap 15. Ini keputusan pemilik yang dicatat, bukan angka yang
+keluar dari riset: pedoman Google justru meminta volume tidak digandakan mendadak,
+dan 7 ke 20 dalam sehari adalah penggandaan.
+
+Yang menahan risikonya: 20/hari masih jauh di bawah ambang apa pun yang berarti
+(batas teknis 500), daftarnya disaring per alamat dan bukan hasil scraping, jeda
+3 menit menjaga tidak ada kiriman bergerombol, dan aturan stop di bagian 5 tidak
+dilunakkan sama sekali. Yang tetap jadi penentu bukan volume, tapi keluhan spam.
+Kalau ada satu keluhan, berhenti 7 hari, apa pun targetnya.
+
 Kenapa jeda 3–4 menit: pola kirim yang terlalu rapi dan cepat adalah sinyal
 otomatis. Jeda ini juga menjaga agar kesalahan (salah nama, tautan mati) ketahuan
 setelah 2–3 email, bukan setelah 30.

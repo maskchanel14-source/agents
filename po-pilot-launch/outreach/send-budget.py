@@ -25,8 +25,11 @@ LEDGER = Path(__file__).with_name("ledger.json")
 # Phase table. Days are counted from the first recorded send.
 PHASES = [
     # (from_day, to_day, max_per_day, min_gap_minutes, max_per_hour)
-    (1, 7, 10, 4, 10),
-    (8, 14, 20, 4, 12),
+    # Amended 29 Oct 2026: owner asked for 20 in 24 hours. Phase 1 raised to 20
+    # per day with a 3 minute gap and 15 per hour, which keeps the pacing smooth
+    # rather than bursty. See SENDING-POLICY.md section 4.
+    (1, 7, 20, 3, 15),
+    (8, 14, 25, 3, 15),
     (15, 10_000, 30, 3, 15),
 ]
 ABSOLUTE_DAILY_CEILING = 40

@@ -55,6 +55,70 @@
       "subject": "COGS accuracy above $250K, after the export window",
       "campaign": "partner-first",
       "message_id": "1a1840aaa696023e"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "info@tymconsulting.cpa",
+      "domain": "tymconsulting.cpa",
+      "subject": "the part your scope boundary leaves out",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841e693ee9eb4"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "info@ascentcfo.com",
+      "domain": "ascentcfo.com",
+      "subject": "cash sitting in the wrong SKUs",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841e77165d54f"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "info@cfolifeline.com",
+      "domain": "cfolifeline.com",
+      "subject": "five channels, one reorder point that no longer exists",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841e8638e3cc4"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "info@masterycfo.com",
+      "domain": "masterycfo.com",
+      "subject": "what the turnaround case study skipped",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841e92575649f"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "info@mtbcpa.us",
+      "domain": "mtbcpa.us",
+      "subject": "product costing when the PO lines are gone",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841ea77971ccb"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "hello@judithhobdell.com",
+      "domain": "judithhobdell.com",
+      "subject": "the $3M threshold and the export window",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841eb2d62e074"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "enquiries@elverconsultancy.co.uk",
+      "domain": "elverconsultancy.co.uk",
+      "subject": "stock flow is the part your clients can't answer for",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841ebefe2e4ee"
+    },
+    {
+      "ts": "2026-10-28T20:06:19Z",
+      "to": "info@customcpa.ca",
+      "domain": "customcpa.ca",
+      "subject": "contribution margin by SKU needs a cost per unit",
+      "campaign": "partner-cfo",
+      "message_id": "1a1841ecd6dffc68"
     }
   ],
   "stops": [],
