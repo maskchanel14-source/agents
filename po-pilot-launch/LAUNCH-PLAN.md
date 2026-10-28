@@ -19,7 +19,11 @@ target, and every day has a scoreboard.
 | Solo Kit (Polar) | $49 | 20 | $980 |
 | Agency Kit (Polar) | $249 | 2 | $498 |
 | Hosted Cloud (MCPize, 80% to you) | $29/mo | 3 subs × 1 month | $70 |
+| Audit service ($450 tier) | $450 | 1 | $450 |
 | **Total** | | | **~$1,548** |
+
+The fastest single line is the service, not the kit: one $450 audit equals nine $49 sales. The `/audit/`
+page exists for exactly that reason — see `DISTRIBUTION.md` section 5b.
 
 So the real target is **22 paying customers**, not 31. That changes the plan: the Agency tier is
 worth chasing even at low volume, because two $249 sales equal five $49 sales.

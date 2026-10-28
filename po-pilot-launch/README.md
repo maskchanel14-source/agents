@@ -6,6 +6,7 @@ Everything needed to sell the PO Pilot MCP kit, kept in one folder so it survive
 |---|---|
 | `site/index.html` | Landing page. Static, no build step. Lead form posts to Supabase. |
 | `supabase/migrations/001_leads.sql` | `leads` table with insert-only RLS for the anon key. |
+| `supabase/migrations/002_audit_requests.sql` | `audit_requests` table for the paid-audit service (insert-only for anon). |
 | `assets/stocky-exit-checklist.md` | The free lead magnet (12 points). Send as-is or export to PDF. |
 | `emails/sequences.md` | Four emails: checklist delivery, 2 follow-ups, agency outreach. Copy-paste ready. |
 | `DISTRIBUTION.md` | Canonical URLs, per-channel tracked links, analytics, Search Console steps. |
@@ -17,6 +18,7 @@ Everything needed to sell the PO Pilot MCP kit, kept in one folder so it survive
 - **Landing page:** https://po-pilot-henna.vercel.app (canonical)
 - **Comparison page:** https://po-pilot-henna.vercel.app/stocky-alternative/
 - **Free guide:** https://po-pilot-henna.vercel.app/stocky-export-guide/
+- **Paid service:** https://po-pilot-henna.vercel.app/audit/ (fixed-scope audit $250 / $450 / $750)
 - **Social card:** https://po-pilot-henna.vercel.app/og.png (1200×630, wired into OG + Twitter tags)
 - **Free checklist (public Google Doc):** https://docs.google.com/document/d/1SSHvIUlbnQCBS5EnOAsNIsCwR5mw6WDjuT0L5qtQJQE/edit
 - **Measurement:** Vercel Web Analytics + Speed Insights on all three pages; leads land in Supabase `leads`

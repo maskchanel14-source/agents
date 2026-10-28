@@ -9,6 +9,7 @@ Dokumen kerja untuk menyebarkan halaman. Ditulis supaya bisa dijalankan tanpa me
 | Landing + checkout | `https://po-pilot-henna.vercel.app/` | konversi ($49 / $249 / cloud $29) |
 | Perbandingan | `https://po-pilot-henna.vercel.app/stocky-alternative/` | menangkap pencarian "stocky alternative" |
 | Checklist 12 poin | `https://po-pilot-henna.vercel.app/stocky-export-guide/` | lead magnet, tanpa email |
+| Jasa audit | `https://po-pilot-henna.vercel.app/audit/` | pendapatan cepat: $250 / $450 / $750 per klien |
 | Gambar sosial | `https://po-pilot-henna.vercel.app/og.png` | 1200×630, dipakai otomatis oleh OG/Twitter card |
 
 Jangan bagikan URL deployment (`po-pilot-<hash>-small-signal-studio.vercel.app`) — itu di balik login Vercel
@@ -37,6 +38,13 @@ Untuk post yang menyasar kata kunci, arahkan ke halaman panduan, bukan ke landin
 - **Vercel Web Analytics** (cookieless) + **Speed Insights** — sudah dipasang di ketiga halaman.
   Baca di: Vercel → project `po-pilot` → tab **Analytics**. Yang perlu dilihat: pengunjung per halaman,
   referrer (kanal mana), dan berapa yang lanjut ke checkout Polar.
+- **Supabase `audit_requests`** — permintaan jasa audit. Query cepat:
+  ```sql
+  select created_at, email, store_url, sku_count, vendor_count, tier, timeline, pain, status
+  from public.audit_requests order by created_at desc limit 50;
+  ```
+  Balas dengan draft Gmail "Re: your purchasing audit — scope and price confirmed", lalu ubah `status`
+  menjadi `quoted` / `won` / `lost` supaya bisa dihitung konversinya.
 - **Supabase `leads`** — isi form. Query cepat:
   ```sql
   select created_at, email, store_url, sku_range, source
@@ -67,6 +75,20 @@ Untuk post yang menyasar kata kunci, arahkan ke halaman panduan, bukan ke landin
 - Saya **tidak bisa** submit sitemap ke Google/Bing karena `google.com` dan `bing.com` diblokir dari sandbox.
   Ping manual: Search Console (langkah 4).
 - Saya **bisa** mengubah halaman, deploy, dan mengukur — itu yang sudah dikerjakan.
+
+## 5b. Kenapa halaman /audit yang paling cepat menghasilkan uang
+
+Target $1.500: butuh **22 penjualan $49**, atau **2 klien $750**, atau **3 klien $450**.
+Satu klien jasa = 5–15 penjualan kit. Karena itu outreach agency (kanal 6 di `POSTING-QUEUE.md`)
+sebaiknya diarahkan ke `/audit/`, bukan ke checkout $49:
+
+```
+https://po-pilot-henna.vercel.app/audit/?src=agency-email
+https://po-pilot-henna.vercel.app/audit/?src=linkedin
+```
+
+Aturan main yang penting: **jangan janji tanggal sebelum melihat file**. Baris pertama balasan selalu
+konfirmasi lingkup + harga + tanggal, baru minta CSV.
 
 ## 6. Ritme 10 menit/hari
 
