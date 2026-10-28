@@ -43,3 +43,10 @@ The sandbox initially lacked uv and Python 3.12. uv was bootstrapped and CPython
 - Full generator: **not built**, pending the commitment gate.
 - Checkout: **not enabled or verified**.
 - Hard stop: **2026-10-30 21:05 UTC**, creation-based and conservative. Distribution has not started; this is not evidence of customer rejection.
+
+## Pull request and CI observation
+
+- PR: https://github.com/maskchanel14-source/agents/pull/20 (open; not merged).
+- New Markdown files pass local markdownlint. The repository-wide CI Markdown job also reports pre-existing list-format errors in `AGENTS.md` and `CLAUDE.md` at line 62; those files were not changed to conceal the baseline failure.
+- Initial CI Python jobs failed during dependency synchronization before running their checks; the Claude review job reports its GitHub App is not installed. These are recorded as CI limitations, not passed checks. Local application tests and the documented local repository gates remain the evidence above.
+- Private mirrors: Google Drive folder `1RyZThnmpVmbW15rj6VX4bzx2-fSC5hsn`; Dropbox `/Small Signal Studio/Cycle 001`. Internal Gmail checkpoint sent to the studio mailbox only.

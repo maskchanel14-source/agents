@@ -30,3 +30,10 @@ Currency: USD. Target: global. Language: English. Public claims must be backed b
 - **Collected:** gross settled customer charges less refunds, excluding test charges and $0 downloads. Processor fees reported separately when known; do not call gross charges net profit.
 
 A scheduled heartbeat may record “no new evidence.” It may not invent research, customers, posts, or revenue.
+
+## Distribution and review status
+
+- Pull request: https://github.com/maskchanel14-source/agents/pull/20 (open).
+- Reddit: not published; rules unverified; acquisition clock not started.
+- Checkout: unavailable/unverified; no orders accepted.
+- Private records mirrored to Google Drive and Dropbox; internal checkpoint sent by Gmail. No external sales claim was made.
