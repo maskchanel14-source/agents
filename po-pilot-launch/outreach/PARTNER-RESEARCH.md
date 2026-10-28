@@ -157,12 +157,21 @@ export, because the whole cost of the job is set by how clean that export is.
 
 ## 10. Addendum, 29 October: domain and ceiling
 
-Two things found after the first send, both recorded properly in `SENDING-POLICY.md`.
+Two things checked after the first send. Full detail lives in `SENDING-POLICY.md`.
 
-`smallsignalstudio.com` is already owned by the studio. It has MX on Namecheap
-forwarding, a single SPF record for that forwarding, and no DKIM and no DMARC.
-So it can receive and cannot yet send as an authenticated domain. Until that is
-fixed, mail keeps going out from Gmail with the studio as the display name.
+The first version of this addendum claimed `smallsignalstudio.com` belonged to the
+studio, because it resolves to a site bearing the same name. That was wrong. The
+domain belongs to an unrelated developer running four consumer apps: Sippin',
+Batten, TaleSnack and Glossio. Corrected the same day. It is not ours, its DNS is
+not ours, and it must never appear in a signature.
+
+Which leaves the account without a domain of its own, so no DKIM, no DMARC, and
+sending stays on @gmail.com. The name itself also collides with the party holding
+the .com, which is a brand problem rather than a technical one. Available
+alternatives were checked and are listed in `SENDING-POLICY.md`: `smallsignal.studio`,
+`smallsignalstudio.co`, `smallsignalstudio.id` and `popilot.io` all came back
+NXDOMAIN. `popilot.com`, `po-pilot.com`, `popilot.app` and `getpopilot.com` are
+taken.
 
 The ceiling question resolved to a number rather than a range. Google's 500 per
 day for a free account is a quota, not a reputation budget. At the volumes this

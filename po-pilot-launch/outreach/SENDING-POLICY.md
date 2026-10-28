@@ -122,54 +122,58 @@ Berhenti berarti berhenti hari itu, bukan "kurangi sedikit".
 
 ## 8. Identitas pengirim: Small Signal Studio
 
-Mulai sekarang semua email keluar sebagai **Small Signal Studio**, bukan nama
-perorangan. Dua hal yang berbeda:
+Semua email keluar dengan display name **Small Signal Studio**, bukan nama
+perorangan. Parameter `from_address` menerima format
+`Small Signal Studio <smallsignalstudiolife@gmail.com>`; sudah diuji dengan draf
+lalu dihapus, dan header `From:` keluar persis begitu. Tidak perlu ubah setelan akun.
 
-**Yang sudah beres dan teruji.** Parameter `from_address` pada pengirim menerima
-format `Small Signal Studio <smallsignalstudiolife@gmail.com>` dan header `From:`
-keluar persis seperti itu. Sudah diuji dengan draf lalu dihapus, jadi tidak perlu
-ubah setelan akun untuk ini.
+### Domain: dikoreksi 29 Oktober 2026
 
-**Yang masih harus dibereskan.** Domain `smallsignalstudio.com` sudah dimiliki,
-dan keadaannya sekarang:
+Catatan sebelumnya di dokumen ini salah dan sudah dibuang. `smallsignalstudio.com`
+**bukan milik kita**. Domain itu dijalankan pihak lain yang memuat empat aplikasi
+konsumen (Sippin', Batten, TaleSnack, Glossio). DNS-nya bukan wewenang kita dan
+tidak boleh disentuh.
 
-| Catatan | Isi | Artinya |
+Tiga akibatnya:
+
+1. Tidak ada domain sendiri untuk DKIM dan DMARC. Pengirim tetap @gmail.com.
+2. Jangan pernah menautkan `smallsignalstudio.com` di email. Penerima akan
+   mendarat di halaman aplikasi yang tidak berhubungan, lalu bertanya apakah kita
+   entitas yang sama.
+3. Nama "Small Signal Studio" bertabrakan dengan pihak yang sudah memegang
+   domain .com-nya. Ini risiko brand, bukan risiko teknis. Sebelum nama ini
+   dipakai di ratusan email, keputusannya harus diambil sadar, bukan diwarisi.
+
+### Opsi domain, dicek 29 Oktober 2026
+
+| Domain | Status | Catatan |
 | --- | --- | --- |
-| MX | `eforward1/2.registrar-servers.com` | forwarding Namecheap, bisa **terima** |
-| SPF | `v=spf1 include:spf.efwd.registrar-servers.com ~all` | hanya untuk forwarding |
-| DKIM | tidak ada | belum bisa menandatangani email keluar |
-| DMARC | tidak ada | belum ada kebijakan alignment |
-| Situs | DigitalOcean App Platform lewat Cloudflare | berisi 4 aplikasi konsumen |
+| smallsignalstudio.com | dipakai pihak lain | jangan dipakai, jangan ditautkan |
+| smallsignal.studio | NXDOMAIN, tampak bebas | nama sama, TLD beda, tetap bersinggungan dengan .com |
+| smallsignalstudio.co | NXDOMAIN, tampak bebas | paling dekat ke nama sekarang |
+| smallsignalstudio.id | NXDOMAIN, tampak bebas | butuh KTP; mengirim sinyal "Indonesia" ke pembeli AS/UK |
+| popilot.io | NXDOMAIN, tampak bebas | nama produk, tidak bentrok |
+| popilot.com, po-pilot.com, popilot.app, getpopilot.com | sudah dipakai | tidak tersedia |
 
-Artinya domain ini bisa menerima email tapi belum bisa mengirim email yang
-terautentikasi. Selama belum, pengirim tetap @gmail.com dengan display name
-Small Signal Studio. Itu jujur, tapi tetap kalah dari domain sendiri.
+"Tampak bebas" berarti NXDOMAIN saat dicek, bukan bukti bisa dibeli. Konfirmasi
+di registrar sebelum nama itu dipakai di email mana pun.
 
-Urutan perbaikan yang paling murah lebih dulu:
+### Rekomendasi
 
-1. **Tambah DKIM dan DMARC** di DNS (di Namecheap, 2 record, gratis). Ini syarat
-   minimum sebelum domain dipakai mengirim apa pun.
-2. **Pilih jalur kirim.** Paling murah: aktifkan "Send mail as" di Gmail untuk
-   `halo@smallsignalstudio.com`, lalu tambahkan `include:_spf.google.com` ke SPF.
-   Paling bersih: mailbox di domain sendiri (Workspace, Zoho, atau Namecheap
-   Private Email), yang otomatis mengurus SPF dan DKIM.
-3. **Isi halaman brand dulu.** `smallsignalstudio.com` sekarang menampilkan empat
-   aplikasi konsumen (Sippin', Batten, TaleSnack, Glossio). Penerima email tentang
-   audit purchasing yang mengklik domain itu akan bingung. Sebelum domain dipakai
-   di tanda tangan, perlu satu halaman yang menyebut layanan purchasing, atau
-   tanda tangan cukup menautkan halaman audit saja.
+Untuk penjualan ke bookkeeper AS dan UK, nama yang menjelaskan pekerjaannya
+mengalahkan nama studio. **PO Pilot** sudah menjadi nama produk, sudah dipakai di
+halaman audit, dan `popilot.io` tampak bebas. Mengirim sebagai PO Pilot
+menghilangkan tabrakan nama sepenuhnya.
 
-Selama tiga langkah itu belum jalan, tanda tangan yang dipakai:
+Itu keputusan pemilik brand, bukan keputusan teknis. Sampai diputuskan, yang
+berlaku sekarang: display name **Small Signal Studio**, tanpa tautan domain, dan
+tanda tangan hanya menunjuk halaman audit.
 
 ```
 Small Signal Studio
 Purchasing data for Shopify brands
 https://po-pilot-henna.vercel.app/audit/
 ```
-
-Tanpa nama orang, tanpa tautan ke smallsignalstudio.com.
-
----
 
 ## 9. Cara menegakkan
 
