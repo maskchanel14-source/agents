@@ -29,8 +29,8 @@ The sandbox initially lacked uv and Python 3.12. uv was bootstrapped and CPython
 - Private write and aggregate snapshot RPCs: anon/authenticated EXECUTE **false**, service_role **true**.
 - A transactional QA block exercised invalid email, missing consent, wrong price, valid synthetic capture, normalized-email deduplication, and the attempt limit, then deliberately raised an exception to roll everything back. The expected rollback exception was returned. A separate query confirmed **zero retained operational-test rows**.
 - Public aggregate status endpoint: **verified by connector GET**, returning zero commitments, zero paid customers, zero cents, and outreach_started_at=null. It returns no prospect rows.
-- Live endpoint POST: **passed** using Supabase `pg_net` from the database to the deployed Edge Function with the production Origin header. HTTP **201**, `{saved:true,payment:false}`, and one synthetic ledger row were observed. The row and HTTP response were deleted immediately; it was never a customer commitment.
-- Direct browser-to-Supabase POST from this sandbox was blocked by the outbound allowlist (`ERR_CONNECTION_CLOSED`). The successful server-side HTTP test above is separate evidence; browser-to-production submission still needs verification after frontend deployment.
+- Live endpoint POST: **passed** using Supabase `pg_net` from the database to the deployed Edge Function with the production Origin header. HTTP **201**, `{saved:true,payment:false}`, and one synthetic ledger row were observed. The row and HTTP response were deleted immediately; it was never a customer commitment. The temporary pg_net extension was removed afterward.
+- Direct browser-to-Supabase POST from this sandbox was blocked by the outbound allowlist (`ERR_CONNECTION_CLOSED`). The successful server-side HTTP test above is separate evidence; an actual browser-to-production submission remains unverified.
 - `scopereply-three-hour-log`: database job **active**, `5 */3 * * *` UTC.
 - GitHub LOG.md workflow: implemented; **schedule not active on this non-default branch**. No indefinite autonomous sales loop is claimed.
 
