@@ -22,7 +22,7 @@ Here is a **fictional example**, not a customer result:
 
 I make this tool, so this is product research, not an independent recommendation. A free template may already be enough, and I'd rather learn that before building it. If you handle fixed-fee web projects, would you actually pay $19 for this? What is missing that would make it useful on your next change request?
 
-Validation page: [deployed URL to be inserted only after verification]
+Validation page: https://scope-reply.vercel.app (production GET verified 2026-10-28; no post published)
 
 No charge today. The page records interest in the $19 offer; it is not a checkout or a binding purchase agreement.
 

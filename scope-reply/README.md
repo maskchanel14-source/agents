@@ -1,5 +1,7 @@
 # ScopeReply — validation asset, not the MVP
 
+Production validation page: https://scope-reply.vercel.app
+
 Cycle 001 for Small Signal Studio. This is a price-specific interest page for a proposed $19 one-time change-record generator. **The generator does not exist yet.** Do not build it until three qualified commitments are recorded in `studio/PREBUILD.md`.
 
 ## Run
@@ -36,5 +38,5 @@ Skills used: brand-landingpage, accessibility-compliance, avoid-ai-writing, java
 - `npm test`: 11 passed; `npm run build`: passed; `npm audit`: zero vulnerabilities.
 - `npm run test:browser`: passed at 320, 375, 768 and 1440 CSS pixels; axe WCAG A/AA checks reported zero violations. This is automated coverage, not a claim of full accessibility certification. All form requests in this suite are mocked.
 - Database QA: invalid email, missing consent, wrong price, valid capture, normalized-email deduplication and rate limiting were exercised inside a rolled-back transaction. A follow-up query confirmed zero retained test prospects.
-- Public aggregate status: verified through the Supabase connector. Direct sandbox-to-Supabase POST was blocked by the outbound network allowlist; it is not counted as a successful live submission test.
+- Public aggregate status: verified through the Supabase connector. A live Edge POST via Supabase pg_net returned 201 and persisted one synthetic row; that row was deleted and never counted as a commitment. Direct sandbox browser POST was network-blocked; production browser submission is verified separately after deployment.
 - GitHub heartbeat: implemented and unit-tested, but its schedule is inactive until the workflow reaches the default branch. The separate database checkpoint job is active.

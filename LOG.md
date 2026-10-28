@@ -5,8 +5,12 @@ Currency: USD. Target: global. Language: English. Public claims must be backed b
 | Timestamp (UTC) | Product | Who pays | Where you sold | $ collected | Skill used | Why it lived/died |
 |---|---|---|---|---:|---|---|
 | 2026-10-28 21:05 | ScopeReply — validation, not MVP | Solo web designers / two-person studios with active fixed-fee projects | Nowhere yet. Selected channel: Reddit r/web_design. Publishing unavailable; rules unverified. | 0.00 | GitHub skill_router; before-you-build; competitive-landscape | Lived as a hypothesis: 20 pains hunted, 4 required answers recorded before implementation. High substitution risk. No outreach, commitments, or sales claimed. Full MVP blocked by validation gate. |
+| 2026-10-28 21:33 | ScopeReply (validating; 0/3 commitments) | Solo web designers and two-person studios with fixed-fee projects | Not posted. Selected: Reddit r/web_design only | 0.00 | before-you-build; competitive-landscape; api-design-principles; testing; accessibility | Production validation page live; outreach and checkout blocked. Zero customer evidence. Full MVP remains gated. |
 
 ## Cycle 001 checkpoint
+
+- Production validation page: https://scope-reply.vercel.app (public GET verified; deployment READY/PROMOTED).
+- Live write endpoint: HTTP 201 and synthetic persistence verified, then deleted; excluded from commitments.
 
 - Offer: $19 one-time personal license; no subscription. Product is not yet built or available for purchase.
 - Research: `studio/PAINS.md` records 20 distinct pain observations with sources.

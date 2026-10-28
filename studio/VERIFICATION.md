@@ -9,6 +9,7 @@ Checked 2026-10-28. This file distinguishes executed checks from remaining block
 - `npm run test:browser`: **passed** at 320, 375, 768, and 1440 CSS pixels. Covers mocked success/failure, explicit consent payload, duplicate-submit guard, sample choices, FAQ, keyboard focus, horizontal overflow, and axe WCAG A/AA rules. A contrast defect was found and fixed before the passing run. Automated checks are not full accessibility certification.
 - `npm audit`: **zero reported vulnerabilities**.
 - Local preview: HTTP 200 with the Arena preview Host header after the Vite host configuration fix.
+- Production: `https://scope-reply.vercel.app` returned the actual offer page through an unauthenticated connector GET. Vercel deployment `dpl_4Ufq3Vsv5RDiVZ9QxyyD1oNTBEXj` is READY/PROMOTED with aliases assigned. The team-scoped deployment URL remains SSO-protected; the canonical production URL is public. No claim is made that every alternate URL is public.
 - Screenshot review: desktop and mobile layouts inspected; no claim of testing every browser/device.
 
 ## Repository gates
@@ -28,7 +29,8 @@ The sandbox initially lacked uv and Python 3.12. uv was bootstrapped and CPython
 - Private write and aggregate snapshot RPCs: anon/authenticated EXECUTE **false**, service_role **true**.
 - A transactional QA block exercised invalid email, missing consent, wrong price, valid synthetic capture, normalized-email deduplication, and the attempt limit, then deliberately raised an exception to roll everything back. The expected rollback exception was returned. A separate query confirmed **zero retained operational-test rows**.
 - Public aggregate status endpoint: **verified by connector GET**, returning zero commitments, zero paid customers, zero cents, and outreach_started_at=null. It returns no prospect rows.
-- Direct sandbox-to-Supabase POST: **blocked by the outbound network allowlist** (`ERR_CONNECTION_CLOSED`). This is not counted as a live form success or a production outage. Mocked browser tests and rolled-back database tests are separate evidence.
+- Live endpoint POST: **passed** using Supabase `pg_net` from the database to the deployed Edge Function with the production Origin header. HTTP **201**, `{saved:true,payment:false}`, and one synthetic ledger row were observed. The row and HTTP response were deleted immediately; it was never a customer commitment.
+- Direct browser-to-Supabase POST from this sandbox was blocked by the outbound allowlist (`ERR_CONNECTION_CLOSED`). The successful server-side HTTP test above is separate evidence; browser-to-production submission still needs verification after frontend deployment.
 - `scopereply-three-hour-log`: database job **active**, `5 */3 * * *` UTC.
 - GitHub LOG.md workflow: implemented; **schedule not active on this non-default branch**. No indefinite autonomous sales loop is claimed.
 
