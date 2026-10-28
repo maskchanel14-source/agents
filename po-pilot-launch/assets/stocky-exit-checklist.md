@@ -1,8 +1,12 @@
 # The 12-Point Stocky Exit Checklist
 
-*What to export, in what order, before Shopify's read-only window closes (~30 Nov 2026).*
+*What to export, in what order, while Shopify still allows read-only access.*
 
-You have a few weeks of export access left. After that, whatever is not in a CSV is gone — and the
+Shopify guarantees read-only export access for **at least 90 days** after 31 August 2026 — that floor
+lands on 29 November 2026 — and has published no exact cutoff. It also states that **suppliers cannot be
+exported from Stocky**, which is why step 2 exists.
+
+You have a shrinking amount of export access left. After that, whatever is not in a CSV is gone — and the
 thing most merchants forget is that **Stocky never had a "download suppliers" button**. Vendor lead
 times, carton multiples and MOQs only exist inside historical purchase orders.
 

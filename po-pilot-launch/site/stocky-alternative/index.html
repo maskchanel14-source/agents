@@ -9,7 +9,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"What replaced Shopify Stocky?","acceptedAnswer":{"@type":"Answer","text":"Shopify did not ship a direct replacement. Native Purchase Orders in Shopify Admin handle PO storage, and the forecasting/replenishment work either moves to a paid subscription app or back to spreadsheets and scripts. Stocky itself went read-only on 31 August 2026 and its data export window closes later that autumn."}},
+{"@type":"Question","name":"What replaced Shopify Stocky?","acceptedAnswer":{"@type":"Answer","text":"Shopify did not ship a direct replacement. Native Purchase Orders in Shopify Admin handle PO storage, and the forecasting/replenishment work either moves to a paid subscription app or back to spreadsheets and scripts. Stocky stopped operating on 31 August 2026; Shopify guarantees read-only export access for at least 90 days afterwards, with no exact cutoff published, and states that supplier records cannot be exported."}},
 {"@type":"Question","name":"Can Shopify Admin create purchase orders on its own?","acceptedAnswer":{"@type":"Answer","text":"You can create and store purchase orders, but Admin does not compute stockout-adjusted velocity, does not round quantities to supplier case packs, does not enforce vendor MOQ or minimum order value, and does not reconcile a supplier invoice against received quantities."}},
 {"@type":"Question","name":"Do I need a subscription to do purchase orders after Stocky?","acceptedAnswer":{"@type":"Answer","text":"No. If your supplier rules are known, a spreadsheet plus a small deterministic tool covers the weekly cycle. Subscriptions become worth it when several people need a shared dashboard, approvals and demand forecasting across many locations."}}]}
 </script>
@@ -187,6 +187,7 @@
 </main>
 
 <footer><div class="wrap">
+  <div style="margin-bottom:10px;font-size:12.5px">Primary source: <a href="https://help.shopify.com/en/manual/products/inventory/transitioning-from-stocky" target="_blank" rel="noopener" style="color:var(--dim);text-decoration:underline">Shopify Help Center — Migrating from Stocky</a></div>
   Small Signal Studio · not affiliated with Shopify. “Stocky” is a Shopify product; competitor names above are
   categories, not endorsements, and pricing should be checked with each vendor.
   <div style="margin-top:8px"><a href="/">Home</a></div>

@@ -133,7 +133,11 @@
 <body>
 
 <div class="alert">
-  <b>Stocky went read-only on Aug 31, 2026.</b> Shopify's supplier CSV export window closes around <b>late November 2026</b> — <span id="daysLeft">—</span> days left.
+  <b>Stocky stopped operating on 31 Aug 2026.</b> Shopify guarantees read-only export for <b>at least 90 days</b> — no exact end date published. That floor is <b>29 Nov 2026</b>: <span id="daysLeft">—</span> days left.
+</div>
+
+<div class="wrap" style="padding-top:10px">
+  <p style="margin:0;font-size:12px;color:var(--dim)">Source: <a href="https://help.shopify.com/en/manual/products/inventory/transitioning-from-stocky" target="_blank" rel="noopener" style="color:var(--dim);text-decoration:underline">Shopify Help Center — Migrating from Stocky</a></p>
 </div>
 
 <nav class="nav">
@@ -157,9 +161,9 @@
       <span class="eyebrow">MIT core · npm verified · runs locally</span>
       <h1>Stocky is gone.<br />Your <span class="strike">purchase orders</span> don't have to be.</h1>
       <p class="sub">
-        PO Pilot rebuilds what Stocky did for purchasing — observed vendor lead times, carton/MOQ
-        rounding, landed-cost Draft POs, and 3-way invoice matching — from the CSVs you already exported,
-        inside Claude Desktop, Cursor or n8n. No database. No API key required.
+        Shopify's own migration guide says suppliers can't be exported from Stocky. So PO Pilot rebuilds
+        what Stocky knew — observed vendor lead times, carton/MOQ rounding, landed-cost Draft POs, 3-way
+        invoice matching — from the CSVs you <em>can</em> still export, in Claude Desktop, Cursor or n8n.
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#pricing">Get the Solo Kit — $49 one-time</a>
@@ -210,7 +214,7 @@ $ npx -y po-pilot-mcp@1.0.0
       <div class="card pain">
         <span class="tag">Gap 1</span>
         <h3>Vendor rules lived in Stocky</h3>
-        <p>There was never a "Download suppliers" button. Lead times, pack multiples and MOQs are now locked behind a CSV export that expires in weeks.</p>
+        <p>Shopify's migration guide states plainly that suppliers can't be exported from Stocky. Lead times, pack multiples and MOQs lived only inside purchase order history.</p>
       </div>
       <div class="card pain">
         <span class="tag">Gap 2</span>
@@ -466,7 +470,7 @@ $ npx -y po-pilot-mcp@1.0.0
 <script>
   // Days left until the Stocky read-only export window closes (approx. end of Nov 2026).
   (function () {
-    var deadline = new Date('2026-11-30T23:59:59Z');
+    var deadline = new Date('2026-11-29T23:59:59Z'); // 90-day floor from 31 Aug 2026
     var now = new Date();
     var days = Math.max(0, Math.ceil((deadline - now) / 86400000));
     var el = document.getElementById('daysLeft');
