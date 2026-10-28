@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The 12-point Stocky exit checklist — what to export before the read-only window closes</title>
+<meta name="description" content="Which four Stocky reports to export, how to rebuild vendor lead times from timestamps, how to infer carton multiples and MOQs, and the 12-column supplier sheet that replaces what Stocky stored." />
+<link rel="canonical" href="https://po-pilot-henna.vercel.app/stocky-export-guide/" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"The 12-point Stocky exit checklist","description":"Export Stocky purchase order history, sales by SKU and supplier terms before the read-only window closes, then rebuild the purchasing rules Stocky used to hold.","step":[
+{"@type":"HowToStep","name":"Export the four files that matter","text":"Purchase order history, products/inventory, sales by SKU for 90-180 days, and the supplier list."},
+{"@type":"HowToStep","name":"Rebuild lead time from timestamps","text":"For each vendor compute received date minus created date across every historical PO; take the mean, standard deviation and maximum."},
+{"@type":"HowToStep","name":"Infer carton multiples","text":"If historical order quantities are all multiples of 12 or 24, that is the case pack. Round future quantities up to it."},
+{"@type":"HowToStep","name":"Capture both MOQ types","text":"Record minimum order units per SKU and minimum order value per vendor, including free-freight thresholds."},
+{"@type":"HowToStep","name":"Build the 12-column supplier sheet","text":"The schema that replaces the vendor rules Stocky stored."},
+{"@type":"HowToStep","name":"Correct velocity for stockouts","text":"Divide units sold by days minus stockout days, not by days alone."},
+{"@type":"HowToStep","name":"Set safety stock by service level","text":"Safety stock equals Z times demand standard deviation times the square root of lead time."},
+{"@type":"HowToStep","name":"Classify SKUs A/B/C by revenue","text":"Protect A-tier from stockouts, order C-tier only to fill cartons."},
+{"@type":"HowToStep","name":"Generate one Draft PO by hand","text":"Compare it with any tool output to discover rules that lived only in the buyer's head."},
+{"@type":"HowToStep","name":"Start a receiving log","text":"Three-way matching needs PO, dock receiving count and invoice."},
+{"@type":"HowToStep","name":"Audit one past invoice","text":"Check unit cost against the PO, quantity received against invoiced, freight against the agreed cap."},
+{"@type":"HowToStep","name":"Back the exports up twice","text":"Keep local and cloud copies; the export window closes, your drive does not."}]}
+</script>
+<style>
+  :root{--bg:#0a0c10;--panel:#11151c;--line:#232a36;--ink:#e8edf5;--muted:#98a4b8;--dim:#6d7a90;--accent:#4ade80;--accent-2:#22d3ee;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;background-image:radial-gradient(900px 500px at 85% -10%,rgba(34,211,238,.08),transparent 60%)}
+  a{color:var(--accent-2);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  .nav{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);z-index:10}
+  .nav-in{display:flex;align-items:center;gap:14px;height:60px}
+  .brand{font-weight:700;display:flex;align-items:center;gap:9px;color:var(--ink)}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .btn{display:inline-flex;align-items:center;border-radius:10px;padding:10px 17px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:linear-gradient(180deg,#4ade80,#22c55e);color:#04140a}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-sm{padding:7px 13px;font-size:13px;margin-left:auto}
+  header{padding:50px 0 24px}
+  .kicker{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(74,222,128,.3);background:rgba(74,222,128,.07);padding:5px 10px;border-radius:999px}
+  h1{font-size:clamp(27px,4.2vw,40px);line-height:1.12;letter-spacing:-.025em;margin:16px 0 12px;font-weight:800}
+  .sub{color:var(--muted);font-size:17px;max-width:690px}
+  h2{font-size:22px;letter-spacing:-.015em;margin:38px 0 10px;font-weight:750;border-top:1px solid var(--line);padding-top:26px}
+  h2 .n{color:var(--accent);font-family:var(--mono);font-size:15px;margin-right:8px}
+  h3{font-size:16px;margin:20px 0 6px}
+  p,li{color:var(--muted)}
+  code{font-family:var(--mono);font-size:13px;background:#0e1319;border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:#c9d4e5}
+  pre{background:#07090d;border:1px solid var(--line);border-radius:11px;padding:14px;overflow-x:auto;font-size:12.8px;color:#c9d4e5}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin:16px 0}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+  th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#0e1319;color:var(--ink);font-size:13px}
+  tbody tr:last-child td{border-bottom:none}
+  td{color:var(--muted)}td strong{color:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:18px 0}
+  .cta{margin:40px 0;padding:22px;border:1px solid rgba(74,222,128,.3);border-radius:16px;background:linear-gradient(180deg,rgba(74,222,128,.06),transparent)}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 50px;color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/"><span class="dot"></span> PO Pilot</a>
+  <a class="btn btn-ghost btn-sm" href="/stocky-alternative/">Compare options</a>
+</div></nav>
+
+<header class="wrap">
+  <span class="kicker">Free guide · no email required</span>
+  <h1>The 12-point Stocky exit checklist</h1>
+  <p class="sub">
+    What to export, in what order, before Shopify's read-only window closes. The part people forget:
+    Stocky never had a “download suppliers” button — vendor lead times, carton multiples and MOQs only
+    exist inside historical purchase orders. If you don't pull them now, you rebuild them by hand later.
+  </p>
+</header>
+
+<main class="wrap">
+
+  <h2><span class="n">01</span>Export the four files that matter</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>#</th><th>Report</th><th>Where</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Purchase orders</strong> (full history)</td><td>Stocky → Purchase Orders → Export</td><td>The only source of vendor lead times and carton multiples</td></tr>
+        <tr><td>2</td><td><strong>Products / inventory</strong></td><td>Shopify Admin → Products → Export</td><td>SKU, cost, barcode, on-hand</td></tr>
+        <tr><td>3</td><td><strong>Sales by SKU</strong>, 90–180 days</td><td>Shopify Analytics → Sales by product variant</td><td>Daily velocity and ABC tiers</td></tr>
+        <tr><td>4</td><td><strong>Supplier list</strong></td><td>Stocky → Suppliers (screenshot or manual sheet)</td><td>Names, emails, currency, terms</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Name them <code>po_history.csv</code>, <code>products.csv</code>, <code>sales_by_sku.csv</code>, <code>suppliers.csv</code>. Don't rename columns yet.</p>
+
+  <h2><span class="n">02</span>Rebuild lead time from timestamps</h2>
+  <p>For each vendor, take every historical PO and compute <code>received_date − created_date</code>. You want three numbers, not one:</p>
+  <ul>
+    <li><strong>mean</strong> — for reorder points</li>
+    <li><strong>standard deviation</strong> — the safety-stock buffer</li>
+    <li><strong>maximum observed</strong> — the worst case you plan around</li>
+  </ul>
+  <p>With fewer than three historical POs, mark the lead time as “assumed” and revisit after two cycles. Never average a single data point.</p>
+
+  <h2><span class="n">03</span>Infer carton multiples</h2>
+  <p>Look at ordered quantities per SKU per PO. If every order is a multiple of 12 or 24, that's the case pack. Round future quantities <strong>up</strong> to it — ordering 47 when the pack is 12 means you are short, not clever.</p>
+
+  <h2><span class="n">04</span>Capture MOQ twice: units and dollars</h2>
+  <p>Vendors enforce two minimums and merchants satisfy one and forget the other:</p>
+  <ul>
+    <li><strong>MOQ units</strong> — minimum pieces per SKU or per order</li>
+    <li><strong>Minimum order value</strong> — often tied to free freight</li>
+  </ul>
+  <p>The top-up rule that pays for itself: if a PO is short of the free-freight threshold by less than the freight cost, add A-tier fast movers to close the gap. Same cash out, no freight, more cover on your best sellers.</p>
+
+  <h2><span class="n">05</span>Build the 12-column supplier sheet</h2>
+  <p>This schema replaces what Stocky stored. It is more valuable than any app:</p>
+  <pre>vendor | vendor_email | currency | lead_time_days | lead_time_stdev_days
+case_pack | moq_units | moq_dollars | free_freight_dollars
+payment_terms | incoterm | sku_list</pre>
+
+  <h2><span class="n">06</span>Correct velocity for stockout days</h2>
+  <p><code>units sold ÷ days</code> is wrong for any SKU that was out of stock — sold-out days drag the average down and you under-order your best seller:</p>
+  <pre>velocity = units_sold / (days - stockout_days)</pre>
+
+  <h2><span class="n">07</span>Set safety stock by service level, not by vibes</h2>
+  <pre>safety_stock = Z × σ_demand × √(lead_time)     # Z = 1.65 for 95%, 2.05 for 98%
+reorder_point = (velocity × lead_time) + safety_stock</pre>
+
+  <h2><span class="n">08</span>Classify SKUs A/B/C by revenue</h2>
+  <p>A-tier (top 80% of revenue): never stock out, top up POs to protect them. B-tier: normal rules. C-tier: order only to fill a carton, never to fill a pallet.</p>
+
+  <h2><span class="n">09</span>Generate one Draft PO by hand</h2>
+  <p>Before trusting any tool — this one included — build one vendor's PO manually and compare. The differences are the rules that lived only in your buyer's head.</p>
+
+  <h2><span class="n">10</span>Start a receiving log now</h2>
+  <p>Three-way matching needs three documents: PO, dock receiving count, supplier invoice. You have the first and third. The receiving count is the one nobody keeps:</p>
+  <pre>po_number | sku | qty_received | date | damaged</pre>
+
+  <h2><span class="n">11</span>Audit one past invoice</h2>
+  <p>Pick the largest invoice from the last 90 days and check three things: unit cost vs PO, quantity received vs invoiced, freight vs agreed. Do it once and the workflow explains itself.</p>
+
+  <h2><span class="n">12</span>Back the exports up twice</h2>
+  <p>Keep local and cloud copies outside Shopify. The read-only window closes; your drive does not.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Doing this weekly instead of once?</h3>
+    <p style="margin:0">
+      The engine behind this checklist is MIT-licensed: <code>npx -y po-pilot-mcp@1.0.0</code> runs locally in
+      Claude Desktop, Cursor or n8n with a demo mode and no API key. It reconstructs vendor lead times from
+      your Stocky CSV, generates Shopify Draft PO imports, and runs the 3-way match that outputs
+      verified-only QuickBooks/Xero bill CSVs.
+    </p>
+  </div>
+
+  <div class="cta">
+    <h3 style="margin-top:0">Get this as a PDF for your buyer</h3>
+    <p style="margin:0 0 14px">Enter a work email on the home page and the checklist arrives as a document you can forward to whoever owns purchasing.</p>
+    <a class="btn btn-primary" href="/#checklist">Email me the checklist</a>
+    <a class="btn btn-ghost" href="/#pricing" style="margin-left:8px">See the $49 kit</a>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  Small Signal Studio · not affiliated with Shopify. Stocky is a Shopify product.
+  <div style="margin-top:8px"><a href="/">Home</a> · <a href="/stocky-alternative/">Alternatives compared</a></div>
+</div></footer>
+</body>
+</html>
