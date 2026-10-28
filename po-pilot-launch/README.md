@@ -8,13 +8,21 @@ Everything needed to sell the PO Pilot MCP kit, kept in one folder so it survive
 | `supabase/migrations/001_leads.sql` | `leads` table with insert-only RLS for the anon key. |
 | `assets/stocky-exit-checklist.md` | The free lead magnet (12 points). Send as-is or export to PDF. |
 | `emails/sequences.md` | Four emails: checklist delivery, 2 follow-ups, agency outreach. Copy-paste ready. |
+| `DISTRIBUTION.md` | Canonical URLs, per-channel tracked links, analytics, Search Console steps. |
 | `LAUNCH-PLAN.md` | The 30-day plan with channel targets and the honest risk list. |
 | `video/` | 24s HyperFrames promo composition (lint-clean; render it on a machine with Chrome). |
 
 ## Live
 
-- **Landing page:** https://po-pilot-henna.vercel.app (canonical) · https://po-pilot-small-signal-studio.vercel.app
+- **Landing page:** https://po-pilot-henna.vercel.app (canonical)
+- **Comparison page:** https://po-pilot-henna.vercel.app/stocky-alternative/
+- **Free guide:** https://po-pilot-henna.vercel.app/stocky-export-guide/
+- **Social card:** https://po-pilot-henna.vercel.app/og.png (1200×630, wired into OG + Twitter tags)
 - **Free checklist (public Google Doc):** https://docs.google.com/document/d/1SSHvIUlbnQCBS5EnOAsNIsCwR5mw6WDjuT0L5qtQJQE/edit
+- **Measurement:** Vercel Web Analytics + Speed Insights on all three pages; leads land in Supabase `leads`
+
+See `DISTRIBUTION.md` for tracked links per channel, what is measurable, and the list of things that
+cannot be automated from this workspace.
 
 Note: raw `*.vercel.app` build URLs (`po-pilot-nflb31tfs-...`) are behind Vercel Authentication because the
 project uses the "all deployments except custom domains" protection setting. Always share the project domain
