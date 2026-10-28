@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stocky PO audit — fixed-scope purchasing review from $250 | PO Pilot</title>
+<meta name="description" content="A fixed-price review of your Shopify purchasing data: rebuilt vendor lead times, carton/MOQ rules, Draft PO CSVs, and a 3-way match of recent supplier invoices. $250 / $450 / $750, delivered in 3 business days." />
+<link rel="canonical" href="https://po-pilot-henna.vercel.app/audit/" />
+<meta property="og:site_name" content="PO Pilot" />
+<meta property="og:url" content="https://po-pilot-henna.vercel.app/audit/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Stocky PO audit — fixed scope, fixed price, 3 business days" />
+<meta property="og:description" content="Send four CSVs. Get back your rebuilt supplier rules, a Draft PO file, and an invoice variance report. $250 / $450 / $750." />
+<meta property="og:image" content="https://po-pilot-henna.vercel.app/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Stocky PO audit — fixed scope, fixed price, 3 business days" />
+<meta name="twitter:description" content="Send four CSVs. Get back rebuilt supplier rules, a Draft PO file, and an invoice variance report." />
+<meta name="twitter:image" content="https://po-pilot-henna.vercel.app/og.png" />
+<meta name="theme-color" content="#0a0c10" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Stocky PO audit","serviceType":"Inventory and accounts-payable data audit for Shopify merchants","provider":{"@type":"Organization","name":"Small Signal Studio"},"areaServed":"Worldwide","description":"Fixed-scope audit of Shopify purchasing data after the Stocky shutdown: vendor lead times, carton and MOQ rules, Draft PO CSV generation, and a three-way match of supplier invoices against purchase orders and receiving records.","offers":[
+{"@type":"Offer","name":"Audit","price":"250","priceCurrency":"USD","description":"One vendor set reviewed: lead times, carton multiples, MOQ gaps, one invoice audited. Delivered in 3 business days."},
+{"@type":"Offer","name":"Rebuild","price":"450","priceCurrency":"USD","description":"Everything in Audit plus the complete 12-column supplier rules file, a ready-to-import Draft PO CSV, a receiving log template, and a 60-minute walkthrough."},
+{"@type":"Offer","name":"3-Way Match Setup","price":"750","priceCurrency":"USD","description":"Everything in Rebuild plus reconciliation of 90 days of supplier invoices with debit memo drafts, QuickBooks/Xero bill CSV setup, and the matching workflow installed."}]}
+</script>
+<style>
+  :root{--bg:#0a0c10;--panel:#11151c;--panel-2:#161b24;--line:#232a36;--ink:#e8edf5;--muted:#98a4b8;--dim:#6d7a90;--accent:#4ade80;--accent-2:#22d3ee;--warn:#fbbf24;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;background-image:radial-gradient(900px 520px at 85% -10%,rgba(34,211,238,.10),transparent 60%),radial-gradient(700px 460px at 5% 2%,rgba(74,222,128,.07),transparent 55%)}
+  a{color:var(--accent-2);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+  .nav{border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(10,12,16,.82);backdrop-filter:blur(10px)}
+  .nav-in{display:flex;align-items:center;gap:14px;height:60px}
+  .brand{font-weight:700;display:flex;align-items:center;gap:9px;color:var(--ink)}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:11px 18px;font-weight:600;font-size:14.5px;border:1px solid transparent;cursor:pointer;transition:transform .12s ease}
+  .btn:hover{transform:translateY(-1px);text-decoration:none}
+  .btn-primary{background:linear-gradient(180deg,#4ade80,#22c55e);color:#04140a;box-shadow:0 8px 24px rgba(74,222,128,.18)}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-sm{padding:7px 13px;font-size:13px;margin-left:auto}
+  header.hero{padding:52px 0 34px}
+  .kicker{display:inline-block;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(74,222,128,.3);background:rgba(74,222,128,.07);padding:6px 11px;border-radius:999px}
+  h1{font-size:clamp(29px,4.4vw,44px);line-height:1.08;letter-spacing:-.03em;margin:18px 0 14px;font-weight:800}
+  .sub{color:var(--muted);font-size:17.5px;max-width:700px}
+  h2{font-size:clamp(21px,2.6vw,28px);letter-spacing:-.02em;margin:0 0 10px;font-weight:750}
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  .lead{color:var(--muted);max-width:700px;margin:0 0 24px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+  @media(max-width:880px){.grid-3,.grid-2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px}
+  .card h3{font-size:16.5px;margin:0 0 8px}
+  .card p{margin:0;color:var(--muted);font-size:14.3px}
+  .tier{display:flex;flex-direction:column;position:relative;gap:14px}
+  .tier.featured{border-color:rgba(74,222,128,.45);box-shadow:0 0 0 1px rgba(74,222,128,.14),0 20px 50px rgba(0,0,0,.35)}
+  .tier .badge{position:absolute;top:-11px;left:20px;background:var(--accent);color:#04140a;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+  .amount{font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .amount span{font-size:13px;font-weight:500;color:var(--dim);letter-spacing:0;display:block;margin-top:6px}
+  .tier ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}
+  .tier li{margin:7px 0}
+  .tier .btn{margin-top:auto}
+  .steps{counter-reset:s;display:grid;gap:12px;margin:0;padding:0;list-style:none}
+  .steps li{counter-increment:s;position:relative;padding:14px 18px 14px 58px;background:var(--panel);border:1px solid var(--line);border-radius:13px;color:var(--muted);font-size:14.4px}
+  .steps li::before{content:counter(s);position:absolute;left:18px;top:13px;width:26px;height:26px;border-radius:50%;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.35);color:var(--accent);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .steps strong{color:var(--ink);font-weight:650}
+  .form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  @media(max-width:880px){.form-wrap{grid-template-columns:1fr}}
+  form{display:grid;gap:11px}
+  label{font-size:13px;color:var(--muted);display:block;margin-bottom:5px}
+  input,select,textarea{width:100%;background:#0b0f15;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:11px 12px;font-size:14.5px;font-family:inherit;line-height:1.45}
+  textarea{resize:vertical;min-height:88px}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-2);box-shadow:0 0 0 3px rgba(34,211,238,.12)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  .fine{font-size:12.2px;color:var(--dim);margin:0}
+  .status{font-size:13.5px;padding:11px 13px;border-radius:10px;display:none}
+  .status.ok{display:block;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35);color:#bbf7d0}
+  .status.err{display:block;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35);color:#fecaca}
+  .note{border-left:3px solid var(--warn);background:rgba(251,191,36,.06);padding:13px 16px;border-radius:0 10px 10px 0;font-size:14px;color:#fde68a;margin:20px 0}
+  .no{border-left:3px solid #f87171;background:rgba(248,113,113,.05);padding:13px 16px;border-radius:0 10px 10px 0;font-size:14px;color:#fecaca}
+  footer{border-top:1px solid var(--line);padding:28px 0 54px;color:var(--dim);font-size:13px}
+  code{font-family:var(--mono);font-size:13px;background:#0e1319;border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:#c9d4e5}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/"><span class="dot"></span> PO Pilot</a>
+  <a class="btn btn-primary btn-sm" href="#request">Request an audit</a>
+</div></nav>
+
+<header class="hero wrap">
+  <span class="kicker">Done-for-you · fixed scope · 3 business days</span>
+  <h1>Your purchasing rules are still sitting in a CSV export.</h1>
+  <p class="sub">
+    Shopify says suppliers can't be exported from Stocky. So instead of a migration wizard you get an actual
+    person going through your purchase order history: rebuilt lead times, real carton multiples, the MOQ
+    thresholds nobody wrote down — and, if you want it, an invoice audit that finds what you were overbilled.
+  </p>
+  <p class="sub" style="margin-top:14px;color:var(--dim);font-size:15px">
+    You send four CSVs. I send back a supplier rules file, a ready-to-import Draft PO, and a written findings
+    report. Prices below are fixed — no hourly billing, no retainer.
+  </p>
+</header>
+
+<section id="tiers">
+  <div class="wrap">
+    <h2>Three fixed scopes</h2>
+    <p class="lead">Pick the smallest one that solves your problem. If your store is small enough that the free checklist is all you need, I will tell you that instead of taking your money.</p>
+    <div class="grid-3">
+      <div class="card tier">
+        <div>
+          <div style="font-weight:700;font-size:15px">Audit</div>
+          <div class="amount">$250<span>one vendor set · 3 business days</span></div>
+        </div>
+        <ul>
+          <li>Lead time rebuilt per vendor (mean, stdev, max) from your PO history</li>
+          <li>Carton multiple + MOQ gaps identified</li>
+          <li>One recent supplier invoice audited against its PO</li>
+          <li>Written findings report (PDF)</li>
+          <li>30-minute call to walk through it</li>
+        </ul>
+        <a class="btn btn-ghost" href="#request" data-tier="Audit — $250">Start with Audit</a>
+      </div>
+
+      <div class="card tier featured">
+        <span class="badge">Best value</span>
+        <div>
+          <div style="font-weight:700;font-size:15px">Rebuild</div>
+          <div class="amount">$450<span>whole catalog · 3 business days</span></div>
+        </div>
+        <ul>
+          <li>Everything in Audit, all vendors</li>
+          <li>Complete 12-column supplier rules file you own</li>
+          <li>Draft PO CSV ready to import into Shopify Admin</li>
+          <li>POS transfer CSV for barcode receiving</li>
+          <li>Receiving log template (for 3-way matching later)</li>
+          <li>60-minute walkthrough with your buyer</li>
+        </ul>
+        <a class="btn btn-primary" href="#request" data-tier="Rebuild — $450">Start with Rebuild</a>
+      </div>
+
+      <div class="card tier">
+        <div>
+          <div style="font-weight:700;font-size:15px">3-Way Match Setup</div>
+          <div class="amount">$750<span>+ invoice recovery · 5 business days</span></div>
+        </div>
+        <ul>
+          <li>Everything in Rebuild</li>
+          <li>90 days of supplier invoices reconciled: PO vs received vs billed</li>
+          <li>Debit memo drafts for every variance found</li>
+          <li>QuickBooks Online / Xero bill CSV setup</li>
+          <li>Matching workflow installed (n8n or the MCP tool)</li>
+        </ul>
+        <a class="btn btn-ghost" href="#request" data-tier="3-Way Match Setup — $750">Start with 3-Way Match</a>
+      </div>
+    </div>
+    <p class="note">
+      <b>The honest math:</b> if you wrote one supplier's carton multiple wrong by one case on a fast mover, that
+      error usually costs more than $450 in a quarter. If the audit finds nothing worth fixing, you get the report
+      and a full refund — see the terms below.
+    </p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it runs</h2>
+    <p class="lead">No discovery phase, no scope creep, no access to your Shopify admin.</p>
+    <ol class="steps">
+      <li><strong>You request and I confirm scope by email</strong> — usually within one business day. I quote the tier, you approve, invoice goes out (card or bank transfer).</li>
+      <li><strong>You send four files</strong> — Stocky purchase order export, products/inventory export, sales by SKU (90–180 days), and your supplier list (a screenshot is fine). Share them however you like; if you prefer, delete the customer columns first.</li>
+      <li><strong>I do the work offline</strong> — deterministic calculations, not a chatbot guessing at your numbers. Every figure in the report is reproducible from your CSVs.</li>
+      <li><strong>You get the deliverables</strong> — the rules file, the Draft PO CSV, the findings report, and a call. You own all files; nothing is held hostage behind a subscription.</li>
+      <li><strong>Optional</strong> — if you want the recurring version, the $49 kit does the same math monthly, or I can set up the workflow for you under the $750 tier.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="fit">
+  <div class="wrap">
+    <h2>Who this is for — and who it is not for</h2>
+    <div class="grid-2">
+      <div class="card" style="border-color:rgba(74,222,128,.28)">
+        <h3 style="color:var(--accent)">Good fit</h3>
+        <p style="color:var(--muted)">
+          50–2,500 SKUs · 3–30 suppliers · someone still builds purchase orders in a spreadsheet ·
+          you have at least a few months of Stocky PO history to work from · you can name one invoice you
+          suspect was overbilled.
+        </p>
+      </div>
+      <div class="card no" style="border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.04)">
+        <h3 style="color:#fecaca">Not a good fit</h3>
+        <p style="color:#fca5a5;margin:0">
+          Under ~50 SKUs with one supplier (use the free checklist, it will take you 20 minutes). Anyone who
+          needs a dashboard their whole team can log into. Anyone who needs accounting, tax or legal advice.
+          Anyone who wants me to write to their live store — I never get write access.
+        </p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:34px">Terms, plainly</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>What you get in writing</h3>
+        <p>A fixed price confirmed before any work starts, a delivery date, and a refund rule: if the findings report
+        contains no actionable issue worth at least the fee, tell me within 7 days of delivery and I refund it — no
+        argument, no partial credit games.</p>
+      </div>
+      <div class="card">
+        <h3>What I need from you</h3>
+        <p>The four CSV exports and a 20-minute kickoff email describing your order cadence. If you do not have PO
+        history (Stocky already purged, or you never used it), say so in the request — the price changes because the
+        lead time has to be estimated differently.</p>
+      </div>
+      <div class="card">
+        <h3>Confidentiality</h3>
+        <p>Your files are used only for this engagement, never published, never used as a case study without written
+        permission. I can sign an NDA if your procurement requires one. Delete customer PII columns before sending —
+        they are not needed for any of the calculations.</p>
+      </div>
+      <div class="card">
+        <h3>Payment &amp; timing</h3>
+        <p>Invoice in USD after scope is confirmed, payable by card or bank transfer. Work starts when payment clears.
+        Standard delivery is 3 business days (5 for the $750 tier); if I miss the date, the fee is reduced by 25%.</p>
+      </div>
+    </div>
+    <p class="fine" style="margin-top:16px">
+      Prefer to test first? The engine is MIT and free: <code>npx -y po-pilot-mcp@1.0.0</code>, and the
+      <a href="/stocky-export-guide/">12-point checklist</a> is free with no email required.
+    </p>
+  </div>
+</section>
+
+<section id="request">
+  <div class="wrap form-wrap">
+    <div>
+      <span class="kicker">Request · no payment yet</span>
+      <h2 style="margin-top:14px">Tell me what breaks every Monday</h2>
+      <p class="lead" style="margin-bottom:16px">
+        This form does not charge you. It tells me enough to confirm scope and quote the right tier — usually a
+        reply within one business day. If it is not a fit, I will say so and point you somewhere better.
+      </p>
+      <ul style="color:var(--muted);font-size:14.2px;padding-left:18px;margin:0">
+        <li>Reply with a fixed price and delivery date, or a "not a fit":</li>
+        <li>No newsletter, no drip campaign — this address is used for this request only</li>
+        <li>You can stay anonymous until you decide: an email and a rough SKU count is enough</li>
+      </ul>
+    </div>
+    <div class="card">
+      <form id="auditForm" novalidate>
+        <div>
+          <label for="email">Work email *</label>
+          <input id="email" name="email" type="email" required placeholder="buyer@yourstore.com" autocomplete="email" />
+        </div>
+        <div class="row2">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Alex" autocomplete="name" />
+          </div>
+          <div>
+            <label for="store">Store URL</label>
+            <input id="store" name="store" type="text" placeholder="yourstore.com" />
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label for="sku">SKU count</label>
+            <select id="sku" name="sku">
+              <option value="">Select…</option>
+              <option>Under 50</option>
+              <option>50 – 250</option>
+              <option>250 – 1,000</option>
+              <option>1,000 – 2,500</option>
+              <option>2,500+</option>
+            </select>
+          </div>
+          <div>
+            <label for="vendors">Suppliers</label>
+            <select id="vendors" name="vendors">
+              <option value="">Select…</option>
+              <option>1 – 3</option>
+              <option>4 – 10</option>
+              <option>11 – 30</option>
+              <option>30+</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="tier">Which scope are you leaning toward?</label>
+          <select id="tier" name="tier">
+            <option value="">Not sure yet</option>
+            <option>Audit — $250</option>
+            <option>Rebuild — $450</option>
+            <option>3-Way Match Setup — $750</option>
+          </select>
+        </div>
+        <div>
+          <label for="pain">What is actually hurting? *</label>
+          <textarea id="pain" name="pain" required placeholder="e.g. we still build POs in a sheet, we don't know our real lead times, and a supplier's invoice last month was $340 higher than the PO."></textarea>
+        </div>
+        <div>
+          <label for="timeline">How soon do you need it?</label>
+          <select id="timeline" name="timeline">
+            <option value="">No rush</option>
+            <option>This week</option>
+            <option>Within 2 weeks</option>
+            <option>Before the export window closes</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Request the audit</button>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+        <p class="fine">No card needed here. If you prefer email: smallsignalstudiolife@gmail.com</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  Small Signal Studio · not affiliated with Shopify. Figures in the report are computed from the files you supply;
+  this is an operational review, not accounting, tax or legal advice.
+  <div style="margin-top:8px"><a href="/">Home</a> · <a href="/stocky-alternative/">Alternatives compared</a> · <a href="/stocky-export-guide/">Free checklist</a></div>
+</div></footer>
+
+<script>
+  // Deep-link the tier buttons into the form
+  document.querySelectorAll('[data-tier]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var sel = document.getElementById('tier');
+      if (sel) sel.value = link.getAttribute('data-tier');
+    });
+  });
+
+  var SUPABASE_URL = 'https://tkoerwqgpzwxcbbqzbwg.supabase.co';
+  var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRrb2Vyd3FncHp3eGNiYnF6YndnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMDIxMDYsImV4cCI6MjEwODc3ODEwNn0.aRZK2721yX7i4_0wS4nAkIhu23y4qlH7utOWRga6nkw';
+
+  var form = document.getElementById('auditForm');
+  var statusEl = document.getElementById('status');
+  var submitBtn = document.getElementById('submitBtn');
+
+  function setStatus(kind, msg) { statusEl.className = 'status ' + kind; statusEl.textContent = msg; }
+
+  if (form) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var email = document.getElementById('email').value.trim();
+      var pain = document.getElementById('pain').value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { setStatus('err', 'Please enter a valid email address.'); return; }
+      if (pain.length < 10) { setStatus('err', 'A sentence about what hurts is enough — it decides the scope.'); return; }
+
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+      var payload = {
+        email: email,
+        name: document.getElementById('name').value.trim() || null,
+        store_url: document.getElementById('store').value.trim() || null,
+        sku_count: document.getElementById('sku').value || null,
+        vendor_count: document.getElementById('vendors').value || null,
+        tier: document.getElementById('tier').value || null,
+        pain: pain,
+        timeline: document.getElementById('timeline').value || null,
+        source: new URLSearchParams(location.search).get('src') || 'audit-page',
+        page_url: location.href,
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent
+      };
+      try {
+        var res = await fetch(SUPABASE_URL + '/rest/v1/audit_requests', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON,
+            'Authorization': 'Bearer ' + SUPABASE_ANON,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok || res.status === 201) {
+          form.reset();
+          setStatus('ok', 'Request received. You will get a reply at ' + email + ' — usually within one business day.');
+        } else {
+          var detail = await res.text();
+          setStatus('err', 'Could not send (' + res.status + '). Email smallsignalstudiolife@gmail.com instead.');
+          console.error('audit insert failed', res.status, detail);
+        }
+      } catch (err) {
+        setStatus('err', 'Network error. Email smallsignalstudiolife@gmail.com instead.');
+        console.error(err);
+      } finally {
+        submitBtn.disabled = false; submitBtn.textContent = 'Request the audit';
+      }
+    });
+  }
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
