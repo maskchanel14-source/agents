@@ -9,6 +9,7 @@ Everything needed to sell the PO Pilot MCP kit, kept in one folder so it survive
 | `assets/stocky-exit-checklist.md` | The free lead magnet (12 points). Send as-is or export to PDF. |
 | `emails/sequences.md` | Four emails: checklist delivery, 2 follow-ups, agency outreach. Copy-paste ready. |
 | `LAUNCH-PLAN.md` | The 30-day plan with channel targets and the honest risk list. |
+| `video/` | 24s HyperFrames promo composition (lint-clean; render it on a machine with Chrome). |
 
 ## Live
 

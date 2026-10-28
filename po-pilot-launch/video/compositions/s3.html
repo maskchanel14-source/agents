@@ -1,0 +1,82 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Mono";
+      src: local("SF Mono"), local("Menlo"), local("Consolas"), local("DejaVu Sans Mono"), local("Liberation Mono");
+    }
+    #s3-root {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 180px;
+    }
+    #s3-term {
+      width: 100%;
+      max-width: 1340px;
+      background: #07090d;
+      border: 1px solid #232a36;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+    }
+    #s3-term .s3-bar {
+      height: 58px;
+      background: #0c1016;
+      border-bottom: 1px solid #232a36;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 22px;
+    }
+    #s3-term .s3-bar i {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #2b3240;
+      display: block;
+    }
+    #s3-code {
+      font-family: "Mono";
+      font-size: 30px;
+      line-height: 1.62;
+      padding: 34px 40px 42px;
+      color: #c9d4e5;
+      white-space: pre;
+      margin: 0;
+    }
+    .ok {
+      color: #4ade80;
+    }
+    .num {
+      color: #fbbf24;
+    }
+    .cmt {
+      color: #6d7a90;
+    }
+  </style>
+  <div id="s3-root" data-composition-id="s3" data-width="1920" data-height="1080">
+    <div id="s3-term">
+      <div class="s3-bar"><i></i><i></i><i></i></div>
+      <pre id="s3-code"><span class="cmt"># MIT core · no API key · demo first</span>
+$ npx -y po-pilot-mcp@1.0.0
+
+<span class="ok">✓</span> tools: 4 registered
+<span class="cmt">›</span> build_supplier_purchase_orders
+   vendor A — 18 SKUs → 3 cartons × 12
+   MOQ top-up: <span class="num">+4 units</span>
+   <span class="ok">→ shopify_draft_po_A.csv</span>
+<span class="cmt">›</span> reconcile_po_three_way_match
+   <span class="num">2 variances</span> · unit cost <span class="num">+$0.35</span>
+   <span class="ok">→ qbo_bill.csv · xero_bill.csv</span></pre>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s3-term", { opacity: 0, y: 40, scale: 0.985 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 0.1);
+    tl.fromTo("#s3-code", { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "none" }, 0.8);
+    tl.fromTo("#s3-root", { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 5.6);
+    window.__timelines["s3"] = tl;
+  </script>
+</template>

@@ -1,0 +1,12 @@
+{
+  "name": "po-pilot-promo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.214 preview",
+    "lint": "npx --yes hyperframes@0.8.214 lint",
+    "check": "npx --yes hyperframes@0.8.214 check",
+    "render": "npx --yes hyperframes@0.8.214 render",
+    "render:draft": "npx --yes hyperframes@0.8.214 render --quality draft --workers 2"
+  }
+}
