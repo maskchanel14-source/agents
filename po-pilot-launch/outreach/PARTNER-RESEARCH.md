@@ -141,9 +141,11 @@ export, because the whole cost of the job is set by how clean that export is.
 
 ## 9. Risks worth naming
 
-- **Sender reputation.** These go from a personal Gmail with no display name set.
-  Before the next batch, set the display name to "Galeka, Small Signal Studio" in
-  Gmail settings. It cannot be done through the API.
+- **Sender reputation.** These went out from a personal Gmail with no display name
+  set on the account. That is now solved per message: the send call accepts a
+  formatted `from_address`, so the header goes out as `Small Signal Studio
+  <smallsignalstudiolife@gmail.com>`. Verified on a draft, which was then deleted.
+  The larger problem is the domain, covered in `SENDING-POLICY.md` section 8.
 - **Rate limits.** The 17 October run hit Gmail's sending cap around 09:00 PDT
   after four consecutive failures. Keep batches under ten and space them out.
 - **Offshore framing.** The emails state UTC+7 openly. That is deliberate: for a
@@ -152,3 +154,19 @@ export, because the whole cost of the job is set by how clean that export is.
   than arguing.
 - **Nobody has reviewed the output yet.** The offer is a free vendor set. That is
   affordable now and will not be once three people take it up. Cap it at three.
+
+## 10. Addendum, 29 October: domain and ceiling
+
+Two things found after the first send, both recorded properly in `SENDING-POLICY.md`.
+
+`smallsignalstudio.com` is already owned by the studio. It has MX on Namecheap
+forwarding, a single SPF record for that forwarding, and no DKIM and no DMARC.
+So it can receive and cannot yet send as an authenticated domain. Until that is
+fixed, mail keeps going out from Gmail with the studio as the display name.
+
+The ceiling question resolved to a number rather than a range. Google's 500 per
+day for a free account is a quota, not a reputation budget. At the volumes this
+account actually sends, one spam complaint in 300 emails already breaches the
+0.3% threshold Google enforces, which makes list quality the hard constraint and
+volume a secondary dial. The working numbers are 10 a day for the first week, 20
+for the second, 30 after that, 40 absolute.

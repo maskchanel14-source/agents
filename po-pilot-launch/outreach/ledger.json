@@ -1,0 +1,62 @@
+{
+  "sends": [
+    {
+      "ts": "2026-10-28T19:43:54Z",
+      "to": "info@connectbooks.com",
+      "domain": "connectbooks.com",
+      "subject": "the three-way match post, and the invoices with no PO",
+      "campaign": "partner-first",
+      "message_id": "1a1840a5ecc0ce9b"
+    },
+    {
+      "ts": "2026-10-28T19:43:58Z",
+      "to": "contact@socialcommerceaccountants.com",
+      "domain": "socialcommerceaccountants.com",
+      "subject": "the Stocky question in your 2026 hiring guide",
+      "campaign": "partner-first",
+      "message_id": "1a1840a6d438a928"
+    },
+    {
+      "ts": "2026-10-28T19:44:01Z",
+      "to": "info@thinkaccounting.ca",
+      "domain": "thinkaccounting.ca",
+      "subject": "landed cost, with no PO left to land it against",
+      "campaign": "partner-first",
+      "message_id": "1a1840a765c2638e"
+    },
+    {
+      "ts": "2026-10-28T19:44:04Z",
+      "to": "hello@bookkeepersuperhero.co.uk",
+      "domain": "bookkeepersuperhero.co.uk",
+      "subject": "what happens when a client's Stocky cleanup arrives",
+      "campaign": "partner-first",
+      "message_id": "1a1840a84481b033"
+    },
+    {
+      "ts": "2026-10-28T19:44:08Z",
+      "to": "hello@foxcleverbookkeeping.com",
+      "domain": "foxcleverbookkeeping.com",
+      "subject": "five channels, one cost per unit that's gone",
+      "campaign": "partner-first",
+      "message_id": "1a1840a93284834f"
+    },
+    {
+      "ts": "2026-10-28T19:44:10Z",
+      "to": "contact@rocketbookkeeper.com",
+      "domain": "rocketbookkeeper.com",
+      "subject": "AP support, when the PO history went with Stocky",
+      "campaign": "partner-first",
+      "message_id": "1a1840a9f2500664"
+    },
+    {
+      "ts": "2026-10-28T19:44:14Z",
+      "to": "support@ecombalance.com",
+      "domain": "ecombalance.com",
+      "subject": "COGS accuracy above $250K, after the export window",
+      "campaign": "partner-first",
+      "message_id": "1a1840aaa696023e"
+    }
+  ],
+  "stops": [],
+  "failures": []
+}

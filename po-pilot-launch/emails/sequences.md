@@ -1,5 +1,12 @@
 # Email sequence (copy ready)
 
+> **Kirim atas nama Small Signal Studio.** Sejak 29 Oktober 2026 semua email keluar
+> dengan display name `Small Signal Studio` (lewat parameter `from_address`, sudah
+> diuji) dan tanda tangan di bawah. Batas kirim harian, aturan stop, dan larangan
+> duplikat domain ada di [`../outreach/SENDING-POLICY.md`](../outreach/SENDING-POLICY.md).
+> Teks di bawah masih memakai tanda tangan lama; ganti saat menyalin.
+
+
 All four emails are written for you to paste into Gmail — nothing is sent automatically.
 Send from `smallsignalstudiolife@gmail.com` (the verified address on the account).
 
@@ -31,8 +38,9 @@ The $49 kit adds unlimited SKUs plus 3 pre-built n8n workflows: {LANDING_PAGE_UR
 
 Either way, get the exports before the window closes.
 
-— Galeka
 Small Signal Studio
+Purchasing data for Shopify brands
+https://po-pilot-henna.vercel.app/audit/
 
 ---
 
@@ -56,7 +64,9 @@ top-up to clear the vendor minimum. That's the whole trick.
 
 {LANDING_PAGE_URL}
 
-— Galeka
+Small Signal Studio
+Purchasing data for Shopify brands
+https://po-pilot-henna.vercel.app/audit/
 
 ---
 
@@ -80,7 +90,9 @@ plus the n8n automations, and the MIT core is free to test first.
 
 {CHECKLIST_LINK} · {LANDING_PAGE_URL}
 
-— Galeka
+Small Signal Studio
+Purchasing data for Shopify brands
+https://po-pilot-henna.vercel.app/audit/
 
 ---
 
@@ -111,8 +123,9 @@ No obligation; a worked example on real data is better than my marketing page.
 
 {AGENCY_CHECKOUT_URL}
 
-— Galeka
 Small Signal Studio
+Purchasing data for Shopify brands
+https://po-pilot-henna.vercel.app/audit/
 
 ---
 
