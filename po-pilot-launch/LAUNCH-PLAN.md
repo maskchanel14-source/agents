@@ -4,6 +4,9 @@
 **Start:** 29 Oct 2026 · **Deadline hook:** Stocky read-only export window closes ~30 Nov 2026
 **Goal:** $1,500 in 30 days from the PO Pilot product line (Polar one-time + MCPize subscription)
 
+**Live assets:** page https://po-pilot-henna.vercel.app · checklist
+https://docs.google.com/document/d/1SSHvIUlbnQCBS5EnOAsNIsCwR5mw6WDjuT0L5qtQJQE/edit
+
 This plan replaces the "post once and hope" approach. It is a number-first plan: every channel has a
 target, and every day has a scoreboard.
 

@@ -10,10 +10,21 @@ Everything needed to sell the PO Pilot MCP kit, kept in one folder so it survive
 | `emails/sequences.md` | Four emails: checklist delivery, 2 follow-ups, agency outreach. Copy-paste ready. |
 | `LAUNCH-PLAN.md` | The 30-day plan with channel targets and the honest risk list. |
 
+## Live
+
+- **Landing page:** https://po-pilot-henna.vercel.app (canonical) · https://po-pilot-small-signal-studio.vercel.app
+- **Free checklist (public Google Doc):** https://docs.google.com/document/d/1SSHvIUlbnQCBS5EnOAsNIsCwR5mw6WDjuT0L5qtQJQE/edit
+
+Note: raw `*.vercel.app` build URLs (`po-pilot-nflb31tfs-...`) are behind Vercel Authentication because the
+project uses the "all deployments except custom domains" protection setting. Always share the project domain
+or the alias above, never a deployment URL.
+
 ## Infra
 
 - **Landing page:** Vercel project `po-pilot` (`prj_FHdhrV5yQDyFPBG71siBQcMFw4Do`), root directory
-  `po-pilot-launch/site`.
+  `po-pilot-launch/site`. Framework preset: Vite (needed because the Vercel API rejects file-based deploys
+  for projects without a framework). Deploy by pushing to the branch, then creating a deployment from the
+  commit SHA.
 - **Database:** Supabase project `po-pilot-leads` (`tkoerwqgpzwxcbbqzbwg`, ap-southeast-1).
   The anon key embedded in `index.html` can only `insert` into `public.leads`; reads require the dashboard
   or the service role.
