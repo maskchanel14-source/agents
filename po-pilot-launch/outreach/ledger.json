@@ -119,6 +119,46 @@
       "subject": "contribution margin by SKU needs a cost per unit",
       "campaign": "partner-cfo",
       "message_id": "1a1841ecd6dffc68"
+    },
+    {
+      "ts": "2026-10-28T20:46:55Z",
+      "to": "info@jamesscott.com",
+      "domain": "jamesscott.com",
+      "subject": "inventory sync, when there is nothing to sync from",
+      "campaign": "partner-cfo",
+      "message_id": "1a18443d1251af70"
+    },
+    {
+      "ts": "2026-10-28T20:46:55Z",
+      "to": "hello@onflairgroup.com",
+      "domain": "onflairgroup.com",
+      "subject": "your supply chain audit, minus the spreadsheet archaeology",
+      "campaign": "partner-cfo",
+      "message_id": "1a18443dc05f6cdb"
+    },
+    {
+      "ts": "2026-10-28T20:46:55Z",
+      "to": "hello@dtccoo.com",
+      "domain": "dtccoo.com",
+      "subject": "inventory planning inputs, for the band you operate in",
+      "campaign": "partner-cfo",
+      "message_id": "1a18443e9ed2125e"
+    },
+    {
+      "ts": "2026-10-28T20:46:55Z",
+      "to": "max@dtc-ventures.com",
+      "domain": "dtc-ventures.com",
+      "subject": "demand forecasting on top of guessed lead times",
+      "campaign": "partner-cfo",
+      "message_id": "1a18443f596d15ac"
+    },
+    {
+      "ts": "2026-10-28T20:46:55Z",
+      "to": "christian@northpeak-consulting.com",
+      "domain": "northpeak-consulting.com",
+      "subject": "wholesalers going direct, with the inventory depth they already have",
+      "campaign": "partner-cfo",
+      "message_id": "1a18444022583486"
     }
   ],
   "stops": [],
