@@ -36,6 +36,6 @@ A scheduled heartbeat may record “no new evidence.” It may not invent resear
 ## Distribution and review status
 
 - Pull request: https://github.com/maskchanel14-source/agents/pull/20 (open).
-- Reddit: not published; rules unverified; acquisition clock not started.
-- Checkout: unavailable/unverified; no orders accepted.
+- Reddit: not published. r/web_design commercial ask is prohibited by its rules; channel corrected to r/sideprojects (same Reddit channel). Compliant draft ready in `studio/REDDIT-COMPLIANT.md`; publishing still unavailable. Acquisition clock not started.
+- Checkout: unavailable/unverified for ScopeReply; no orders accepted. A live Polar checkout exists for the separate PO Pilot product only; it is not ScopeReply revenue.
 - Private records mirrored to Google Drive and Dropbox; internal checkpoint sent by Gmail. No external sales claim was made.

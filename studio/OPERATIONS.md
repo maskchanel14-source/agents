@@ -17,7 +17,7 @@ The database is the enforcement source. This document and `LOG.md` explain it; t
 1. Read the aggregate status endpoint or query `studio.checkpoints` through the authorized connector.
 2. Record Product, Who pays, Where you sold, $ collected, Skill used, and Why it lived/died. Use the actual snapshot time. Never infer revenue from interest.
 3. If the experiment is killed, stop its product work. Retain the failure reason and select a different signal for the next cycle; do not add features to compensate for missing distribution.
-4. If still validating, check the one selected channel's current rules and any genuine replies. Do not substitute email or another community.
+4. If still validating, check the one selected channel's current rules and any genuine replies. Do not substitute email or another platform. A subreddit correction inside the same channel is allowed only when the original subreddit prohibits the offer (Cycle 001: r/web_design → r/sideprojects).
 5. Count only distinct, explicit $19 commitments from the target buyer. Count payments only after provider verification. Operational tests and $0 downloads are excluded.
 6. Update the work tracker and mirrors when there is a material change. A scheduled no-change checkpoint is not new market research.
 
