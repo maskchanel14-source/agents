@@ -32,6 +32,7 @@ Who is rebuilding that history for your Shopify clients?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## fusioncpa | email1
@@ -45,6 +46,7 @@ Where does that number come from for your clients now?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## theecommerceaccountants | email1
@@ -58,6 +60,7 @@ How are your clients costing inventory now?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## irvine | email1
@@ -71,6 +74,7 @@ Do your Shopify clients still have that history anywhere?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## encore | email1
@@ -84,6 +88,7 @@ What do you do when the inbound notice does not match the pallet?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## shipcalm | email1
@@ -97,6 +102,7 @@ How do you set receiving expectations when the brand cannot produce the history?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## shiphype | email1
@@ -110,6 +116,7 @@ How often does an inbound turn up with no record behind it?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ---
@@ -135,6 +142,7 @@ Is that date on your radar for any client?
 
 Small Signal Studio
 
+Small Signal Studio, Surabaya, Indonesia
 Not interested? Reply "no thanks" and I won't email again.
 
 ## Follow-up 3, day 18, closing the loop | followup
