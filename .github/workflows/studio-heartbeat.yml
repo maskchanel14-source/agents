@@ -1,0 +1,44 @@
+name: Studio three-hour checkpoint
+
+# GitHub schedule events run only from the default branch. Adding this file to
+# an Arena branch does NOT activate the schedule. The independent Supabase
+# pg_cron job is active now; this workflow mirrors verified snapshots to LOG.md.
+on:
+  schedule:
+    - cron: '5 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: studio-heartbeat
+  cancel-in-progress: false
+
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: arena/1318282f-agents
+          persist-credentials: false
+      - name: Read aggregate-only database snapshot
+        run: |
+          # Cache-bust the GET so a checkpoint never records a stale CDN response.
+          curl --fail --silent --show-error --retry 2 --max-time 30 \
+            "https://tkoerwqgpzwxcbbqzbwg.supabase.co/functions/v1/scopereply-status?snapshot=$(date +%s)" \
+            -o /tmp/scopereply-snapshot.json
+      - name: Test and append verified checkpoint
+        run: |
+          python3 -m unittest discover -s studio/scripts -p 'test_*.py'
+          python3 studio/scripts/checkpoint.py /tmp/scopereply-snapshot.json
+      - name: Persist only LOG.md to the Arena branch
+        run: |
+          if git diff --quiet -- LOG.md; then exit 0; fi
+          git config user.name 'Small Signal Studio'
+          git config user.email '324943883+maskchanel14-source@users.noreply.github.com'
+          git add LOG.md
+          git commit -m 'studio: record verified three-hour checkpoint'
+          git push 'https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git' HEAD:arena/1318282f-agents

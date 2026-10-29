@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173b35" />
+  <meta name="description" content="A proposed $19 private change-order writing tool for freelance web designers. See a fictional example and tell us whether you would pay. Not yet for sale." />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>ScopeReply — extra work, clearly agreed</title>
+  <link rel="icon" href="/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header wrap">
+  <a class="brand" href="/" aria-label="ScopeReply home"><img src="/mark.svg" width="32" height="32" alt="" />ScopeReply<span class="brand-dot">.</span></a>
+  <span class="header-note">A Small Signal Studio experiment</span>
+  <a class="nav-link" href="#offer">The $19 offer <span aria-hidden="true">↗</span></a>
+</header>
+<main id="main">
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span> PROPOSED TOOL · NOT YET FOR SALE</div>
+      <h1>“Can you<br>also add<span class="underline-word"> this?</span>”</h1>
+      <p class="hero-lead">Extra work deserves a clear agreement.<br class="desktop-break"> Turn the next client request into a calm, priced change order.</p>
+      <p class="hero-detail">For solo web designers and small studios on fixed-fee projects. Your prices. Your wording. No awkward improvisation.</p>
+      <a class="button" href="#offer">See the offer <span aria-hidden="true">↓</span></a>
+      <p class="small hero-footnote">One task. One payment. No subscription.<br>Testing whether this is worth building.</p>
+    </div>
+    <div class="example-wrap">
+      <div class="example-top"><span>THE OUTPUT, NOT ANOTHER DASHBOARD</span><span>01 / 01</span></div>
+      <article class="paper" aria-label="Fictional change-order example">
+        <div class="paper-heading"><div><span class="paper-label">CHANGE REQUEST</span><h2>A little more scope.<br>A clear next step.</h2></div><span class="paper-mark" aria-hidden="true">↳</span></div>
+        <p class="sample-tag">FICTIONAL EXAMPLE · NOT A CUSTOMER RESULT</p>
+        <dl class="scope-list"><div><dt>Already agreed</dt><dd>Five-page website + contact form</dd></div><div><dt>New request</dt><dd>Expandable FAQ with CMS editing</dd></div></dl>
+        <div class="choices" role="group" aria-label="Explore example client choices">
+          <button type="button" class="choice selected" data-choice="add" aria-pressed="true">Add it</button>
+          <button type="button" class="choice" data-choice="swap" aria-pressed="false">Swap scope</button>
+          <button type="button" class="choice" data-choice="later" aria-pressed="false">Phase two</button>
+        </div>
+        <div class="price-row"><div><span id="price-label">ADDITIONAL FEE</span><strong id="example-price">$240<span> USD</span></strong></div><div class="time"><span>SCHEDULE IMPACT</span><strong id="example-time">+2 business days</strong></div></div>
+        <div class="email-preview"><span class="paper-label">READY-TO-REVIEW EMAIL</span><p id="example-email">Thanks for the FAQ idea. It sits outside our agreed five-page scope. I can add it for $240 and two business days, swap it for the resources section, or keep it for phase two. Let me know which works best.</p></div>
+        <div class="paper-footer"><span>Nothing starts until you agree.</span><span aria-hidden="true">✓</span></div>
+      </article>
+      <p class="example-caption">A glimpse of the proposed output. The generator is not built yet.</p>
+    </div>
+  </section>
+  <section class="boundary wrap" aria-label="Product boundaries">
+    <div><span class="boundary-number">01</span><p><strong>Your client text stays yours.</strong><br>Planned local-only workspace. No client-data upload.</p></div>
+    <div><span class="boundary-number">02</span><p><strong>You decide what it costs.</strong><br>No AI guesses about your rates or project scope.</p></div>
+    <div><span class="boundary-number">03</span><p><strong>Send it. Save it. Get back to work.</strong><br>Planned email, plain-text, and print-ready record.</p></div>
+  </section>
+  <section class="offer wrap" id="offer">
+    <div class="offer-copy"><span class="eyebrow light">AN OFFER TO TEST, NOT A LAUNCH</span><h2>Would this earn<br>a place in your toolkit?</h2><p>If the next “quick addition” lands tomorrow, would a ready-to-edit change record be worth <strong>$19 once</strong>?</p><ul class="offer-list"><li>Unlimited change records for one person</li><li>Pay, swap, or defer wording</li><li>Cost, schedule, and written approval in one place</li><li>Local-first. No recurring bill.</li></ul><p class="offer-honesty">A free template or chatbot might be enough. That is a fair answer. We are testing the offer before building another tool.</p></div>
+    <div class="signup-card">
+      <div class="signup-heading"><span class="paper-label">FOUNDING OFFER</span><div class="offer-price">$19 <span>USD / one time</span></div><p>No charge today. Checkout is not open.</p></div>
+      <form id="interest-form">
+        <fieldset class="segment-field"><legend>I work on fixed-fee web projects as…</legend><div class="segment-options"><label><input type="radio" name="segment" value="solo" checked /> A solo designer</label><label><input type="radio" name="segment" value="studio" /> A 2-person studio</label></div></fieldset>
+        <label class="field-label" for="email">Your email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@yourstudio.com" maxlength="254" required aria-describedby="email-help" />
+        <p class="field-help" id="email-help">Only used to follow up about this offer. No newsletter.</p>
+        <label class="consent"><input type="checkbox" name="consent" required /><span>I would pay <strong>$19 once</strong> for the described tool if it is built. Email me when checkout opens. This is interest, not a purchase or a binding order.</span></label>
+        <div class="honeypot" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <button class="button full" type="submit">Register my $19 interest <span aria-hidden="true">→</span></button>
+        <p id="form-status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="privacy-note">We store your email, buyer type, and consent time. Records are deleted after 60 days. To delete sooner, email <a href="mailto:smallsignalstudiolife@gmail.com?subject=Delete%20my%20ScopeReply%20interest">the studio</a>. No advertising trackers. <a href="#privacy">Privacy details</a>.</p>
+    </div>
+  </section>
+  <section class="questions wrap" aria-labelledby="faq-title"><div><span class="eyebrow">A FEW STRAIGHT ANSWERS</span><h2 id="faq-title">Before you say yes.</h2></div><div class="faq-list"><details><summary>Can I buy it now?</summary><p>No. This is a validation page. We have not built the full generator or verified a payment path. The form records a price-specific expression of interest, not an order.</p></details><details><summary>Is this a legal contract or e-signature service?</summary><p>No. The proposed output is a plain-language change record for your review. It does not provide legal advice, verify authority to approve, or guarantee payment. Keep your own service agreement.</p></details><details><summary>Why not use a free template?</summary><p>You can, and that may be the right choice. The hypothesis is that a focused, private workflow saves enough time on repeated changes to justify $19. We need actual buyers to test that.</p></details><details><summary>What happens if there is not enough interest?</summary><p>We stop. The experiment has a 48-hour hard stop from creation while distribution is being arranged. We will not claim market rejection if we never reached the audience, and we will not add features to hide a failed test.</p></details></div></section>
+</main>
+<footer class="footer wrap" id="privacy"><div><a class="brand" href="/">ScopeReply<span class="brand-dot">.</span></a><p>Small tools. Real customers. No invented proof.</p></div><div class="footer-privacy"><p><strong>Privacy:</strong> submitting the form sends your email, buyer type, and consent to our Supabase backend. A short-lived hashed request identifier limits abuse. We do not collect client requests. Information is retained for up to 60 days, then deleted by a scheduled database job while active. Contact us for earlier deletion.</p><p><a href="mailto:smallsignalstudiolife@gmail.com">smallsignalstudiolife@gmail.com</a> · USD · English</p><p>© 2026 Small Signal Studio. Proposed product; availability is not guaranteed.</p></div></footer>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
