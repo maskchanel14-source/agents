@@ -2,9 +2,13 @@
 
 ## Status
 
-DRAFT, NOT POSTED. No Reddit connector is connected. The rules page could not be fetched (403). Read the current subreddit rules and obtain permission where required before posting. Do not use email or another community as a substitute channel.
+DRAFT, NOT POSTED. No Reddit publishing connector/account is connected.
 
-## Proposed r/web_design feedback post
+**Rule check, 2026-10-29:** r/web_design prohibits commercial promotion/solicitation and limits feedback solicitation to its designated thread/Showoff Saturday. The original $19 validation post is therefore **not permitted there**. Do not post it.
+
+The single channel remains **Reddit**. The compliant target is now **r/sideprojects**, whose published rules allow project posts when they include useful details, disclose the maker relationship, avoid spam/repetition, avoid astroturfing, and do not funnel readers into DMs. This is a subreddit correction inside the same channel, not a switch to email or another platform. The post below is prepared but cannot be published without a Reddit account/connector.
+
+## Proposed r/sideprojects project post (not published)
 
 **Title:** Would you pay $19 for a private change-order writer, or is a template enough?
 
@@ -28,8 +32,8 @@ No charge today. The page records interest in the $19 offer; it is not a checkou
 
 ## Posting procedure
 
-1. Open Reddit as the real studio account. Check r/web_design's current rules and feedback/self-promotion provisions.
-2. If the post is not allowed, use a designated feedback thread or request moderator permission. If neither is available, stop and record distribution as blocked. Do not force the offer into an unrelated support thread.
+1. Open Reddit as the real studio account. Re-check r/sideprojects rules immediately before posting.
+2. If the post is not allowed, stop and record distribution as blocked. Do not force the offer into an unrelated support thread or another platform.
 3. Post once, with maker disclosure and the fictional example labeled. Do not invent a client story or imply personal losses that did not happen.
 4. Answer questions in that thread. No unsolicited DMs. Invite interested readers to the page; do not add anyone to a mailing list automatically.
 5. Record the actual post URL and timestamp. Record the actual outreach start and review the first 24 hours. The 48-hour hard stop is already fixed at 2026-10-30 21:05 UTC (creation-based, conservative); posting does not reset it.
