@@ -1,6 +1,6 @@
 # Cycle 001 verification ledger
 
-Checked 2026-10-28. This file distinguishes executed checks from remaining blockers.
+Checked 2026-10-28; channel/payment re-check 2026-10-29 07:14 UTC. This file distinguishes executed checks from remaining blockers.
 
 ## Product checks
 
@@ -36,12 +36,12 @@ The sandbox initially lacked uv and Python 3.12. uv was bootstrapped and CPython
 
 ## Commercial truth
 
-- Public Reddit posts: **0**.
+- Public Reddit posts: **0**. r/web_design commercial ask is prohibited by its rules; channel corrected to r/sideprojects (same Reddit channel). Compliant draft in `studio/REDDIT-COMPLIANT.md`; publishing still unavailable.
 - Qualified $19 commitments: **0 / 3**.
 - Paying customers: **0 / 3**.
 - Customer money collected: **$0.00**.
 - Full generator: **not built**, pending the commitment gate.
-- Checkout: **not enabled or verified**.
+- Checkout: **not enabled or verified for ScopeReply**. A live Polar checkout was verified for the separate PO Pilot product ($49, live mode); it is not a ScopeReply checkout and is not counted as ScopeReply revenue.
 - Hard stop: **2026-10-30 21:05 UTC**, creation-based and conservative. Distribution has not started; this is not evidence of customer rejection.
 
 ## Pull request and CI observation
