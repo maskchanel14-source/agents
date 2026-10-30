@@ -66,10 +66,13 @@ def main() -> None:
                 ff, "-hide_banner", "-loglevel", "error", "-y",
                 "-f", "lavfi", "-i", f"color=c=0x0b1020:s=1280x720:r=25:d={seconds}",
                 "-f", "lavfi", "-i", f"color=c=0x1e3a8a:s=1280x720:r=25:d={seconds}",
-                "-f", "lavfi", "-i", f"color=c=0x22d3ee:s=460x520:r=25:d={seconds}",
+                "-f", "lavfi", "-i", f"color=c=0x22d3ee:s=430x700:r=25:d={seconds}",
                 "-filter_complex",
                 "[0:v][1:v]overlay=x='if(lt(t,30),0,if(lt(t,60),420,840))'[bg];"
-                "[bg][2:v]overlay=x='320+80*sin(t*0.9)':y=120[v]",
+                # The subject fills the frame height on purpose: a 9:16 vertical
+                # crop of a 16:9 source should look like a talking-head framing,
+                # not like a small card floating in empty space.
+                "[bg][2:v]overlay=x='425+18*sin(t*0.9)':y=10[v]",
                 "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "26",
                 "-pix_fmt", "yuv420p", str(silent),
             ],
