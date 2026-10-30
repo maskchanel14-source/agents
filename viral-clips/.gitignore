@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Runtime data (uploads, renders, sqlite db)
+data/
+apps/api/data/
+*.db
+*.db-journal
+*.db-wal
+
+# Env & secrets
+.env
+.env.local
+!.env.example
+
+# Test artifacts
+test-results/
+playwright-report/
+blob-report/
+*.log

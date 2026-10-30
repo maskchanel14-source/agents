@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink-950 text-mist-100 antialiased;
+  background-image:
+    radial-gradient(900px 500px at 12% -8%, rgba(139, 92, 246, 0.16), transparent 62%),
+    radial-gradient(800px 460px at 92% 0%, rgba(34, 211, 238, 0.1), transparent 58%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.4);
+}
+
+/* thin, unobtrusive scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #232834 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #232834;
+  border-radius: 999px;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-white/[0.07] bg-ink-850/80 shadow-card backdrop-blur-sm;
+  }
+  .card-hover {
+    @apply transition duration-200 hover:border-white/[0.14] hover:bg-ink-800/80;
+  }
+  .label {
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-mist-500;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+      transition duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-accent to-accent-cyan text-ink-950 shadow-glow
+      hover:brightness-110 active:brightness-95;
+  }
+  .btn-ghost {
+    @apply btn border border-white/10 bg-white/[0.03] text-mist-100 hover:bg-white/[0.07];
+  }
+  .btn-subtle {
+    @apply btn text-mist-300 hover:bg-white/[0.06] hover:text-mist-100;
+  }
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-ink-900/80 px-3.5 py-2.5 text-sm
+      text-mist-100 placeholder:text-mist-600 outline-none transition
+      focus:border-accent/60 focus:ring-2 focus:ring-accent/20;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04]
+      px-2.5 py-1 text-[11px] font-medium text-mist-300;
+  }
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .skeleton {
+    @apply rounded-lg bg-gradient-to-r from-white/[0.04] via-white/[0.09] to-white/[0.04];
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+}
