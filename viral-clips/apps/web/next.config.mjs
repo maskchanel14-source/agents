@@ -13,16 +13,16 @@ const nextConfig = {
     ];
   },
   async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-        ],
-      },
+    const headers = [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      // Preview hosts embed the app in a frame on another origin. Production
+      // keeps SAMEORIGIN; DEMO_MODE is never set on a real deployment.
+      ...(process.env.DEMO_MODE === "1"
+        ? []
+        : [{ key: "X-Frame-Options", value: "SAMEORIGIN" }]),
     ];
+    return [{ source: "/(.*)", headers }];
   },
 };
 

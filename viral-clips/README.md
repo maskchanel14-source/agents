@@ -30,6 +30,10 @@ make seed                     # optional: demo account + processed project
 
 Demo login after `make seed`: **`demo@viralclips.example` / `demo-password-123`**
 
+**Just want to click around?** Set `DEMO_MODE=1` in `apps/web/.env.local` and the login wall disappears:
+`middleware.ts` signs each visitor into the seeded demo account through `/demo` and sends them straight
+to the dashboard. Unset it (the default) for normal cookie auth — production never sees this path.
+
 No API keys are required to run the whole flow. Without them the engine tells you so and falls back to
 deterministic acoustic + visual analysis with the local heuristic scorer (no captions, since captions need
 a transcript). Add keys in `.env` to switch on the full AI pipeline — no code changes:
