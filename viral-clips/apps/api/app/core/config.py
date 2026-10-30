@@ -90,6 +90,8 @@ class Settings(BaseSettings):
     database_url: str = "sqlite+aiosqlite:///./data/viralclips.db"
 
     # Auth
+    auth_login_per_min: int = 10
+    auth_register_per_min: int = 5
     jwt_secret: str = "dev-insecure-secret-change-me"
     jwt_ttl_hours: int = 168
     cookie_name: str = "vc_token"

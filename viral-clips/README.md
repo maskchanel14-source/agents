@@ -30,9 +30,11 @@ make seed                     # optional: demo account + processed project
 
 Demo login after `make seed`: **`demo@viralclips.example` / `demo-password-123`**
 
-**Just want to click around?** Set `DEMO_MODE=1` in `apps/web/.env.local` and the login wall disappears:
-`middleware.ts` signs each visitor into the seeded demo account through `/demo` and sends them straight
-to the dashboard. Unset it (the default) for normal cookie auth — production never sees this path.
+**Just want to click around?** Set `DEMO_MODE=1` in `apps/web/.env.local` and the login wall disappears.
+Preview frames are cross-site, so browsers drop third-party cookies and a redirect-based auto-login loops
+forever; instead the server keeps one short-lived demo token (`lib/demo.ts`), Server Components use it
+directly and `middleware.ts` attaches it to `/api/*` and `/media/*` requests. Unset it (the default) for
+normal cookie auth — production never sees this path.
 
 No API keys are required to run the whole flow. Without them the engine tells you so and falls back to
 deterministic acoustic + visual analysis with the local heuristic scorer (no captions, since captions need

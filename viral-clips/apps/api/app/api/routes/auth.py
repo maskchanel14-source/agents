@@ -34,7 +34,7 @@ async def register(
     response: Response,
     session: AsyncSession = Depends(get_db),
 ):
-    limit(request, key="auth:register", max_calls=5, window_s=60)
+    limit(request, key="auth:register", max_calls=settings.auth_register_per_min, window_s=60)
     existing = await session.scalar(select(User).where(User.email == body.email.lower()))
     if existing:
         raise HTTPException(status.HTTP_409_CONFLICT, "An account with this email already exists")
@@ -57,7 +57,7 @@ async def login(
     response: Response,
     session: AsyncSession = Depends(get_db),
 ):
-    limit(request, key="auth:login", max_calls=10, window_s=60)
+    limit(request, key="auth:login", max_calls=settings.auth_login_per_min, window_s=60)
     user = await session.scalar(select(User).where(User.email == body.email.lower()))
     if not user or not verify_password(body.password, user.password_hash):
         # constant-ish response: never reveal whether the email exists

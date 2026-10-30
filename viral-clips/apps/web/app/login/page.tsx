@@ -1,11 +1,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { COOKIE_NAME } from "@/lib/api";
+import { demoMode } from "@/lib/demo";
 import LoginForm from "./LoginForm";
 
 export default async function LoginPage() {
   const store = await cookies();
-  if (store.get(COOKIE_NAME)?.value) redirect("/dashboard");
+  if (store.get(COOKIE_NAME)?.value || demoMode()) redirect("/dashboard");
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12">

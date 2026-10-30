@@ -8,12 +8,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { getDemoToken } from "@/lib/demo";
+
 const INTERNAL = process.env.INTERNAL_API_URL || "http://127.0.0.1:8000";
 export const COOKIE_NAME = "vc_token";
 
 async function authHeaders(): Promise<Record<string, string>> {
   const store = await cookies();
-  const token = store.get(COOKIE_NAME)?.value;
+  const token = store.get(COOKIE_NAME)?.value ?? (await getDemoToken());
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
