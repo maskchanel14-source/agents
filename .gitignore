@@ -78,3 +78,12 @@ projects/SHORTS-2026-023-Mushroom/source-archive.zip
 projects/SHORTS-2026-023-Mushroom/qc/
 projects/SHORTS-2026-023-Mushroom/cover-base.png
 projects/SHORTS-2026-023-Mushroom/cover-small.png
+projects/SHORTS-2026-023-Mushroom/FULL-DELIVERY-BUNDLE.zip
+projects/SHORTS-2026-023-Mushroom/SHA256SUMS.txt
+
+# User-provided source footage and local download/QC staging for SHORTS-2026-023.
+# Footage is delivered separately in Drive because the source clips exceed repository limits.
+media-production/public/shorts023/footage/
+google_drive/
+image-search/
+qc-footage/

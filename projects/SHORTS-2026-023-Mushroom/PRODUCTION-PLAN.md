@@ -3,31 +3,31 @@
 **Format:** 1080×1920, 30 fps, 41.0 s, English narration
 
 ## Editorial decision
-The long-standing reports about miniature people are the hook. The factual payoff is deliberately more precise: 2026 research DNA-linked reported mushrooms in China and the northern Philippines to *Lanmaoa asiatica*, while the active chemical remains unidentified. This avoids falsely claiming that a new drug or mechanism was discovered.
+The long-standing reports about miniature people are the hook. The factual payoff is deliberately precise: 2026 research DNA-linked reported mushrooms in China and the northern Philippines to *Lanmaoa asiatica*, while the active chemical remains unidentified. This does not claim that a new drug or mechanism was discovered.
 
-### Evidence / demand check — 3 November 2026, Asia/Jakarta
-- A **Mycologia** paper, published online 5 June 2026, reports whole-genome sequencing of 53 *Lanmaoa* specimens. Its abstract says genome mining of *L. asiatica* did not detect canonical biosynthetic genes for psilocybin or ibotenic acid; it **suggests** a novel psychoactive compound, not an identified molecule.
-- University of Utah coverage and a ScienceDaily re-publication (25 October) brought fresh mainstream attention. A searchable TikTok result, checked 3 November, listed **141K likes / 497 comments** for a topic-specific video. This is a public-interest signal, **not** enough to claim the topic was viral across all platforms or “viral this week.”
-- A JRE Clips item exists, but searchable results did not expose a current view/like count; no current numeric claim is used.
+## Evidence / demand check — 3 November 2026, Asia/Jakarta
+- A **Mycologia** paper published online 5 June 2026 reports whole-genome sequencing of 53 *Lanmaoa* specimens. Genome mining of *L. asiatica* did not detect canonical biosynthetic genes for psilocybin or ibotenic acid; it suggests a novel psychoactive compound, not an identified molecule.
+- University of Utah coverage and a ScienceDaily re-publication (25 October) created fresh mainstream attention. A searchable TikTok result checked 3 November listed **141K likes / 497 comments** for one topic-specific video. This is a public-interest signal, not a claim that the topic was viral across all platforms or “viral this week.”
 
-## Story beats and shot plan
-| Time | Story | Picture / movement | Sound |
+## Rebuilt story beats and footage plan
+| Time | Story | Picture / movement | Truth label |
 |---|---|---|---|
-| 0–3.0 | Hook: one mushroom / tiny humans | 3D mushroom cap emerges from black soil; camera dives through spores | deep riser + first narration line |
-| 3.0–8.4 | Reported visions | unmistakable 3D mini figures walk along a table-like forest floor; orbiting camera | low ambient bed |
-| 8.4–12.7 | DNA link | 3D double helix rises from cap and connects China / Philippines markers | soft shimmer |
-| 12.7–18.0 | “turns darker” reveal | particles retreat as a black chemical silhouette resolves to a question mark | low impact, restrained |
-| 18.0–23.2 | no familiar pathways | layered 3D molecular lattice, crossed-out psilocybin / ibotenic-acid text | ambient tension |
-| 23.2–28.6 | evidence limits | actual species reference photo, clearly labelled **SPECIES PHOTO • NOT FOOTAGE**; uncertainty cards | bed ducks slightly |
-| 28.6–33.4 | safety | 3D warning ring / spores reverse away from a hand silhouette | low impact |
-| 33.4–38.0 | resolution | camera pulls out from the 3D mushroom to molecular question mark | final shimmer / bed tail |
+| 0–2.6 s | Hook: one mushroom / tiny humans | User-provided real mushroom growth timelapse; slow editorial push-in from the source shot | `GENERIC MUSHROOM FOOTAGE` |
+| 2.3–9.0 s | Reported visions | Moving macro mushroom/moss footage with restrained lateral drift; no literal miniature-figure depiction | `GENERIC MUSHROOM FOOTAGE` |
+| 8.7–14.0 s | DNA link | Moving macro fungi footage under a minimal animated DNA evidence line connecting the two documented regions | `GENERIC MUSHROOM FOOTAGE` |
+| 13.7–19.3 s | pathway finding | Growth footage and a 2D genome-mining evidence panel, not a 3D molecular reconstruction | `GENERIC MUSHROOM FOOTAGE` |
+| 19.1–23.6 s | unknown chemical | Moving macro moss/fungus footage with a concise unknown-chemical statement | `GENERIC MUSHROOM FOOTAGE` |
+| 23.3–31.4 s | evidence limits | Generic moving footage under the DNA-link card and Papua New Guinea limitation card | `GENERIC MUSHROOM FOOTAGE` and explicit “not the named species” text |
+| 31.1–35.3 s | safety | Real macro footage with no-tasting / no-self-experiment warning | `GENERIC MUSHROOM FOOTAGE` |
+| 34.9–41.0 s | resolution | Growth timelapse returns; final unknown-molecule line | `GENERIC MUSHROOM FOOTAGE` |
 
-## Visual truth labels
-- `3D SCIENTIFIC VISUALIZATION` for all mushroom, DNA, molecular and miniature-figure scenes.
-- `SPECIES PHOTO • NOT FOOTAGE` for the still photo. It is a visual reference only and does not depict intoxication.
-- The composition is intentionally not a PIP grid/slideshow.
+## Visual rules
+- The real footage is generic mushroom/fungi footage. It is never identified as *Lanmaoa asiatica*.
+- No old procedural 3D mushroom, miniature person, molecular lattice, or 3D camera scene remains in the composition.
+- Motion is sourced from the clips themselves, supplemented only by restrained editorial crop/push movement. The edit is full-screen documentary footage, not a PIP or montage grid.
+- DNA and chemistry claims are text/data overlays only; they are not visual reconstructions of a molecule, intoxication event, or historical report.
 
 ## Hard claims excluded
-- No claim that every historical report (especially Papua New Guinea) is caused by *L. asiatica*.
+- No claim that every historical report—especially Papua New Guinea—is caused by *L. asiatica*.
 - No claim that the active chemical has been found, that it is safe, or that the visions are universal.
-- No “96%” claim; that number appeared in unrelated social packaging and was not retained.
+- No viewer should infer culinary, dosage, preparation, sourcing or safety advice from this video.

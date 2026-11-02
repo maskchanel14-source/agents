@@ -1,24 +1,26 @@
-SHORTS-2026-023-Mushroom — delivery index
+SHORTS-2026-023-Mushroom — delivery index (footage rebuild)
 
 FINAL VIDEO
-  video.mp4                  1080×1920, 30 fps, H.264/AAC, 41.0 s
+  video.mp4                  1080×1920, 30 fps, H.264/AAC, 41.003 s
 
 COVER
   cover.png                  1080×1920 vertical cover, AI illustration labelled on-image
   cover-small.png            270×480 readability check
 
-PUBLISHING
-  PUBLISH-KIT.md             Titles, description, SEO, sources, disclosure and credits
+PUBLISHING / QC
+  PUBLISH-KIT.md             Title, description, SEO, sources, disclosure and credits
   research/RESEARCH-LOG.md   Evidence + public-interest check
-  QC-REPORT.md               Render/decode/audio/visual QC and known limitation
+  QC-REPORT.md               Render/decode/audio/visual QC for the footage rebuild
+  PRODUCTION-PLAN.md         Shot plan and editorial safeguards
 
 EDITABLE SOURCE
-  source-archive.zip         Portable Remotion source + permitted local assets (no node_modules/cache)
-  source-manifest/           Asset list and render instructions
+  source-archive.zip         Portable Remotion source, required 1080p/HD footage proxies and permitted local assets
+  source-manifest/           Asset source/credit manifest and rendering instructions
   ../../media-production/    Working editable Remotion project
 
 Important truth labels
-- 3D scenes are scientific visualizations, not recordings.
-- The species card is a still photo, not footage.
-- The final render does NOT include a separately sourced moving real-footage asset because the environment could not lawfully download one through its host allowlist. This is an explicit outstanding requirement gap, not a hidden substitution.
+- Main visuals are real generic mushroom footage—not *Lanmaoa asiatica* footage.
+- The on-screen `GENERIC MUSHROOM FOOTAGE` disclosure and evidence-card disclaimer must remain with the edit.
+- The footage source set and Pixabay credits are in PUBLISH-KIT.md and source-manifest/ASSET-MANIFEST.md.
+- Cover is an AI illustration, labelled on-image.
 - Educational/safety-forward: never treat the video as consumption, preparation, dosage or sourcing guidance.
