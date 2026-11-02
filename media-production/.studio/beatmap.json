@@ -1,0 +1,13 @@
+{
+  "bpm": 120,
+  "fps": 30,
+  "framesPerBeat": 15,
+  "barFrames": 60,
+  "cutRule": "Cuts land on half-bars or bars. Significant type and SFX hits land on a beat.",
+  "majorHits": [0, 42, 270, 450, 630, 810, 990, 1110],
+  "audio": {
+    "score": "dark-pulse-score.wav",
+    "duckDuringNarration": true,
+    "sfx": ["sfx-whoosh.wav", "sfx-throw.wav", "sfx-sub-hit.wav", "sfx-tick.wav"]
+  }
+}

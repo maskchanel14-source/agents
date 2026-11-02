@@ -11,230 +11,363 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
-import {captions} from '../data/shorts2026023Timeline';
+import {CaptionTrack, EditorialEmphasis} from 'remotion-captions-kit';
+import {
+  captionEmphasis,
+  captionPages,
+  DURATION,
+  editorialShots,
+  narrationBeats,
+  type EditorialShot,
+} from '../data/shorts2026023Timeline';
 
-const ease = Easing.bezier(0.22, 1, 0.36, 1);
+const theme = {
+  colors: {
+    ink: '#050906',
+    inkSoft: '#0b120d',
+    paper: '#f7f4ea',
+    muted: '#c7d0c3',
+    lime: '#d8ff7e',
+    limeSoft: '#a5cf59',
+    cyan: '#91e6d4',
+    amber: '#ffca72',
+    danger: '#ff8b86',
+    dangerSoft: '#561c1b',
+    panel: 'rgba(5, 12, 8, 0.76)',
+    panelHeavy: 'rgba(4, 8, 6, 0.90)',
+    whiteDim: 'rgba(247, 244, 234, 0.74)',
+    limeDim: 'rgba(216, 255, 126, 0.20)',
+    grain: 'rgba(247, 244, 234, 0.10)',
+    shadow: 'rgba(0, 0, 0, 0.88)',
+  },
+  eases: {
+    soft: Easing.bezier(0.22, 1, 0.36, 1),
+    snap: Easing.bezier(0.16, 1, 0.3, 1),
+    exit: Easing.bezier(0.7, 0, 0.84, 0),
+  },
+  springs: {
+    title: {damping: 15, stiffness: 165, mass: 0.68},
+    card: {damping: 18, stiffness: 155, mass: 0.72},
+  },
+} as const;
 
 const footage = {
-  growth: staticFile('shorts023/footage/mushroom-growth-timelapse-1080p.mp4'),
-  moss: staticFile('shorts023/footage/mushroom-moss-macro-hd.mp4'),
-  log: staticFile('shorts023/footage/fungus-moss-log-macro-1080p.mp4'),
+  growth: staticFile('shorts023/footage/v2/growth-enhanced.mp4'),
+  moss: staticFile('shorts023/footage/v2/moss-enhanced.mp4'),
+  log: staticFile('shorts023/footage/v2/log-enhanced.mp4'),
 };
 
-type FootageSource = keyof typeof footage;
-
-type FootageShotProps = {
-  source: FootageSource;
-  startFrom?: number;
-  endAt?: number;
-  position?: string;
-  zoom?: [number, number];
-  drift?: [number, number];
-  grade?: string;
-  fadeOut?: boolean;
+const audio = {
+  narration: staticFile('shorts023/audio/v2/narration-v2.m4a'),
+  score: staticFile('shorts023/audio/v2/dark-pulse-score.wav'),
+  whoosh: staticFile('shorts023/audio/v2/sfx-whoosh.wav'),
+  throw: staticFile('shorts023/audio/v2/sfx-throw.wav'),
+  hit: staticFile('shorts023/audio/v2/sfx-sub-hit.wav'),
+  tick: staticFile('shorts023/audio/v2/sfx-tick.wav'),
 };
 
-const FootageShot: React.FC<FootageShotProps> = ({
-  source,
-  startFrom = 0,
-  endAt,
-  position = '50% 50%',
-  zoom = [1.06, 1.14],
-  drift = [0, 0],
-  grade = 'saturate(0.92) contrast(1.12) brightness(0.74)',
-  fadeOut = true,
-}) => {
+const bounded = (frame: number, input: number[], output: number[], easing = theme.eases.soft) =>
+  interpolate(frame, input, output, {
+    easing,
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+
+const FontFaces: React.FC = () => (
+  <style>{`
+    @font-face {
+      font-family: 'Shorts Space Grotesk';
+      src: url('${staticFile('shorts023/fonts/space-grotesk-variable.woff2')}') format('woff2');
+      font-weight: 300 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Shorts IBM Plex Mono';
+      src: url('${staticFile('shorts023/fonts/ibm-plex-mono-500.woff2')}') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+  `}</style>
+);
+
+const ClarityFinish: React.FC = () => {
   const frame = useCurrentFrame();
-  const {durationInFrames} = useVideoConfig();
-  const scale = interpolate(frame, [0, durationInFrames], zoom, {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease});
-  const x = interpolate(frame, [0, durationInFrames], [0, drift[0]], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease});
-  const y = interpolate(frame, [0, durationInFrames], [0, drift[1]], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease});
-  const opacity = fadeOut
-    ? interpolate(frame, [0, 8, durationInFrames - 10, durationInFrames], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
-    : 1;
+  const grainX = (frame * 17) % 7;
+  const grainY = (frame * 31) % 9;
+  return <>
+    <AbsoluteFill style={{
+      pointerEvents: 'none',
+      background: 'linear-gradient(180deg, rgba(2, 7, 4, 0.40) 0%, transparent 34%, rgba(2, 7, 4, 0.08) 58%, rgba(2, 6, 4, 0.72) 100%)',
+      mixBlendMode: 'multiply',
+    }} />
+    <AbsoluteFill style={{
+      pointerEvents: 'none',
+      background: 'radial-gradient(ellipse at 50% 46%, transparent 35%, rgba(0, 0, 0, 0.56) 100%)',
+    }} />
+    <AbsoluteFill style={{
+      pointerEvents: 'none',
+      opacity: 0.13,
+      mixBlendMode: 'soft-light',
+      backgroundImage: `radial-gradient(${theme.colors.grain} 0.8px, transparent 0.9px)`,
+      backgroundSize: '3px 3px',
+      backgroundPosition: `${grainX}px ${grainY}px`,
+    }} />
+  </>;
+};
 
-  return <AbsoluteFill style={{overflow: 'hidden', opacity, backgroundColor: '#090d0b'}}>
+const FootageShot: React.FC<{shot: EditorialShot}> = ({shot}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const enter = spring({frame, fps, config: theme.springs.card});
+  const scale = bounded(frame, [0, shot.duration], shot.zoom);
+  const x = bounded(frame, [0, shot.duration], [0, shot.drift[0]]);
+  const y = bounded(frame, [0, shot.duration], [0, shot.drift[1]]);
+  const microX = Math.sin(frame * 0.29) * 1.6;
+  const microY = Math.cos(frame * 0.23) * 1.3;
+  const enterNudge = (1 - enter) * (shot.direction === 'left' ? 70 : -70);
+  const edge = shot.direction === 'left'
+    ? 'linear-gradient(90deg, rgba(216,255,126,0.16), transparent 25%)'
+    : 'linear-gradient(270deg, rgba(216,255,126,0.16), transparent 25%)';
+
+  return <AbsoluteFill style={{overflow: 'hidden', backgroundColor: theme.colors.ink}}>
     <OffthreadVideo
-      src={footage[source]}
-      startFrom={startFrom}
-      endAt={endAt}
+      src={footage[shot.source]}
+      startFrom={shot.sourceStart}
       volume={0}
       style={{
         width: '100%',
         height: '100%',
         objectFit: 'cover',
-        objectPosition: position,
-        filter: grade,
-        transform: `translate(${x}px, ${y}px) scale(${scale})`,
+        objectPosition: shot.position,
+        filter: 'brightness(0.84) contrast(1.18) saturate(0.82) sepia(0.05)',
+        transform: `translate3d(${x + microX + enterNudge}px, ${y + microY}px, 0) scale(${scale})`,
+        transformOrigin: 'center center',
       }}
     />
-    <AbsoluteFill style={{pointerEvents: 'none', background: 'linear-gradient(180deg, rgba(3,8,7,0.74) 0%, rgba(3,6,5,0.02) 32%, rgba(2,5,5,0.08) 51%, rgba(2,4,4,0.88) 100%)'}} />
-    <AbsoluteFill style={{pointerEvents: 'none', background: 'radial-gradient(ellipse at center, transparent 34%, rgba(0,0,0,0.48) 100%)'}} />
+    <AbsoluteFill style={{pointerEvents: 'none', background: edge, mixBlendMode: 'screen', opacity: 0.62}} />
   </AbsoluteFill>;
 };
 
-const GenericFootageLabel: React.FC = () => (
+const CutImpact: React.FC<{direction: 'left' | 'right'}> = ({direction}) => {
+  const frame = useCurrentFrame();
+  const flash = bounded(frame, [0, 2, 7, 12], [0, 0.82, 0.18, 0], theme.eases.snap);
+  const lineX = bounded(frame, [0, 10], [direction === 'left' ? -120 : 120, direction === 'left' ? 120 : -120], theme.eases.snap);
+  return <AbsoluteFill style={{pointerEvents: 'none', opacity: flash}}>
+    <div style={{position: 'absolute', inset: 0, background: 'rgba(216, 255, 126, 0.16)', mixBlendMode: 'screen'}} />
+    <div style={{
+      position: 'absolute', top: 0, bottom: 0, left: '50%', width: 10,
+      background: theme.colors.lime,
+      transform: `translateX(${lineX}px) skewX(-18deg)`,
+      boxShadow: `0 0 50px ${theme.colors.lime}`,
+    }} />
+  </AbsoluteFill>;
+};
+
+const ContextLabel: React.FC = () => (
   <div style={{
-    position: 'absolute',
-    top: 66,
-    right: 48,
-    padding: '10px 15px',
-    border: '1px solid rgba(232,243,219,0.6)',
-    borderRadius: 7,
-    background: 'rgba(5,11,8,0.7)',
-    color: '#edf6e7',
-    fontFamily: 'Arial, sans-serif',
-    fontWeight: 800,
-    fontSize: 16,
-    letterSpacing: 1.4,
-  }}>GENERIC MUSHROOM FOOTAGE</div>
+    position: 'absolute', top: 54, right: 42,
+    display: 'flex', alignItems: 'center', gap: 9,
+    color: theme.colors.paper,
+    fontFamily: 'Shorts IBM Plex Mono, monospace', fontWeight: 500,
+    fontSize: 13, letterSpacing: 0.78,
+    textShadow: `0 2px 9px ${theme.colors.shadow}`,
+  }}>
+    <span style={{width: 7, height: 7, borderRadius: 999, background: theme.colors.lime, boxShadow: `0 0 14px ${theme.colors.lime}`}} />
+    GENERIC CONTEXT FOOTAGE
+  </div>
 );
 
-const FieldNote: React.FC<{children: React.ReactNode; color?: string}> = ({children, color = '#bfeaa2'}) => (
+const StoryKicker: React.FC = () => (
   <div style={{
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 10,
-    padding: '10px 14px',
-    background: 'rgba(4,10,7,0.72)',
-    borderLeft: `4px solid ${color}`,
-    color,
-    fontFamily: 'Arial, sans-serif',
-    fontWeight: 900,
-    fontSize: 18,
-    letterSpacing: 1.7,
-  }}>{children}</div>
+    position: 'absolute', top: 54, left: 42,
+    color: theme.colors.whiteDim,
+    fontFamily: 'Shorts IBM Plex Mono, monospace', fontWeight: 500,
+    fontSize: 14, letterSpacing: 1.05,
+    textShadow: `0 2px 9px ${theme.colors.shadow}`,
+  }}>FIELD NOTE // 023</div>
 );
 
-const CaptionLayer: React.FC = () => {
+const PanelShell: React.FC<{duration: number; color?: string; children: React.ReactNode; align?: 'left' | 'center'}> = ({
+  duration,
+  color = theme.colors.lime,
+  children,
+  align = 'left',
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const cue = captions.find((item) => frame >= item.start && frame < item.end) ?? captions[captions.length - 1];
-  const local = Math.max(0, frame - cue.start);
-  const inSpring = spring({frame: local, fps, config: {damping: 15, stiffness: 140, mass: 0.72}});
-  const out = interpolate(frame, [cue.end - 9, cue.end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const words = cue.text.split(' ');
-
-  return <div style={{position: 'absolute', left: 52, right: 52, bottom: 154, opacity: out, transform: `translateY(${(1 - inSpring) * 30}px)`}}>
+  const progress = spring({frame, fps, config: theme.springs.card});
+  const exit = bounded(frame, [Math.max(0, duration - 11), duration], [1, 0], theme.eases.exit);
+  const y = (1 - progress) * 48;
+  return <div style={{
+    position: 'absolute', top: 282, left: 48, right: 48,
+    opacity: progress * exit,
+    transform: `translateY(${y}px) scale(${0.96 + 0.04 * progress})`,
+    transformOrigin: align === 'left' ? 'left center' : 'center center',
+    textAlign: align,
+  }}>
     <div style={{
-      padding: '18px 4px 8px',
-      textAlign: 'center',
-      color: '#fffdf4',
-      fontFamily: 'Arial Black, Arial, sans-serif',
-      fontWeight: 900,
-      fontSize: cue.text.length > 48 ? 45 : 55,
-      lineHeight: 1.04,
-      letterSpacing: 0.2,
-      textShadow: '0 3px 4px rgba(0,0,0,0.96), 0 12px 36px rgba(0,0,0,0.9)',
+      display: 'inline-flex', alignItems: 'center', gap: 10,
+      marginBottom: 15, padding: '8px 12px',
+      border: `1px solid ${color}`,
+      background: theme.colors.panelHeavy,
+      color,
+      fontFamily: 'Shorts IBM Plex Mono, monospace', fontWeight: 500,
+      fontSize: 15, letterSpacing: 1.15,
     }}>
-      {words.map((word, index) => {
-        const normalized = word.replace(/[.,—]/g, '');
-        const highlight = cue.emphasis?.includes(normalized);
-        return <span key={`${word}-${index}`} style={{color: highlight ? '#d8ff9a' : '#fffdf4'}}>{word}{' '}</span>;
-      })}
+      <span style={{width: 8, height: 8, borderRadius: '50%', background: color, boxShadow: `0 0 16px ${color}`}} />
+      EVIDENCE CHECK
     </div>
+    {children}
   </div>;
 };
 
-const DNAOverlay: React.FC = () => {
+const HookStrike: React.FC = () => {
   const frame = useCurrentFrame();
-  const line = interpolate(frame, [8, 95], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease});
-  const opacity = interpolate(frame, [0, 10, 135, 150], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return <div style={{position: 'absolute', top: 190, left: 50, right: 50, opacity}}>
-    <FieldNote color="#9ee9ff">DNA IDENTIFICATION</FieldNote>
-    <div style={{marginTop: 18, padding: '20px 22px', background: 'linear-gradient(100deg, rgba(4,18,19,0.78), rgba(4,18,19,0.22))', borderTop: '1px solid rgba(158,233,255,0.54)', borderBottom: '1px solid rgba(158,233,255,0.22)'}}>
-      <div style={{fontFamily: 'Arial Black, Arial, sans-serif', fontSize: 45, color: '#f3fffe', lineHeight: 1.0, textShadow: '0 2px 8px #000'}}>TWO REGIONS.<br /><span style={{color: '#9ee9ff'}}>ONE SPECIES LINK.</span></div>
-      <div style={{position: 'relative', height: 74, marginTop: 20, borderLeft: '2px solid rgba(158,233,255,0.55)', borderRight: '2px solid rgba(158,233,255,0.55)'}}>
-        <div style={{position: 'absolute', top: 35, left: 0, height: 3, width: `${line * 100}%`, background: '#9ee9ff', boxShadow: '0 0 16px #9ee9ff'}} />
-        <div style={{position: 'absolute', top: 8, left: 0, fontFamily: 'Arial, sans-serif', fontWeight: 800, fontSize: 16, letterSpacing: 1.1, color: '#eaffff'}}>YUNNAN, CHINA</div>
-        <div style={{position: 'absolute', bottom: 1, right: 0, textAlign: 'right', fontFamily: 'Arial, sans-serif', fontWeight: 800, fontSize: 16, letterSpacing: 1.1, color: '#eaffff'}}>N. CORDILLERA, PHILIPPINES</div>
+  const {fps} = useVideoConfig();
+  const p = spring({frame, fps, config: theme.springs.title});
+  const exit = bounded(frame, [66, 78], [1, 0], theme.eases.exit);
+  return <div style={{position: 'absolute', top: 516, left: 45, right: 45, opacity: p * exit, transform: `translateY(${(1 - p) * 74}px) scale(${0.92 + p * 0.08})`}}>
+    <div style={{fontFamily: 'Shorts IBM Plex Mono, monospace', fontSize: 18, letterSpacing: 2.4, color: theme.colors.muted, marginBottom: 10}}>REPORTS OF</div>
+    <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', fontSize: 116, lineHeight: 0.84, fontWeight: 700, letterSpacing: -5, color: theme.colors.paper, textShadow: `0 8px 24px ${theme.colors.shadow}`}}>
+      TINY <span style={{color: theme.colors.lime}}>PEOPLE?</span>
+    </div>
+    <div style={{marginTop: 22, height: 5, width: bounded(frame, [9, 33], [0, 318], theme.eases.snap), background: theme.colors.lime, boxShadow: `0 0 26px ${theme.colors.lime}`}} />
+  </div>;
+};
+
+const DnaEvidence: React.FC = () => {
+  const frame = useCurrentFrame();
+  const line = bounded(frame, [16, 104], [0, 1], theme.eases.soft);
+  const node = spring({frame: Math.max(0, frame - 55), fps: useVideoConfig().fps, config: theme.springs.card});
+  return <PanelShell duration={180} color={theme.colors.cyan}>
+    <div style={{padding: '22px 22px 18px', background: theme.colors.panel, borderLeft: `4px solid ${theme.colors.cyan}`}}>
+      <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.paper, fontSize: 62, lineHeight: 0.9, fontWeight: 700, letterSpacing: -2.4}}>ONE DNA<br /><span style={{color: theme.colors.cyan}}>MATCH.</span></div>
+      <div style={{position: 'relative', height: 98, marginTop: 21}}>
+        <div style={{position: 'absolute', top: 50, left: 20, right: 20, height: 3, background: 'rgba(145, 230, 212, 0.25)'}} />
+        <div style={{position: 'absolute', top: 50, left: 20, width: `calc(${line * 100}% - 40px)`, height: 3, background: theme.colors.cyan, boxShadow: `0 0 18px ${theme.colors.cyan}`}} />
+        <div style={{position: 'absolute', top: 27, left: 7, color: theme.colors.paper, fontFamily: 'Shorts IBM Plex Mono, monospace', fontSize: 14, letterSpacing: 0.5}}>CHINA</div>
+        <div style={{position: 'absolute', top: 27, right: 7, color: theme.colors.paper, fontFamily: 'Shorts IBM Plex Mono, monospace', fontSize: 14, letterSpacing: 0.5}}>PHILIPPINES</div>
+        <div style={{position: 'absolute', top: 43, left: 12, width: 18, height: 18, borderRadius: 999, background: theme.colors.cyan, boxShadow: `0 0 20px ${theme.colors.cyan}`}} />
+        <div style={{position: 'absolute', top: 43, right: 12, width: 18, height: 18, borderRadius: 999, background: theme.colors.cyan, opacity: node, transform: `scale(${0.4 + node * 0.6})`, boxShadow: `0 0 20px ${theme.colors.cyan}`}} />
       </div>
+      <div style={{color: theme.colors.muted, fontFamily: 'Shorts Space Grotesk, sans-serif', fontSize: 23, lineHeight: 1.15, marginTop: 8}}>Reported mushrooms linked to <i>Lanmaoa asiatica</i>.</div>
     </div>
-  </div>;
+  </PanelShell>;
 };
 
-const PathwayOverlay: React.FC = () => {
+const PathwayEvidence: React.FC = () => {
   const frame = useCurrentFrame();
-  const scan = interpolate(frame, [0, 135], [-12, 104], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return <div style={{position: 'absolute', top: 196, left: 50, right: 50}}>
-    <FieldNote color="#ffd381">GENOME MINING</FieldNote>
-    <div style={{marginTop: 20, padding: '24px 22px', background: 'rgba(13,10,4,0.74)', border: '1px solid rgba(255,211,129,0.56)', overflow: 'hidden', position: 'relative'}}>
-      <div style={{position: 'absolute', top: 0, bottom: 0, left: `${scan}%`, width: 4, background: '#ffe19a', boxShadow: '0 0 30px #ffe19a'}} />
-      <div style={{fontFamily: 'Arial Black, Arial, sans-serif', color: '#fff9e8', fontSize: 43, lineHeight: 1.0}}>NO CANONICAL<br /><span style={{color: '#ffd381'}}>PSILOCYBIN OR IBOTENIC-ACID</span><br />PATHWAY DETECTED.</div>
-      <div style={{marginTop: 16, color: '#e6dcc5', fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: 21, lineHeight: 1.25}}>That does not identify the active molecule.</div>
+  const scan = bounded(frame, [4, 120], [-10, 104], theme.eases.soft);
+  return <PanelShell duration={170} color={theme.colors.amber}>
+    <div style={{padding: '22px 22px 20px', background: theme.colors.panel, borderLeft: `4px solid ${theme.colors.amber}`, overflow: 'hidden', position: 'relative'}}>
+      <div style={{position: 'absolute', top: 0, bottom: 0, left: `${scan}%`, width: 4, background: theme.colors.amber, boxShadow: `0 0 34px ${theme.colors.amber}`}} />
+      <div style={{fontFamily: 'Shorts IBM Plex Mono, monospace', color: theme.colors.amber, fontSize: 16, letterSpacing: 1.3, marginBottom: 13}}>GENOME MINING</div>
+      <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.paper, fontSize: 58, lineHeight: 0.91, fontWeight: 700, letterSpacing: -2.2}}>NO KNOWN<br /><span style={{color: theme.colors.amber}}>PATHWAY.</span></div>
+      <div style={{marginTop: 16, color: theme.colors.muted, fontFamily: 'Shorts Space Grotesk, sans-serif', fontSize: 23, lineHeight: 1.17}}>No canonical psilocybin or ibotenic-acid pathway.</div>
     </div>
-  </div>;
+  </PanelShell>;
 };
 
-const SpeciesEvidenceOverlay: React.FC = () => {
+const UnknownEvidence: React.FC = () => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 12, 98, 114], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return <div style={{position: 'absolute', top: 205, left: 50, right: 50, opacity}}>
-    <FieldNote color="#ffd381">SPECIES EVIDENCE • DNA LINK</FieldNote>
-    <div style={{marginTop: 18, padding: '22px', background: 'linear-gradient(105deg, rgba(31,23,5,0.8), rgba(8,15,8,0.44))', border: '1px solid rgba(255,211,129,0.5)'}}>
-      <div style={{fontFamily: 'Arial Black, Arial, sans-serif', color: '#fff9ec', fontSize: 44, lineHeight: 1.0}}>CHINA + PHILIPPINES:<br /><span style={{color: '#ffe093'}}>DNA-LINKED TO<br /><i>LANMAOA ASIATICA.</i></span></div>
-      <div style={{marginTop: 14, color: '#ede4cf', fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: 20, lineHeight: 1.28}}>Background is generic mushroom footage, not the named species.</div>
+  const {fps} = useVideoConfig();
+  const q = spring({frame: Math.max(0, frame - 10), fps, config: theme.springs.title});
+  return <PanelShell duration={154} color={theme.colors.lime} align="center">
+    <div style={{padding: '18px 20px 21px', background: theme.colors.panel, borderTop: `1px solid ${theme.colors.lime}`, borderBottom: `1px solid ${theme.colors.lime}`}}>
+      <div style={{fontFamily: 'Shorts IBM Plex Mono, monospace', color: theme.colors.muted, fontSize: 16, letterSpacing: 1.1}}>ACTIVE COMPOUND</div>
+      <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.lime, fontSize: 190, fontWeight: 700, lineHeight: 0.75, transform: `scale(${0.58 + q * 0.42})`, textShadow: `0 0 54px ${theme.colors.lime}`}}>?</div>
+      <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.paper, fontSize: 50, lineHeight: 0.95, fontWeight: 700, letterSpacing: -1.4}}>STILL UNKNOWN.</div>
     </div>
-  </div>;
+  </PanelShell>;
 };
 
-const UnverifiedOverlay: React.FC = () => (
-  <div style={{position: 'absolute', top: 205, left: 50, right: 50}}>
-    <FieldNote color="#ff9a9a">EVIDENCE LIMIT</FieldNote>
-    <div style={{marginTop: 18, padding: '22px', background: 'rgba(31,5,8,0.78)', border: '1px solid rgba(255,135,143,0.58)', fontFamily: 'Arial Black, Arial, sans-serif', color: '#fff2f1', fontSize: 42, lineHeight: 1.02}}>PAPUA NEW GUINEA REPORTS<br /><span style={{color: '#ff9a9a'}}>NOT GENOMICALLY VERIFIED.</span></div>
+const CorrectionCard: React.FC = () => <PanelShell duration={94} color={theme.colors.lime}>
+  <div style={{padding: '22px', background: theme.colors.panel, borderLeft: `4px solid ${theme.colors.lime}`}}>
+    <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.paper, fontSize: 60, lineHeight: 0.91, fontWeight: 700, letterSpacing: -2.2}}>A LEAD.<br /><span style={{color: theme.colors.lime}}>NOT A DISCOVERY.</span></div>
   </div>
-);
+</PanelShell>;
 
-const SafetyOverlay: React.FC = () => (
-  <div style={{position: 'absolute', top: 215, left: 50, right: 50}}>
-    <FieldNote color="#ff8999">SAFETY, NOT A CHALLENGE</FieldNote>
-    <div style={{marginTop: 18, padding: '24px 22px', background: 'rgba(32,4,9,0.83)', borderLeft: '7px solid #ff5571', boxShadow: '0 16px 40px rgba(0,0,0,0.35)'}}>
-      <div style={{fontFamily: 'Arial Black, Arial, sans-serif', color: 'white', fontSize: 48, lineHeight: 0.98}}>DO NOT TEST IT.</div>
-      <div style={{marginTop: 13, color: '#ffd9df', fontFamily: 'Arial, sans-serif', fontWeight: 800, fontSize: 25, lineHeight: 1.2}}>Wild mushrooms can poison. No tasting, no self-experiment.</div>
-    </div>
+const VerificationLimit: React.FC = () => <PanelShell duration={94} color={theme.colors.danger}>
+  <div style={{padding: '21px 22px', background: 'rgba(42, 8, 8, 0.82)', borderLeft: `4px solid ${theme.colors.danger}`}}>
+    <div style={{fontFamily: 'Shorts IBM Plex Mono, monospace', color: theme.colors.danger, fontSize: 15, letterSpacing: 1.3, marginBottom: 13}}>EVIDENCE LIMIT</div>
+    <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.paper, fontSize: 49, lineHeight: 0.93, fontWeight: 700, letterSpacing: -1.8}}>PAPUA NEW GUINEA:<br /><span style={{color: theme.colors.danger}}>NOT DNA-VERIFIED.</span></div>
   </div>
-);
+</PanelShell>;
 
-const EndingOverlay: React.FC = () => {
+const SafetyCard: React.FC = () => <PanelShell duration={102} color={theme.colors.danger}>
+  <div style={{padding: '21px 22px', background: theme.colors.panelHeavy, border: `1px solid ${theme.colors.danger}`}}>
+    <div style={{fontFamily: 'Shorts IBM Plex Mono, monospace', color: theme.colors.danger, fontSize: 15, letterSpacing: 1.25, marginBottom: 12}}>SAFETY NOTE</div>
+    <div style={{fontFamily: 'Shorts Space Grotesk, sans-serif', color: theme.colors.paper, fontSize: 63, lineHeight: 0.89, fontWeight: 700, letterSpacing: -2.3}}>DON'T TEST<br /><span style={{color: theme.colors.danger}}>WILD MUSHROOMS.</span></div>
+  </div>
+</PanelShell>;
+
+const FinalPayoff: React.FC = () => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [75, 145], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return <div style={{position: 'absolute', top: 195, left: 50, right: 50, opacity}}>
-    <FieldNote color="#d8ff9a">THE ACTUAL MYSTERY</FieldNote>
-    <div style={{marginTop: 18, fontFamily: 'Arial Black, Arial, sans-serif', color: '#fffdf4', fontSize: 55, lineHeight: 0.96, textShadow: '0 3px 12px #000'}}>THE MOLECULE<br /><span style={{color: '#d8ff9a'}}>IS STILL UNKNOWN.</span></div>
+  const {fps} = useVideoConfig();
+  const left = spring({frame, fps, config: theme.springs.card});
+  const right = spring({frame: Math.max(0, frame - 8), fps, config: theme.springs.card});
+  return <div style={{position: 'absolute', top: 310, left: 48, right: 48}}>
+    <div style={{color: theme.colors.muted, fontFamily: 'Shorts IBM Plex Mono, monospace', fontSize: 16, letterSpacing: 1.2, marginBottom: 17}}>THE ACTUAL MYSTERY</div>
+    <div style={{display: 'flex', flexDirection: 'column', gap: 13}}>
+      <div style={{padding: '16px 18px', opacity: left, transform: `translateX(${(1 - left) * -58}px)`, background: theme.colors.panel, borderLeft: `4px solid ${theme.colors.cyan}`, color: theme.colors.paper, fontFamily: 'Shorts Space Grotesk, sans-serif', fontSize: 44, fontWeight: 650, letterSpacing: -1.2}}>SPECIES: <span style={{color: theme.colors.cyan}}>KNOWN</span></div>
+      <div style={{padding: '16px 18px', opacity: right, transform: `translateX(${(1 - right) * 58}px)`, background: theme.colors.panelHeavy, borderLeft: `4px solid ${theme.colors.lime}`, color: theme.colors.paper, fontFamily: 'Shorts Space Grotesk, sans-serif', fontSize: 44, fontWeight: 650, letterSpacing: -1.2}}>MOLECULE: <span style={{color: theme.colors.lime}}>UNKNOWN</span></div>
+    </div>
   </div>;
 };
 
-const FootageTimeline: React.FC = () => (
-  <>
-    <Sequence from={0} durationInFrames={78}><FootageShot source="growth" startFrom={0} endAt={150} position="50% 68%" zoom={[1.12, 1.22]} drift={[-18, -8]} /></Sequence>
-    <Sequence from={70} durationInFrames={200}><FootageShot source="moss" startFrom={20} endAt={620} position="52% 50%" zoom={[1.1, 1.2]} drift={[18, -12]} /></Sequence>
-    <Sequence from={262} durationInFrames={158}><FootageShot source="log" startFrom={30} endAt={540} position="52% 50%" zoom={[1.14, 1.25]} drift={[-22, 4]} /></Sequence>
-    <Sequence from={412} durationInFrames={168}><FootageShot source="growth" startFrom={300} endAt={800} position="50% 65%" zoom={[1.14, 1.25]} drift={[16, -16]} /></Sequence>
-    <Sequence from={572} durationInFrames={136}><FootageShot source="moss" startFrom={210} endAt={610} position="50% 50%" zoom={[1.18, 1.26]} drift={[-20, 10]} /></Sequence>
-    <Sequence from={700} durationInFrames={132}><FootageShot source="log" startFrom={100} endAt={480} position="50% 50%" zoom={[1.13, 1.22]} drift={[16, -8]} /></Sequence>
-    <Sequence from={820} durationInFrames={122}><FootageShot source="moss" startFrom={190} endAt={560} position="50% 50%" zoom={[1.16, 1.25]} drift={[-14, 6]} /></Sequence>
-    <Sequence from={934} durationInFrames={124}><FootageShot source="log" startFrom={90} endAt={460} position="50% 50%" zoom={[1.18, 1.28]} drift={[20, -8]} /></Sequence>
-    <Sequence from={1048} durationInFrames={182}><FootageShot source="growth" startFrom={640} endAt={1230} position="50% 66%" zoom={[1.15, 1.29]} drift={[-16, -12]} fadeOut={false} /></Sequence>
-  </>
-);
+const CaptionLayer: React.FC = () => <CaptionTrack pages={captionPages}>
+  {(page) => <EditorialEmphasis
+    page={page}
+    theme={{
+      fontFamily: 'Shorts Space Grotesk, sans-serif',
+      fontSize: 47,
+      textColor: theme.colors.paper,
+      activeColor: theme.colors.lime,
+      position: 'bottom',
+      edgeOffset: 0.17,
+      paddingX: 0.095,
+      maxWidth: 0.86,
+    }}
+    emphasis={captionEmphasis}
+  />}
+</CaptionTrack>;
 
-export const MushroomShort: React.FC = () => {
-  const frame = useCurrentFrame();
-  return <AbsoluteFill style={{background: '#070b08', overflow: 'hidden'}}>
-    <FootageTimeline />
-    <GenericFootageLabel />
-    <Sequence from={270} durationInFrames={150}><DNAOverlay /></Sequence>
-    <Sequence from={420} durationInFrames={160}><PathwayOverlay /></Sequence>
-    <Sequence from={828} durationInFrames={114}><SpeciesEvidenceOverlay /></Sequence>
-    <Sequence from={905} durationInFrames={37}><UnverifiedOverlay /></Sequence>
-    <Sequence from={942} durationInFrames={108}><SafetyOverlay /></Sequence>
-    <Sequence from={1050} durationInFrames={180}><EndingOverlay /></Sequence>
-    <CaptionLayer />
-    <Audio src={staticFile('shorts023/audio/narration.mp3')} volume={1} />
-    <Audio src={staticFile('shorts023/audio/ambient-bed.wav')} volume={0.18} />
-    <Sequence from={264}><Audio src={staticFile('shorts023/audio/shimmer.wav')} volume={0.2} /></Sequence>
-    <Sequence from={570}><Audio src={staticFile('shorts023/audio/impact.wav')} volume={0.24} /></Sequence>
-    <Sequence from={936}><Audio src={staticFile('shorts023/audio/impact.wav')} volume={0.24} /></Sequence>
-    <Sequence from={1145}><Audio src={staticFile('shorts023/audio/shimmer.wav')} volume={0.16} /></Sequence>
-  </AbsoluteFill>;
+const isDialogue = (frame: number) => narrationBeats.some(({start, end}) => frame >= Math.floor(start * 30) && frame < Math.ceil(end * 30));
+
+const SoundDesign: React.FC = () => {
+  const whooshHits = [42, 120, 216, 270, 390, 450, 570, 630, 750, 810, 930, 990, 1110, 1170];
+  const throwHits = [42, 270, 450, 630, 810, 990, 1110];
+  const subHits = [0, 270, 450, 630, 810, 990, 1110];
+  const ticks = [301, 331, 361, 391, 668, 696, 724, 904];
+  return <>
+    <Audio src={audio.narration} volume={1.22} />
+    <Audio src={audio.score} volume={(frame) => isDialogue(frame) ? 0.24 : 0.38} />
+    {whooshHits.map((from) => <Sequence key={`whoosh-${from}`} from={Math.max(0, from - 5)} durationInFrames={28}><Audio src={audio.whoosh} volume={0.46} /></Sequence>)}
+    {throwHits.map((from) => <Sequence key={`throw-${from}`} from={Math.max(0, from - 2)} durationInFrames={19}><Audio src={audio.throw} volume={0.34} /></Sequence>)}
+    {subHits.map((from) => <Sequence key={`hit-${from}`} from={from} durationInFrames={32}><Audio src={audio.hit} volume={0.53} /></Sequence>)}
+    {ticks.map((from) => <Sequence key={`tick-${from}`} from={from} durationInFrames={8}><Audio src={audio.tick} volume={0.33} /></Sequence>)}
+  </>;
 };
+
+export const MushroomShort: React.FC = () => <AbsoluteFill style={{background: theme.colors.ink, overflow: 'hidden'}}>
+  <FontFaces />
+  {editorialShots.map((shot) => <Sequence key={`${shot.source}-${shot.from}`} from={shot.from} durationInFrames={shot.duration}><FootageShot shot={shot} /></Sequence>)}
+  {editorialShots.filter((shot) => shot.from > 0).map((shot) => <Sequence key={`cut-${shot.from}`} from={shot.from} durationInFrames={13}><CutImpact direction={shot.direction} /></Sequence>)}
+  <ClarityFinish />
+  <StoryKicker />
+  <ContextLabel />
+  <Sequence from={4} durationInFrames={74}><HookStrike /></Sequence>
+  <Sequence from={316} durationInFrames={176}><DnaEvidence /></Sequence>
+  <Sequence from={498} durationInFrames={168}><PathwayEvidence /></Sequence>
+  <Sequence from={670} durationInFrames={140}><UnknownEvidence /></Sequence>
+  <Sequence from={820} durationInFrames={94}><CorrectionCard /></Sequence>
+  <Sequence from={916} durationInFrames={94}><VerificationLimit /></Sequence>
+  <Sequence from={1018} durationInFrames={102}><SafetyCard /></Sequence>
+  <Sequence from={1110} durationInFrames={120}><FinalPayoff /></Sequence>
+  <CaptionLayer />
+  <SoundDesign />
+</AbsoluteFill>;
+
+export const mushroomDurationInFrames = DURATION;
