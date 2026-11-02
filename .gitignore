@@ -70,3 +70,11 @@ docs/superpowers/
 # Restored agent skills (from skills-lock.json; large, not versioned)
 .agents/skills/
 .agents/skill-index.md
+
+# Remotion short delivery outputs: keep the editable source/versioned docs, but not generated renders and QC scratch.
+media-production/node_modules/
+projects/SHORTS-2026-023-Mushroom/video.mp4
+projects/SHORTS-2026-023-Mushroom/source-archive.zip
+projects/SHORTS-2026-023-Mushroom/qc/
+projects/SHORTS-2026-023-Mushroom/cover-base.png
+projects/SHORTS-2026-023-Mushroom/cover-small.png

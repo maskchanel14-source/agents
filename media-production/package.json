@@ -1,0 +1,30 @@
+{
+  "name": "ai-media-company-remotion-shorts",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "render": "remotion render src/index.ts SHORTS-2026-023-Mushroom ../projects/SHORTS-2026-023-Mushroom/video.mp4 --codec=h264 --crf=18 --concurrency=1",
+    "still": "remotion still src/index.ts SHORTS-2026-023-Mushroom ../projects/SHORTS-2026-023-Mushroom/cover-frame.png --frame=56"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "1.1.0",
+    "@react-three/fiber": "9.8.2",
+    "@remotion/cli": "4.0.540",
+    "@remotion/media": "4.0.540",
+    "@remotion/three": "4.0.540",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.540",
+    "three": "0.183.2",
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^153.0.0",
+    "@types/three": "^0.183.0"
+  }
+}
