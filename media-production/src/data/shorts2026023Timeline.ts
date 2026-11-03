@@ -13,19 +13,19 @@ export type NarrationBeat = {
 };
 
 // These windows are derived from the exact sentence clips that make narration-v2.m4a.
-// The clip sequence is accelerated consistently at 1.13x, so captions can follow each
+// The clip sequence is cadence-normalized at render time, so captions follow each
 // spoken sentence instead of using broad, static scene titles.
 export const narrationBeats: NarrationBeat[] = [
-  {id: 'hook', start: 0, end: 2.566, text: 'One mushroom may make people see tiny humans.'},
-  {id: 'folklore', start: 2.566, end: 4.855, text: 'That sounds like folklore. It is not.'},
-  {id: 'reports', start: 4.855, end: 10.542, text: 'Reports from southwest China and the northern Philippines describe miniature figures moving around real objects.'},
-  {id: 'dna', start: 10.542, end: 16.506, text: 'In 2026, DNA linked those reported mushrooms to one species: Lanmaoa asiatica.'},
-  {id: 'genome', start: 16.506, end: 22.193, text: 'Then researchers checked its genome. No canonical pathways for psilocybin or ibotenic acid appeared.'},
-  {id: 'unknown', start: 22.193, end: 27.325, text: 'So the species has a name. The chemistry does not. The active compound is still unknown.'},
-  {id: 'limit', start: 27.325, end: 30.469, text: 'That makes this a scientific lead, not a new drug discovery.'},
-  {id: 'png', start: 30.469, end: 33.89, text: 'And reports from Papua New Guinea were not genetically verified.'},
-  {id: 'safety', start: 33.89, end: 36.756, text: 'Do not test wild mushrooms. They can poison you.'},
-  {id: 'payoff', start: 36.756, end: 40.112, text: 'The tiny people are the headline. The unknown molecule is the mystery.'},
+  {id: 'hook', start: 0, end: 2.504, text: 'One mushroom may make people see tiny humans.'},
+  {id: 'folklore', start: 2.504, end: 4.728, text: 'That sounds like folklore. It is not.'},
+  {id: 'reports', start: 4.728, end: 10.024, text: 'Reports from southwest China and the northern Philippines describe miniature figures moving around real objects.'},
+  {id: 'dna', start: 10.024, end: 15.877, text: 'In 2026, DNA linked those reported mushrooms to one species: Lanmaoa asiatica.'},
+  {id: 'genome', start: 15.877, end: 21.452, text: 'Then researchers checked its genome. No canonical pathways for psilocybin or ibotenic acid appeared.'},
+  {id: 'unknown', start: 21.452, end: 26.747, text: 'So the species has a name. The chemistry does not. The active compound is still unknown.'},
+  {id: 'limit', start: 26.747, end: 30.088, text: 'That makes this a scientific lead, not a new drug discovery.'},
+  {id: 'png', start: 30.088, end: 33.15, text: 'And reports from Papua New Guinea were not genetically verified.'},
+  {id: 'safety', start: 33.15, end: 36.212, text: 'Do not test wild mushrooms. They can poison you.'},
+  {id: 'payoff', start: 36.212, end: 40.112, text: 'The tiny people are the headline. The unknown molecule is the mystery.'},
 ];
 
 const toWordTimings = (beat: NarrationBeat): WordTiming[] => {

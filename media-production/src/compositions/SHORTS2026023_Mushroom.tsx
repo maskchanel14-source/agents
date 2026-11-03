@@ -359,13 +359,13 @@ export const MushroomShort: React.FC = () => <AbsoluteFill style={{background: t
   <StoryKicker />
   <ContextLabel />
   <Sequence from={4} durationInFrames={74}><HookStrike /></Sequence>
-  <Sequence from={316} durationInFrames={176}><DnaEvidence /></Sequence>
-  <Sequence from={498} durationInFrames={168}><PathwayEvidence /></Sequence>
-  <Sequence from={670} durationInFrames={140}><UnknownEvidence /></Sequence>
-  <Sequence from={820} durationInFrames={94}><CorrectionCard /></Sequence>
-  <Sequence from={916} durationInFrames={94}><VerificationLimit /></Sequence>
-  <Sequence from={1018} durationInFrames={102}><SafetyCard /></Sequence>
-  <Sequence from={1110} durationInFrames={120}><FinalPayoff /></Sequence>
+  <Sequence from={301} durationInFrames={175}><DnaEvidence /></Sequence>
+  <Sequence from={477} durationInFrames={167}><PathwayEvidence /></Sequence>
+  <Sequence from={645} durationInFrames={157}><UnknownEvidence /></Sequence>
+  <Sequence from={803} durationInFrames={100}><CorrectionCard /></Sequence>
+  <Sequence from={903} durationInFrames={92}><VerificationLimit /></Sequence>
+  <Sequence from={995} durationInFrames={91}><SafetyCard /></Sequence>
+  <Sequence from={1087} durationInFrames={143}><FinalPayoff /></Sequence>
   <CaptionLayer />
   <SoundDesign />
 </AbsoluteFill>;
