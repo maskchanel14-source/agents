@@ -70,3 +70,24 @@ docs/superpowers/
 # Restored agent skills (from skills-lock.json; large, not versioned)
 .agents/skills/
 .agents/skill-index.md
+
+# Remotion short delivery outputs: keep the editable source/versioned docs, but not generated renders and QC scratch.
+media-production/node_modules/
+projects/SHORTS-2026-023-Mushroom/video.mp4
+projects/SHORTS-2026-023-Mushroom/source-archive.zip
+projects/SHORTS-2026-023-Mushroom/qc/
+projects/SHORTS-2026-023-Mushroom/cover-base.png
+projects/SHORTS-2026-023-Mushroom/cover-small.png
+projects/SHORTS-2026-023-Mushroom/FULL-DELIVERY-BUNDLE.zip
+projects/SHORTS-2026-023-Mushroom/SHA256SUMS.txt
+
+# User-provided source footage and local download/QC staging for SHORTS-2026-023.
+# Footage is delivered separately in Drive because the source clips exceed repository limits.
+media-production/public/shorts023/footage/
+google_drive/
+image-search/
+qc-footage/
+
+# In-progress V2 rebuild media and QC: source code and planning docs remain versioned.
+media-production/public/shorts023/audio/v2/
+projects/SHORTS-2026-023-Mushroom/renders/
