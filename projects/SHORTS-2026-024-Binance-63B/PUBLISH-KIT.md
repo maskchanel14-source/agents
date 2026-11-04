@@ -1,20 +1,27 @@
-# PUBLISH KIT — SHORTS-2026-024B "The Twenty-Minute Heist"
+# PUBLISH KIT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 3
 
-67.0 s · 1080×1920 · 30 fps · English VO · −14.8 LUFS
+68.5 s · 1080×1920 · 30 fps · English VO · host-led 2D explainer
+
+Revision 3 is the "teacher" cut: a host walks the viewer through the case in
+plain language, with one illustration per beat and the numbers set as type.
 
 ## Title (pick one)
 
-1. In 20 Minutes, $6.3 Billion Walked Out of Binance
-2. The Biggest Crypto Heist Started With a Fake Job Interview
-3. One Laptop. Twenty Minutes. Six Billion Dollars.
+1. How $6.3 Billion Left Binance in 20 Minutes
+2. The Biggest Crypto Heist Ever — Explained Simply
+3. It Wasn't the Vault. It Was a Job Interview.
 
 ## Description
+
+Twenty minutes. Six point three billion dollars. Gone.
 
 On 29 October 2026, at 20:05 UTC, roughly $6.36 billion left Binance wallets
 across ten blockchains — most of it inside twenty minutes. It is the largest
 crypto theft ever recorded.
 
-This short explains how, with the numbers that are actually confirmed.
+This short walks through how it happened, in plain language: what a hot wallet
+is, why nobody could freeze the Bitcoin, and how the door turned out to be a
+fake job interview rather than a broken vault.
 
 Sources:
 - TRM Labs — ~USD 6.36 billion across ten blockchains, most of it in about
@@ -44,29 +51,35 @@ fake job interview scam, cyber security, crypto explained, animated shorts
 
 #Binance #CryptoHack #CryptoNews #CyberSecurity #Shorts
 
-## Chapters (for the long-form re-upload)
+## Chapters
 
 ```
-0:00  Twenty minutes
-0:07  29 Oct 2026, 20:05 UTC
-0:15  Ten blockchains at once
-0:24  18,270 Bitcoin
-0:30  $3 billion frozen
-0:35  It wasn't the vault
-0:47  One laptop
-0:51  Binance paid it back
-0:56  TraderTraitor
+0:00  Twenty minutes, $6.3 billion
+0:05  What a crypto exchange is
+0:10  The hot wallet
+0:15  29 Oct · 20:05 UTC
+0:22  18,270 Bitcoin
+0:27  $3B frozen / $2.4B gone
+0:32  How they got in
+0:43  One laptop, one click
+0:48  Every dollar repaid
+0:59  4x the record
+1:04  Somebody asked for the keys
 ```
 
 ## Thumbnail
 
-`02_COVER.png` — the wide establishing shot of the town with the gold vault and
-the lower-third title. Drop the title text "20 MENIT / $6.3B" over the upper
-third for the click.
+`02_COVER.png` — the host over the open vault with the caption "20 MINUTES".
+For the click, keep the type over the lower half (the host's head occupies the
+middle) so nothing important is cropped by YouTube's UI.
 
 ## Notes for the editor
 
-- The first line lands at 0.5 s. Do not add an intro sting before it.
-- The last shot is framed to match the first, so the loop replays cleanly.
-- The music is ducked −6 dB under the narration the whole way; there is a 1.6 s
-  music tail after the last spoken word if you need breathing room for an end card.
+- The first line lands at 0.6 s. Do not add an intro sting before it.
+- The host is on screen for the hook, the hot-wallet explanation, the "how did
+  they get in?" question, the "one laptop" beat and the close. He is off screen
+  whenever the illustration alone carries the point.
+- The music is ducked −6 dB under the narration the whole way; there is a ~1.2 s
+  music tail after the last spoken word for an end card.
+- Captions are burned in as display type, so no separate .srt is required — but
+  upload the auto-captions anyway for accessibility.

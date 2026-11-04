@@ -501,9 +501,9 @@ def build_sfx(timeline: list[dict]) -> tuple[np.ndarray, list[dict]]:
     return bed, log
 
 
-def duck_envelope(timeline: list[dict]) -> np.ndarray:
+def duck_envelope(timeline: list[dict], total_seconds: float = TOTAL_SECONDS) -> np.ndarray:
     """1.0 where voice is active, smoothed: 50 ms attack, 250 ms release."""
-    n = int(TOTAL_SECONDS * SR)
+    n = int(total_seconds * SR)
     env = np.zeros(n)
     for c in timeline:
         a = int((c["start"] - 0.06) * SR)

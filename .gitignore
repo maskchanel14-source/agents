@@ -100,3 +100,9 @@ projects/SHORTS-2026-024-Binance-63B/audio/_tmp/
 projects/SHORTS-2026-024-Binance-63B/qc/
 projects/SHORTS-2026-024-Binance-63B/delivery/
 projects/SHORTS-2026-024-Binance-63B/stills/
+
+# SHORTS-2026-024-Binance-63B revision 3: generated scene art + TTS staging.
+# The scene PNGs ship inside 06_SOURCE-ARCHIVE.zip in the Drive delivery.
+media-production/public/shorts024/scenes/
+projects/SHORTS-2026-024-Binance-63B/audio/_tts/
+projects/SHORTS-2026-024-Binance-63B/audio/_tmp3/
