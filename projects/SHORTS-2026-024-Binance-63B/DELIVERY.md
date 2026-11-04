@@ -28,5 +28,6 @@ Sharing: private (owner only). No public link has been created.
 ## Revision 1 — flat vector style — 2026-11-04
 
 Google Drive folder: https://drive.google.com/drive/folders/1a_64kAguNqwEA94ppLl9bXRaO32-DS_I
-Superseded by revision 2. Kept for reference; the rev-2 folder is a sibling, not
-a replacement, so nothing was overwritten.
+Superseded by revision 2 and moved to the Drive trash on 2026-11-05 (still
+restorable, id 1a_64kAguNqwEA94ppLl9bXRaO32-DS_I). The rev-2 folder is a
+sibling, not a replacement, so nothing was overwritten.
