@@ -55,6 +55,33 @@ cost is real: **~4.6 s/frame**, about **2 h 35 min** for all 2010 frames.
 The scene itself is 3.9 s/frame; the LensBlur resolve is ~0.7 s/frame.
 On a machine with a GPU the same composition is a few minutes.
 
+## Rendered 2026-11-04
+
+`out/final.mp4` — 67.00 s, 1080×1920, 30 fps, H.264 5235 kb/s + AAC 192 k mono,
+45.7 MB. Silent master `out/video-silent.mp4` (43.9 MB, crf 18).
+
+Per-shot exposure measured on the rendered stills (mean luma / p95 / crushed):
+
+| Shot | Beat | mean | p95 | < 0.06 |
+| --- | --- | --- | --- | --- |
+| 1 | $6.3 BILLION | 0.315 | 0.567 | 1.9 % |
+| 2 | 29 OCT 2026 · 20:05 UTC | 0.422 | 0.754 | 4.6 % |
+| 3 | 10 BLOCKCHAINS | 0.336 | 0.664 | 1.4 % |
+| 4 | 18,270 BTC | 0.362 | 0.730 | 4.3 % |
+| 5 | $3B FROZEN | 0.271 | 0.467 | 8.4 % |
+| 6 | FAKE JOB INTERVIEW | 0.364 | 0.909 | 0.3 % |
+| 7 | ONE LAPTOP | 0.433 | 0.929 | 0.0 % |
+| 8 | $6.34B REFUNDED | 0.331 | 0.577 | 2.5 % |
+| 9 | LARGEST CRYPTO THEFT | 0.265 | 0.529 | 0.0 % |
+
+No shot clips to black and none is blown out. Shot 5 is deliberately the
+darkest — it is the freeze beat. Shots 6 and 7 carry the brightest values
+because the whole frame is lit by one window.
+
+Stills are now extracted at each shot's **first** frame rather than its middle:
+the camera spline only sits exactly on a waypoint at the start of a shot, so
+those are the frames that show the intended composition.
+
 ## Files
 
 - `media-production/src/theme.ts` — new palette, per-surface PBR table, dusk
