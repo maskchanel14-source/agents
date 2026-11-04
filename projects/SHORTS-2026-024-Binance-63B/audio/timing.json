@@ -1,0 +1,171 @@
+{
+  "fps": 30,
+  "total_frames": 2010,
+  "total_seconds": 67.0,
+  "atempo": 1.07,
+  "lead_in": 0.5,
+  "gap": 0.18,
+  "vo_end": 65.389,
+  "clips": [
+    {
+      "id": "L1",
+      "file": "vo_l1_hook.wav",
+      "sfx": [
+        "riser"
+      ],
+      "start": 0.5,
+      "end": 6.5545,
+      "duration": 6.0545,
+      "raw_duration": 6.4784,
+      "start_frame": 15,
+      "end_frame": 197
+    },
+    {
+      "id": "B1",
+      "file": "vo_b1_setup.wav",
+      "sfx": [
+        "vault_slam"
+      ],
+      "start": 6.7345,
+      "end": 15.0243,
+      "duration": 8.2897,
+      "raw_duration": 8.87,
+      "start_frame": 202,
+      "end_frame": 451
+    },
+    {
+      "id": "B2a",
+      "file": "vo_b2a_chains.wav",
+      "sfx": [
+        "coin_pour"
+      ],
+      "start": 15.2043,
+      "end": 23.4181,
+      "duration": 8.2138,
+      "raw_duration": 8.7888,
+      "start_frame": 456,
+      "end_frame": 703
+    },
+    {
+      "id": "B2b",
+      "file": "vo_b2b_bitcoin.wav",
+      "sfx": [],
+      "start": 23.5981,
+      "end": 30.2168,
+      "duration": 6.6188,
+      "raw_duration": 7.0821,
+      "start_frame": 708,
+      "end_frame": 907
+    },
+    {
+      "id": "B2c",
+      "file": "vo_b2c_frozen.wav",
+      "sfx": [
+        "freeze"
+      ],
+      "start": 30.3968,
+      "end": 35.2578,
+      "duration": 4.861,
+      "raw_duration": 5.2013,
+      "start_frame": 912,
+      "end_frame": 1058
+    },
+    {
+      "id": "B3a",
+      "file": "vo_b3a_door.wav",
+      "sfx": [],
+      "start": 35.4378,
+      "end": 37.5428,
+      "duration": 2.105,
+      "raw_duration": 2.2523,
+      "start_frame": 1063,
+      "end_frame": 1126
+    },
+    {
+      "id": "B3b",
+      "file": "vo_b3b_interview.wav",
+      "sfx": [
+        "glitch"
+      ],
+      "start": 37.7228,
+      "end": 46.49,
+      "duration": 8.7672,
+      "raw_duration": 9.3809,
+      "start_frame": 1132,
+      "end_frame": 1395
+    },
+    {
+      "id": "B3c",
+      "file": "vo_b3c_laptop.wav",
+      "sfx": [],
+      "start": 46.67,
+      "end": 50.7715,
+      "duration": 4.1015,
+      "raw_duration": 4.3886,
+      "start_frame": 1400,
+      "end_frame": 1523
+    },
+    {
+      "id": "P1",
+      "file": "vo_p1_paid.wav",
+      "sfx": [],
+      "start": 50.9515,
+      "end": 56.0078,
+      "duration": 5.0563,
+      "raw_duration": 5.4102,
+      "start_frame": 1529,
+      "end_frame": 1680
+    },
+    {
+      "id": "P2",
+      "file": "vo_p2_blame.wav",
+      "sfx": [
+        "boom"
+      ],
+      "start": 56.1878,
+      "end": 65.389,
+      "duration": 9.2012,
+      "raw_duration": 9.8453,
+      "start_frame": 1686,
+      "end_frame": 1962
+    }
+  ],
+  "sfx": [
+    {
+      "name": "riser",
+      "at": 0.32,
+      "dur": 1.1,
+      "clip": "L1"
+    },
+    {
+      "name": "vault_slam",
+      "at": 6.715,
+      "dur": 1.5,
+      "clip": "B1"
+    },
+    {
+      "name": "coin_pour",
+      "at": 15.184,
+      "dur": 2.2,
+      "clip": "B2a"
+    },
+    {
+      "name": "freeze",
+      "at": 30.377,
+      "dur": 1.6,
+      "clip": "B2c"
+    },
+    {
+      "name": "glitch",
+      "at": 37.703,
+      "dur": 1.3,
+      "clip": "B3b"
+    },
+    {
+      "name": "boom",
+      "at": 56.168,
+      "dur": 2.4,
+      "clip": "P2"
+    }
+  ]
+}

@@ -91,3 +91,10 @@ qc-footage/
 # In-progress V2 rebuild media and QC: source code and planning docs remain versioned.
 media-production/public/shorts023/audio/v2/
 projects/SHORTS-2026-023-Mushroom/renders/
+
+# SHORTS-2026-024-Binance-63B delivery: keep source + docs, not the rendered binaries.
+projects/SHORTS-2026-024-Binance-63B/out/*.mp4
+projects/SHORTS-2026-024-Binance-63B/audio/*.wav
+projects/SHORTS-2026-024-Binance-63B/audio/_tmp/
+
+projects/SHORTS-2026-024-Binance-63B/qc/
