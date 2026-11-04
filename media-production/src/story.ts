@@ -107,7 +107,7 @@ export const SHOTS: Shot[] = [
     id: 7,
     start: 1400,
     end: 1530, // 46.67 – 51.00 s
-    camera: {pos: [8, 14.2, -2], lookAt: [10.5, 13.4, -8.4]},
+    camera: {pos: [5.2, 14.6, 2.6], lookAt: [10.5, 13.4, -8.2]},
     voId: 'B3c',
     script: 'From that one laptop, the attacker took the whole system.',
     action: 'type',

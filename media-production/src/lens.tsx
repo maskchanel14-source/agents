@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {useFrame, useThree} from '@react-three/fiber';
 import {
   DepthTexture,
+  HalfFloatType,
   LinearFilter,
   Mesh,
   OrthographicCamera,
@@ -9,7 +10,6 @@ import {
   RGBAFormat,
   Scene,
   ShaderMaterial,
-  UnsignedByteType,
   UnsignedIntType,
   Vector2,
   WebGLRenderTarget,
@@ -42,12 +42,50 @@ const FRAG = /* glsl */ `
   uniform float uRange;        // world units either side of focus that stay sharp
   uniform float uBgPx;         // max background blur, px
   uniform float uFgPx;         // max foreground blur, px
+  uniform float uExposure;
 
   varying vec2 vUv;
 
+  // ---------------------------------------------------------------------
+  // Tone mapping has to live HERE, not on the renderer.
+  //
+  // WebGLRenderer skips tone mapping entirely when the draw target is a
+  // render target (WebGLRenderer.js: "if ( _currentRenderTarget === null ||
+  // isXRRenderTarget )"), which is exactly the case for this pass — so
+  // renderer.toneMapping and renderer.toneMappingExposure were both silently
+  // ignored and every frame came out flat and untonemapped.
+  //
+  // Verbatim port of three's ACESFilmicToneMapping, renamed: three injects
+  // tonemapping_pars_fragment into every non-raw ShaderMaterial, so the stock
+  // names would collide and fail to compile.
+  // ---------------------------------------------------------------------
+  vec3 lensRRT( vec3 v ) {
+    vec3 a = v * ( v + 0.0245786 ) - 0.000090537;
+    vec3 b = v * ( 0.983729 * v + 0.4329510 ) + 0.238081;
+    return a / b;
+  }
+
+  vec3 lensACES( vec3 color ) {
+    const mat3 ACESInputMat = mat3(
+      vec3( 0.59719, 0.07600, 0.02840 ),
+      vec3( 0.35458, 0.90834, 0.13383 ),
+      vec3( 0.04823, 0.01566, 0.83777 )
+    );
+    const mat3 ACESOutputMat = mat3(
+      vec3(  1.60475, -0.10208, -0.00327 ),
+      vec3( -0.53108,  1.10813, -0.07276 ),
+      vec3( -0.07367, -0.00605,  1.07602 )
+    );
+    color *= uExposure / 0.6;
+    color = ACESInputMat * color;
+    color = lensRRT( color );
+    color = ACESOutputMat * color;
+    return clamp( color, 0.0, 1.0 );
+  }
+
   // The scene is rendered into a *linear* target, so the blur happens in linear
   // light and this pass owns the sRGB encode on the way out.
-  vec3 linearToSRGB(vec3 c) {
+  vec3 lensToSRGB(vec3 c) {
     c = max(c, vec3(0.0));
     return mix(1.055 * pow(c, vec3(1.0 / 2.4)) - 0.055, c * 12.92, step(c, vec3(0.0031308)));
   }
@@ -65,7 +103,7 @@ const FRAG = /* glsl */ `
 
     vec4 centre = texture2D(uColor, vUv);
     if (radius < 0.6) {
-      gl_FragColor = vec4(linearToSRGB(centre.rgb), centre.a);
+      gl_FragColor = vec4(lensToSRGB(lensACES(centre.rgb)), centre.a);
       return;
     }
 
@@ -90,7 +128,7 @@ const FRAG = /* glsl */ `
       wsum += w;
     }
 
-    gl_FragColor = vec4(linearToSRGB(sum / wsum), centre.a);
+    gl_FragColor = vec4(lensToSRGB(lensACES(sum / wsum)), centre.a);
   }
 `;
 
@@ -111,6 +149,8 @@ export type LensBlurProps = {
   backgroundPx?: number;
   /** Foreground blur in frame pixels (style bible: 4). */
   foregroundPx?: number;
+  /** ACES exposure applied on resolve (three skips it for render targets). */
+  exposure?: number;
 };
 
 export const LensBlur: React.FC<LensBlurProps> = ({
@@ -118,6 +158,7 @@ export const LensBlur: React.FC<LensBlurProps> = ({
   range = 12,
   backgroundPx = 10,
   foregroundPx = 4,
+  exposure = 1,
 }) => {
   const {gl, scene, camera, size} = useThree();
 
@@ -131,9 +172,12 @@ export const LensBlur: React.FC<LensBlurProps> = ({
     depth.minFilter = LinearFilter;
     depth.magFilter = LinearFilter;
 
+    // Half-float: the scene render is untonemapped linear, so sunlit surfaces
+    // and the sky blow well past 1.0. An 8-bit target clipped them before the
+    // ACES curve ever saw them, and banded everything below 0.05.
     const target = new WebGLRenderTarget(w, h, {
       format: RGBAFormat,
-      type: UnsignedByteType,
+      type: HalfFloatType,
       minFilter: LinearFilter,
       magFilter: LinearFilter,
       depthBuffer: true,
@@ -156,6 +200,7 @@ export const LensBlur: React.FC<LensBlurProps> = ({
         uRange: {value: range},
         uBgPx: {value: backgroundPx},
         uFgPx: {value: foregroundPx},
+        uExposure: {value: exposure},
       },
     });
 
@@ -171,6 +216,7 @@ export const LensBlur: React.FC<LensBlurProps> = ({
 
   const cam = camera as {near: number; far: number};
   rig.material.uniforms.uFocus.value = focusWorld;
+  rig.material.uniforms.uExposure.value = exposure;
   rig.material.uniforms.uNear.value = cam.near;
   rig.material.uniforms.uFar.value = cam.far;
 
