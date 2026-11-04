@@ -1,77 +1,99 @@
-# QC REPORT — SHORTS-2026-024B "The Twenty-Minute Heist"
+# QC REPORT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 3
 
-**Revision 2 (semi-realist 3D).** Rendered 2026-11-05. Master: `01_VIDEO.mp4`.
-See `REVISION-2.md` for what changed from revision 1.
+Rendered 2026-11-05 · branch `arena/ce22919c-agents` · PR #22
+Composition `SHORTS-2026-024-Binance63B` · 2055 frames @ 30 fps
 
-## Master spec
+## 1. Master
 
-| Property | Value | Verdict |
+| Item | Measured |
+| --- | --- |
+| Duration | 68.50 s (2055 frames) |
+| Resolution | 1080 × 1920, SAR 1:1, 30 fps |
+| Video | H.264 High, yuvj420p, 3107 kb/s, CRF 18 |
+| Audio | AAC-LC, 44.1 kHz, mono, 192 kb/s |
+| Container size | 27.6 MB |
+| Silent picture master | `out/video-silent-rev3.mp4`, 26.6 MB |
+
+## 2. Audio
+
+| Item | Measured | Target |
 | --- | --- | --- |
-| Duration | 67.000 s (2010 frames @ 30 fps) | PASS (55–70 s) |
-| Resolution | 1080×1920 | PASS |
-| Frame rate | 30 fps, constant | PASS |
-| Video codec | H.264 High, yuv420p, 5235 kb/s | PASS |
-| Audio | AAC-LC 44.1 kHz mono, 192 kb/s | PASS |
-| Script length | 138 words | PASS (130–150) |
-| Hook | 9 words, one sentence | PASS (8–12) |
-| Cuts | 0 — one continuous Catmull-Rom glide | PASS |
+| Integrated loudness | **−14.46 LUFS** | −14 LUFS |
+| True peak | −1.42 dBFS | ≤ −1.5 dBFS |
+| Loudness range | 2.20 LU | — |
+| VO pace | atempo 1.06 | teacher pace |
+| Music ducking | −6 dB under voice, 50 ms attack / 250 ms release | −6 dB |
+| SFX | 5 (riser, coin pour, freeze, glitch, sub boom) at −12 dBFS peak | — |
 
-## Per-shot exposure (measured on rendered stills)
+VO ends at 67.27 s; the bed runs 1.23 s past it for the end card.
 
-| Shot | Beat | mean luma | p95 | crushed < 0.06 | clipped |
-| --- | --- | --- | --- | --- | --- |
-| 1 | $6.3 BILLION | 0.315 | 0.567 | 1.9 % | 0.0 % |
-| 2 | 29 OCT 2026 · 20:05 UTC | 0.422 | 0.754 | 4.6 % | 0.0 % |
-| 3 | 10 BLOCKCHAINS | 0.336 | 0.664 | 1.4 % | 0.0 % |
-| 4 | 18,270 BTC | 0.362 | 0.730 | 4.3 % | 0.0 % |
-| 5 | $3B FROZEN | 0.271 | 0.467 | 8.4 % | 0.0 % |
-| 6 | FAKE JOB INTERVIEW | 0.364 | 0.909 | 0.3 % | 0.0 % |
-| 7 | ONE LAPTOP | 0.433 | 0.929 | 0.0 % | 0.0 % |
-| 8 | $6.34B REFUNDED | 0.331 | 0.577 | 2.5 % | 0.0 % |
-| 9 | LARGEST CRYPTO THEFT | 0.265 | 0.529 | 0.0 % | 0.0 % |
+## 3. Exposure per beat
 
-Shot 5 is deliberately the darkest — it is the freeze beat. Shots 6 and 7 carry
-the brightest values because the entire frame is lit by a single window.
+Measured on the delivered stills with `scripts/ascii_frame.py` (mean luma,
+95th percentile, and the share of pixels below 0.06 luma).
 
-## Audio (unchanged from revision 1)
+| Beat | Frame | mean | p95 | crushed <0.06 |
+| --- | --- | --- | --- | --- |
+| 01 hook — host + open vault | 60 | 0.159 | 0.444 | 3.8 % |
+| 02 the exchange | 220 | 0.176 | 0.511 | 1.7 % |
+| 03 hot wallet — host explains | 380 | 0.275 | 0.861 | 3.1 % |
+| 04 29 Oct, 20:05, ten chains | 600 | 0.169 | 0.523 | 3.8 % |
+| 05 18,270 BTC | 740 | 0.163 | 0.570 | 3.9 % |
+| 06 $3B frozen / $2.4B gone | 890 | 0.215 | 0.723 | 1.0 % |
+| 07 "how did they get in?" — host | 1040 | 0.186 | 0.497 | 1.2 % |
+| 08 the fake interview | 1220 | 0.162 | 0.469 | 4.6 % |
+| 09 one laptop — host | 1400 | 0.152 | 0.393 | 2.0 % |
+| 10 every dollar repaid | 1520 | 0.237 | 0.847 | 2.1 % |
+| 11 attribution | 1700 | 0.192 | 0.788 | 7.4 % |
+| 12 the record (bar chart) | 1890 | 0.133 | 0.318 | 4.1 % |
+| 13 close — host | 1990 | 0.149 | 0.407 | 2.9 % |
 
-| Stem | Measured | Target |
-| --- | --- | --- |
-| Music (100 BPM march) | RMS −18.0 dBFS | −18 dB |
-| SFX (5 cues) | peak −12.0 dBFS | −12 dB |
-| Ducking under VO | −6.00 dB, 88 ms attack | −6 dB, 50 ms |
-| Master | −14.8 LUFS / −1.4 dBTP | −14 LUFS |
+Nothing crushes to black and nothing blows out. The film sits at a mean of
+0.13–0.28 on purpose: the backdrop is a designed deep navy (floor #131E33), and
+the brightness is carried by the type, the numbers and the host.
+An earlier pass used a near-black backdrop and 36–51 % of every frame fell below
+0.06 luma; the floor was lifted and the vignette softened before the final
+render.
 
-## Rig verification
+## 4. Host verification
 
-Checked with a throwaway full-frame composition and read back as ASCII
-(`scripts/ascii_frame.py`): head, cap, torso, both upper arms, both forearms,
-both thighs, both shins and both feet all project to the expected screen
-positions, symmetric about the centre line, at real human proportions. The walk
-and march cycles are continuous and left/right opposed; the salute raises the
-character's right arm (screen left, since the figure faces camera).
+- On screen in 5 windows: 12–170 (hook, full), 292–468 (hot wallet, present),
+  966–1132 (the question, full), 1292–1466 (one laptop, present),
+  1912–2055 (close, full).
+- Mouth is driven by `audio/mouth.json`, a per-frame RMS curve of the actual VO
+  (2055 values, 0–100), so he moves with the words rather than on a loop.
+- Eyes blink on a deterministic 3.8 s double-blink cycle; the torso breathes at
+  0.8 Hz; the right arm takes `point` on the hot-wallet beat and `open` on the
+  question and "one laptop" beats.
+- The card shrinks from 660 px to 520 px and the caption lifts whenever the host
+  is full-frame, so his head never collides with the type.
 
-## Known open items
+## 5. Script and fact check
 
-1. **Characters are small in the wides.** They now occupy roughly 8–14 % of
-   frame height in shots 1, 2 and 9 (revision 1 was 3–5 %). Making them bigger
-   would mean either closer cameras or abandoning the establishing shots.
-2. **The camera only sits on its waypoint at the first frame of each shot** and
-   glides for the rest of it. That is the "no hard cuts" design, but it means
-   each beat's hero composition exists for only an instant. Holding the framing
-   for ~45 % of each shot before gliding would be the fix.
-3. **Dolly rate is still above the style bible's 0.8 u/s** — the nine beats span
-   a ~110-unit town and the glide is continuous.
-4. **PHASE 0 (reference-channel comparison) has not been run.** It needs
-   YouTube access this build sandbox does not have. `references/frames/README.md`
-   has the commands.
-5. **The salute lands the hand beside the head, not on the temple.** With real
-   arm proportions the shoulder-to-temple distance is too short for the hand to
-   reach with the elbow out; it reads as a raised-arm gesture. Only visible in
-   one wide shot.
+- 170 words, 10 VO lines, every line 10–27 words. Teacher register: the
+  analogy lands before the jargon ("a bank for digital money" before
+  *exchange*, "a small pile online" before *hot wallet*).
+- Every line maps to a fact id in `facts.json`; the mapping is in
+  `script-rev3.txt`.
+- **One claim was dropped.** Revisions 1 and 2 said "the world's largest crypto
+  exchange". No source sentence in `facts.json` states that, so the line is now
+  "Binance is a crypto exchange".
+- No number was invented for the visuals: the chain chips name only the four
+  chains the sources name (ETH, BTC, TRON, SOL) and label the other six
+  generically.
 
-## Fact check
+## 6. Known open items
 
-14 facts in `facts.json`, each carrying the verbatim source sentence and URL.
-No claim in the VO is unsourced. On-screen numbers are cross-referenced to their
-fact IDs under `numbers_used_on_screen`.
+1. **Two beats are hand-drawn vector scenes, not generated illustrations** —
+   the attribution dossier (frame 1652) and the record bar chart (frame 1772).
+   Image generation hit its per-turn limit at 10. Both are animated, so they
+   read as designed rather than as a missing asset.
+2. **The host is energy-driven, not phoneme-driven.** He opens and closes on the
+   real voice envelope, which reads correctly at short-form scale but is not
+   true viseme lip sync.
+3. **The illustrations are AI-generated** from a fixed style prompt. They are
+   consistent in palette, but a viewer may spot the usual generative artefacts
+   on close inspection. They can be swapped one-for-one in
+   `media-production/public/shorts024/scenes/` without touching the code.
+4. **Revision 2 is still renderable** as `SHORTS-2026-024-Binance63B-3D-rev2`
+   if the semi-realist 3D look is ever wanted again.
