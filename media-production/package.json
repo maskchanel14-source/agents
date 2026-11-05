@@ -7,20 +7,32 @@
     "studio": "remotion studio src/index.ts",
     "typecheck": "tsc --noEmit",
     "render": "remotion render src/index.ts SHORTS-2026-023-Mushroom ../projects/SHORTS-2026-023-Mushroom/video.mp4 --codec=h264 --crf=18 --concurrency=1",
-    "still": "remotion still src/index.ts SHORTS-2026-023-Mushroom ../projects/SHORTS-2026-023-Mushroom/cover-frame.png --frame=56"
+    "still": "remotion still src/index.ts SHORTS-2026-023-Mushroom ../projects/SHORTS-2026-023-Mushroom/cover-frame.png --frame=56",
+    "audio:024": "python3 scripts/shorts024_audio.py",
+    "render:024": "bash scripts/render-shorts024.sh",
+    "stills:024": "node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot1_f0100.png --shot 1 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot2_f0327.png --shot 2 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot3_f0580.png --shot 3 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot4_f0807.png --shot 4 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot5_f0985.png --shot 5 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot6_f1230.png --shot 6 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot7_f1465.png --shot 7 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot8_f1607.png --shot 8 && node scripts/still.mjs --out ../projects/SHORTS-2026-024-Binance-63B/stills/shot9_f1847.png --shot 9",
+    "qa:024": "python3 scripts/analyze_frame.py ../projects/SHORTS-2026-024-Binance-63B/stills/shot*.png"
   },
   "dependencies": {
+    "@dicebear/core": "^10.7.0",
+    "@dicebear/styles": "^10.6.0",
     "@ffmpeg-installer/ffmpeg": "1.1.0",
     "@fontsource-variable/space-grotesk": "5.3.0",
     "@fontsource/ibm-plex-mono": "5.3.0",
+    "@react-three/fiber": "^9.8.2",
+    "@react-three/postprocessing": "^3.2.2",
     "@remotion/cli": "4.0.540",
     "@remotion/media": "4.0.540",
+    "@remotion/three": "^4.0.540",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
+    "@types/three": "^0.180.0",
+    "postprocessing": "^6.39.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.540",
     "remotion-captions-kit": "0.2.0",
+    "three": "^0.180.0",
     "typescript": "5.9.3"
   },
   "devDependencies": {

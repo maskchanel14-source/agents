@@ -1,0 +1,135 @@
+SHORTS-2026-024-Binance-63B — "The Twenty-Minute Heist" — REVISION 3 (2D explainer)
+=================================================================================
+
+Format   : 2D editorial illustration + on-screen host ("the teacher")
+VO       : English (en), teacher register — plain words, short sentences,
+           one idea per line, analogies before jargon
+Structure: HOOK / SETUP (2 lines) / ESCALATION (3) / TWIST (3) / PAYOFF (3) / CLOSE
+Runtime  : target 72-80 s @ 30 fps (measured after TTS; timing.json is the truth)
+
+The host is a vector character who speaks straight to camera at the hook, at the
+turn into the twist, and at the close — and steps in again whenever a concept
+needs explaining in plain language (the hot-wallet analogy, the "one laptop"
+moment). Every other line is carried by a full illustration that matches the
+words exactly.
+
+=================================================================================
+LINES  (id · words · host on screen? · illustration)
+=================================================================================
+
+L1   (13 w · HOST full frame)
+     In twenty minutes, six point three billion dollars walked out of Binance.
+     scene: a vault door standing open, coins streaming out into a dark room
+     overlay: "20 MINUTES" / "$6.3 BILLION"
+
+B1   (13 w · illustration)
+     Binance is a crypto exchange — think of it as a bank for digital money.
+     scene: a modern exchange building at dusk, windows lit, crowds of small
+            anonymous figures outside
+     overlay: kicker "CRYPTO EXCHANGE"
+
+B1b  (17 w · HOST, explaining)
+     It keeps a small pile online for everyday withdrawals. That's the hot wallet.
+     scene: an open cash drawer wired to the internet, next to a sealed safe
+     overlay: label "HOT WALLET" / "ONLINE"
+     note: the host points at the drawer — this is the key concept of the film
+
+B2a  (15 w · illustration)
+     On October twenty-ninth, at 8:05 PM UTC, that wallet started draining —
+     across ten blockchains.
+     scene: a clock frozen at 20:05, ten chain lanes pouring out of it
+     overlay: ten chain chips appearing one by one
+
+B2b  (11 w · illustration)
+     Eighteen thousand Bitcoin left too. And nobody can freeze Bitcoin.
+     scene: Bitcoin blocks splitting into neat 1,000 and 100 pieces, drifting
+            away from a reaching hand
+     overlay: "18,270 BTC"
+
+B2c  (15 w · illustration)
+     Issuers froze three billion. But two point four billion was already out of
+     reach.
+     scene: coins locked in ice on the left, coins sailing past a horizon line
+            on the right
+     overlay: split bar  $3.0B frozen  |  $2.4B gone
+
+B3a  (10 w · HOST full frame)
+     So how did they get in? They never broke the vault.
+     scene: the vault, intact, untouched
+     overlay: big question mark, then the vault
+
+B3b  (18 w · illustration)
+     An engineer interviewed at a company that didn't exist, then downloaded
+     their code test. It was malware.
+     scene: a laptop video call — the "CEO" on screen glitching, a download
+            arrow turning into a snake
+     overlay: "FAKE COMPANY" / "CODE TEST = MALWARE"
+
+B3c  (11 w · HOST, explaining)
+     One laptop. One click. The attacker held the keys to everything.
+     scene: one laptop, its cables running into a wall of servers
+     overlay: "1 LAPTOP → 50 AUTHORISATIONS"
+
+P1   (13 w · illustration)
+     Binance covered every dollar from its own funds, and withdrawals reopened
+     three days later.
+     scene: a calendar page turning to 1 November, doors opening, coins flowing
+            back in
+     overlay: "1 NOV · WITHDRAWALS OPEN"
+
+P2   (11 w · illustration)
+     The FBI blames TraderTraitor — North Korea's elite hacking unit.
+     scene: a case file / dossier with a silhouetted peninsula
+     overlay: "FBI · TRADERTRAITOR"
+
+P3   (12 w · illustration)
+     The largest crypto theft ever. Four times the old record.
+     scene: bar chart growing — one short bar, one enormous bar
+     overlay: "$1.5B BYBIT" vs "$6.36B BINANCE"
+
+C1   (11 w · HOST full frame)
+     The vault was never broken. Somebody just asked for the keys.
+     scene: end card — the host, then the title
+     overlay: title card + "SOURCES: TRM LABS · CHAINALYSIS · AP · CNN"
+
+TOTAL 170 words across 13 lines.
+
+=================================================================================
+FACT ANCHORS  (every claim maps to facts.json; nothing is inferred past the
+source sentence)
+=================================================================================
+L1   -> F1, F2       ~$6.36B / ~$6.4B, "most of it in about 20 minutes"
+B1   -> F2           Binance = exchange holding hot wallets
+B1b  -> F2, F4       "funds began leaving Binance hot wallets"
+B2a  -> F1, F2       29 Oct 2026, 20:05 UTC, ten blockchains
+B2b  -> F4, F5       18,270 BTC; $2.4B "beyond any issuer's reach"
+B2c  -> F6, F5       ~$3B frozen, >$2.3B by Tether + Circle; $2.4B gone
+B3a  -> F8, F10      foothold was a person, not a broken vault
+B3b  -> F8, F9       fake job interview, fictitious company "CEO", malicious repo
+B3c  -> F10, F14     one dev machine + stolen credentials; 50 pre-signed
+                     authorisations in a single transaction
+P1   -> F7, F12      >$6.34B reserved by Binance; phased withdrawal resumption
+                     on 1 Nov 2026 (Oct 29 -> Nov 1 = three days)
+P2   -> F11          FBI attributes to TraderTraitor (DPRK)
+P3   -> F3           largest on record, ~4x the $1.5B Bybit hack
+C1   -> F8, F10      rhetorical restatement of the social-engineering entry
+
+DELIBERATELY NOT CLAIMED: "world's largest exchange" — no source sentence in
+facts.json states it, so the line says "a crypto exchange" instead.
+
+=================================================================================
+WORD COUNT PER LINE
+=================================================================================
+L1 13 · B1 13 · B1b 17 · B2a 15 · B2b 11 · B2c 15 · B3a 10 · B3b 18 · B3c 11
+P1 13 · P2 11 · P3 12 · C1 11   = 170
+
+=================================================================================
+WHY THIS VERSION READS BETTER THAN REVISION 2
+=================================================================================
+- Teacher register: analogies land before the jargon ("a bank for digital
+  money", "a small pile online"), so a viewer who has never bought crypto can
+  follow it.
+- One idea per line; every line is one breath.
+- The host is on screen exactly when a concept needs explaining and steps out
+  when the picture can carry the story — so he never competes with the art.
+- Close restates the hook in reverse: vault intact, keys handed over.

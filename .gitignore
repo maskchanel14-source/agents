@@ -91,3 +91,18 @@ qc-footage/
 # In-progress V2 rebuild media and QC: source code and planning docs remain versioned.
 media-production/public/shorts023/audio/v2/
 projects/SHORTS-2026-023-Mushroom/renders/
+
+# SHORTS-2026-024-Binance-63B delivery: keep source + docs, not the rendered binaries.
+projects/SHORTS-2026-024-Binance-63B/out/*.mp4
+projects/SHORTS-2026-024-Binance-63B/audio/*.wav
+projects/SHORTS-2026-024-Binance-63B/audio/_tmp/
+
+projects/SHORTS-2026-024-Binance-63B/qc/
+projects/SHORTS-2026-024-Binance-63B/delivery/
+projects/SHORTS-2026-024-Binance-63B/stills/
+
+# SHORTS-2026-024-Binance-63B revision 3: generated scene art + TTS staging.
+# The scene PNGs ship inside 06_SOURCE-ARCHIVE.zip in the Drive delivery.
+media-production/public/shorts024/scenes/
+projects/SHORTS-2026-024-Binance-63B/audio/_tts/
+projects/SHORTS-2026-024-Binance-63B/audio/_tmp3/

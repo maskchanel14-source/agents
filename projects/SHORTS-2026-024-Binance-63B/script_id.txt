@@ -1,0 +1,34 @@
+SHORTS-2026-024-Binance-63B — ALTERNATE Bahasa Indonesia script (kept for the ID cut)
+NOT the version used for the delivered English VO. See script.txt for the locked English script.
+Word count: 140  |  Structure: HOOK / SETUP / ESCALATION / TWIST / PAYOFF
+
+=====================================================================
+LINE 1 — HOOK (one sentence, 10 words)
+=====================================================================
+Dalam dua puluh menit, 6,3 miliar dolar raib dari Binance.
+
+=====================================================================
+BEAT 1 — SETUP
+=====================================================================
+29 Oktober 2026, pukul 20.05 UTC. Bursa kripto terbesar di dunia itu dibobol.
+
+=====================================================================
+BEAT 2 — ESCALATION
+=====================================================================
+Uangnya mengalir keluar dari dompet panas di sepuluh blockchain sekaligus: Ethereum, Bitcoin, Tron, Solana.
+Delapan belas ribu dua ratus tujuh puluh Bitcoin ikut lenyap — dan Bitcoin tak bisa dibekukan siapa pun.
+Baru setelah Tether dan Circle membekukan sekitar tiga miliar dolar, laju pencurian itu melambat.
+
+=====================================================================
+BEAT 3 — TWIST
+=====================================================================
+Tapi pintu masuknya bukan brankas yang jebol.
+Seorang engineer tim wallet mengikuti wawancara kerja palsu dengan "CEO" perusahaan fiktif, lalu mengunduh repositori kode berbahaya.
+Dari laptop itulah penyerang mengambil alih sistem dan menguras dompet Binance.
+
+=====================================================================
+PAYOFF
+=====================================================================
+Binance menanggung seluruh kerugian dari kasnya sendiri, dan penarikan dibuka kembali.
+FBI menyalahkan TraderTraitor, unit peretas Korea Utara.
+Perampokan kripto terbesar sepanjang sejarah.
