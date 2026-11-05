@@ -5,27 +5,33 @@ import {PAL} from './theme2d';
 /**
  * The host — a flat vector presenter who talks straight to camera.
  *
- * Drawn as one SVG so every part can be driven by the frame: the mouth is
- * driven by the real VO energy curve (audio/mouth.json -> REV3_MOUTH), the eyes
- * blink on a deterministic cycle, the torso breathes and the right arm takes a
- * gesture (`idle` | `point` | `open`).
+ * Drawn as one SVG, 520 x 780, centred on x = 260, cropped by the frame at the
+ * bottom on purpose: he stands behind the lower edge of the picture.
  *
- * Canonical box: 520 x 780, character centred on x = 260, cropped by the frame
- * at the bottom on purpose — he stands behind the lower edge of the picture.
+ * Craft notes (this is what keeps him from looking cheap):
+ *   - the head is a real skull-and-jaw path, not an ellipse, with ears,
+ *     temples and a soft jaw shadow
+ *   - the hair is a swept shape with a low side parting, plus a highlight
+ *   - eyes are almonds with an iris, a pupil and a catchlight, and they blink
+ *   - the mouth is lips + opening + teeth + tongue, so it opens like a mouth
+ *     instead of turning into a dark hole
+ *   - hands have fingers and a thumb; the gesturing arm sits in front of the
+ *     torso so a raised arm is never hidden behind the chest
+ *   - every shadow is a blurred shape, never a hard grey patch
  */
 
 export type Gesture = 'idle' | 'point' | 'open';
 
-const SHOULDER = {x: 400, y: 436};
-const ELBOW = {x: 405, y: 610};
+const SHOULDER = {x: 370, y: 434};
+const ELBOW = {x: 377, y: 604};
 
 const GESTURE: Record<Gesture, {shoulder: number; elbow: number}> = {
-  idle: {shoulder: 0, elbow: 6},
-  point: {shoulder: 112, elbow: 8},
-  open: {shoulder: 46, elbow: -30},
+  idle: {shoulder: 0, elbow: 4},
+  point: {shoulder: 55, elbow: 6},
+  open: {shoulder: 32, elbow: -26},
 };
 
-/** Deterministic double-blink, 3.8 s cycle. Returns an eyelid scale (0.06-1). */
+/** Deterministic double-blink on a 3.8 s cycle. Returns an eyelid scale. */
 const lid = (frame: number): number => {
   const c = frame % 114;
   if (c < 3) return interpolate(c, [0, 3], [1, 0.06]);
@@ -35,12 +41,118 @@ const lid = (frame: number): number => {
   return 1;
 };
 
+/** A hand: palm, four fingers and a thumb. `hang` points down, `open` is a
+ *  palm-up fan, `point` is a loose fist with the index finger out. */
+const Hand: React.FC<{cx: number; cy: number; mode: 'hang' | 'point' | 'open'}> = ({
+  cx,
+  cy,
+  mode,
+}) => {
+  const skin = PAL.skin;
+  const shade = PAL.skinShade;
+  if (mode === 'hang') {
+    return (
+      <g>
+        <rect x={cx - 24} y={cy} width={48} height={52} rx={22} fill={skin} />
+        <rect x={cx - 22} y={cy + 28} width={12} height={32} rx={6} fill={skin} />
+        <rect x={cx - 8} y={cy + 30} width={12} height={34} rx={6} fill={skin} />
+        <rect x={cx + 6} y={cy + 28} width={12} height={31} rx={6} fill={skin} />
+        <rect x={cx + 19} y={cy + 22} width={11} height={26} rx={5.5} fill={shade} />
+        <rect
+          x={cx - 35}
+          y={cy + 4}
+          width={13}
+          height={30}
+          rx={6.5}
+          fill={skin}
+          transform={`rotate(-18 ${cx - 28} ${cy + 18})`}
+        />
+        <path
+          d={`M ${cx - 22} ${cy + 34} h 40`}
+          stroke={shade}
+          strokeWidth={2.5}
+          opacity={0.5}
+          fill="none"
+        />
+      </g>
+    );
+  }
+  if (mode === 'point') {
+    return (
+      <g>
+        <rect x={cx - 22} y={cy} width={44} height={46} rx={20} fill={skin} />
+        <rect x={cx - 7} y={cy + 28} width={14} height={42} rx={7} fill={skin} />
+        <rect
+          x={cx - 25}
+          y={cy + 6}
+          width={12}
+          height={26}
+          rx={6}
+          fill={shade}
+          transform={`rotate(16 ${cx - 19} ${cy + 18})`}
+        />
+        <rect x={cx + 8} y={cy + 12} width={12} height={24} rx={6} fill={shade} />
+        <rect x={cx + 18} y={cy + 8} width={11} height={22} rx={5.5} fill={shade} />
+      </g>
+    );
+  }
+  return (
+    <g>
+      <rect x={cx - 22} y={cy} width={44} height={44} rx={20} fill={skin} />
+      <rect
+        x={cx - 25}
+        y={cy + 24}
+        width={12}
+        height={30}
+        rx={6}
+        fill={shade}
+        transform={`rotate(-18 ${cx - 19} ${cy + 32})`}
+      />
+      <rect
+        x={cx - 10}
+        y={cy + 28}
+        width={12}
+        height={33}
+        rx={6}
+        fill={skin}
+        transform={`rotate(-6 ${cx - 4} ${cy + 36})`}
+      />
+      <rect
+        x={cx + 4}
+        y={cy + 28}
+        width={12}
+        height={32}
+        rx={6}
+        fill={skin}
+        transform={`rotate(6 ${cx + 10} ${cy + 36})`}
+      />
+      <rect
+        x={cx + 18}
+        y={cy + 24}
+        width={11}
+        height={27}
+        rx={5.5}
+        fill={shade}
+        transform={`rotate(18 ${cx + 23} ${cy + 30})`}
+      />
+      <ellipse
+        cx={cx - 26}
+        cy={cy + 12}
+        rx={9}
+        ry={13}
+        fill={skin}
+        transform={`rotate(-30 ${cx - 26} ${cy + 12})`}
+      />
+    </g>
+  );
+};
+
 export const Host: React.FC<{
   frame: number;
   /** Voice energy 0-1 (drives the mouth). */
   mouth: number;
   gesture?: Gesture;
-  /** Extra eyebrow raise, 0-1 (used on the question beats). */
+  /** Extra eyebrow raise, 0-1 (question beats). */
   brow?: number;
   width: number;
   height: number;
@@ -49,17 +161,19 @@ export const Host: React.FC<{
   const g = GESTURE[gesture];
 
   const breathe = 1 + Math.sin(t * 0.8) * 0.006;
-  const headRot = Math.sin(t * 1.15) * 1.5 + Math.sin(t * 0.47) * 0.7;
-  const headY = Math.sin(t * 0.95) * 3.4;
+  const headRot = Math.sin(t * 1.15) * 1.4 + Math.sin(t * 0.47) * 0.6;
+  const headY = Math.sin(t * 0.95) * 3.2;
   const eye = lid(frame);
   const browLift = -7 * brow;
-  const emphasis = mouth * 3.4;
+  const emphasis = mouth * 3.2;
 
-  const shoulderRot = g.shoulder + Math.sin(t * (gesture === 'idle' ? 0.9 : 2.1)) * 1.8 + emphasis;
-  const elbowRot = g.elbow + Math.sin(t * 1.7) * 2.2;
+  const shoulderRot = g.shoulder + Math.sin(t * (gesture === 'idle' ? 0.9 : 1.9)) * 1.6 + emphasis;
+  const elbowRot = g.elbow + Math.sin(t * 1.6) * 2.0;
+  const handMode = gesture === 'open' ? 'open' : gesture === 'point' ? 'point' : 'hang';
 
-  const mouthRy = 5 + 26 * Math.pow(mouth, 0.85);
-  const mouthRx = 33 - 4 * mouth;
+  // mouth geometry: 44 px wide, opens to 22 px — a mouth, not a hole
+  const open = 2 + 20 * Math.pow(mouth, 0.9);
+  const teeth = Math.min(1, mouth * 1.6);
 
   return (
     <svg
@@ -70,131 +184,267 @@ export const Host: React.FC<{
       style={{display: 'block', overflow: 'visible'}}
     >
       <defs>
-        <linearGradient id="hostBlazer" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#385585" />
-          <stop offset="100%" stopColor="#22385C" />
+        <linearGradient id="hSkin" x1="0.2" y1="0" x2="0.8" y2="1">
+          <stop offset="0%" stopColor="#F0C398" />
+          <stop offset="55%" stopColor="#E8B58A" />
+          <stop offset="100%" stopColor="#D69E70" />
         </linearGradient>
-        <linearGradient id="hostSkin" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#EDBD93" />
-          <stop offset="100%" stopColor="#DEA874" />
+        <linearGradient id="hHair" x1="0.1" y1="0" x2="0.9" y2="1">
+          <stop offset="0%" stopColor="#3B2C21" />
+          <stop offset="60%" stopColor="#2A1F18" />
+          <stop offset="100%" stopColor="#1D150F" />
         </linearGradient>
-        <radialGradient id="hostCheek" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#C75B2E" stopOpacity="0.30" />
+        <linearGradient id="hBlazer" x1="0" y1="0" x2="0.3" y2="1">
+          <stop offset="0%" stopColor="#35517F" />
+          <stop offset="55%" stopColor="#2A4370" />
+          <stop offset="100%" stopColor="#1E3355" />
+        </linearGradient>
+        <linearGradient id="hSleeve" x1="0" y1="0" x2="0.4" y2="1">
+          <stop offset="0%" stopColor="#43619A" />
+          <stop offset="60%" stopColor="#33507F" />
+          <stop offset="100%" stopColor="#263C63" />
+        </linearGradient>
+        <linearGradient id="hKnit" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#F2EADA" />
+          <stop offset="100%" stopColor="#DED3BE" />
+        </linearGradient>
+        <radialGradient id="hCheek" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="#C75B2E" stopOpacity="0.22" />
           <stop offset="100%" stopColor="#C75B2E" stopOpacity="0" />
         </radialGradient>
+        <filter id="hSoft" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
+        <filter id="hSoft2" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" />
+        </filter>
       </defs>
 
       {/* ---- body -------------------------------------------------------- */}
       <g transform={`translate(260 780) scale(1 ${breathe}) translate(-260 -780)`}>
-        {/* left arm, hanging */}
-        <g transform="rotate(-2 135 460)">
-          <rect x={100} y={424} width={76} height={262} rx={38} fill={PAL.blazerDark} />
-          <rect x={106} y={640} width={66} height={128} rx={33} fill={PAL.blazerDark} />
-          <rect x={104} y={726} width={70} height={26} rx={13} fill="#182A44" />
-          <ellipse cx={139} cy={766} rx={29} ry={33} fill={PAL.skin} />
+        {/* neck — runs well under the collar so there is never a gap between
+            the head and the shoulders */}
+        <path
+          d="M 226 272 L 226 400 C 226 424 240 442 260 442 C 280 442 294 424 294 400 L 294 272 Z"
+          fill={PAL.skinShade}
+        />
+        <ellipse cx={260} cy={286} rx={42} ry={15} fill="#6B4426" opacity={0.32} filter="url(#hSoft2)" />
+
+        {/* knit sweater */}
+        <path
+          d="M 146 420 C 170 390 202 378 228 382 C 244 414 272 414 288 382 C 314 378 346 390 370 420 L 386 780 L 130 780 Z"
+          fill="url(#hKnit)"
+        />
+        <path d="M 228 382 C 244 414 272 414 288 382" stroke="#CFC2AB" strokeWidth={9} fill="none" />
+
+        {/* blazer */}
+        <path
+          d="M 146 420 C 170 390 202 378 228 382 L 200 780 L 102 780 C 98 620 114 496 146 420 Z"
+          fill="url(#hBlazer)"
+        />
+        <path
+          d="M 370 420 C 346 390 314 378 288 382 L 316 780 L 414 780 C 418 620 402 496 370 420 Z"
+          fill="url(#hBlazer)"
+        />
+        {/* jacket front — closes under the lapels so the knit only shows in
+            the V, the way a real jacket does */}
+        <path d="M 226 382 L 260 494 L 294 382 L 320 780 L 196 780 Z" fill="url(#hBlazer)" />
+        {/* lapels */}
+        <path
+          d="M 226 382 C 238 422 250 456 260 494 L 192 530 C 184 472 198 412 226 382 Z"
+          fill="#22375A"
+        />
+        <path
+          d="M 294 382 C 282 422 270 456 260 494 L 328 530 C 336 472 322 412 294 382 Z"
+          fill="#22375A"
+        />
+        <path
+          d="M 226 382 C 238 422 250 456 260 494"
+          stroke="#4A6A9C"
+          strokeWidth={2.5}
+          fill="none"
+          opacity={0.8}
+        />
+        {/* buttons sit on the overlap */}
+        <circle cx={276} cy={578} r={6} fill="#16263C" />
+        <circle cx={276} cy={640} r={6} fill="#16263C" />
+
+        {/* left arm — hangs */}
+        <g transform="rotate(-4 128 442)">
+          <rect x={94} y={412} width={74} height={248} rx={37} fill="url(#hSleeve)"
+                stroke="rgba(9, 16, 29, 0.55)" strokeWidth={3} />
+          <rect x={100} y={618} width={62} height={112} rx={31} fill="url(#hSleeve)"
+                stroke="rgba(9, 16, 29, 0.55)" strokeWidth={3} />
+          <ellipse cx={131} cy={418} rx={38} ry={16} fill="rgba(9,16,29,0.35)" filter="url(#hSoft2)" />
+          <g stroke="#1B2C48" strokeWidth={2.5} opacity={0.6} fill="none">
+            <path d="M 102 560 C 116 554 136 554 150 560" />
+            <path d="M 104 604 C 118 598 138 598 152 604" />
+          </g>
+          <Hand cx={131} cy={700} mode="hang" />
         </g>
 
-        {/* right arm — the gesturing one */}
+        {/* right arm — the gesturing one, drawn in front so it is never hidden */}
+        <ellipse cx={328} cy={530} rx={54} ry={150} fill="rgba(9,16,29,0.30)"
+                 filter="url(#hSoft)" opacity={gesture === 'idle' ? 0.5 : 1} />
         <g transform={`rotate(${shoulderRot} ${SHOULDER.x} ${SHOULDER.y})`}>
-          <rect x={372} y={414} width={66} height={212} rx={33} fill={PAL.blazerDark} />
+          <rect x={338} y={412} width={70} height={208} rx={35} fill="url(#hSleeve)"
+                stroke="rgba(9, 16, 29, 0.55)" strokeWidth={3} />
           <g transform={`rotate(${elbowRot} ${ELBOW.x} ${ELBOW.y})`}>
-            <rect x={376} y={592} width={58} height={170} rx={29} fill={PAL.blazerDark} />
-            <rect x={374} y={734} width={62} height={26} rx={13} fill="#182A44" />
-            {gesture === 'point' ? (
-              <rect x={396} y={736} width={17} height={62} rx={8.5} fill={PAL.skin} />
-            ) : null}
-            <ellipse cx={405} cy={774} rx={28} ry={32} fill={PAL.skin} />
-            {gesture === 'open' ? (
-              <g fill={PAL.skin}>
-                <rect x={383} y={786} width={13} height={30} rx={6.5} transform="rotate(-12 389 800)" />
-                <rect x={399} y={788} width={13} height={32} rx={6.5} />
-                <rect x={415} y={786} width={13} height={28} rx={6.5} transform="rotate(12 421 800)" />
-                <ellipse cx={381} cy={776} rx={10} ry={14} transform="rotate(-24 381 776)" />
-              </g>
-            ) : null}
+            <rect x={346} y={584} width={62} height={124} rx={31} fill="url(#hSleeve)"
+                  stroke="rgba(9, 16, 29, 0.55)" strokeWidth={3} />
+            <rect x={344} y={682} width={66} height={20} rx={10} fill="#16263C" />
+            <Hand cx={377} cy={700} mode={handMode} />
           </g>
         </g>
-
-        {/* torso */}
-        <path
-          d="M 92 780 L 100 566 C 106 470 168 414 232 398 L 288 398 C 352 414 414 470 420 566 L 428 780 Z"
-          fill="url(#hostBlazer)"
-        />
-        {/* shirt */}
-        <path d="M 232 398 L 288 398 L 288 520 L 260 566 L 232 520 Z" fill={PAL.shirt} />
-        {/* collar */}
-        <path d="M 232 398 L 260 440 L 246 398 Z" fill="#E6DCCB" />
-        <path d="M 288 398 L 260 440 L 274 398 Z" fill="#E6DCCB" />
-        {/* tie */}
-        <path d="M 251 424 L 269 424 L 275 450 L 245 450 Z" fill={PAL.tie} />
-        <path d="M 245 450 L 275 450 L 268 566 L 260 580 L 252 566 Z" fill="#B04E25" />
-        {/* lapels */}
-        <path d="M 230 396 L 258 496 L 188 470 Z" fill={PAL.blazer} />
-        <path d="M 290 396 L 262 496 L 332 470 Z" fill={PAL.blazer} />
-        {/* rim light along the silhouette so he separates from the backdrop */}
-        <path
-          d="M 92 780 L 100 566 C 106 470 168 414 232 398"
-          stroke="rgba(158, 196, 232, 0.34)"
-          strokeWidth={6}
-          fill="none"
-        />
-        {/* neck */}
-        <rect x={232} y={266} width={58} height={86} rx={22} fill={PAL.skinShade} />
-        <ellipse cx={261} cy={282} rx={36} ry={16} fill="rgba(60,34,20,0.20)" />
       </g>
 
       {/* ---- head -------------------------------------------------------- */}
       <g transform={`translate(0 ${headY}) rotate(${headRot} 260 300)`}>
-        {/* hair, back mass */}
-        <ellipse cx={260} cy={172} rx={101} ry={105} fill={PAL.hair} />
         {/* ears */}
-        <ellipse cx={167} cy={196} rx={16} ry={24} fill={PAL.skinShade} />
-        <ellipse cx={353} cy={196} rx={16} ry={24} fill={PAL.skinShade} />
+        <ellipse cx={166} cy={184} rx={15} ry={23} fill={PAL.skinShade} />
+        <ellipse cx={354} cy={184} rx={15} ry={23} fill={PAL.skinShade} />
+        <ellipse cx={168} cy={187} rx={6.5} ry={11} fill="#B9835A" opacity={0.7} />
+        <ellipse cx={352} cy={187} rx={6.5} ry={11} fill="#B9835A" opacity={0.7} />
+
         {/* face */}
-        <ellipse cx={260} cy={186} rx={90} ry={100} fill="url(#hostSkin)" />
-        {/* fringe */}
         <path
-          d="M 172 176 C 176 108 214 80 262 80 C 310 80 346 108 349 176 C 332 130 300 112 262 120 C 226 128 190 138 172 176 Z"
-          fill={PAL.hair}
+          d="M 260 72 C 302 72 344 92 352 142 C 358 180 352 226 332 256
+             C 314 282 290 296 260 296 C 230 296 206 282 188 256
+             C 168 226 162 180 168 142 C 176 92 218 72 260 72 Z"
+          fill="url(#hSkin)"
         />
-        {/* cheeks */}
-        <ellipse cx={212} cy={228} rx={30} ry={20} fill="url(#hostCheek)" />
-        <ellipse cx={308} cy={228} rx={30} ry={20} fill="url(#hostCheek)" />
-        {/* brows */}
-        <g stroke={PAL.hair} strokeWidth={10} strokeLinecap="round" fill="none"
-           transform={`translate(0 ${browLift})`}>
-          <path d="M 202 152 Q 230 136 258 150" />
-          <path d="M 291 150 Q 319 136 347 152" />
-        </g>
-        {/* eyes */}
-        <g fill="#241A14">
-          <ellipse cx={233} cy={188} rx={13} ry={15 * eye} />
-          <ellipse cx={343} cy={188} rx={13} ry={15 * eye} />
-        </g>
-        {/* glasses */}
-        <g stroke={PAL.gold} strokeWidth={7} fill="rgba(180, 214, 232, 0.10)">
-          <rect x={192} y={156} width={82} height={64} rx={18} />
-          <rect x={302} y={156} width={82} height={64} rx={18} />
-          <path d="M 274 178 Q 288 168 302 178" fill="none" />
-          <path d="M 192 174 L 162 186" fill="none" />
-          <path d="M 384 174 L 358 186" fill="none" />
-        </g>
-        {/* nose */}
-        <path d="M 286 198 Q 298 228 281 238" stroke="#C98B62" strokeWidth={7}
-              strokeLinecap="round" fill="none" />
-        {/* mouth — driven by the voice */}
-        <ellipse cx={288} cy={264} rx={mouthRx} ry={mouthRy} fill="#5E2A26" />
-        <path d="M 264 272 Q 288 282 312 272" stroke="#C98B62" strokeWidth={4}
-              fill="none" strokeLinecap="round" opacity={0.5} />
-        {/* chin shadow */}
-        <ellipse cx={288} cy={292} rx={38} ry={9} fill="rgba(60,34,20,0.10)" />
-        {/* rim light on the head */}
+
+        {/* cheek warmth + jaw shadow */}
+        <ellipse cx={206} cy={228} rx={30} ry={22} fill="url(#hCheek)" />
+        <ellipse cx={314} cy={228} rx={30} ry={22} fill="url(#hCheek)" />
+        <ellipse cx={260} cy={276} rx={54} ry={20} fill="#6B4426" opacity={0.13} filter="url(#hSoft)" />
+
+        {/* hair */}
         <path
-          d="M 173 214 C 166 140 204 92 258 84"
-          stroke="rgba(158, 196, 232, 0.26)"
+          d="M 166 148 C 160 96 202 62 258 62 C 312 62 352 92 354 144
+             C 348 116 332 100 306 92 C 292 106 272 112 250 108
+             C 220 102 192 116 176 140 C 172 143 169 145 166 148 Z"
+          fill="url(#hHair)"
+        />
+        <path
+          d="M 198 116 C 216 86 248 74 282 76 C 252 86 224 98 208 124 Z"
+          fill="#5A4433"
+          opacity={0.55}
+        />
+        <g stroke="#3A2B1F" strokeWidth={2.5} fill="none" opacity={0.75} strokeLinecap="round">
+          <path d="M 258 104 C 272 100 286 104 296 114" />
+          <path d="M 248 108 C 258 104 268 104 276 110" />
+        </g>
+        {/* sideburns */}
+        <path d="M 172 150 C 176 172 178 190 180 206 C 186 190 186 168 182 150 Z" fill="#2A1F18" opacity={0.85} />
+        <path d="M 348 150 C 344 172 342 190 340 206 C 334 190 334 168 338 150 Z" fill="#2A1F18" opacity={0.85} />
+
+        {/* brows */}
+        <g fill={PAL.hair} transform={`translate(0 ${browLift})`}>
+          <path d="M 190 152 C 200 133 226 127 246 137 C 224 135 204 143 192 160 Z" />
+          <path d="M 274 137 C 294 127 320 133 330 152 C 318 143 298 135 276 160 Z" />
+        </g>
+
+        {/* eyes */}
+        <g>
+          <g transform={`translate(0 176) scale(1 ${eye}) translate(0 -176)`}>
+            <path d="M 196 178 C 206 163 232 161 246 174 C 232 191 206 191 196 178 Z" fill="#F8F3EA" />
+            <circle cx={221} cy={176} r={9.5} fill="#33261C" />
+            <circle cx={221} cy={176} r={4.6} fill="#120C08" />
+            <circle cx={217} cy={172} r={2.8} fill="#FFFFFF" opacity={0.92} />
+          </g>
+          <g transform={`translate(0 176) scale(1 ${eye}) translate(0 -176)`}>
+            <path d="M 274 174 C 288 161 314 163 324 178 C 314 191 288 191 274 174 Z" fill="#F8F3EA" />
+            <circle cx={299} cy={176} r={9.5} fill="#33261C" />
+            <circle cx={299} cy={176} r={4.6} fill="#120C08" />
+            <circle cx={295} cy={172} r={2.8} fill="#FFFFFF" opacity={0.92} />
+          </g>
+          {/* lids */}
+          <path
+            d="M 196 178 C 206 163 232 161 246 174"
+            stroke="#3A2A1E"
+            strokeWidth={4}
+            fill="none"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 274 174 C 288 161 314 163 324 178"
+            stroke="#3A2A1E"
+            strokeWidth={4}
+            fill="none"
+            strokeLinecap="round"
+          />
+        </g>
+
+        {/* glasses — thin gold rims */}
+        <g stroke="#C79A34" strokeWidth={5} fill="rgba(196, 222, 236, 0.12)">
+          <rect x={192} y={150} width={70} height={54} rx={15} />
+          <rect x={268} y={150} width={70} height={54} rx={15} />
+          <path d="M 262 166 C 265 162 267 162 268 166" fill="none" />
+          <path d="M 192 164 L 168 174" fill="none" />
+          <path d="M 338 164 L 352 174" fill="none" />
+        </g>
+        {/* glass highlights */}
+        <g stroke="rgba(255,255,255,0.38)" strokeWidth={6} strokeLinecap="round">
+          <path d="M 203 194 L 219 158" />
+          <path d="M 279 194 L 295 158" />
+        </g>
+
+        {/* nose */}
+        <path
+          d="M 257 190 C 255 212 249 227 243 232"
+          stroke="#C08756"
           strokeWidth={6}
+          strokeLinecap="round"
+          fill="none"
+        />
+        <ellipse cx={243} cy={233} rx={4} ry={3} fill="#A8703F" opacity={0.8} />
+        <ellipse cx={264} cy={233} rx={4} ry={3} fill="#A8703F" opacity={0.7} />
+
+        {/* mouth */}
+        <g>
+          <path
+            d={`M 238 250 C 248 246 270 246 280 250 C 278 ${250 + open} 240 ${250 + open} 238 250 Z`}
+            fill="#7A2E2A"
+          />
+          <rect
+            x={241}
+            y={250}
+            width={36}
+            height={5.5 * teeth}
+            rx={2.5}
+            fill="#FBF3E6"
+            opacity={teeth}
+          />
+          <ellipse
+            cx={259}
+            cy={250 + open - 4}
+            rx={11}
+            ry={4.5 * Math.min(1, mouth * 1.4)}
+            fill="#B45A52"
+            opacity={Math.min(1, mouth * 1.6)}
+          />
+          <path
+            d={`M 238 250 C 248 246 270 246 280 250 C 270 ${252 + open * 0.4} 248 ${252 + open * 0.4} 238 250 Z`}
+            fill="#B4674F"
+            opacity={0.9}
+          />
+        </g>
+        <ellipse cx={259} cy={272} rx={17} ry={5} fill="#6B4426" opacity={0.10} filter="url(#hSoft2)" />
+
+        {/* rim light, so he never melts into the backdrop */}
+        <path
+          d="M 168 142 C 162 180 168 226 188 256 C 206 282 230 296 260 296"
+          stroke="rgba(158, 196, 232, 0.30)"
+          strokeWidth={5}
           fill="none"
           strokeLinecap="round"
+        />
+        <path
+          d="M 146 420 C 170 390 202 378 228 382"
+          stroke="rgba(158, 196, 232, 0.22)"
+          strokeWidth={4}
+          fill="none"
         />
       </g>
     </svg>

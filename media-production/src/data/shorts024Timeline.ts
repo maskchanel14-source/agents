@@ -15,8 +15,8 @@ export type Rev3Clip = {
 };
 
 export const REV3_FPS = 30;
-export const REV3_DURATION = 2055;
-export const REV3_SECONDS = 68.5;
+export const REV3_DURATION = 2145;
+export const REV3_SECONDS = 71.5;
 
 export const REV3_CLIPS: Rev3Clip[] = [
   {
@@ -31,87 +31,87 @@ export const REV3_CLIPS: Rev3Clip[] = [
   {
     id: 'B1',
     startFrame: 162,
-    endFrame: 295,
+    endFrame: 316,
     captions: [
-      {text: "A BANK", startFrame: 162, endFrame: 215},
-      {text: "FOR DIGITAL MONEY", startFrame: 215, endFrame: 295},
+      {text: "A BANK", startFrame: 162, endFrame: 224},
+      {text: "FOR DIGITAL MONEY", startFrame: 224, endFrame: 316},
     ],
   },
   {
     id: 'B1b',
-    startFrame: 301,
-    endFrame: 452,
+    startFrame: 322,
+    endFrame: 477,
     captions: [
-      {text: "THE HOT WALLET", startFrame: 301, endFrame: 376},
-      {text: "ALWAYS ONLINE", startFrame: 376, endFrame: 452},
+      {text: "THE HOT WALLET", startFrame: 322, endFrame: 400},
+      {text: "ALWAYS ONLINE", startFrame: 400, endFrame: 477},
     ],
   },
   {
     id: 'B2a',
-    startFrame: 458,
-    endFrame: 668,
+    startFrame: 483,
+    endFrame: 705,
     captions: [
-      {text: "29 OCT \u00b7 20:05 UTC", startFrame: 458, endFrame: 572},
-      {text: "10 BLOCKCHAINS", startFrame: 572, endFrame: 668},
+      {text: "29 OCT \u00b7 20:05 UTC", startFrame: 483, endFrame: 604},
+      {text: "10 BLOCKCHAINS", startFrame: 604, endFrame: 705},
     ],
   },
   {
     id: 'B2b',
-    startFrame: 674,
-    endFrame: 805,
+    startFrame: 711,
+    endFrame: 855,
     captions: [
-      {text: "18,270 BTC", startFrame: 674, endFrame: 733},
-      {text: "NOBODY CAN FREEZE IT", startFrame: 733, endFrame: 805},
+      {text: "18,270 BTC", startFrame: 711, endFrame: 776},
+      {text: "NOBODY CAN FREEZE IT", startFrame: 776, endFrame: 855},
     ],
   },
   {
     id: 'B2c',
-    startFrame: 811,
-    endFrame: 974,
+    startFrame: 861,
+    endFrame: 1032,
     captions: [
-      {text: "$3B FROZEN", startFrame: 811, endFrame: 892},
-      {text: "$2.4B GONE", startFrame: 892, endFrame: 974},
+      {text: "$3B FROZEN", startFrame: 861, endFrame: 946},
+      {text: "$2.4B GONE", startFrame: 946, endFrame: 1032},
     ],
   },
   {
     id: 'B3',
-    startFrame: 980,
-    endFrame: 1295,
+    startFrame: 1038,
+    endFrame: 1358,
     captions: [
-      {text: "SO HOW?", startFrame: 980, endFrame: 1013},
-      {text: "THE VAULT WAS NEVER BROKEN", startFrame: 1013, endFrame: 1113},
-      {text: "A FAKE JOB INTERVIEW", startFrame: 1113, endFrame: 1195},
-      {text: "THE CODE TEST WAS MALWARE", startFrame: 1195, endFrame: 1295},
+      {text: "SO HOW?", startFrame: 1038, endFrame: 1071},
+      {text: "THE VAULT WAS NEVER BROKEN", startFrame: 1071, endFrame: 1173},
+      {text: "A FAKE JOB INTERVIEW", startFrame: 1173, endFrame: 1257},
+      {text: "THE CODE TEST WAS MALWARE", startFrame: 1257, endFrame: 1358},
     ],
   },
   {
     id: 'B3c',
-    startFrame: 1301,
-    endFrame: 1451,
+    startFrame: 1364,
+    endFrame: 1528,
     captions: [
-      {text: "ONE LAPTOP", startFrame: 1301, endFrame: 1347},
-      {text: "ONE CLICK", startFrame: 1347, endFrame: 1382},
-      {text: "THE KEYS TO EVERYTHING", startFrame: 1382, endFrame: 1451},
+      {text: "ONE LAPTOP", startFrame: 1364, endFrame: 1415},
+      {text: "ONE CLICK", startFrame: 1415, endFrame: 1453},
+      {text: "THE KEYS TO EVERYTHING", startFrame: 1453, endFrame: 1528},
     ],
   },
   {
     id: 'P1',
-    startFrame: 1457,
-    endFrame: 1768,
+    startFrame: 1534,
+    endFrame: 1849,
     captions: [
-      {text: "EVERY DOLLAR REPAID", startFrame: 1457, endFrame: 1555},
-      {text: "WITHDRAWALS REOPENED", startFrame: 1555, endFrame: 1652},
-      {text: "FBI \u00b7 TRADERTRAITOR", startFrame: 1652, endFrame: 1768},
+      {text: "EVERY DOLLAR REPAID", startFrame: 1534, endFrame: 1633},
+      {text: "WITHDRAWALS REOPENED", startFrame: 1633, endFrame: 1731},
+      {text: "FBI \u00b7 TRADERTRAITOR", startFrame: 1731, endFrame: 1849},
     ],
   },
   {
     id: 'P2',
-    startFrame: 1774,
-    endFrame: 2018,
+    startFrame: 1855,
+    endFrame: 2104,
     captions: [
-      {text: "LARGEST CRYPTO THEFT EVER", startFrame: 1774, endFrame: 1866},
-      {text: "4\u00d7 THE OLD RECORD", startFrame: 1866, endFrame: 1927},
-      {text: "SOMEBODY ASKED FOR THE KEYS", startFrame: 1927, endFrame: 2018},
+      {text: "LARGEST CRYPTO THEFT EVER", startFrame: 1855, endFrame: 1948},
+      {text: "4\u00d7 THE OLD RECORD", startFrame: 1948, endFrame: 2011},
+      {text: "SOMEBODY ASKED FOR THE KEYS", startFrame: 2011, endFrame: 2104},
     ],
   },
 ];

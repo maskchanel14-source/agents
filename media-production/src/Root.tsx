@@ -24,6 +24,7 @@ export const RemotionRoot: React.FC = () => (
       width={WIDTH}
       height={HEIGHT}
     />
+
     {/* revision 2 master, kept renderable — semi-realist 3D */}
     <Composition
       id="SHORTS-2026-024-Binance63B-3D-rev2"

@@ -15,23 +15,23 @@ export type SceneDef = {
   from: number;
   to: number;
   img?: string;
-  vector?: 'dossier' | 'chart';
+  vector?: 'dossier' | 'chart' | 'vault';
   ken: 'in' | 'out' | 'up' | 'left' | 'right';
 };
 
 export const SCENES: SceneDef[] = [
-  {key: 'vault', from: 0, to: 168, img: 's01_vault.png', ken: 'in'},
-  {key: 'exchange', from: 150, to: 313, img: 's02_exchange.png', ken: 'right'},
-  {key: 'hotwallet', from: 295, to: 466, img: 's03_hotwallet.png', ken: 'in'},
-  {key: 'clock', from: 448, to: 682, img: 's04_clock.png', ken: 'up'},
-  {key: 'bitcoin', from: 664, to: 819, img: 's05_bitcoin.png', ken: 'out'},
-  {key: 'frozen', from: 801, to: 988, img: 's06_frozen.png', ken: 'left'},
-  {key: 'vault-intact', from: 970, to: 1127, img: 's07_vault_intact.png', ken: 'in'},
-  {key: 'interview', from: 1109, to: 1309, img: 's08_interview.png', ken: 'right'},
-  {key: 'laptop', from: 1291, to: 1465, img: 's09_laptop_servers.png', ken: 'in'},
-  {key: 'reopen', from: 1447, to: 1666, img: 's10_reopen.png', ken: 'up'},
-  {key: 'dossier', from: 1648, to: 1790, vector: 'dossier', ken: 'in'},
-  {key: 'chart', from: 1772, to: 2100, vector: 'chart', ken: 'in'},
+  {key: 'vault', from: 0, to: 178, img: 's01_vault.png', ken: 'in'},
+  {key: 'exchange', from: 160, to: 336, img: 's02_exchange.png', ken: 'right'},
+  {key: 'hotwallet', from: 318, to: 497, img: 's03_hotwallet.png', ken: 'in'},
+  {key: 'clock', from: 479, to: 725, img: 's04_clock.png', ken: 'up'},
+  {key: 'bitcoin', from: 707, to: 875, img: 's05_bitcoin.png', ken: 'out'},
+  {key: 'frozen', from: 857, to: 1052, img: 's06_frozen.png', ken: 'left'},
+  {key: 'vault-intact', from: 1034, to: 1195, vector: 'vault', ken: 'in'},
+  {key: 'interview', from: 1177, to: 1378, img: 's08_interview.png', ken: 'right'},
+  {key: 'laptop', from: 1360, to: 1548, img: 's09_laptop_servers.png', ken: 'in'},
+  {key: 'reopen', from: 1530, to: 1750, img: 's10_reopen.png', ken: 'up'},
+  {key: 'dossier', from: 1732, to: 1868, vector: 'dossier', ken: 'in'},
+  {key: 'chart', from: 1850, to: 2185, vector: 'chart', ken: 'in'},
 ];
 
 export const sceneAt = (frame: number): SceneDef =>
@@ -100,6 +100,8 @@ export const SceneLayer: React.FC<{
         />
       ) : scene.vector === 'dossier' ? (
         <DossierScene p={p} h={h} />
+      ) : scene.vector === 'vault' ? (
+        <VaultScene frame={frame - scene.from} h={h} />
       ) : (
         <ChartScene frame={frame - scene.from} h={h} />
       )}
@@ -205,6 +207,107 @@ const DossierScene: React.FC<{p: number; h: number}> = ({p, h}) => {
           ACTOR
         </div>
       </div>
+    </div>
+  );
+};
+
+/* --------------------------------------------------------- vector scene: vault */
+
+/**
+ * The twist beat: the vault was never broken. A closed, bolted door with no
+ * light escaping — the same object as the hook, sealed instead of gaping.
+ */
+const VaultScene: React.FC<{frame: number; h: number}> = ({frame, h}) => {
+  const {fps} = useVideoConfig();
+  // the question mark snaps in, then the shot just sits there: nothing happens
+  // to this door, which is exactly the point of the beat.
+  const pop = spring({
+    fps,
+    frame: frame - 6,
+    config: {damping: 13, stiffness: 110, mass: 0.7},
+  });
+  const k = Math.min(1, h / 660);
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        transform: `scale(${interpolate(k, [0, 1], [0.82, 1])})`,
+        background: `radial-gradient(115% 85% at 30% 8%, ${PAL.navySoft} 0%, ${PAL.ink} 66%)`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <svg viewBox="0 0 520 520" style={{width: 520, height: 520}}>
+        <defs>
+          <radialGradient id="vsDoor" cx="34%" cy="26%" r="86%">
+            <stop offset="0%" stopColor="#4B6698" />
+            <stop offset="58%" stopColor="#2C4370" />
+            <stop offset="100%" stopColor="#1A2A47" />
+          </radialGradient>
+          <linearGradient id="vsWall" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1E3355" />
+            <stop offset="100%" stopColor="#131E33" />
+          </linearGradient>
+        </defs>
+
+        {/* wall + floor slab */}
+        <rect x={0} y={0} width={520} height={520} fill="url(#vsWall)" />
+        <rect x={0} y={462} width={520} height={58} fill="#0E1829" />
+        <ellipse cx={260} cy={462} rx={168} ry={18} fill="rgba(0,0,0,0.34)" />
+
+        {/* the door — shut, so the seam under it is a dark line, not a glow */}
+        <circle cx={260} cy={278} r={164} fill="#16263C" opacity={0.55} />
+        <circle cx={260} cy={278} r={152} fill="#22375A" stroke="#101C30" strokeWidth={9} />
+        <circle cx={260} cy={278} r={132} fill="url(#vsDoor)" stroke="#54739E" strokeWidth={2.5} />
+        {Array.from({length: 16}).map((_, i) => {
+          const a = (i / 16) * Math.PI * 2;
+          return (
+            <circle
+              key={i}
+              cx={260 + Math.cos(a) * 117}
+              cy={278 + Math.sin(a) * 117}
+              r={6}
+              fill="#93AAC7"
+            />
+          );
+        })}
+        {/* spokes */}
+        <g stroke="#3D5A8C" strokeWidth={20} strokeLinecap="round" opacity={0.85}>
+          <path d="M 260 278 L 260 168" />
+          <path d="M 260 278 L 260 388" />
+          <path d="M 260 278 L 150 278" />
+          <path d="M 260 278 L 370 278" />
+        </g>
+        {/* dial */}
+        <circle cx={260} cy={278} r={56} fill="#1B2C48" stroke={PAL.gold} strokeWidth={6} />
+        <circle cx={260} cy={278} r={36} fill="#22375A" stroke="#4A6A9C" strokeWidth={2} />
+        <circle cx={260} cy={278} r={12} fill={PAL.gold} />
+        <path d="M 260 278 L 260 232" stroke={PAL.gold} strokeWidth={5} strokeLinecap="round" />
+        {/* hinge */}
+        <rect x={392} y={236} width={24} height={86} rx={12} fill="#16263C" />
+        {/* rim light top-left, so the door reads as solid metal */}
+        <path
+          d="M 148 196 A 152 152 0 0 1 292 130"
+          stroke="rgba(158, 196, 232, 0.30)"
+          strokeWidth={7}
+          fill="none"
+        />
+
+        {/* the question — and then nothing: this door never opens */}
+        <text
+          x={260}
+          y={104}
+          textAnchor="middle"
+          fontFamily={TYPE.display}
+          fontSize={Math.round(126 * (0.62 + 0.38 * pop))}
+          fill={PAL.gold}
+          opacity={pop * 0.92}
+        >
+          ?
+        </text>
+      </svg>
     </div>
   );
 };

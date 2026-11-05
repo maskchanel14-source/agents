@@ -49,11 +49,11 @@ type HostWindow = {
 };
 
 const HOST_WINDOWS: HostWindow[] = [
-  {from: 12, to: 170, mode: 'full', gesture: 'idle'},
-  {from: 292, to: 468, mode: 'present', gesture: 'point'},
-  {from: 966, to: 1132, mode: 'full', gesture: 'open', brow: 1},
-  {from: 1292, to: 1466, mode: 'present', gesture: 'open'},
-  {from: 1912, to: REV3_DURATION + 40, mode: 'full', gesture: 'idle'},
+  {from: 12, to: 172, mode: 'full', gesture: 'idle'},
+  {from: 316, to: 485, mode: 'present', gesture: 'point'},
+  {from: 1032, to: 1200, mode: 'full', gesture: 'open', brow: 1},
+  {from: 1358, to: 1536, mode: 'present', gesture: 'open'},
+  {from: 1985, to: REV3_DURATION + 40, mode: 'full', gesture: 'idle'},
 ];
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;

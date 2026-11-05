@@ -21,6 +21,27 @@ Decisions locked with the user before any code was written:
 | When the host appears | full frame at the hook, at the turn into the twist, and at the close — out of the way when the picture carries the point |
 | What the host looks like | clean vector cartoon (not an AI portrait) |
 
+## Host redraw (2026-11-05)
+
+> "perbaiki lagi vektor gurunya, jelek banget"
+
+The first host drawing was not good enough, so `src/host.tsx` was thrown out and
+redrawn from the skull out. What was wrong, and what it is now:
+
+| Problem in the first drawing | Fix |
+| --- | --- |
+| The head floated — the neck stopped at y 358, the shoulders started at y 416, so a band of empty background showed between chin and collar | shoulders raised to y 382; the neck fill runs to y 442, well under the collar |
+| The jacket gaped open below the lapels and showed a big cream triangle of knit | the jacket front closes under the lapels; the knit sweater is confined to the V |
+| The gesturing arm was the same navy as the torso, so it vanished into the chest | its own lighter sleeve gradient, a 3 px ink outline, and a soft cast shadow on the chest |
+| Hair was a flat helmet | swept fringe with a side parting, two hairline strands, sideburns, a highlight |
+| Eyes were white almonds with a dot in them | sclera + iris + pupil + catchlight, with a double blink every 3.8 s |
+| The mouth became a dark hole when it opened | lips + opening + teeth + tongue; it opens to 22 px and never reads as a hole |
+| Hands were mittens | four fingers and a thumb, in three poses (`hang` / `point` / `open`) |
+
+The palette, the rim light, the blink and breathing cycles and the gesture
+vocabulary are unchanged, so the redraw drops straight into the composition that
+was already built around it.
+
 ## What changed from revision 2
 
 | | Rev 2 (semi-realist 3D) | Rev 3 (2D explainer) |
@@ -30,8 +51,8 @@ Decisions locked with the user before any code was written:
 | Camera | one continuous spline glide, no cuts | 12 scenes crossfaded over 18 frames |
 | Text | caption bar | display type, word-by-word, colour-coded by role |
 | Story | the same 67 s, read as a heist | the same facts, now *explained* to a viewer who has never bought crypto |
-| Length | 67.0 s (2010 f) | 68.5 s (2055 f) |
-| Render | ~2 h 35 m on software GL | ~19 min, no GPU needed |
+| Length | 67.0 s (2010 f) | 71.5 s (2145 f) |
+| Render | ~2 h 35 m on software GL | ~21 min, no GPU needed |
 
 The 3D composition is still registered as `SHORTS-2026-024-Binance63B-3D-rev2`
 so revision 2 stays renderable.
@@ -56,7 +77,7 @@ so revision 2 stays renderable.
 - **Score replaced.** Revision 2 was a 100 BPM military march. Revision 3 is a
   92 BPM documentary bed: warm detuned pad, plucked arpeggio, soft kick, rim
   clicks, hats, sub accents, in five sections that follow the story.
-- Film length is now **derived** from the measured VO (68.50 s / 2055 frames),
+- Film length is now **derived** from the measured VO (71.50 s / 2145 frames),
   not hard-coded.
 - Same mix chain: music ducked −6 dB under voice (50 ms attack / 250 ms
   release), SFX peaking at −12 dBFS, loudnorm to −14 LUFS.

@@ -1,6 +1,6 @@
 # PUBLISH KIT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 3
 
-68.5 s · 1080×1920 · 30 fps · English VO · host-led 2D explainer
+71.5 s · 1080×1920 · 30 fps · English VO · host-led 2D explainer
 
 Revision 3 is the "teacher" cut: a host walks the viewer through the case in
 plain language, with one illustration per beat and the numbers set as type.

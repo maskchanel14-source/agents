@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Render SHORTS-2026-024-Binance63B revision 3 (2D editorial explainer + host).
 #
-# 2D needs no GPU: ~0.55 s/frame on software GL, so the whole 2055-frame film
+# 2D needs no GPU: ~0.55 s/frame on software GL, so the whole 2145-frame film
 # takes ~19 minutes. Same npm-provided chromium + ffmpeg trick as the rev-2
 # script (the sandbox has no system Chrome).
 set -euo pipefail
