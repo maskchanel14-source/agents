@@ -81,19 +81,6 @@ same folder; the ids below are the rev-3 ones and no longer resolve.
 | SHA256SUMS.txt | 979 | 1uBwETYBvmqGHMakJAvTKBJXTXh5xH4vT |
 | cover-small.png | 399 339 | 16FTj3dBDSDxUyF1WZRl4D2Xx_THp_ib- |
 
-The thumbnail is built by `thumbnails/build_thumbnail.py` (+ `host_render.py`,
-both also in the folder as `build_thumbnail.py` id `1tjDziQcuZBb_-V68YW29X-Y2fX3VY9Da`
-and `host_render.py` id `1lyCPrxY4CpGlYCExT7k5lgd1wuDw5Caa`). It is **not** a
-frame grab: the host is the same DiceBear Notionists character the film uses,
-rasterised from `media-production/src/host/parts.ts`, and every glyph is drawn
-with PIL.
-
-Built to a 50M-subscriber standard: three type sizes only (kicker 54 /
-number 420 / bar 66), a face at 25 % of frame height with a hard sticker
-outline and warm rim so it separates from any background, high-key graded art
-(mean luma 0.375, 6.3 % crushed) and 0 colliding pixels between type and
-subject. Still legible downscaled to a 270×480 phone tile. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
-
 Sharing: private (owner only). No public link has been created.
 The generated scene artwork is not in git — it lives in
 06_SOURCE-ARCHIVE.zip under `public/shorts024/scenes/`.
