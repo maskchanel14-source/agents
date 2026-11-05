@@ -8,7 +8,7 @@ import {
 } from 'remotion';
 import {REV3_CLIPS, REV3_DURATION} from '../data/shorts024Timeline';
 import {REV3_MOUTH} from '../data/shorts024Mouth';
-import {Host, type Gesture} from '../host';
+import {Host, HOST_ASPECT, type Gesture} from '../host';
 import {CHROME, H, LAYOUT, PAL, TYPE, W, fontCss} from '../theme2d';
 import {Overlay, SCENES, SceneLayer} from '../scenes2d';
 
@@ -226,7 +226,7 @@ export const Binance63B2D: React.FC = () => {
         const enter = interpolate(frame, [w.from - 2, w.from + 16], [0, 1], clamp);
         const exit = interpolate(frame, [w.to - 10, w.to + 8], [0, 1], clamp);
         const height = w.mode === 'full' ? LAYOUT.host.hFull : LAYOUT.host.hPresent;
-        const width = (height * 520) / 780;
+        const width = height * HOST_ASPECT;
         const top = LAYOUT.host.bottom - height;
         const left = LAYOUT.host.centerX - width / 2;
         return (

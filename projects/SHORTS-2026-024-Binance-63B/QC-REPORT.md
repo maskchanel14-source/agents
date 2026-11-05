@@ -1,8 +1,10 @@
-# QC REPORT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 3
+# QC REPORT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 4
 
 Rendered 2026-11-05 · branch `arena/ce22919c-agents` · PR #22
 Composition `SHORTS-2026-024-Binance63B` · 2145 frames @ 30 fps
-Re-rendered 2026-11-05 with the redrawn host (`src/host.tsx`) and a re-cut VO
+Revision 4 re-render: the host is rebuilt on DiceBear **Notionists** (CC0 1.0)
+instead of hand-authored paths (`src/host/parts.ts` + `src/host.tsx`).
+Nothing else changed — same edit, same script, same illustrations, same audio.
 
 ## 1. Master
 
@@ -10,10 +12,10 @@ Re-rendered 2026-11-05 with the redrawn host (`src/host.tsx`) and a re-cut VO
 | --- | --- |
 | Duration | 71.50 s (2145 frames) |
 | Resolution | 1080 × 1920, SAR 1:1, 30 fps |
-| Video | H.264 High, yuvj420p, 3401 kb/s, CRF 18 |
+| Video | H.264 High, yuvj420p, 3659 kb/s, CRF 18 |
 | Audio | AAC-LC, 44.1 kHz, mono, 203 kb/s |
-| Container size | 32.3 MB |
-| Silent picture master | `out/video-silent-rev3.mp4`, 30.4 MB |
+| Container size | 34.6 MB |
+| Silent picture master | `out/video-silent-rev3.mp4`, 32.7 MB |
 
 ## 2. Audio
 
@@ -36,19 +38,19 @@ Measured on the delivered stills with `scripts/ascii_frame.py` (mean luma,
 
 | Beat | Frame | mean | p95 | crushed <0.06 | clipped >0.985 |
 | --- | --- | --- | --- | --- | --- |
-| 01 hook — host + open vault | 90 | 0.178 | 0.703 | 2.2 % | 0.43 % |
+| 01 hook — host + open vault | 90 | 0.197 | 0.698 | 4.3 % | 0.42 % |
 | 02 the exchange | 250 | 0.185 | 0.685 | 3.6 % | 0.00 % |
-| 03 hot wallet — host explains | 420 | 0.259 | 0.925 | 0.9 % | 1.37 % |
+| 03 hot wallet — host explains | 420 | 0.272 | 0.925 | 2.3 % | 1.38 % |
 | 04 29 Oct, 20:05, ten chains | 560 | 0.168 | 0.714 | 7.0 % | 1.08 % |
 | 05 18,270 BTC | 780 | 0.179 | 0.839 | 7.3 % | 0.30 % |
 | 06 $3B frozen / $2.4B gone | 940 | 0.240 | 0.815 | 0.4 % | 0.28 % |
-| 07 "how did they get in?" — sealed vault | 1090 | 0.140 | 0.342 | 5.5 % | 0.00 % |
+| 07 "how did they get in?" — sealed vault | 1090 | 0.169 | 0.565 | 8.6 % | 0.00 % |
 | 08 the fake interview | 1250 | 0.213 | 0.929 | 2.4 % | 1.80 % |
-| 09 one laptop — host | 1440 | 0.164 | 0.531 | 4.9 % | 0.02 % |
-| 10 every dollar repaid | 1620 | 0.258 | 0.957 | 0.3 % | 2.88 % |
+| 09 one laptop — host | 1440 | 0.184 | 0.585 | 7.2 % | 0.02 % |
+| 10 every dollar repaid | 1620 | 0.258 | 0.957 | 0.3 % | 2.92 % |
 | 11 attribution — dossier | 1790 | 0.192 | 0.805 | 9.5 % | 0.00 % |
-| 12 the record (bar chart) | 1910 | 0.137 | 0.429 | 4.3 % | 0.00 % |
-| 13 close — host | 2070 | 0.153 | 0.571 | 3.4 % | 0.00 % |
+| 12 the record (bar chart) | 1910 | 0.137 | 0.428 | 4.3 % | 0.00 % |
+| 13 close — host | 2070 | 0.172 | 0.618 | 5.4 % | 0.00 % |
 
 Nothing crushes to black and nothing blows out. The film sits at a mean of
 0.14–0.26 on purpose: the backdrop is a designed deep navy (floor #131E33), and
@@ -59,31 +61,41 @@ render.
 
 ## 4. Host verification
 
-The host was redrawn on 2026-11-05 after the first vector was rejected
-("jelek banget"). `src/host.tsx` was rewritten from the skull out. What the new
-drawing fixes, verified by rendering the character alone against a flat card and
-reading the pixels back:
+The host is **library artwork**, not hand-authored paths. Revisions 1–3 drew him
+by hand and he was rejected twice; revision 4 rebuilds him from DiceBear
+**Notionists** (Zoish, CC0 1.0) assembled with `@dicebear/core` (MIT). Full
+part-by-part rationale and measurements are in `REVISION-4.md`.
 
-| Was wrong | Now |
-| --- | --- |
-| A band of background showed between chin and collar — the head floated | shoulders raised to y 382, neck fill runs to y 442 under the collar: the silhouette is continuous head → neck → torso |
-| Jacket gaped open below the lapels, showing a cream triangle of knit | jacket front closes under the lapels; the sweater is confined to the V |
-| The gesturing arm was the same navy as the torso and disappeared | its own lighter sleeve gradient + 3 px ink outline + a cast shadow on the chest |
-| Hair was a helmet | swept fringe, side parting, hairline strands, sideburns, highlight |
-| Eyes were almonds with a dot | sclera + iris + pupil + catchlight |
-| Mouth was a dark hole when open | lips + opening + teeth + tongue, opens to 22 px |
-| Hands were mittens | four fingers + thumb, three poses |
+| Check | Method | Result |
+| --- | --- | --- |
+| Silhouette is continuous head → neck → torso | ink extents measured on the rendered figure | PASS — viewport set to the measured extents (`HOST_VIEW` 172,234,1372×1538) |
+| Figure separates from the backdrop | luma sampled on delivered frames | PASS — torso 0.283 vs backdrop 0.073 (3.9 ×), hair 0.201, head 0.423 |
+| Mouth animates with the VO | frames rendered at mouth 0.02 / 0.98, all other motion frozen | PASS — 4,942 px change, confined to the mouth box |
+| Eyes blink | frames 2 and 17 vs 10 (inside the double-blink windows) | PASS — eye box changes, nothing else does |
+| Three gestures read in situ | film frames 90 (idle), 420 (point), 1080 and 1450 (open palm) | PASS — arm inside frame, clear of the caption |
+| No lens fill covering the eyes | glasses variant inspected in the baked parts | PASS — `HOST_GLASSES` is ink-only, zero paper fills |
 
 - On screen in 5 windows: 12–172 (hook, full), 316–485 (hot wallet, present),
   1032–1200 (the question, full), 1358–1536 (one laptop, present),
   1985–2145 (close, full).
 - Mouth is driven by `audio/mouth.json`, a per-frame RMS curve of the actual VO
   (2145 values, 0–100), so he moves with the words rather than on a loop.
-- Eyes blink on a deterministic 3.8 s double-blink cycle; the torso breathes at
-  0.8 Hz; the right arm takes `point` on the hot-wallet beat and `open` on the
-  question and "one laptop" beats.
+- Eyes blink on a deterministic 3.9 s double-blink cycle; the torso breathes at
+  0.8 Hz; the brow lifts on the question beat; the arm takes `point` on the
+  hot-wallet beat and `open` on the question and "one laptop" beats.
 - The card shrinks from 660 px to 520 px and the caption lifts whenever the host
   is full-frame, so his head never collides with the type.
+
+## 4b. Third-party artwork
+
+| Item | Source | Licence |
+| --- | --- | --- |
+| Host artwork | Notionists by Zoish (DiceBear) | CC0 1.0 — public domain, no credit required |
+| Assembler | `@dicebear/core` 10.7.0 | MIT |
+
+Both are cleared for commercial use and monetised upload. The CC-BY-4.0 DiceBear
+styles (Adventurer, Micah, Personas and six others) were deliberately **not**
+used, because they would require a visible credit on every frame.
 
 ## 5. Script and fact check
 

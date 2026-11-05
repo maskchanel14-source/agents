@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Build the revision-3 delivery bundle for SHORTS-2026-024-Binance-63B.
+# Build the delivery bundle for SHORTS-2026-024-Binance-63B.
+# Revision 4: same 2145-frame edit as revision 3, with the host rebuilt on
+# DiceBear Notionists (CC0 1.0). Audio, illustrations and script are unchanged.
 #
 #   bash scripts/build-delivery-rev3.sh
 #
@@ -27,7 +29,7 @@ echo "[2/6] audio"
 cp audio/final3.wav delivery/03_AUDIO-MIX-14LUFS.wav
 
 echo "[3/6] docs"
-cp PUBLISH-KIT.md QC-REPORT.md REVISION-2.md REVISION-3.md README.txt delivery/
+cp PUBLISH-KIT.md QC-REPORT.md REVISION-2.md REVISION-3.md REVISION-4.md README.txt delivery/
 
 echo "[4/6] stills + QA reports"
 (cd stills && zip -q -r ../delivery/04_STILLS.zip .)
@@ -37,7 +39,7 @@ echo "[5/6] source archive"
 STAGE="$(mktemp -d)"
 mkdir -p "$STAGE/archive"
 cp facts.json script.txt script-rev3.txt STYLE_BIBLE.md README.md \
-   REVISION-2.md REVISION-3.md QC-REPORT.md PUBLISH-KIT.md "$STAGE/archive/"
+   REVISION-2.md REVISION-3.md REVISION-4.md QC-REPORT.md PUBLISH-KIT.md "$STAGE/archive/"
 cp audio/timing3.json "$STAGE/archive/timing3.json"
 mkdir -p "$STAGE/archive/media-production"
 cp -r "$STUDIO/src" "$STAGE/archive/media-production/src"
