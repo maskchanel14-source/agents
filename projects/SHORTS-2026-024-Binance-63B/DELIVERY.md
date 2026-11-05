@@ -5,8 +5,9 @@
 Google Drive folder: **SHORTS-2026-024B-Binance63B — Rev4 2D Explainer (DiceBear host) — Delivery 2026-11-05**
 https://drive.google.com/drive/folders/1bmZ9iHDY6n2akqN5-drl-xsImKTNxKc9
 
-14 files, 78 MB. Built by `media-production/scripts/build-delivery-rev3.sh`;
-byte sizes match `SHA256SUMS.txt` (verify with `sha256sum -c SHA256SUMS.txt`).
+16 files, 79 MB (bundle built 2026-11-05 08:39 UTC, thumbnail added 10:50 UTC).
+Built by `media-production/scripts/build-delivery-rev3.sh`; byte sizes of the
+bundle match `SHA256SUMS.txt` (verify with `sha256sum -c SHA256SUMS.txt`).
 
 **Re-uploaded 2026-11-05 into the same folder** (renamed for revision 4). The
 host is no longer hand-authored: he is assembled from DiceBear **Notionists**
@@ -23,8 +24,8 @@ so every file id below is new; the folder link itself is unchanged.
 | 03_AUDIO-MIX-14LUFS.wav | 6 306 378 | 1O3CydGWVy2v7Lyy5ae4ePG5MqTUJWA4- |
 | 04_STILLS.zip | 14 872 900 | 110NGORZMjA31NzVRLeoOJGS-CTPBEOgK |
 | 05_QA-REPORTS.zip | 11 552 | 1AQXrtM0iwP9MA6dDaKQYoDRb7kZupW16 |
-| 06_SOURCE-ARCHIVE.zip | 23 914 777 | 1CGrHMAtitTywMw76qAZ2_Tq47wdw4GEM |
-| PUBLISH-KIT.md | 3 663 | 1ltyU-fGQy1UXVBrIuy5hahWTbIF6JG55 |
+| 06_SOURCE-ARCHIVE.zip | 23 915 103 | 1qmWfYL_8x7bpj5qx4uM9I0dOlWwh2PBf |
+| PUBLISH-KIT.md | 4 746 | 1RLFao5tt6Ii87DAdjvt5LiPyYbxs2GVP |
 | QC-REPORT.md | 7 061 | 1PGr6mxqCP0cewjVI1mFH6vM8ysAqSM5U |
 | README.txt | 3 420 | 1FsBb3cRN5tqqNBnuhacXrmcvh1aSuIDF |
 | REVISION-2.md | 5 630 | 1AUI12DQjLE6iSUVVfpF1hCrer8FaxGH2 |
@@ -32,6 +33,15 @@ so every file id below is new; the folder link itself is unchanged.
 | REVISION-4.md | 6 148 | 1If_9HVOG4ulxGr_XyJ0Ge3Hhz62OD5NO |
 | SHA256SUMS.txt | 1 059 | 1St_dSMXm7FV5nPjMV3zpXn-1UI_YZhhj |
 | cover-small.png | 408 886 | 11lBLVGJ_TzXwdoPUMu9XK-CoiVUb_vLh |
+| 07_THUMBNAIL_1080x1920.png | 1 331 754 | 1zMaK2YWzymzx-3yHhyy0LHwIlWoS_Xt2 |
+| 07_THUMBNAIL_540x960.png | 451 177 | 1umJUA5Y0msLPxssNVleUygNCLFahUmkz |
+
+The thumbnail is built by `thumbnails/build_thumbnail.py` (+ `host_render.py`,
+both also in the folder as `build_thumbnail.py` id `1OzODh8Hxr58ZeHxpfE9U_rWvIq8_4RB6`
+and `host_render.py` id `1lyCPrxY4CpGlYCExT7k5lgd1wuDw5Caa`). It is **not** a
+frame grab: the host is the same DiceBear Notionists character the film uses,
+rasterised from `media-production/src/host/parts.ts`, and every glyph is drawn
+with PIL. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
 
 Sharing: private (owner only). No public link has been created.
 The generated scene artwork is not in git — it lives in
@@ -64,6 +74,13 @@ same folder; the ids below are the rev-3 ones and no longer resolve.
 | REVISION-3.md | 6 274 | 19gooYF6JGv55t8VI6ZVPhEr2E02X6g0W |
 | SHA256SUMS.txt | 979 | 1uBwETYBvmqGHMakJAvTKBJXTXh5xH4vT |
 | cover-small.png | 399 339 | 16FTj3dBDSDxUyF1WZRl4D2Xx_THp_ib- |
+
+The thumbnail is built by `thumbnails/build_thumbnail.py` (+ `host_render.py`,
+both also in the folder as `build_thumbnail.py` id `1OzODh8Hxr58ZeHxpfE9U_rWvIq8_4RB6`
+and `host_render.py` id `1lyCPrxY4CpGlYCExT7k5lgd1wuDw5Caa`). It is **not** a
+frame grab: the host is the same DiceBear Notionists character the film uses,
+rasterised from `media-production/src/host/parts.ts`, and every glyph is drawn
+with PIL. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
 
 Sharing: private (owner only). No public link has been created.
 The generated scene artwork is not in git — it lives in

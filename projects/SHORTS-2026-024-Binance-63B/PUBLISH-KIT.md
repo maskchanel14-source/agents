@@ -1,9 +1,15 @@
-# PUBLISH KIT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 3
+# PUBLISH KIT — SHORTS-2026-024B "The Twenty-Minute Heist" — REVISION 4
 
 71.5 s · 1080×1920 · 30 fps · English VO · host-led 2D explainer
 
-Revision 3 is the "teacher" cut: a host walks the viewer through the case in
-plain language, with one illustration per beat and the numbers set as type.
+The "teacher" cut: a host walks the viewer through the case in plain language,
+with one illustration per beat and the numbers set as type.
+
+Revision 4 (2026-11-05) replaces the hand-drawn host with artwork from DiceBear
+**Notionists** (Zoish, CC0 1.0) assembled with `@dicebear/core` (MIT) —
+professionally drawn vector art, no attribution required, cleared for commercial
+upload and monetisation. Timing, script, illustrations and audio are identical to
+revision 3.
 
 ## Title (pick one)
 
@@ -69,9 +75,17 @@ fake job interview scam, cyber security, crypto explained, animated shorts
 
 ## Thumbnail
 
-`02_COVER.png` — the host over the open vault with the caption "20 MINUTES".
-For the click, keep the type over the lower half (the host's head occupies the
-middle) so nothing important is cropped by YouTube's UI.
+**Use `07_THUMBNAIL_1080x1920.png`** — the purpose-built clickbait thumbnail:
+badge "LARGEST CRYPTO HEIST", **$6.3 BILLION** set huge in white and gold, a red
+"GONE IN 20 MINUTES" bar, and the host pointing up at it with his brow raised.
+It is not a frame grab, so the type stays crisp at any size, and nothing sits in
+the bottom 25 % or within 90 px of the right edge where the Shorts UI overlays.
+`07_THUMBNAIL_540x960.png` is the same artwork at half size for previews.
+
+`02_COVER.png` — a frame of the film (host over the open vault, caption
+"20 MINUTES") — is kept for platforms that ask for a video still instead. For
+that one, keep the type over the lower half: the host's head occupies the
+middle, so nothing important is cropped by YouTube's UI.
 
 ## Notes for the editor
 
@@ -83,3 +97,6 @@ middle) so nothing important is cropped by YouTube's UI.
   music tail after the last spoken word for an end card.
 - Captions are burned in as display type, so no separate .srt is required — but
   upload the auto-captions anyway for accessibility.
+- No third-party attribution is needed on screen: the host artwork is CC0 1.0
+  (public domain) and the assembler library is MIT. The credit is recorded in
+  `REVISION-4.md` and `QC-REPORT.md` §4b as a matter of record.
