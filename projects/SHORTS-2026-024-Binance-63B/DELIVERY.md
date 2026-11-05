@@ -33,15 +33,21 @@ so every file id below is new; the folder link itself is unchanged.
 | REVISION-4.md | 6 148 | 1If_9HVOG4ulxGr_XyJ0Ge3Hhz62OD5NO |
 | SHA256SUMS.txt | 1 059 | 1St_dSMXm7FV5nPjMV3zpXn-1UI_YZhhj |
 | cover-small.png | 408 886 | 11lBLVGJ_TzXwdoPUMu9XK-CoiVUb_vLh |
-| 07_THUMBNAIL_1080x1920.png | 1 331 754 | 1zMaK2YWzymzx-3yHhyy0LHwIlWoS_Xt2 |
-| 07_THUMBNAIL_540x960.png | 451 177 | 1umJUA5Y0msLPxssNVleUygNCLFahUmkz |
+| 07_THUMBNAIL_1080x1920.png | 581 749 | 1kgnKahLXODW72-28aUQklaJ1Y02KXvQs |
+| 07_THUMBNAIL_540x960.png | 277 440 | 1Pv9zIjfDQ1wXE9jcQ4bJ6YmHJZfYy6Lc |
 
 The thumbnail is built by `thumbnails/build_thumbnail.py` (+ `host_render.py`,
-both also in the folder as `build_thumbnail.py` id `1OzODh8Hxr58ZeHxpfE9U_rWvIq8_4RB6`
+both also in the folder as `build_thumbnail.py` id `1tjDziQcuZBb_-V68YW29X-Y2fX3VY9Da`
 and `host_render.py` id `1lyCPrxY4CpGlYCExT7k5lgd1wuDw5Caa`). It is **not** a
 frame grab: the host is the same DiceBear Notionists character the film uses,
 rasterised from `media-production/src/host/parts.ts`, and every glyph is drawn
-with PIL. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
+with PIL.
+
+Built to a 50M-subscriber standard: three type sizes only (kicker 54 /
+number 420 / bar 66), a face at 25 % of frame height with a hard sticker
+outline and warm rim so it separates from any background, high-key graded art
+(mean luma 0.375, 6.3 % crushed) and 0 colliding pixels between type and
+subject. Still legible downscaled to a 270×480 phone tile. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
 
 Sharing: private (owner only). No public link has been created.
 The generated scene artwork is not in git — it lives in
@@ -76,11 +82,17 @@ same folder; the ids below are the rev-3 ones and no longer resolve.
 | cover-small.png | 399 339 | 16FTj3dBDSDxUyF1WZRl4D2Xx_THp_ib- |
 
 The thumbnail is built by `thumbnails/build_thumbnail.py` (+ `host_render.py`,
-both also in the folder as `build_thumbnail.py` id `1OzODh8Hxr58ZeHxpfE9U_rWvIq8_4RB6`
+both also in the folder as `build_thumbnail.py` id `1tjDziQcuZBb_-V68YW29X-Y2fX3VY9Da`
 and `host_render.py` id `1lyCPrxY4CpGlYCExT7k5lgd1wuDw5Caa`). It is **not** a
 frame grab: the host is the same DiceBear Notionists character the film uses,
 rasterised from `media-production/src/host/parts.ts`, and every glyph is drawn
-with PIL. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
+with PIL.
+
+Built to a 50M-subscriber standard: three type sizes only (kicker 54 /
+number 420 / bar 66), a face at 25 % of frame height with a hard sticker
+outline and warm rim so it separates from any background, high-key graded art
+(mean luma 0.375, 6.3 % crushed) and 0 colliding pixels between type and
+subject. Still legible downscaled to a 270×480 phone tile. `02_COVER.png` (a frame of the film) is kept as the in-player cover.
 
 Sharing: private (owner only). No public link has been created.
 The generated scene artwork is not in git — it lives in

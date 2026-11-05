@@ -1,23 +1,27 @@
 """Build the clickbait thumbnail for SHORTS-2026-024B.
 
+Standard: what a 50-million-subscriber channel would publish. That means
+
+  * one idea, three words, legible at a 100 px tile — nothing else on screen;
+  * a face big enough to read the emotion (26 % of frame height) with a hard
+    sticker outline so it separates from any background;
+  * bright, saturated, high-key art — dark muddy thumbnails do not get clicked;
+  * strict size hierarchy: kicker → number → bar, nothing in between.
+
+The host is NOT redrawn: he is the same DiceBear Notionists character the film
+uses (CC0 1.0, Zoish), read out of media-production/src/host/parts.ts and
+rasterised with resvg in the `pointLongArm` pose — brow raised, mid-sentence —
+so the thumbnail and the film show the same person. The background is generated
+art, thrown out of focus and graded high-key; every glyph is drawn with PIL, so
+the spelling is exact at any size.
+
 Reproduce with:
     pip install --break-system-packages pillow numpy resvg-py fonttools brotli
     npm install --prefix /tmp/fonts @fontsource/anton @fontsource/inter
     python3 -c "from fontTools.ttLib import TTFont; import glob; \\
         TTFont('/tmp/fonts/node_modules/@fontsource/anton/files/anton-latin-400-normal.woff').save('/tmp/fonts/Anton.ttf'); \\
-        TTFont(sorted(glob.glob('/tmp/fonts/node_modules/@fontsource/inter/files/inter-latin-8*-normal.woff'))[-1]).save('/tmp/fonts/Inter-Black.ttf'); \\
-        TTFont(sorted(glob.glob('/tmp/fonts/node_modules/@fontsource/inter/files/inter-latin-6*-normal.woff'))[-1]).save('/tmp/fonts/Inter-Bold.ttf')"
+        TTFont(sorted(glob.glob('/tmp/fonts/node_modules/@fontsource/inter/files/inter-latin-8*-normal.woff'))[-1]).save('/tmp/fonts/Inter-Black.ttf')"
     python3 build_thumbnail.py
-
-The host is NOT redrawn for the thumbnail: he is the same DiceBear Notionists
-character the film uses (CC0 1.0, Zoish), read out of
-media-production/src/host/parts.ts and rasterised with resvg in the pose
-`pointLongArm` — brow raised, mid-sentence — so the thumbnail and the film show
-the same person. The background is generated art; every glyph is drawn with PIL
-so the spelling is exact at any size.
-
-Layout rule: all type lives above y 706, the host owns everything below y 766.
-That keeps the two from colliding and keeps the type clear of the Shorts UI.
 """
 import io, os, sys
 import numpy as np
@@ -31,15 +35,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 W, H = 1080, 1920
 BG = os.path.join(HERE, '_bg_source.png')
 OUT = os.path.join(HERE, '01_THUMBNAIL_1080x1920.png')
+SMALL = os.path.join(HERE, '01_THUMBNAIL_540x960.png')
 
-PAPER = (251, 247, 240)   # theme2d paper
-GOLD = (232, 179, 58)     # theme2d gold
-RED = (224, 51, 59)       # alarm accent, thumbnail only
-INK = (11, 18, 32)        # theme2d ink
+PAPER = (255, 252, 246)
+GOLD = (255, 198, 58)
+RED = (255, 45, 58)
+INK = (8, 13, 26)
 
 ANTON = '/tmp/fonts/Anton.ttf'
 INTER_B = '/tmp/fonts/Inter-Black.ttf'
-INTER = '/tmp/fonts/Inter-Bold.ttf'
 
 
 def font(path, size):
@@ -53,7 +57,6 @@ def text_w(draw, s, f, spacing=0):
 
 
 def draw_tracked(draw, xy, s, f, fill, spacing=0, stroke=0, sc=INK):
-    """Draw text with manual letterspacing and an outline."""
     x, y = xy
     for c in s:
         draw.text((x, y), c, font=f, fill=fill, stroke_width=stroke, stroke_fill=sc)
@@ -61,104 +64,144 @@ def draw_tracked(draw, xy, s, f, fill, spacing=0, stroke=0, sc=INK):
     return x
 
 
-# ---------------------------------------------------------------- background
-bg = Image.open(BG).convert('RGB').resize((W, H), Image.LANCZOS)
-a = np.asarray(bg, dtype=np.float32) / 255
-a = np.clip(a, 0, 1) ** 0.72 * 1.06          # lift the midtones
-yy = np.linspace(0, 1, H, dtype=np.float32)[:, None]
-a = a * (1 - 0.55 * np.clip((0.30 - yy) / 0.30, 0, 1)[..., None])   # keep the top dark
-a = a * (1 - 0.72 * np.clip((yy - 0.62) / 0.38, 0, 1)[..., None])   # ground the bottom
-a[..., 0] *= 1.03
-a[..., 2] *= 0.97
-img = Image.fromarray(np.clip(a * 255, 0, 255).astype(np.uint8), 'RGB')
+def drop_shadow(base, layer_fn, blur=22):
+    """Blur a copy of `layer_fn` and paste it under the crisp version."""
+    sh = Image.new('RGBA', base.size, (0, 0, 0, 0))
+    layer_fn(ImageDraw.Draw(sh))
+    base.alpha_composite(sh.filter(ImageFilter.GaussianBlur(blur)))
 
-# amber glow behind the number stack
-glow = Image.new('RGB', (W, H), (0, 0, 0))
-gd = ImageDraw.Draw(glow)
-cx, cy, r = 700, 470, 620
-for i in range(28, 0, -1):
-    rr = r * i / 28
-    t = (1 - i / 28) ** 2
-    gd.ellipse([cx - rr, cy - rr * 0.85, cx + rr, cy + rr * 0.85],
-               fill=(int(232 * t * 0.55), int(170 * t * 0.45), int(60 * t * 0.25)))
-glow = glow.filter(ImageFilter.GaussianBlur(90))
-img = Image.blend(img, Image.fromarray(np.clip(
-    np.asarray(img, np.float32) + np.asarray(glow, np.float32) * 0.85, 0, 255).astype(np.uint8)), 0.55)
+
+# ---------------------------------------------------------------- background
+# The generated art is a texture, not the subject: throw it out of focus so it
+# reads as depth, then grade it high-key. Dark thumbnails do not get clicked.
+bg = Image.open(BG).convert('RGB').resize((W, H), Image.LANCZOS).filter(ImageFilter.GaussianBlur(32))
+a = np.asarray(bg, dtype=np.float32) / 255
+a = np.clip(a, 0, 1) ** 0.55                       # lift hard
+a = np.clip(a * 1.34 + 0.10, 0, 1)                 # brighten, keep a floor
+yy = np.linspace(0, 1, H, dtype=np.float32)[:, None]
+a = a * (1 - 0.28 * np.clip((0.34 - yy) / 0.34, 0, 1)[..., None])   # navy wash up top
+a = a * (1 - 0.30 * np.clip((yy - 0.66) / 0.34, 0, 1)[..., None])   # ground the bottom
+a[..., 0] *= 1.05
+a[..., 2] *= 0.92                                  # warmer
+img = Image.fromarray(np.clip(a * 255, 0, 255).astype(np.uint8), 'RGB').convert('RGBA')
+
+# big warm burst behind the host so his head sits on light, not on mush
+burst = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+bd = ImageDraw.Draw(burst)
+cx, cy, r = 430, 1080, 760
+# NB: vary the ALPHA, not the colour — an opaque near-black disc would paint
+# the background out instead of lighting it.
+for i in range(30, 0, -1):
+    rr = r * i / 30
+    t = (1 - i / 30) ** 2
+    bd.ellipse([cx - rr, cy - rr, cx + rr, cy + rr],
+               fill=(255, 176, 52, int(255 * t * 0.92)))
+burst = burst.filter(ImageFilter.GaussianBlur(120))
+img = Image.alpha_composite(img, burst)
+
+# crisp light rays for depth
+rays = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+rd = ImageDraw.Draw(rays)
+for ang, wd, al in ((-38, 190, 26), (-14, 120, 20), (26, 150, 18), (58, 90, 14)):
+    box = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(box).polygon([(cx, cy),
+                                 (cx + 3000 * np.cos(np.radians(ang - wd / 2)), cy + 3000 * np.sin(np.radians(ang - wd / 2))),
+                                 (cx + 3000 * np.cos(np.radians(ang + wd / 2)), cy + 3000 * np.sin(np.radians(ang + wd / 2)))],
+                                fill=(255, 214, 130, al))
+    rays = Image.alpha_composite(rays, box)
+rays = rays.filter(ImageFilter.GaussianBlur(60))
+img = Image.alpha_composite(img, rays)
 
 if os.environ.get('DUMP'):
-    img.save('/tmp/thumb/_0_bg.png')
+    img.convert('RGB').save('/tmp/thumb/_0_bg.png')
 
 # ---------------------------------------------------------------------- host
-HH, HX, HY = 1200, -190, 760                  # measured: hair top 766, face 1000-1420
+# Big: the face must read the emotion. Measured fractions of the drawn bust:
+# hair top 0.005, face 0.200-0.550 of the height.
+HH, HX, HY = 1380, -230, 680
 hp = Image.open(io.BytesIO(bytes(resvg_py.svg_to_bytes(
     svg_string=build_host_svg('pointLongArm', mouth=0.62, brow=1.0))))).convert('RGBA')
 hw = int(hp.width * HH / hp.height)
 hp = hp.resize((hw, HH), Image.LANCZOS)
+alpha0 = hp.split()[3]
 
-# rim light: dilate the silhouette, keep only the ring, tint it warm
-big = hp.split()[3].filter(ImageFilter.MaxFilter(9))
-ring = Image.new('RGBA', hp.size, (0, 0, 0, 0))
-ring.putalpha(Image.eval(ImageChops.subtract(big, hp.split()[3]), lambda v: int(v * 1.5)))
-ring.paste((255, 226, 178, 255), (0, 0), ring.split()[3])
-ring = ring.filter(ImageFilter.GaussianBlur(3))
+# 1. hard sticker outline — how the big channels keep a subject off the art
+out = Image.new('RGBA', hp.size, (0, 0, 0, 0))
+out.putalpha(alpha0.filter(ImageFilter.MaxFilter(21)))
+out = Image.new('RGBA', hp.size, INK + (255,))
+out.putalpha(Image.eval(alpha0.filter(ImageFilter.MaxFilter(21)), lambda v: int(v * 0.96)))
+out = out.filter(ImageFilter.GaussianBlur(2))
 
-# warm separation glow behind the head
-headglow = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-ImageDraw.Draw(headglow).ellipse([HX + 120, HY + 40, HX + 760, HY + 700], fill=(232, 179, 58, 120))
-headglow = headglow.filter(ImageFilter.GaussianBlur(120))
-img = Image.alpha_composite(img.convert('RGBA'), headglow).convert('RGB')
+# 2. warm rim inside the outline
+big = alpha0.filter(ImageFilter.MaxFilter(11))
+rim = Image.new('RGBA', hp.size, (0, 0, 0, 0))
+rim.putalpha(Image.eval(ImageChops.subtract(big, alpha0), lambda v: int(min(255, v * 1.7))))
+rim.paste((255, 226, 170, 255), (0, 0), rim.split()[3])
+rim = rim.filter(ImageFilter.GaussianBlur(3))
 
-# drop shadow / ground contact
+# 3. contact shadow
 shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-shadow.alpha_composite(Image.new('RGBA', (hw, HH), (0, 0, 0, 190)), (HX + 14, HY + 18))
-shadow.putalpha(shadow.split()[3].filter(ImageFilter.GaussianBlur(18)))
-img = Image.alpha_composite(img.convert('RGBA'), shadow).convert('RGB')
+shadow.alpha_composite(Image.new('RGBA', (hw, HH), (0, 0, 0, 200)), (HX + 12, HY + 26))
+shadow.putalpha(shadow.split()[3].filter(ImageFilter.GaussianBlur(26)))
+img = Image.alpha_composite(img, shadow)
 
-rim = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-rim.paste(ring, (HX, HY), ring)
-img = Image.alpha_composite(img.convert('RGBA'), rim).convert('RGB')
-img.paste(hp, (HX, HY), hp)
+for layer in (out, rim, hp):
+    plate = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    plate.paste(layer, (HX, HY), layer if layer is hp else layer)
+    img = Image.alpha_composite(img, plate)
 
 if os.environ.get('DUMP'):
-    img.save('/tmp/thumb/_A_bg_host.png')
-
-d = ImageDraw.Draw(img)
+    img.convert('RGB').save('/tmp/thumb/_A_bg_host.png')
 
 # ---------------------------------------------------------------- typography
-f_badge = font(INTER_B, 42)
-badge = 'LARGEST CRYPTO HEIST'
-bw = text_w(d, badge, f_badge, 6) + 56
-bx, by, bh = 90, 88, 80
-d.rounded_rectangle([bx, by, bx + bw, by + bh], radius=bh // 2, fill=RED)
-draw_tracked(d, (bx + 28, by + 19), badge, f_badge, PAPER, 6)
+# Three sizes only. Kicker → number → bar. Everything above the hair line
+# (y 627) and inside a 90 px side margin.
+f_kick = font(INTER_B, 54)
+f_num = font(ANTON, 420)
+f_bar = font(INTER_B, 66)
 
-RIGHT = 990
-f_num = font(ANTON, 320)
-f_bil = font(ANTON, 200)
-w1 = text_w(d, '$6.3', f_num)
-draw_tracked(d, (RIGHT - w1, 190), '$6.3', f_num, PAPER, 0, stroke=10, sc=(6, 10, 20))
-w2 = text_w(d, 'BILLION', f_bil, 2)
-d.line([(RIGHT - w2, 434), (RIGHT, 434)], fill=GOLD, width=9)
-draw_tracked(d, (RIGHT - w2, 452), 'BILLION', f_bil, GOLD, 2, stroke=9, sc=(6, 10, 20))
-
-f_bar = font(INTER_B, 64)
+sizer = ImageDraw.Draw(img)
+kick = 'LARGEST CRYPTO HEIST'
+num = '$6.3B'
 bar = 'GONE IN 20 MINUTES'
-bwd = text_w(d, bar, f_bar, 2) + 56
-bx2, by2, bh2 = RIGHT - bwd, 610, 96
-d.rounded_rectangle([bx2, by2, bx2 + bwd, by2 + bh2], radius=10, fill=RED)
-draw_tracked(d, (bx2 + 28, by2 + 20), bar, f_bar, PAPER, 2)
+RIGHT, LEFT = 990, 90
+
+
+def block(d, text, f, size, xy, fill, spacing, stroke, sc=INK, shadow=True):
+    if shadow:
+        drop_shadow(img, lambda dd: draw_tracked(dd, (xy[0], xy[1] + 12), text, f,
+                                                 (0, 0, 0, 210), spacing, stroke, (0, 0, 0, 210)), blur=26)
+    draw_tracked(d, xy, text, f, fill, spacing, stroke, sc)
+
+
+d = ImageDraw.Draw(img)
+# kicker, top left
+block(d, kick, f_kick, 54, (LEFT, 70), PAPER, 8, stroke=9)
+
+# the number — the one thing you read first
+w1 = text_w(sizer, num, f_num)
+block(d, num, f_num, 420, (RIGHT - w1, 150), PAPER, 0, stroke=20)
+
+# gold rule + bar
+bwd = text_w(sizer, bar, f_bar, 4) + 60
+bx2, by2, bh2 = RIGHT - bwd, 480, 104
+sh = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+ImageDraw.Draw(sh).rounded_rectangle([bx2 + 6, by2 + 12, bx2 + bwd + 6, by2 + bh2 + 12], radius=12, fill=(0, 0, 0, 200))
+img.alpha_composite(sh.filter(ImageFilter.GaussianBlur(22)))
+d.rounded_rectangle([bx2, by2, bx2 + bwd, by2 + bh2], radius=12, fill=RED)
+draw_tracked(d, (bx2 + 30, by2 + 22), bar, f_bar, PAPER, 4)
 
 if os.environ.get('DUMP'):
-    img.save('/tmp/thumb/_B_all.png')
+    img.convert('RGB').save('/tmp/thumb/_B_all.png')
 
 # ----------------------------------------------------------------- vignette
 xx = np.linspace(-1, 1, W, dtype=np.float32)[None, :]
 yy2 = np.linspace(-1, 1, H, dtype=np.float32)[:, None]
-rr = np.sqrt(xx ** 2 * 0.55 + yy2 ** 2 * 0.42)
-vg = np.clip((rr - 0.62) / 0.75, 0, 1) ** 1.5 * 0.62
-arr = np.asarray(img, np.float32) * (1 - vg[..., None])
+rr = np.sqrt(xx ** 2 * 0.52 + yy2 ** 2 * 0.40)
+vg = np.clip((rr - 0.72) / 0.70, 0, 1) ** 1.4 * 0.30
+arr = np.asarray(img.convert('RGB'), np.float32) * (1 - vg[..., None])
 img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), 'RGB')
 
 img.save(OUT)
-img.resize((540, 960), Image.LANCZOS).save(os.path.join(HERE, '01_THUMBNAIL_540x960.png'))
+img.resize((540, 960), Image.LANCZOS).save(SMALL)
 print('wrote', OUT, img.size)
