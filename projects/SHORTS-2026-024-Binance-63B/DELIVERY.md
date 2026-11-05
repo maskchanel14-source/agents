@@ -5,7 +5,8 @@
 Google Drive folder: **SHORTS-2026-024B-Binance63B — Rev4 2D Explainer (DiceBear host) — Delivery 2026-11-05**
 https://drive.google.com/drive/folders/1bmZ9iHDY6n2akqN5-drl-xsImKTNxKc9
 
-14 files, 78 MB. Built by `media-production/scripts/build-delivery-rev3.sh`;
+14 files, 78 MB (built 2026-11-05 08:39 UTC). Built by
+`media-production/scripts/build-delivery-rev3.sh`;
 byte sizes match `SHA256SUMS.txt` (verify with `sha256sum -c SHA256SUMS.txt`).
 
 **Re-uploaded 2026-11-05 into the same folder** (renamed for revision 4). The
@@ -23,7 +24,7 @@ so every file id below is new; the folder link itself is unchanged.
 | 03_AUDIO-MIX-14LUFS.wav | 6 306 378 | 1O3CydGWVy2v7Lyy5ae4ePG5MqTUJWA4- |
 | 04_STILLS.zip | 14 872 900 | 110NGORZMjA31NzVRLeoOJGS-CTPBEOgK |
 | 05_QA-REPORTS.zip | 11 552 | 1AQXrtM0iwP9MA6dDaKQYoDRb7kZupW16 |
-| 06_SOURCE-ARCHIVE.zip | 23 914 777 | 1CGrHMAtitTywMw76qAZ2_Tq47wdw4GEM |
+| 06_SOURCE-ARCHIVE.zip | 23 915 103 | 1qmWfYL_8x7bpj5qx4uM9I0dOlWwh2PBf |
 | PUBLISH-KIT.md | 3 663 | 1ltyU-fGQy1UXVBrIuy5hahWTbIF6JG55 |
 | QC-REPORT.md | 7 061 | 1PGr6mxqCP0cewjVI1mFH6vM8ysAqSM5U |
 | README.txt | 3 420 | 1FsBb3cRN5tqqNBnuhacXrmcvh1aSuIDF |
