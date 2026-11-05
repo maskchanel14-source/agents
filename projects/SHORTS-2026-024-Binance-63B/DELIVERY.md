@@ -31,7 +31,7 @@ so every file id below is new; the folder link itself is unchanged.
 | REVISION-2.md | 5 630 | 1AUI12DQjLE6iSUVVfpF1hCrer8FaxGH2 |
 | REVISION-3.md | 6 274 | 1VWniEzqI0zCi6N1t5YXD7JwbPgwn9kjW |
 | REVISION-4.md | 6 148 | 1If_9HVOG4ulxGr_XyJ0Ge3Hhz62OD5NO |
-| SHA256SUMS.txt | 1 059 | 1St_dSMXm7FV5nPjMV3zpXn-1UI_YZhhj |
+| SHA256SUMS.txt | 1 058 | 1St_dSMXm7FV5nPjMV3zpXn-1UI_YZhhj |
 | cover-small.png | 408 886 | 11lBLVGJ_TzXwdoPUMu9XK-CoiVUb_vLh |
 | 07_THUMBNAIL_1080x1920.png | 581 749 | 1kgnKahLXODW72-28aUQklaJ1Y02KXvQs |
 | 07_THUMBNAIL_540x960.png | 277 440 | 1Pv9zIjfDQ1wXE9jcQ4bJ6YmHJZfYy6Lc |
