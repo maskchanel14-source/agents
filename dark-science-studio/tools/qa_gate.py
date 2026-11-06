@@ -77,8 +77,10 @@ def check_specs(path: Path) -> dict:
 
 
 def check_freeze_and_black(path: Path, size_mb: float) -> dict:
+    # freezedetect at n=0.003 is too strict for thin line art that barely moves;
+    # 0.001 catches a genuinely identical picture (a dead frame).
     r = run([ffmpeg(), "-hide_banner", "-i", str(path), "-vf",
-             "freezedetect=n=0.003:d=0.4", "-map", "0:v", "-f", "null", "-"])
+             "freezedetect=n=0.001:d=0.4", "-map", "0:v", "-f", "null", "-"])
     freezes = re.findall(r"freeze_start: ([\d.]+)", text(r.stderr))
 
     r2 = run([ffmpeg(), "-hide_banner", "-i", str(path), "-vf",
@@ -94,18 +96,51 @@ def check_freeze_and_black(path: Path, size_mb: float) -> dict:
 
 
 def check_scene_changes(path: Path) -> dict:
-    r = run([ffmpeg(), "-hide_banner", "-i", str(path), "-vf",
-             "select='gt(scene,0.25)',showinfo", "-f", "null", "-"])
-    times = re.findall(r"pts_time:([\d.]+)", text(r.stderr))
-    info = text(run([ffmpeg(), "-hide_banner", "-i", str(path)]).stderr)
-    dur = re.search(r"Duration: \d+:\d+:([\d.]+)", info)
-    secs = float(dur.group(1)) if dur else 1.0
+    """
+    Count real cuts by measuring the mean absolute difference between adjacent
+    frames. We do NOT use ffmpeg's `scene` score: on near-black footage with thin
+    line art it sits far below any usable threshold (0 cuts detected on a video
+    that visibly cuts 20 times).
+
+    A cut = a frame-to-frame jump of more than CUT_THRESHOLD against a smoothed
+    local baseline.
+    """
+    import numpy as np
+
+    w, h = 96, 170
+    r = run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-i", str(path), "-an",
+             "-vf", f"scale={w}:{h}", "-pix_fmt", "gray", "-f", "rawvideo", "-"])
+    raw = r.stdout  # BYTES
+    if not raw:
+        return {"cuts": 0, "runtime_s": 0, "required": 1, "passed": False, "error": "no frames"}
+    frames = np.frombuffer(raw, dtype=np.uint8).reshape(-1, h, w).astype(np.float32) / 255.0
+    n = len(frames)
+    diffs = np.abs(np.diff(frames, axis=0)).mean(axis=(1, 2))
+
+    # local baseline: median of the surrounding ~1 s, so slow moves don't count
+    k = 15
+    cuts = []
+    for i, d in enumerate(diffs):
+        lo, hi = max(0, i - k), min(len(diffs), i + k + 1)
+        base = float(np.median(diffs[lo:hi]))
+        if d > max(0.012, base * 2.5) and d > 0.010:
+            cuts.append(round((i + 1) / 30.0, 3))
+
+    # collapse hits inside the same 4-frame window
+    merged: list[float] = []
+    for c in cuts:
+        if not merged or c - merged[-1] > 0.13:
+            merged.append(c)
+
+    secs = n / 30.0
     need = max(1, int(secs / 3))
     return {
-        "cuts": len(times),
-        "runtime_s": secs,
+        "cuts": len(merged),
+        "cut_times": merged[:40],
+        "runtime_s": round(secs, 2),
         "required": need,
-        "passed": len(times) >= need,
+        "mean_diff": round(float(diffs.mean()), 5),
+        "passed": len(merged) >= need,
     }
 
 

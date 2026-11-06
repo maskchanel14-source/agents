@@ -1,9 +1,9 @@
 {
   "engine": "piper en_US-lessac-medium",
   "sample_rate": 16000,
-  "duration_s": 44.187,
+  "duration_s": 44.342,
   "word_count": 128,
-  "wpm": 173.8,
+  "wpm": 173.2,
   "lines": [
     {
       "i": 0,

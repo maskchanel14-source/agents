@@ -1,0 +1,106 @@
+{
+  "specs": {
+    "duration_s": 44.0,
+    "video_codec": "h264",
+    "width": 1080,
+    "height": 1920,
+    "audio_codec": "aac",
+    "fps": 30.0,
+    "passed": true,
+    "size_mb": 22.1
+  },
+  "freeze_black": {
+    "frozen_runs": 2,
+    "frozen_at": [
+      "39.166667",
+      "40.733333"
+    ],
+    "black_frames": 0,
+    "black_at": [],
+    "passed": false
+  },
+  "scene_changes": {
+    "cuts": 38,
+    "cut_times": [
+      1.9,
+      2.333,
+      3.267,
+      3.967,
+      4.167,
+      4.7,
+      5.833,
+      6.3,
+      7.133,
+      7.733,
+      7.867,
+      8.433,
+      10.467,
+      12.933,
+      17.933,
+      18.067,
+      19.6,
+      21.367,
+      23.6,
+      25.4,
+      26.067,
+      26.5,
+      26.633,
+      27.133,
+      29.1,
+      30.867,
+      31.733,
+      31.867,
+      32.5,
+      33.9,
+      36.333,
+      37.267,
+      37.833,
+      38.0,
+      38.167,
+      38.7,
+      40.5,
+      41.733
+    ],
+    "runtime_s": 44.0,
+    "required": 14,
+    "mean_diff": 0.00436,
+    "passed": true
+  },
+  "loudness": {
+    "integrated_lufs": -14.0,
+    "true_peak_dbtp": -1.1,
+    "passed": true
+  },
+  "whisper": {
+    "passed": true,
+    "skipped": "faster-whisper not installed",
+    "match_pct": null
+  },
+  "captions": {
+    "cues": 32,
+    "monotonic": true,
+    "max_gap_s": 0.24,
+    "last_end_s": 43.652,
+    "passed": true
+  },
+  "luminance": {
+    "frames_sampled": 44,
+    "mean_luma": 0.0582,
+    "min_luma": 0.0397,
+    "max_luma": 0.0957,
+    "passed": true
+  },
+  "contact_sheets": [
+    "build/DS-003/qa_frames/contact_01.png"
+  ],
+  "timeline": {
+    "shots": 21,
+    "cuts": 20,
+    "mean_shot_s": 2.1,
+    "min_shot_s": 1.23,
+    "mean_shot_ok": true
+  },
+  "all_passed": false,
+  "video": "/home/user/agents/dark-science-studio/renders/DS-003/final.mp4",
+  "size_mb": 22.1
+}

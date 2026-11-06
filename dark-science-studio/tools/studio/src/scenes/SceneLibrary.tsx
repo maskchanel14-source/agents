@@ -39,7 +39,7 @@ const SceneBackdrop: React.FC<{p: number; rings?: boolean}> = ({p, rings = true}
       style={{
         position: 'absolute',
         inset: 0,
-        background: `radial-gradient(ellipse 70% 46% at 50% 46%, ${theme.accentSoft} 0%, rgba(5,7,10,0) 68%)`,
+        background: `radial-gradient(ellipse 78% 52% at 50% 45%, rgba(34,211,238,0.16) 0%, rgba(34,211,238,0.05) 42%, rgba(5,7,10,0) 72%)`,
       }}
     />
     {rings ? (
@@ -55,7 +55,7 @@ const SceneBackdrop: React.FC<{p: number; rings?: boolean}> = ({p, rings = true}
               fill="none"
               stroke={theme.accent}
               strokeWidth={1}
-              opacity={0.10 * (1 - (r - 120) / 620)}
+              opacity={0.20 * (1 - (r - 120) / 620)}
             />
           );
         })}
@@ -133,6 +133,46 @@ export const Ticker: React.FC<{label: string; right?: string}> = ({label, right}
   </div>
 );
 
+/** Blocky instrument readouts — the DS-002 signature that fills dead space. */
+export const HudPanel: React.FC<{
+  side?: 'left' | 'right';
+  top?: number;
+  rows: [string, string][];
+  accent?: boolean;
+}> = ({side = 'left', top = 560, rows, accent}) => (
+  <div
+    style={{
+      position: 'absolute',
+      top,
+      [side]: 60,
+      width: 380,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 0,
+    }}
+  >
+    {rows.map(([k, v], i) => (
+      <div
+        key={i}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+          padding: '9px 12px',
+          background: i % 2 === 0 ? 'rgba(34,211,238,0.09)' : 'rgba(34,211,238,0.04)',
+          borderLeft: `2px solid ${accent && i === 0 ? theme.accent : 'rgba(34,211,238,0.45)'}`,
+          fontFamily: theme.type.mono,
+          fontSize: 19,
+          letterSpacing: 1.5,
+        }}
+      >
+        <span style={{color: 'rgba(255,255,255,0.55)'}}>{k}</span>
+        <span style={{color: theme.accent, fontWeight: 600}}>{v}</span>
+      </div>
+    ))}
+  </div>
+);
+
 /** The thin top + bottom rules that frame every shot. */
 export const FrameRules: React.FC = () => (
   <>
@@ -169,13 +209,20 @@ const Caption: React.FC<{children: React.ReactNode; y?: number; size?: number; c
 
 // ============================================================ 1. mirror colony
 /** A membrane ring of cells. `mirror` tints half of them the accent colour. */
-export const MirrorColony: React.FC<SceneProps & {label?: string; mirror?: boolean; divide?: boolean}> = ({
+export const MirrorColony: React.FC<
+  SceneProps & {label?: string; mirror?: boolean; divide?: boolean; hud?: [string, string][]}
+> = ({
   p,
   label = 'CULTURE / CHIRAL',
   mirror = true,
   divide = false,
+  hud = [
+    ['CELLS', '13'],
+    ['CHIRALITY', mirror ? 'D / MIRROR' : 'L / NATIVE'],
+    ['STATUS', 'VIABLE'],
+  ],
 }) => {
-  const cam: Cam = {rot: [-0.34 + p * 0.16, p * 1.5, 0], dist: 22 - p * 2.8, fov: 700};
+  const cam: Cam = {rot: [-0.34 + p * 0.42, p * 2.4, 0], dist: 17.5 - p * 2.6, fov: 760};
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
@@ -221,6 +268,7 @@ export const MirrorColony: React.FC<SceneProps & {label?: string; mirror?: boole
       <Vignette />
       <FrameRules />
       <Ticker label={label} />
+      {hud ? <HudPanel rows={hud} /> : null}
     </>
   );
 };
@@ -375,11 +423,11 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
   split = true,
 }) => {
   const sep = split ? interpolate(p, [0, 0.35], [0, 5.4], {extrapolateRight: 'clamp'}) : 0;
-  const cam: Cam = {rot: [0.16 + p * 0.1, -0.5 + p * 1.15, 0], dist: 26 - p * 2.2, fov: 640};
+  const cam: Cam = {rot: [0.16 + p * 0.32, -0.5 + p * 2.6, 0], dist: 19 - p * 3.0, fov: 700};
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
-      const spin = t * 0.5;
+      const spin = t * 1.15;
       for (const side of [-1, 1] as const) {
         const x = side * sep;
         const handed: 1 | -1 = side === 1 ? -1 : 1; // right side is the mirror (D)
@@ -421,6 +469,7 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
       <Vignette />
       <FrameRules />
       <Ticker label={label} />
+      <HudPanel side="right" rows={[['SENSE', 'L'], ['MIRROR', 'D'], ['Δ PITCH', '2.6 nm']]} />
     </>
   );
 };
@@ -428,7 +477,7 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
 // ============================================================ 4. immune siege
 /** Antibodies orbiting a cell they cannot bind to. Three-lobed halo, jittered. */
 export const ImmuneSiege: React.FC<SceneProps & {label?: string}> = ({p, label = 'IMMUNE RESPONSE'}) => {
-  const cam: Cam = {rot: [0.2 + p * 0.12, p * 1.9, 0], dist: 24, fov: 640};
+  const cam: Cam = {rot: [0.2 + p * 0.12, p * 1.9, 0], dist: 19.5, fov: 710};
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
@@ -479,13 +528,14 @@ export const ImmuneSiege: React.FC<SceneProps & {label?: string}> = ({p, label =
       <Vignette />
       <FrameRules />
       <Ticker label={label} right="BINDING: FAILED" />
+      <HudPanel side="left" top={880} accent rows={[['ANTIBODIES', '11'], ['BOUND', '0'], ['RESULT', 'EVADED']]} />
     </>
   );
 };
 
 // ============================================================ 5. phage storm
 export const PhageStorm: React.FC<SceneProps & {label?: string}> = ({p, label = 'PHAGE ASSAY'}) => {
-  const cam: Cam = {rot: [0.3 - p * 0.14, p * 1.2 - 0.4, 0], dist: 22, fov: 620};
+  const cam: Cam = {rot: [0.3 - p * 0.14, p * 1.2 - 0.4, 0], dist: 18, fov: 700};
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
@@ -531,13 +581,14 @@ export const PhageStorm: React.FC<SceneProps & {label?: string}> = ({p, label = 
       <Vignette />
       <FrameRules />
       <Ticker label={label} right="INFECTION: 0%" />
+      <HudPanel side="left" top={880} rows={[['PHAGES', '9'], ['ATTACH', '0'], ['LYSIS', '—']]} />
     </>
   );
 };
 
 // ============================================================ 6. ribosome
 export const Ribosome: React.FC<SceneProps & {label?: string}> = ({p, label = 'TRANSLATION'}) => {
-  const cam: Cam = {rot: [0.24, 0.9 + p * 0.75, 0], dist: 26, fov: 600};
+  const cam: Cam = {rot: [0.24, 0.9 + p * 0.75, 0], dist: 20, fov: 680};
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
@@ -588,6 +639,7 @@ export const Ribosome: React.FC<SceneProps & {label?: string}> = ({p, label = 'T
       <Vignette />
       <FrameRules />
       <Ticker label={label} right="BUILDING PROTEIN" />
+      <HudPanel side="right" top={880} rows={[['SUBUNITS', '2 / SPLIT'], ['mRNA', 'ACTIVE'], ['PEPTIDE', '+9']]} />
     </>
   );
 };
@@ -598,8 +650,9 @@ export const CounterSlam: React.FC<
   SceneProps & {from: number; to: number; suffix?: string; prefix?: string; caption: string; label?: string}
 > = ({p, from, to, suffix = '', prefix = '', caption, label = 'ESTIMATE'}) => {
   const {fps} = useVideoConfig();
-  const raw = interpolate(p, [0.1, 0.62], [from, to], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const val = Math.round(raw);
+  // Count fast, then LOCK on the target for the rest of the shot.
+  const raw = interpolate(p, [0.08, 0.55], [from, to], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const val = p >= 0.55 ? to : Math.round(raw);
   const punch = 1 + 0.12 * Math.exp(-p * 8);
   const flash = Math.max(0, 1 - p * 6);
 
@@ -667,14 +720,16 @@ export const HandWall: React.FC<SceneProps & {label?: string; word?: string}> = 
           const cx = cw * (c + 0.5);
           const cy = ch * (r + 0.5);
           const spin = t * 0.5 + (r + c) * 0.32;
-          const s = 20;
+          const breathe = 1 + 0.16 * Math.sin(t * 2.6 + (r * 1.7 + c * 2.3));
+          const s = 26;
           const col = (r + c) % 2 === 0 ? 'rgba(210,240,252,0.85)' : theme.accent;
           ctx.save();
-          ctx.translate(cx, cy);
-          ctx.globalAlpha = 0.46 + 0.30 * Math.sin(t * 1.4 + r * 0.7 + c * 0.4);
+          ctx.translate(cx + Math.sin(t * 1.9 + r * 1.3) * 11, cy + Math.cos(t * 1.6 + c * 1.2) * 11);
+          ctx.scale(breathe, breathe);
+          ctx.globalAlpha = 0.58 + 0.40 * Math.sin(t * 2.2 + r * 0.7 + c * 0.4);
           ctx.strokeStyle = col;
-          ctx.lineWidth = 2.6;
-          ctx.shadowBlur = 12;
+          ctx.lineWidth = 3.2;
+          ctx.shadowBlur = 16;
           ctx.shadowColor = col;
           // palm
           ctx.beginPath();
@@ -706,7 +761,7 @@ export const HandWall: React.FC<SceneProps & {label?: string; word?: string}> = 
     <>
       <div style={{position: 'absolute', inset: 0, background: theme.bgLift}} />
       <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
-      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 46%, rgba(5,7,10,0.55) 0%, rgba(5,7,10,0.92) 72%)'}} />
+      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 46%, rgba(5,7,10,0.35) 0%, rgba(5,7,10,0.86) 76%)'}} />
       <div
         style={{
           position: 'absolute',
@@ -720,6 +775,7 @@ export const HandWall: React.FC<SceneProps & {label?: string; word?: string}> = 
           color: theme.ink,
           letterSpacing: 8,
           textShadow: `0 0 100px ${theme.accentGlow}`,
+          transform: `scale(${1.02 + p * 0.06}) rotate(${(p - 0.5) * 0.6}deg)`,
         }}
       >
         {word}

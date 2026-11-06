@@ -66,13 +66,15 @@ const ShotRenderer: React.FC<{shot: Shot}> = ({shot}) => {
   }
 };
 
-/** Fade in/out per shot so hard cuts land with a 3-frame dip, not a pop. */
+/**
+ * HARD CUTS by default — a dissolve kills the cut energy and makes automatic
+ * scene detection read zero cuts. Only an explicit `softCut` prop cross-fades.
+ */
 const ShotFade: React.FC<{shot: Shot; children: React.ReactNode}> = ({shot, children}) => {
   const frame = useCurrentFrame();
   const dur = Math.max(1, shot.to - shot.from);
-  const inA = interpolate(frame, [0, 4], [0, 1], {extrapolateRight: 'clamp'});
-  const outA = interpolate(frame, [dur - 3, dur], [1, 0], {extrapolateRight: 'clamp', extrapolateLeft: 'clamp'});
-  const a = shot.props?.noFade ? 1 : Math.min(inA, outA);
+  if (!shot.props?.softCut) return <AbsoluteFill>{children}</AbsoluteFill>;
+  const a = interpolate(frame, [0, 6], [0, 1], {extrapolateRight: 'clamp'});
   return <AbsoluteFill style={{opacity: a}}>{children}</AbsoluteFill>;
 };
 
