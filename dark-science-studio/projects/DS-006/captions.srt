@@ -1,0 +1,135 @@
+1
+00:00:00,000 --> 00:00:01,959
+Something crossed the Mediterranean
+
+2
+00:00:01,959 --> 00:00:03,028
+and struck a detector
+
+3
+00:00:03,028 --> 00:00:03,741
+three and a half
+
+4
+00:00:03,741 --> 00:00:05,595
+kilometres down. One particle.
+
+5
+00:00:05,595 --> 00:00:06,350
+It lit more than
+
+6
+00:00:06,350 --> 00:00:07,105
+a third of the
+
+7
+00:00:07,105 --> 00:00:08,238
+sensors in a cubic
+
+8
+00:00:08,238 --> 00:00:09,802
+kilometre of water. We
+
+9
+00:00:09,802 --> 00:00:11,135
+call them ghost particles,
+
+10
+00:00:11,135 --> 00:00:12,246
+because they pass through
+
+11
+00:00:12,246 --> 00:00:14,175
+planets without slowing. On
+
+12
+00:00:14,175 --> 00:00:16,888
+the thirteenth of February,
+
+13
+00:00:16,888 --> 00:00:18,439
+2023, KM3NeT caught one
+
+14
+00:00:18,439 --> 00:00:19,833
+muon. Its angle and
+
+15
+00:00:19,833 --> 00:00:21,430
+brightness imply a neutrino
+
+16
+00:00:21,430 --> 00:00:22,428
+of two hundred and
+
+17
+00:00:22,428 --> 00:00:24,601
+twenty peta electronvolts. About
+
+18
+00:00:24,601 --> 00:00:25,887
+thirty times the previous
+
+19
+00:00:25,887 --> 00:00:27,287
+record. And the detector
+
+20
+00:00:27,287 --> 00:00:28,442
+was barely ten percent
+
+21
+00:00:28,442 --> 00:00:29,810
+finished. Here is the
+
+22
+00:00:29,810 --> 00:00:31,600
+problem. IceCube, at the
+
+23
+00:00:31,600 --> 00:00:32,738
+South Pole, has seen
+
+24
+00:00:32,738 --> 00:00:34,085
+nothing like it. Two
+
+25
+00:00:34,085 --> 00:00:35,461
+detectors, one sky, a
+
+26
+00:00:35,461 --> 00:00:37,622
+three sigma disagreement. Either
+
+27
+00:00:37,622 --> 00:00:39,012
+we got extremely lucky,
+
+28
+00:00:39,012 --> 00:00:40,055
+or the Standard Model
+
+29
+00:00:40,055 --> 00:00:41,937
+is missing something. Sterile
+
+30
+00:00:41,937 --> 00:00:44,249
+neutrinos. New interactions. Something
+
+31
+00:00:44,249 --> 00:00:45,720
+that lets particles travel
+
+32
+00:00:45,720 --> 00:00:46,771
+further than they should.
+
+33
+00:00:46,979 --> 00:00:48,120
+One flash, and a
+
+34
+00:00:48,120 --> 00:00:49,261
+crack in physics.

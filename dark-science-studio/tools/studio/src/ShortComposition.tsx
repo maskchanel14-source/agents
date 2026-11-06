@@ -25,6 +25,9 @@ import {
   Ribosome,
   SceneProps,
   ThalamusGrid,
+  NeutrinoShower,
+  NerveInvasion,
+  StarWake,
 } from './scenes/SceneLibrary';
 
 export type Shot = {
@@ -73,6 +76,12 @@ const ShotRenderer: React.FC<{shot: Shot}> = ({shot}) => {
       return <ThalamusGrid {...(sceneProps as any)} />;
     case 'pedigree':
       return <PedigreeTree {...(sceneProps as any)} />;
+    case 'neutrino_shower':
+      return <NeutrinoShower {...(sceneProps as any)} />;
+    case 'nerve_invasion':
+      return <NerveInvasion {...(sceneProps as any)} />;
+    case 'star_wake':
+      return <StarWake {...(sceneProps as any)} />;
     case 'mortality':
       return <MortalityPlate {...(sceneProps as any)} />;
     default:
@@ -109,7 +118,11 @@ export const ShortComposition: React.FC<TimelineProps> = ({shots, words, mixFile
         </Sequence>
       ))}
 
-      <KineticCaptions words={words} from={0} to={1e9} />
+      {/* keep the caption lane inside the safe area: 34 px side margins stop the
+          first/last word of a 4-word cue from kissing the frame edge */}
+      <div style={{position: 'absolute', top: 0, bottom: 0, left: 34, right: 34}}>
+        <KineticCaptions words={words} from={0} to={1e9} />
+      </div>
 
       {/* progress rail */}
       <ProgressRail meta={meta} />

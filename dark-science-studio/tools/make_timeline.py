@@ -131,9 +131,152 @@ def ds004_shots() -> list[tuple[float, float, str, dict]]:
     ]
 
 
+def ds005_shots() -> list[tuple[float, float, str, dict]]:
+    """Betelgeuse / Siwarha - 30 shots across ~47.3 s.
+
+    Beats: hook (a star inside a star) -> scale -> thin envelope -> the radio
+    detection -> the disc going out of round -> 2 R* orbit -> undetectable
+    directly -> the 2,100-day heartbeat -> loop back to the hook.
+    """
+    return [
+        # 1 - cold open: the companion inside the photosphere
+        (0.00, 2.20, "star_wake", {"sep": 0.95}),
+        (2.20, 3.45, "glitch_reveal", {"kicker": "BETELGEUSE \u00b7 642 LY", "lines": ["NOT", "NEXT TO IT"]}),
+        (3.45, 4.85, "glitch_reveal", {"kicker": "ORBIT: INSIDE", "lines": ["IN", "THE ATMOSPHERE"]}),
+        # 2 - scale
+        (4.85, 6.35, "star_wake", {"sep": 0.15, "r": 8.8, "label": "RED SUPERGIANT"}),
+        (6.35, 7.90, "counter_slam", {"from": 12, "to": 700, "suffix": "R\u2609", "label": "STELLAR RADIUS", "caption": "seven hundred times the width of the sun"}),
+        (7.90, 9.45, "star_wake", {"sep": 0.55, "label": "ORBIT OF MARS"}),
+        (9.45, 10.85, "glitch_reveal", {"kicker": "SUN REPLACED", "lines": ["SWALLOWS", "MARS"]}),
+        # 3 - the envelope is barely a surface
+        (10.85, 12.40, "star_wake", {"sep": 0.80, "r": 8.0, "label": "PHOTOSPHERE \u00b7 3,500 K"}),
+        (12.40, 13.75, "glitch_reveal", {"lines": ["BARELY"], "sub": "A SURFACE AT ALL"}),
+        (13.75, 15.55, "star_wake", {"sep": 0.30, "label": "OUTER ENVELOPE"}),
+        # 4 - something is moving through it
+        (15.55, 16.85, "star_wake", {"sep": 0.72, "label": "PASSAGE / 2021-2026"}),
+        (16.85, 18.20, "glitch_reveal", {"kicker": "SOMETHING ORBITS", "lines": ["THROUGH IT"]}),
+        # 5 - the radio detection
+        (18.20, 19.90, "glitch_reveal", {"kicker": "VLA + ALMA", "lines": ["RADIO"], "sub": "22 \u2192 485 GHz \u00b7 SEVEN BANDS"}),
+        (19.90, 21.60, "counter_slam", {"from": 1, "to": 7, "suffix": "BAND", "label": "RADIO FREQUENCIES", "caption": "twenty two to four hundred eighty five gigahertz"}),
+        (21.60, 23.20, "star_wake", {"sep": 0.45, "label": "SIX YEARS OF EPOCHS"}),
+        # 6 - the disc deforms
+        (23.20, 24.80, "star_wake", {"sep": 0.98, "label": "MAXIMUM SEPARATION"}),
+        (24.80, 26.30, "glitch_reveal", {"kicker": "THE DISC", "lines": ["OUT OF ROUND"]}),
+        (26.30, 27.60, "star_wake", {"sep": 0.05, "label": "BACK IN ROUND"}),
+        # 7 - the 2 R* orbit
+        (27.60, 29.60, "star_wake", {"sep": 0.60, "label": "SEPARATION \u2248 2 R\u2609"}),
+        (29.60, 31.00, "counter_slam", {"from": 20, "to": 2, "suffix": "R\u2609", "label": "ORBITAL DISTANCE", "caption": "two stellar radii from the core"}),
+        (31.00, 32.60, "star_wake", {"sep": 0.88, "label": "GAS IT ORBITS IN"}),
+        # 8 - invisible
+        (32.60, 34.20, "glitch_reveal", {"kicker": "UNRESOLVED", "lines": ["TOO FAINT"]}),
+        (34.20, 35.80, "counter_slam", {"from": 100, "to": 10, "suffix": "x", "label": "BELOW MAP LIMIT", "caption": "ten to a hundred times too faint for the maps"}),
+        (35.80, 37.30, "star_wake", {"sep": 0.25, "label": "NO DIRECT IMAGE"}),
+        # 9 - the heartbeat
+        (37.30, 39.00, "glitch_reveal", {"kicker": "WHY WE KNOW IT IS THERE", "lines": ["IT BREATHES", "UNEVENLY"]}),
+        (39.00, 41.20, "counter_slam", {"from": 300, "to": 2100, "suffix": "D", "label": "WOBBLE CYCLE", "caption": "two thousand one hundred days"}),
+        (41.20, 43.20, "star_wake", {"sep": 0.70, "label": "CYCLE / REPEATING"}),
+        # 10 - loop close
+        (43.20, 45.00, "glitch_reveal", {"kicker": "ONE DAY IT EXPLODES", "lines": ["A PASSENGER"]}),
+        (45.00, 47.30, "star_wake", {"sep": 0.95}),
+    ]
+
+
+def ds006_shots() -> list[tuple[float, float, str, dict]]:
+    """KM3-230213A - 30 shots across ~49.4 s."""
+    return [
+        # 1 - cold open: the track ripping through the detector
+        (0.00, 2.40, "neutrino_shower", {"impact": 0.55, "label": "KM3NeT / ARCA"}),
+        (2.40, 4.65, "glitch_reveal", {"kicker": "MEDITERRANEAN SEA", "lines": ["3.5 KM", "DOWN"]}),
+        # 2 - one particle, a third of the detector
+        (4.65, 6.30, "neutrino_shower", {"impact": 0.30, "label": "SINGLE MUON"}),
+        (6.30, 8.00, "counter_slam", {"from": 1, "to": 30, "suffix": "%", "label": "PMTS LIT", "caption": "more than a third of the sensors"}),
+        (8.00, 9.30, "neutrino_shower", {"impact": 0.18, "label": "1 KM\u00b3 OF WATER"}),
+        # 3 - ghost particles
+        (9.30, 10.75, "glitch_reveal", {"kicker": "NEUTRINOS", "lines": ["GHOST", "PARTICLES"]}),
+        (10.75, 12.30, "neutrino_shower", {"impact": 0.10, "cone": False, "label": "THROUGH THE PLANET"}),
+        (12.30, 13.75, "glitch_reveal", {"lines": ["NO PLANET", "STOPS THEM"]}),
+        # 4 - the event
+        (13.75, 15.40, "glitch_reveal", {"kicker": "13 FEB 2023", "lines": ["ONE", "MUON"]}),
+        (15.40, 16.90, "neutrino_shower", {"impact": 0.34, "label": "EVENT / KM3-230213A"}),
+        (16.90, 18.95, "neutrino_shower", {"impact": 0.50, "label": "RECONSTRUCTED TRACK"}),
+        # 5 - 220 PeV
+        (18.95, 20.80, "glitch_reveal", {"kicker": "RECONSTRUCTED ENERGY", "lines": ["220", "PeV"]}),
+        (20.80, 22.70, "counter_slam", {"from": 7, "to": 220, "suffix": "PeV", "label": "NEUTRINO ENERGY", "caption": "two hundred and twenty peta electronvolts"}),
+        (22.70, 24.30, "neutrino_shower", {"impact": 0.42, "label": "72 - 2,600 PeV / 90% CL"}),
+        # 6 - 30x the record
+        (24.30, 26.45, "counter_slam", {"from": 1, "to": 30, "suffix": "x", "label": "PREVIOUS RECORD", "caption": "about thirty times the old maximum"}),
+        (26.45, 28.00, "neutrino_shower", {"impact": 0.28, "label": "RECORD / BROKEN"}),
+        (28.00, 29.35, "glitch_reveal", {"kicker": "APRIL 2025 -> 2026", "lines": ["BARELY", "BUILT"]}),
+        # 7 - detector under construction
+        (29.35, 31.10, "counter_slam", {"from": 100, "to": 10, "suffix": "%", "label": "DETECTOR COMPLETE", "caption": "ten percent of the final volume"}),
+        (31.10, 32.70, "neutrino_shower", {"impact": 0.20, "label": "UNDER CONSTRUCTION"}),
+        (32.70, 34.10, "glitch_reveal", {"kicker": "WHEN FINISHED", "lines": ["200,000", "SENSORS"]}),
+        # 8 - the problem
+        (34.10, 35.30, "glitch_reveal", {"kicker": "ICECUBE / SOUTH POLE", "lines": ["NOTHING"]}),
+        (35.30, 36.80, "neutrino_shower", {"impact": 0.60, "label": "SOUTH POLE / SILENT"}),
+        (36.80, 38.40, "glitch_reveal", {"kicker": "TWO DETECTORS \u00b7 ONE SKY", "lines": ["3\u03c3", "DISAGREEMENT"]}),
+        # 9 - new physics
+        (38.40, 40.10, "glitch_reveal", {"lines": ["NEW", "PHYSICS"]}),
+        (40.10, 41.60, "neutrino_shower", {"impact": 0.75, "label": "STERILE NEUTRINOS?"}),
+        (41.60, 43.30, "glitch_reveal", {"kicker": "OR", "lines": ["LUCKY"]}),
+        # 10 - loop close
+        (43.30, 45.20, "glitch_reveal", {"kicker": "ONE FLASH", "lines": ["A CRACK"]}),
+        (45.20, 47.60, "neutrino_shower", {"impact": 0.20}),
+        (47.60, 49.40, "glitch_reveal", {"lines": ["IN PHYSICS"]}),
+    ]
+
+
+def ds007_shots() -> list[tuple[float, float, str, dict]]:
+    """N. fowleri - 30 shots across ~46.7 s. Hard rule: every number must match
+    the CDC wording recorded in sources_and_licenses.md."""
+    return [
+        # 1 - cold open
+        (0.00, 2.10, "nerve_invasion", {"invasion": 0.55, "label": "OLFACTORY ROUTE"}),
+        (2.10, 3.50, "glitch_reveal", {"kicker": "WARM FRESH WATER", "lines": ["UP", "THE NOSE"]}),
+        (3.50, 5.00, "glitch_reveal", {"kicker": "NAEGLERIA FOWLERI", "lines": ["NOT A", "PARASITE"]}),
+        # 2 - where it lives
+        (5.00, 6.60, "mirror_colony", {"label": "N. FOWLERI / CULTURE", "mirror": False, "divide": True, "hud": [["MODE", "TROPHOZOITE"], ["FEED", "BACTERIA"], ["MOTILE", "YES"]]}),
+        (6.60, 8.30, "counter_slam", {"from": 0, "to": 30, "suffix": "\u00b0C", "label": "WATER TEMPERATURE", "caption": "thrives above thirty degrees celsius"}),
+        (8.30, 9.70, "mirror_colony", {"label": "FRESH WATER ONLY", "mirror": True, "hud": [["LAKES", "RISK"], ["RIVERS", "RISK"], ["OCEAN", "SAFE"]]}),
+        # 3 - not by drinking
+        (9.70, 11.20, "glitch_reveal", {"kicker": "SWALLOWED", "lines": ["HARMLESS"]}),
+        (11.20, 12.90, "glitch_reveal", {"kicker": "STOMACH ACID", "lines": ["DESTROYS IT"]}),
+        # 4 - the route in
+        (12.90, 14.60, "nerve_invasion", {"invasion": 0.15, "label": "ENTRY / NASAL"}),
+        (14.60, 16.20, "nerve_invasion", {"invasion": 0.45, "label": "CRIBRIFORM PLATE"}),
+        (16.20, 17.70, "glitch_reveal", {"kicker": "ONE ROUTE IN", "lines": ["THE NOSE"]}),
+        (17.70, 19.40, "nerve_invasion", {"invasion": 0.80, "label": "OLFACTORY NERVE"}),
+        (19.40, 21.20, "nerve_invasion", {"invasion": 1.0, "label": "INTO THE BRAIN"}),
+        (21.20, 22.60, "glitch_reveal", {"kicker": "THEN", "lines": ["IT MULTIPLIES"]}),
+        # 5 - the clock
+        (22.60, 24.40, "counter_slam", {"from": 30, "to": 5.3, "suffix": "D", "label": "SYMPTOM TO DEATH", "caption": "five point three days, on average"}),
+        (24.40, 26.30, "glitch_reveal", {"kicker": "EXPOSURE TO DEATH", "lines": ["9.9", "DAYS"]}),
+        # 6 - the numbers
+        (26.30, 28.10, "counter_slam", {"from": 1, "to": 167, "suffix": "CASES", "label": "USA / 1962-2024", "caption": "one hundred sixty seven american cases"}),
+        (28.10, 29.70, "nerve_invasion", {"invasion": 0.92, "label": "CDC SURVEILLANCE"}),
+        (29.70, 31.10, "counter_slam", {"from": 167, "to": 4, "suffix": "ALIVE", "label": "SURVIVORS", "caption": "four people survived"}),
+        (31.10, 32.90, "glitch_reveal", {"lines": ["4", "OF 167"]}),
+        # 7 - fatality
+        (32.90, 34.60, "counter_slam", {"from": 0, "to": 97, "suffix": "%", "label": "FATALITY", "caption": "above ninety seven percent"}),
+        (34.60, 36.20, "glitch_reveal", {"kicker": "NO VACCINE \u00b7 NO IMMUNITY", "lines": ["NO TIME"]}),
+        # 8 - the survivor
+        (36.20, 38.20, "glitch_reveal", {"kicker": "FLORIDA \u00b7 2016", "lines": ["ONE", "SURVIVOR"]}),
+        (38.20, 40.30, "nerve_invasion", {"invasion": 0.35, "label": "TREATED WITHIN HOURS"}),
+        # 9 - the twist
+        (40.30, 41.70, "glitch_reveal", {"kicker": "SALT WATER", "lines": ["KILLS IT"]}),
+        (41.70, 43.20, "mirror_colony", {"label": "SEA WATER / 3.5% NACL", "mirror": False, "hud": [["SALINITY", "LETHAL"], ["OCEAN", "SAFE"]]}),
+        (43.20, 44.70, "nerve_invasion", {"invasion": 0.70, "label": "THE LAKE IS NOT"}),
+        # 10 - loop close
+        (44.70, 46.70, "glitch_reveal", {"kicker": "IT BEGINS AS", "lines": ["A HEADACHE"]}),
+    ]
+
+
 SHOT_LISTS = {
     "DS-003": ds003_shots,
     "DS-004": ds004_shots,
+    "DS-005": ds005_shots,
+    "DS-006": ds006_shots,
+    "DS-007": ds007_shots,
 }
 
 

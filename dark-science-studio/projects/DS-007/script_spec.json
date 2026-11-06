@@ -1,0 +1,88 @@
+{
+  "engine": "piper en_US-lessac-medium (offline, no key)",
+  "length_scale": 0.95,
+  "sample_rate": 16000,
+  "duration_s": 46.093,
+  "word_count": 136,
+  "wpm": 177.0,
+  "lines": [
+    {
+      "i": 0,
+      "text": "An amoeba swam up a boy's nose and started eating his brain.",
+      "start": 0.0,
+      "end": 3.352
+    },
+    {
+      "i": 1,
+      "text": "It is Naegleria fowleri. Not a parasite, a free living amoeba.",
+      "start": 3.56,
+      "end": 7.337
+    },
+    {
+      "i": 2,
+      "text": "It lives in warm fresh water, above thirty degrees Celsius.",
+      "start": 7.545,
+      "end": 11.12
+    },
+    {
+      "i": 3,
+      "text": "You cannot catch it by drinking. Stomach acid destroys it.",
+      "start": 11.328,
+      "end": 14.431
+    },
+    {
+      "i": 4,
+      "text": "It has to go up the nose, along the olfactory nerve, through a plate of bone, into the brain.",
+      "start": 14.639,
+      "end": 19.795
+    },
+    {
+      "i": 5,
+      "text": "Then it multiplies, and the brain swells.",
+      "start": 20.003,
+      "end": 22.369
+    },
+    {
+      "i": 6,
+      "text": "From first symptom to death: five point three days, on average.",
+      "start": 22.577,
+      "end": 26.309
+    },
+    {
+      "i": 7,
+      "text": "The CDC has recorded one hundred sixty seven American cases since 1962.",
+      "start": 26.517,
+      "end": 31.621
+    },
+    {
+      "i": 8,
+      "text": "Four people survived.",
+      "start": 31.829,
+      "end": 33.095
+    },
+    {
+      "i": 9,
+      "text": "That is a fatality rate above ninety seven percent.",
+      "start": 33.303,
+      "end": 36.141
+    },
+    {
+      "i": 10,
+      "text": "In 2016, a sixteen year old in Florida became one of them.",
+      "start": 36.349,
+      "end": 40.438
+    },
+    {
+      "i": 11,
+      "text": "Salt water kills the amoeba. The ocean is safe.",
+      "start": 40.646,
+      "end": 43.353
+    },
+    {
+      "i": 12,
+      "text": "But the lake is not. And it begins as a headache.",
+      "start": 43.561,
+      "end": 46.093
+    }
+  ]
+}

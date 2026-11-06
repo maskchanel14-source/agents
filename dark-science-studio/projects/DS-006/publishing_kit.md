@@ -1,0 +1,132 @@
+# DS-006 — Publishing Kit
+
+**Video ID:** DS-006 · **Delivered:** 2026-11-07
+**File:** `renders/DS-006/final.mp4` — 49.60 s · 1080×1920 · 30 fps · h264 + AAC
+**Cover:** `projects/DS-006/cover_frame.png` — 1080×1920
+**Series:** Ghost Signals · **Part 1**
+
+---
+
+## 1. Titles (pick one)
+
+| # | Title | Chars |
+|---|---|---|
+| **1 (primary)** | **A 220 PeV Particle Hit the Sea. Nobody Can Explain It.** | 54 |
+| 2 | One Particle. 220 PeV. 30× the Record. | 39 |
+| 3 | This Particle Should Not Exist | 31 |
+| 4 | Something Hit the Mediterranean Sea in 2023 | 43 |
+| 5 | Two Detectors, One Sky, One Impossible Particle | 47 |
+
+Primary rationale: it names the number, the place and the mystery in one line, and
+"nobody can explain it" is defensible — the 3σ tension is genuinely unresolved.
+
+---
+
+## 2. Description (copy-paste)
+
+> On 13 February 2023, a single muon crossed a detector 3.5 km down in the Mediterranean off Sicily. It lit more than 30 % of the sensors in a cubic kilometre of water.
+>
+> Its angle and brightness imply a neutrino of about 220 PeV — roughly thirty times the highest energy ever recorded before it. The detector that caught it was barely 10 % finished. When complete, KM3NeT's ARCA will hold ~200,000 light sensors on towers ~100 m apart.
+>
+> Here's the problem: IceCube, at the South Pole, has seen nothing at that energy. Two detectors, one sky, a ~3σ disagreement. Either we got extremely lucky, or the Standard Model is missing something — sterile neutrinos, new interactions, something that lets particles travel further than they should.
+>
+> One flash. A crack in physics.
+>
+> Sources: KM3NeT Collaboration, *Nature* 638, 376–382 (2025), doi:10.1038/s41586-024-08543-1 · KM3NeT/MPIfR press releases · Li et al., *Phys. Lett. B* (2026) on the KM3NeT–IceCube tension. Full claim table in `sources_and_licenses.md`.
+>
+> Narration is synthetic (Piper TTS, offline). All visuals procedurally generated — no stock footage, no detector photography.
+
+---
+
+## 3. Tags (copy-paste)
+
+`neutrino,km3net,icecube,220 pev,ultra high energy neutrino,cosmic ray,astroparticle physics,ghost particle,cherenkov,mediterranean sea,physics,new physics,sterile neutrino,standard model,particle physics,dark science,science shorts,space science,astrophysics,south pole,nature paper,universe,quantum,detector,science news`
+
+---
+
+## 4. Hashtags (3 max)
+
+`#shorts #darkscience #physics`
+
+---
+
+## 5. Pinned comment
+
+> The detail that makes this story uncomfortable: **the detector was ~10 % built.** KM3-230213A was caught by a fraction of the array that will eventually exist — so either we were extraordinarily lucky to be listening at that moment, or events like this are more common than the finished detector's silence elsewhere suggests.
+>
+> Honesty notes: (1) The ~3σ KM3NeT–IceCube tension is a *disagreement*, not a discovery. Nobody has confirmed new physics here. (2) The 220 PeV figure is a best fit; the published 90 % credible interval is roughly 72–2,600 PeV, which is why that range appears on screen. (3) The detector in the animation is a schematic — the real ARCA grid is ~230 m × 700 m with ~200,000 PMTs, and at this scale it would look like a grey smear.
+>
+> If you had to bet: new physics, or once-in-a-century luck? 👇
+
+---
+
+## 6. Reply comments (first hour)
+
+1. *"Isn't 3 sigma just noise?"* → "Three sigma is about a 1-in-370 chance if there's no effect — interesting, not conclusive. Particle physics wants 5σ for a discovery. So the honest statement is 'something doesn't line up,' not 'we found new physics.'"
+2. *"How do you detect something that goes through everything?"* → "You don't catch the neutrino. You catch the mess it makes: a muon that drags a cone of blue Cherenkov light through a kilometre of water, and the pattern of which sensors flash tells you the direction and energy."
+3. *"Why is IceCube silent if it's bigger?"* → "That's exactly the puzzle. IceCube has more volume but a different view of the sky and a different threshold. Either this event was a statistical fluke, or the two detectors are not seeing the same universe."
+
+---
+
+## 7. Related video to link
+
+**DS-005 — "There's Another Star Inside Betelgeuse."** Both are instruments catching something they were never designed to find. Link DS-005 as the related video.
+
+---
+
+## 8. Series & playlist
+
+**Series:** *Ghost Signals* — Part 1.
+Playlist: "Ghost Signals" (DS-006 first, DS-009 to follow).
+Next-part tease: *"The other detector that went quiet."*
+
+---
+
+## 9. Two follow-up Shorts this can spawn
+
+1. **"The Iceberg neutrino"** — the 2018 IceCube event that started the high-energy era, and why it pointed at nothing visible.
+2. **"Why the South Pole is the best place to look for ghosts"** — IceCube's geometry, the ice's clarity, and the muon background problem, in 50 seconds.
+
+---
+
+## 10. Posting window
+
+**Tue–Thu, 16:30–18:30 UTC** (23:30–01:30 WIB) — same slot as DS-001–DS-005.
+
+---
+
+## 11. Platform settings
+
+| Setting | Value |
+|---|---|
+| Altered / synthetic content | **Yes** — synthetic narration |
+| Made for kids | No |
+| Category | Education |
+| Comments | On (pinned comment above) |
+| Remix / clips | On |
+| Monetisation | Eligible — 100 % original assets |
+| Loop | "A crack in physics" cuts back to the particle crossing the sea |
+
+---
+
+## 12. Disclosure
+
+Synthetic narration: **yes** (Piper `en_US-lessac-medium`, offline, no key).
+Synthetic visuals: **all** (Remotion/Canvas2D procedural).
+Third-party footage or imagery: **none**.
+Music: original, synthesised for this episode.
+
+---
+
+## 13. Pre-publish checklist
+
+- [x] 1080×1920, 30 fps, h264 + AAC
+- [x] Duration 49.60 s (under the 58 s cap)
+- [x] Audio −14.0 LUFS integrated, ≤ −1.0 dBTP true peak
+- [x] Burned-in captions, monotonic
+- [x] Whisper check **skipped** (weights unreachable) — captions are authored timings
+- [x] Fact table + disclosed simplifications in `sources_and_licenses.md`
+- [x] Cover frame exported + 320 px legibility check
+- [x] Synthetic-content disclosure set
+- [ ] Upload + schedule in the posting window
+- [ ] Pin the comment

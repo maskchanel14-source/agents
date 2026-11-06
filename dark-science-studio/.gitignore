@@ -5,7 +5,8 @@ node_modules/
 .chromium/
 .cache/
 build/
-public/projects/*/mix.wav
+tools/studio/public/projects/*/mix.wav
+logs/
 renders/*/*.mp4
 renders/*/*.png
 *.log

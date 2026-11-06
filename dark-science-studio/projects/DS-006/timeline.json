@@ -1,0 +1,316 @@
+{
+  "fps": 30,
+  "duration_s": 49.6,
+  "durationInFrames": 1488,
+  "shot_count": 29,
+  "cuts": 28,
+  "mean_shot_s": 1.71,
+  "min_shot_s": 1.2,
+  "shots": [
+    {
+      "scene": "neutrino_shower",
+      "from": 0,
+      "to": 72,
+      "props": {
+        "impact": 0.55,
+        "label": "KM3NeT / ARCA"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 72,
+      "to": 140,
+      "props": {
+        "kicker": "MEDITERRANEAN SEA",
+        "lines": [
+          "3.5 KM",
+          "DOWN"
+        ]
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 140,
+      "to": 189,
+      "props": {
+        "impact": 0.3,
+        "label": "SINGLE MUON"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 189,
+      "to": 240,
+      "props": {
+        "from": 1,
+        "to": 30,
+        "suffix": "%",
+        "label": "PMTS LIT",
+        "caption": "more than a third of the sensors"
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 240,
+      "to": 279,
+      "props": {
+        "impact": 0.18,
+        "label": "1 KM\u00b3 OF WATER"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 279,
+      "to": 322,
+      "props": {
+        "kicker": "NEUTRINOS",
+        "lines": [
+          "GHOST",
+          "PARTICLES"
+        ]
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 322,
+      "to": 369,
+      "props": {
+        "impact": 0.1,
+        "cone": false,
+        "label": "THROUGH THE PLANET"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 369,
+      "to": 412,
+      "props": {
+        "lines": [
+          "NO PLANET",
+          "STOPS THEM"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 412,
+      "to": 462,
+      "props": {
+        "kicker": "13 FEB 2023",
+        "lines": [
+          "ONE",
+          "MUON"
+        ]
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 462,
+      "to": 507,
+      "props": {
+        "impact": 0.34,
+        "label": "EVENT / KM3-230213A"
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 507,
+      "to": 568,
+      "props": {
+        "impact": 0.5,
+        "label": "RECONSTRUCTED TRACK"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 568,
+      "to": 624,
+      "props": {
+        "kicker": "RECONSTRUCTED ENERGY",
+        "lines": [
+          "220",
+          "PeV"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 624,
+      "to": 681,
+      "props": {
+        "from": 7,
+        "to": 220,
+        "suffix": "PeV",
+        "label": "NEUTRINO ENERGY",
+        "caption": "two hundred and twenty peta electronvolts"
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 681,
+      "to": 729,
+      "props": {
+        "impact": 0.42,
+        "label": "72 - 2,600 PeV / 90% CL"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 729,
+      "to": 794,
+      "props": {
+        "from": 1,
+        "to": 30,
+        "suffix": "x",
+        "label": "PREVIOUS RECORD",
+        "caption": "about thirty times the old maximum"
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 794,
+      "to": 840,
+      "props": {
+        "impact": 0.28,
+        "label": "RECORD / BROKEN"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 840,
+      "to": 880,
+      "props": {
+        "kicker": "APRIL 2025 -> 2026",
+        "lines": [
+          "BARELY",
+          "BUILT"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 880,
+      "to": 933,
+      "props": {
+        "from": 100,
+        "to": 10,
+        "suffix": "%",
+        "label": "DETECTOR COMPLETE",
+        "caption": "ten percent of the final volume"
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 933,
+      "to": 981,
+      "props": {
+        "impact": 0.2,
+        "label": "UNDER CONSTRUCTION"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 981,
+      "to": 1023,
+      "props": {
+        "kicker": "WHEN FINISHED",
+        "lines": [
+          "200,000",
+          "SENSORS"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1023,
+      "to": 1059,
+      "props": {
+        "kicker": "ICECUBE / SOUTH POLE",
+        "lines": [
+          "NOTHING"
+        ]
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 1059,
+      "to": 1104,
+      "props": {
+        "impact": 0.6,
+        "label": "SOUTH POLE / SILENT"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1104,
+      "to": 1152,
+      "props": {
+        "kicker": "TWO DETECTORS \u00b7 ONE SKY",
+        "lines": [
+          "3\u03c3",
+          "DISAGREEMENT"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1152,
+      "to": 1203,
+      "props": {
+        "lines": [
+          "NEW",
+          "PHYSICS"
+        ]
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 1203,
+      "to": 1248,
+      "props": {
+        "impact": 0.75,
+        "label": "STERILE NEUTRINOS?"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1248,
+      "to": 1299,
+      "props": {
+        "kicker": "OR",
+        "lines": [
+          "LUCKY"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1299,
+      "to": 1356,
+      "props": {
+        "kicker": "ONE FLASH",
+        "lines": [
+          "A CRACK"
+        ]
+      }
+    },
+    {
+      "scene": "neutrino_shower",
+      "from": 1356,
+      "to": 1428,
+      "props": {
+        "impact": 0.2
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1428,
+      "to": 1488,
+      "props": {
+        "lines": [
+          "IN PHYSICS"
+        ]
+      }
+    }
+  ]
+}

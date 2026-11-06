@@ -328,7 +328,7 @@ def sidechain_duck(score: np.ndarray, voice_env: np.ndarray, depth_db=-9.0, smoo
 def measure_loudnorm(path: Path) -> dict:
     r = subprocess.run(
         [ffmpeg(), "-hide_banner", "-nostats", "-i", str(path),
-         "-af", "loudnorm=I=-14:TP=-1:LRA=9:print_format=json", "-f", "null", "-"],
+         "-af", "loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json", "-f", "null", "-"],
         capture_output=True, text=True,
     )
     txt = r.stderr
@@ -412,7 +412,7 @@ def main() -> int:
     print(f"[mix] measured: I={m.get('input_i')} TP={m.get('input_tp')} LRA={m.get('input_lra')}")
     out = build / "mix.wav"
     af = (
-        f"loudnorm=I=-14:TP=-1:LRA=9:measured_I={m.get('input_i')}:measured_TP={m.get('input_tp')}"
+        f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={m.get('input_i')}:measured_TP={m.get('input_tp')}"
         f":measured_LRA={m.get('input_lra')}:measured_thresh={m.get('input_thresh')}"
         f":offset={m.get('target_offset')}:linear=true,"
         "alimiter=limit=0.891:level=false:attack=4:release=60,aresample=48000"

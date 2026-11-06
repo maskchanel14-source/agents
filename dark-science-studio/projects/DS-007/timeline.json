@@ -1,0 +1,345 @@
+{
+  "fps": 30,
+  "duration_s": 46.7,
+  "durationInFrames": 1401,
+  "shot_count": 28,
+  "cuts": 27,
+  "mean_shot_s": 1.67,
+  "min_shot_s": 1.4,
+  "shots": [
+    {
+      "scene": "nerve_invasion",
+      "from": 0,
+      "to": 63,
+      "props": {
+        "invasion": 0.55,
+        "label": "OLFACTORY ROUTE"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 63,
+      "to": 105,
+      "props": {
+        "kicker": "WARM FRESH WATER",
+        "lines": [
+          "UP",
+          "THE NOSE"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 105,
+      "to": 150,
+      "props": {
+        "kicker": "NAEGLERIA FOWLERI",
+        "lines": [
+          "NOT A",
+          "PARASITE"
+        ]
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 150,
+      "to": 198,
+      "props": {
+        "label": "N. FOWLERI / CULTURE",
+        "mirror": false,
+        "divide": true,
+        "hud": [
+          [
+            "MODE",
+            "TROPHOZOITE"
+          ],
+          [
+            "FEED",
+            "BACTERIA"
+          ],
+          [
+            "MOTILE",
+            "YES"
+          ]
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 198,
+      "to": 249,
+      "props": {
+        "from": 0,
+        "to": 30,
+        "suffix": "\u00b0C",
+        "label": "WATER TEMPERATURE",
+        "caption": "thrives above thirty degrees celsius"
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 249,
+      "to": 291,
+      "props": {
+        "label": "FRESH WATER ONLY",
+        "mirror": true,
+        "hud": [
+          [
+            "LAKES",
+            "RISK"
+          ],
+          [
+            "RIVERS",
+            "RISK"
+          ],
+          [
+            "OCEAN",
+            "SAFE"
+          ]
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 291,
+      "to": 336,
+      "props": {
+        "kicker": "SWALLOWED",
+        "lines": [
+          "HARMLESS"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 336,
+      "to": 387,
+      "props": {
+        "kicker": "STOMACH ACID",
+        "lines": [
+          "DESTROYS IT"
+        ]
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 387,
+      "to": 438,
+      "props": {
+        "invasion": 0.15,
+        "label": "ENTRY / NASAL"
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 438,
+      "to": 486,
+      "props": {
+        "invasion": 0.45,
+        "label": "CRIBRIFORM PLATE"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 486,
+      "to": 531,
+      "props": {
+        "kicker": "ONE ROUTE IN",
+        "lines": [
+          "THE NOSE"
+        ]
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 531,
+      "to": 582,
+      "props": {
+        "invasion": 0.8,
+        "label": "OLFACTORY NERVE"
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 582,
+      "to": 636,
+      "props": {
+        "invasion": 1.0,
+        "label": "INTO THE BRAIN"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 636,
+      "to": 678,
+      "props": {
+        "kicker": "THEN",
+        "lines": [
+          "IT MULTIPLIES"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 678,
+      "to": 732,
+      "props": {
+        "from": 30,
+        "to": 5.3,
+        "suffix": "D",
+        "label": "SYMPTOM TO DEATH",
+        "caption": "five point three days, on average"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 732,
+      "to": 789,
+      "props": {
+        "kicker": "EXPOSURE TO DEATH",
+        "lines": [
+          "9.9",
+          "DAYS"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 789,
+      "to": 843,
+      "props": {
+        "from": 1,
+        "to": 167,
+        "suffix": "CASES",
+        "label": "USA / 1962-2024",
+        "caption": "one hundred sixty seven american cases"
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 843,
+      "to": 891,
+      "props": {
+        "invasion": 0.92,
+        "label": "CDC SURVEILLANCE"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 891,
+      "to": 933,
+      "props": {
+        "from": 167,
+        "to": 4,
+        "suffix": "ALIVE",
+        "label": "SURVIVORS",
+        "caption": "four people survived"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 933,
+      "to": 987,
+      "props": {
+        "lines": [
+          "4",
+          "OF 167"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 987,
+      "to": 1038,
+      "props": {
+        "from": 0,
+        "to": 97,
+        "suffix": "%",
+        "label": "FATALITY",
+        "caption": "above ninety seven percent"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1038,
+      "to": 1086,
+      "props": {
+        "kicker": "NO VACCINE \u00b7 NO IMMUNITY",
+        "lines": [
+          "NO TIME"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1086,
+      "to": 1146,
+      "props": {
+        "kicker": "FLORIDA \u00b7 2016",
+        "lines": [
+          "ONE",
+          "SURVIVOR"
+        ]
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 1146,
+      "to": 1209,
+      "props": {
+        "invasion": 0.35,
+        "label": "TREATED WITHIN HOURS"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1209,
+      "to": 1251,
+      "props": {
+        "kicker": "SALT WATER",
+        "lines": [
+          "KILLS IT"
+        ]
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 1251,
+      "to": 1296,
+      "props": {
+        "label": "SEA WATER / 3.5% NACL",
+        "mirror": false,
+        "hud": [
+          [
+            "SALINITY",
+            "LETHAL"
+          ],
+          [
+            "OCEAN",
+            "SAFE"
+          ]
+        ]
+      }
+    },
+    {
+      "scene": "nerve_invasion",
+      "from": 1296,
+      "to": 1341,
+      "props": {
+        "invasion": 0.7,
+        "label": "THE LAKE IS NOT"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1341,
+      "to": 1401,
+      "props": {
+        "kicker": "IT BEGINS AS",
+        "lines": [
+          "A HEADACHE"
+        ]
+      }
+    }
+  ]
+}

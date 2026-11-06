@@ -1,0 +1,88 @@
+{
+  "engine": "piper en_US-lessac-medium (offline, no key)",
+  "length_scale": 0.95,
+  "sample_rate": 16000,
+  "duration_s": 48.125,
+  "word_count": 152,
+  "wpm": 189.5,
+  "lines": [
+    {
+      "i": 0,
+      "text": "There is another star inside Betelgeuse.",
+      "start": 0.0,
+      "end": 2.239
+    },
+    {
+      "i": 1,
+      "text": "Not next to it. Inside its atmosphere.",
+      "start": 2.447,
+      "end": 4.883
+    },
+    {
+      "i": 2,
+      "text": "Betelgeuse is a red supergiant, roughly seven hundred times wider than the Sun.",
+      "start": 5.091,
+      "end": 9.579
+    },
+    {
+      "i": 3,
+      "text": "Put it where the Sun is and it would swallow Mars.",
+      "start": 9.787,
+      "end": 12.269
+    },
+    {
+      "i": 4,
+      "text": "And its outer layers are so thin they barely count as a surface.",
+      "start": 12.477,
+      "end": 15.671
+    },
+    {
+      "i": 5,
+      "text": "Something is orbiting through them.",
+      "start": 15.879,
+      "end": 17.349
+    },
+    {
+      "i": 6,
+      "text": "Radio telescopes caught it, reading the giant at twenty two to four hundred eighty five gigahertz.",
+      "start": 17.557,
+      "end": 23.097
+    },
+    {
+      "i": 7,
+      "text": "Over six years, its disc went out of round, then round again.",
+      "start": 23.305,
+      "end": 26.744
+    },
+    {
+      "i": 8,
+      "text": "The best explanation is a companion about two stellar radii out, ploughing through the gas it orbits in.",
+      "start": 26.952,
+      "end": 32.258
+    },
+    {
+      "i": 9,
+      "text": "Too faint to photograph. Ten to a hundred times below what those maps can pick out.",
+      "start": 32.466,
+      "end": 36.82
+    },
+    {
+      "i": 10,
+      "text": "We know it is there only because Betelgeuse breathes unevenly.",
+      "start": 37.028,
+      "end": 40.244
+    },
+    {
+      "i": 11,
+      "text": "A heartbeat every two thousand one hundred days, if the model holds.",
+      "start": 40.452,
+      "end": 44.392
+    },
+    {
+      "i": 12,
+      "text": "The star that will one day explode has a passenger it cannot shake.",
+      "start": 44.6,
+      "end": 48.125
+    }
+  ]
+}

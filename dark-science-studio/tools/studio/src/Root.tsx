@@ -2,6 +2,8 @@ import React from 'react';
 import {Composition} from 'remotion';
 import {H, W, FPS} from './brand/theme';
 import {ShortComposition, TimelineProps} from './ShortComposition';
+import {SmokeTest} from './SmokeTest';
+import {ScenePreview} from './ScenePreview';
 
 // Fonts: loaded locally via @fontsource so no network is needed at render time.
 import '@fontsource/anton/400.css';
@@ -18,6 +20,8 @@ const fallback: TimelineProps = {
 
 export const Root: React.FC = () => (
   <>
+    <Composition id="ScenePreview" component={ScenePreview} fps={30} width={W} height={H} durationInFrames={60} />
+    <Composition id="SmokeTest" component={SmokeTest} fps={30} width={W} height={H} durationInFrames={90} />
     <Composition
       id="DarkScienceShort"
       component={ShortComposition}

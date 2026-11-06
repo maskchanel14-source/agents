@@ -1388,3 +1388,279 @@ function describeArc(cx: number, cy: number, r: number, a0: number, a1: number):
   const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
   return `M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1}`;
 }
+
+// ======================================================= 13. neutrino shower
+/**
+ * A single neutrino crosses an entire planet and lights a cone of Cherenkov
+ * light in the last kilometre of water/ice. Used for DS-005.
+ *
+ * props:
+ *   label   telemetry text, left
+ *   depth   string for the right-hand readout ("-3,450 M")
+ *   cone    show the expanding light cone (default true)
+ *   impact  0..1 where along the track the interaction happens
+ */
+export const NeutrinoShower: React.FC<
+  SceneProps & {label?: string; depth?: string; cone?: boolean; impact?: number}
+> = ({p, frame, label = 'KM3NeT / ARCA', depth = '-3,450 M', cone = true, impact = 0.34}) => {
+  const cam: Cam = {rot: [0.1 + p * 0.06, -0.35 + p * 0.5, 0], dist: 14.5, fov: 900};
+  const draw = React.useCallback(
+    (ctx: CanvasRenderingContext2D, f: number, t: number) => {
+      const segs: Seg[] = [];
+
+      // ---- detector: 8 vertical strings of optical modules
+      const strings = 8;
+      for (let i = 0; i < strings; i++) {
+        const a = (i / strings) * Math.PI * 2 + 0.3;
+        const rx = 5.6;
+        const x = Math.cos(a) * rx;
+        const z = Math.sin(a) * rx;
+        const top = 7.2;
+        segs.push({a: [x, -top, z], b: [x, top, z], c: 'rgba(140,215,235,0.55)', w: 1.5});
+        for (let m = 0; m < 9; m++) {
+          const y = -top + (m / 8) * top * 2;
+          const lit = Math.max(0, 1 - Math.abs((y + 2.4) - t * 0.8) * 0.8);
+          segs.push(...sphereSegs(0.30, 3, 4, lit > 0.28 ? theme.accent : 'rgba(150,220,235,0.35)', 1.0).map((s) => ({
+            a: v3.add(s.a, [x, y, z]),
+            b: v3.add(s.b, [x, y, z]),
+            c: lit > 0.28 ? theme.accent : 'rgba(150,220,235,0.35)',
+            w: 1.0,
+            glow: lit > 0.28 ? 10 : 0,
+          })));
+        }
+      }
+      // seabed
+      for (let i = 0; i < 26; i++) {
+        const a0 = (i / 26) * Math.PI * 2;
+        const a1 = ((i + 1) / 26) * Math.PI * 2;
+        segs.push({a: [Math.cos(a0) * 9, -7.6, Math.sin(a0) * 9], b: [Math.cos(a1) * 9, -7.6, Math.sin(a1) * 9], c: 'rgba(90,150,175,0.22)', w: 1.0});
+      }
+
+      // ---- the track: nearly horizontal, crossing everything
+      const u = p;
+      const hitT = Math.min(1, u / Math.max(0.05, impact));
+      const headX = -14 + hitT * 28;
+      const headY = -2.4 + Math.sin(u * 2) * 0.14;
+      segs.push({a: [-14, headY, 0.4], b: [headX, headY, 0.4], c: '#EAFBFF', w: 4.2, glow: 26});
+      segs.push({a: [-14, headY + 0.18, 0.4], b: [headX, headY + 0.18, 0.4], c: theme.accent, w: 1.6, glow: 18});
+      // trail sparkle behind the head
+      for (let i = 0; i < 26; i++) {
+        const x = -14 + ((i / 26) * (headX + 14));
+        const j = (Math.sin(i * 12.9 + f * 0.6) * 0.5 + 0.5) * 0.9;
+        segs.push({a: [x, headY + (j - 0.45) * 1.5, 0.4], b: [x + 0.12, headY + (j - 0.45) * 1.5, 0.4], c: theme.accent, w: 1.2, glow: 8});
+      }
+
+      // ---- Cherenkov cone, only after the interaction
+      if (cone && p > impact) {
+        const k = Math.min(1, (p - impact) / 0.35);
+        const cx = -14 + impact * 28;
+        const len = 3 + k * 15;
+        const spread = 0.9 + k * 3.6;
+        for (let i = 0; i < 16; i++) {
+          const a = (i / 16) * Math.PI * 2;
+          const tip: V3 = [cx + len, headY, 0.4];
+          const rim: V3 = [cx, headY + Math.cos(a) * spread, 0.4 + Math.sin(a) * spread];
+          segs.push({a: rim, b: tip, c: theme.accent, w: 1.0, glow: 9});
+        }
+        for (let i = 0; i < 12; i++) {
+          const r = (i / 12) * spread;
+          segs.push(...tubeSegs(ringPoints(18, Math.max(0.05, r), 0.04, i + 3, 0).map(([x, y, z]) => [x + cx, y + headY, z + 0.4] as V3), theme.accent, 1.0, 6));
+        }
+      }
+
+      drawSegs(ctx, segs, cam, W, H, {accent: theme.accent});
+    },
+    [p, impact, cone]
+  );
+
+  return (
+    <>
+      <SceneBackdrop p={p} />
+      <Starfield p={p} n={40} speed={0.25} />
+      <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right={depth} />
+    </>
+  );
+};
+
+// ==================================================== 14. nerve invasion
+/**
+ * The amoeba enters the nasal cavity, crosses the cribriform plate and runs
+ * along the olfactory nerve into the brain. Used for DS-006.
+ *
+ * props:
+ *   label      telemetry text
+ *   invasion   0..1 how far the amoebae have travelled (driven by p if omitted)
+ *   count      number of organisms (default 7)
+ */
+export const NerveInvasion: React.FC<SceneProps & {label?: string; invasion?: number; count?: number}> = ({
+  p,
+  label = 'OLFACTORY ROUTE',
+  invasion,
+  count = 9,
+}) => {
+  const k = Math.min(1, Math.max(0, invasion ?? p));
+  const cam: Cam = {rot: [0.18 + p * 0.2, -0.55 + p * 0.9, 0], dist: 13.0, fov: 1000};
+
+  const draw = React.useCallback(
+    (ctx: CanvasRenderingContext2D, f: number, t: number) => {
+      const segs: Seg[] = [];
+      // cribriform plate: a sieve of bone the nerve passes through
+      for (let i = 0; i < 9; i++) {
+        const x = -6 + i * 1.5;
+        segs.push({a: [x, 2.4, -3.2], b: [x, 2.4, 3.2], c: 'rgba(150,190,205,0.35)', w: 1.3});
+        for (let j = 0; j < 5; j++) {
+          const z = -3.2 + j * 1.6;
+          segs.push(...tubeSegs(ringPoints(10, 0.26, 0.03, i * 7 + j, 0).map(([px, py, pz]) => [x + px, 2.4 + py, z + pz] as V3), 'rgba(120,170,190,0.30)', 1.0, 0));
+        }
+      }
+      // olfactory nerve bundle: tapering filaments running up into the bulb
+      const filaments = 9;
+      for (let i = 0; i < filaments; i++) {
+        const off = (i / (filaments - 1) - 0.5) * 5.2;
+        const pts: V3[] = [];
+        for (let s = 0; s <= 16; s++) {
+          const u = s / 16;
+          pts.push([
+            off * (1 - u * 0.55) + Math.sin(u * 6 + i) * 0.16,
+            -4.2 + u * 6.6,
+            Math.cos(u * 5 + i * 1.7) * 0.55 * (1 - u * 0.4),
+          ]);
+        }
+        segs.push(...tubeSegs(pts, 'rgba(140,205,225,0.42)', 1.2, 0));
+      }
+      // olfactory bulb: a swelling where the nerve meets the brain
+      segs.push(...sphereSegs(2.5, 7, 10, 'rgba(160,220,240,0.45)', 1.2).map((s) => ({
+        a: [s.a[0] - 0.4, s.a[1] + 4.4, s.a[2]] as V3,
+        b: [s.b[0] - 0.4, s.b[1] + 4.4, s.b[2]] as V3,
+        c: 'rgba(160,220,240,0.45)',
+        w: 1.2,
+      })));
+
+      // the organisms: comma-shaped trophozoites crawling up the nerve
+      for (let i = 0; i < count; i++) {
+        const stagger = i / count;
+        const u = Math.min(1, Math.max(0, k * 1.25 - stagger * 0.25));
+        const off = (i / (count - 1) - 0.5) * 3.0;
+        const y = -4.6 + u * 8.2;
+        const x = off * (1 - u * 0.5) + Math.sin(t * 3 + i * 2) * 0.22;
+        const z = Math.cos(t * 2 + i) * 0.7;
+        const col = u > 0.55 ? '#FF6B4A' : theme.accent;
+        // teardrop body
+        const body = ringPoints(16, 0.72, 0.10, i + 5, 0).map(([px, py, pz], j) => {
+          const a = (j / 14) * Math.PI * 2;
+          const stretch = 1 + 0.8 * Math.cos(a);
+          return [px * stretch + x, py + y, pz + z] as V3;
+        });
+        segs.push(...tubeSegs(body, col, 1.9, 12));
+        // trailing flagellum wobble
+        const fl: V3[] = [];
+        for (let s = 0; s <= 6; s++) {
+          const q = s / 6;
+          fl.push([x - 0.4 - q * 0.9, y - 0.5 - q * 1.1 + Math.sin(t * 6 + s) * 0.14, z]);
+        }
+        segs.push(...tubeSegs(fl, col, 1.2, 8));
+      }
+
+      drawSegs(ctx, segs, cam, W, H, {accent: theme.accent});
+    },
+    [k, count]
+  );
+
+  return (
+    <>
+      <SceneBackdrop p={p} />
+      <Starfield p={p} n={28} speed={0.18} />
+      <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right="CNS" />
+    </>
+  );
+};
+
+// ================================================== 15. wreck wake (star)
+/**
+ * A giant star with a small hot companion carving a wake through its outer
+ * atmosphere: the star's disc visibly distorts as the companion passes.
+ * Used for DS-007.
+ *
+ * props: label, r (star radius), sep (0..1 companion separation)
+ */
+export const StarWake: React.FC<SceneProps & {label?: string; r?: number; sep?: number}> = ({
+  p,
+  frame,
+  label = 'BETELGEUSE / SIWARHA',
+  r = 8.2,
+  sep,
+}) => {
+  const separation = sep ?? 0.5 + 0.5 * Math.sin(p * Math.PI * 2);
+  const cam: Cam = {rot: [0.42, p * 0.5 - 0.2, 0], dist: 23, fov: 1050};
+
+  const draw = React.useCallback(
+    (ctx: CanvasRenderingContext2D, f: number, t: number) => {
+      const segs: Seg[] = [];
+      // photosphere: latitude/longitude wireframe squashed by the companion
+      const squash = 1 + 0.16 * Math.sin(p * Math.PI * 2) * separation;
+      const base = sphereSegs(r, 13, 20, 'rgba(255,160,95,0.85)', 1.6);
+      for (const s of base) {
+        const dst = (q: V3): V3 => [q[0] * squash, q[1], q[2]];
+        segs.push({a: dst(s.a), b: dst(s.b), c: s.c, w: s.w, glow: 7});
+      }
+      // convective granules: brighter mottling that drifts
+      for (let i = 0; i < 46; i++) {
+        const a = (i * 2.399) % (Math.PI * 2);
+        const y = Math.sin(i * 1.7) * r * 0.86;
+        const rr = Math.sqrt(Math.max(0, r * r - y * y)) * 0.92;
+        const x = Math.cos(a + t * 0.14) * rr * squash;
+        const z = Math.sin(a + t * 0.14) * rr;
+        segs.push(...tubeSegs(ringPoints(8, 0.22 + (i % 4) * 0.12, 0.05, i, 0).map(([px, py, pz]) => [x + px, y + py, z + pz] as V3), 'rgba(255,215,160,0.55)', 0.9, 5));
+      }
+      // the companion: tiny, hot, blue-white, inside the envelope
+      const ang = p * Math.PI * 2;
+      const cd = r * (1.05 + 0.28 * separation);
+      // an inclined ellipse with the crossing point held in front of the disc,
+      // so the companion never disappears behind the photosphere mid-shot
+      const cx = Math.cos(ang) * cd * squash;
+      const cy = Math.sin(ang) * r * 0.5;
+      const cz = r * 0.55 + Math.sin(ang) * r * 0.22;
+      segs.push(...sphereSegs(0.62, 5, 7, '#DDF3FF', 1.8).map((s) => ({
+        a: [s.a[0] + cx, s.a[1] + cy, s.a[2] * 0.4 + cz] as V3,
+        b: [s.b[0] + cx, s.b[1] + cy, s.b[2] * 0.4 + cz] as V3,
+        c: '#DDF3FF',
+        w: 1.8,
+        glow: 22,
+      })));
+      // hot spot: a tiny bright ring so the companion reads at phone size
+      segs.push(...tubeSegs(ringPoints(18, 1.05, 0.05, 3, 0).map(([px, py, pz]) => [px + cx, py + cy, pz * 0.4 + cz] as V3), '#EAF9FF', 1.5, 26));
+      // wake: an arc of disturbed gas trailing the companion
+      for (let w = 0; w < 3; w++) {
+        const pts: V3[] = [];
+        for (let s = 0; s <= 22; s++) {
+          const q = s / 22;
+          const aa = ang - 0.18 - q * 1.7;
+          const rr = r * (1.05 + 0.28 * separation) * (1 + w * 0.13);
+          pts.push([Math.cos(aa) * rr * squash, Math.sin(aa) * r * 0.5, r * 0.55 + Math.sin(aa) * r * 0.22]);
+        }
+        segs.push(...tubeSegs(pts, `rgba(200,242,255,${0.55 - w * 0.13})`, 2.0, 14));
+      }
+      // outer atmosphere shell
+      segs.push(...sphereSegs(r * 1.55, 9, 14, 'rgba(255,120,70,0.16)', 1.0));
+      drawSegs(ctx, segs, cam, W, H, {accent: theme.accent});
+    },
+    [p, r, separation]
+  );
+
+  return (
+    <>
+      <SceneBackdrop p={p} />
+      <Starfield p={p} n={60} speed={0.5} />
+      <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right="VLA + ALMA" />
+    </>
+  );
+};
