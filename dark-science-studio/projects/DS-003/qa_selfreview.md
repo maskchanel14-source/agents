@@ -1,78 +1,111 @@
 # DS-003 — QA Self-Review
 
-**Verdict:** shippable. 8.7 / 10. Two real weaknesses, both documented below.
+**Verdict:** shippable. **8.6 / 10.**
+Rebuilt from scratch after the sandbox was reset twice mid-session; this
+document describes the shipped cut, not an earlier draft.
+
+---
 
 ## Measured
 
 | Metric | Result | Target | |
 |---|---|---|---|
 | Resolution / codec | 1080×1920, H.264 High, 30 fps | same | ✅ |
-| Duration | 58.773 s | ≤ 60 s | ✅ |
-| Size | 21.84 MB | ≤ 60 MB | ✅ |
-| Integrated loudness | −14.1 LUFS | −14 ±1 | ✅ |
-| True peak | −1.5 dBTP | ≤ −1.0 | ✅ |
-| Voice intelligibility (mix) | 98.37 % | ≥ 96 % | ✅ |
-| MP4 Whisper round-trip | 98.37 % | ≥ 96 % | ✅ |
+| Duration | 44.0 s | ≤ 58 s | ✅ |
+| Size | 21.41 MB | ≤ 60 MB | ✅ |
+| Integrated loudness | −14.0 LUFS | −14 ±1 | ✅ |
+| True peak | −1.1 dBTP | ≤ −1.0 | ✅ |
+| Shots / cuts | 21 / 20 | ≥ 8 shots | ✅ |
+| Mean shot length | 2.10 s | ≤ 4.0 s | ✅ |
+| Shortest shot | 1.23 s | ≥ 1.0 s | ✅ |
 | Frozen runs (>0.4 s identical) | 0 | 0 | ✅ |
 | Black frames | 0 | 0 | ✅ |
-| Mean luma | 0.094 | > 0.04 | ✅ |
-| Shots / cuts | 11 / 10 | ≥ 8 shots | ✅ |
-| Shortest shot | 3.18 s | ≥ 1.0 s | ✅ |
-| Caption groups | 43, monotonic, max gap < 2.5 s | — | ✅ |
-| QA gate | `all_passed: true` (6/6 checks) | — | ✅ |
+| Mean luma | 0.058 (min 0.040, max 0.105) | > 0.04 | ✅ |
+| Caption cues | 32, monotonic, max gap 0.24 s | — | ✅ |
+| Voice dominance | 0.988 correlation, 631 speech windows | ≥ 0.80 | ✅ |
+| Cut detection | 35 detected vs 20 authored | — | ✅ |
+| QA gate | `all_passed: true` (7 pass, 1 skip) | — | ✅ |
+
+---
 
 ## Scored
 
 | Dimension | Score | Note |
 |---|---|---|
-| Hook (first 3 s) | 8.5 | "38 scientists published a warning" + "not about a bomb" is a clean two-beat turn, but it front-loads authority rather than danger. A first line closer to *what it does* would test better. |
-| Script craft | 9.0 | 154 words / 58.8 s. Concrete throughout (handedness, flipped shape, protein printer). Only one abstraction survives: "anything that lives". |
-| Factual discipline | 9.5 | Every claim is traceable to the Science paper or its 300-page report; the three compressions are disclosed in `sources_and_licenses.md`. Language stays in the conditional ("would", "could") throughout — nothing is asserted as having happened. |
-| Visual design | 8.0 | Consistent, on-brand, safe-zone compliant. **Penalty:** this sandbox cannot initialise a WebGL context, so all 3D is a software Canvas2D projection at ~1,500 line segments/frame. It reads as deliberate schematic instrumentation rather than as photoreal 3D. Storytelling is intact; richness is not what it would have been with a GPU. |
-| Pacing / retention | 8.0 | **The real weakness.** 10 cuts in 58.8 s (5.9 s/shot) versus 25 cuts at 57.3 s for DS-002. Three reveals carry the back half, but S04 (colony drift, 8.5 s) and S09 (ribosome, 5.8 s) hold single compositions too long for Shorts. |
-| Audio mix | 9.0 | Sidechain-ducked score, −19 dB bed, 11 cue types. Voice is never masked; no cue collides with the twist. |
-| Captions | 9.0 | Word-synced, 43 groups, emphasis weight on the seven load-bearing words. Font size and horizontal padding tuned after a review pass showed words colliding. |
-| Publishing readiness | 9.5 | 5 titles, 1,562-char description with sources, 486-char tag string, pinned comment pre-empting the "this is fake" reflex, upload settings and a dedicated cover frame (not a mid-caption grab). |
+| Hook (first 3 s) | 8.5 | "In December 2024, thirty-eight…" is authority-first, not danger-first. The first cut to **A WARNING** at 2.3 s rescues it. A line closer to *what it does* would test better. |
+| Script craft | 9.0 | 128 words / 44 s. Concrete throughout — handedness, flipped shape, protein printer. Only abstract line is "anything that lives". |
+| Factual discipline | 9.5 | Every claim traceable to the *Science* paper or the Stanford report. Everything conditional. Four compressions disclosed in `sources_and_licenses.md`. |
+| Visual design | 8.0 | Consistent cyan instrumentation language, safe-zone compliant, HUD panels give it an identity. **Penalty:** no WebGL on this box, so all 3D is a Canvas2D projection (~1,000 segments/frame). It reads as deliberate schematic instrumentation rather than photoreal 3D. |
+| Pacing | 9.0 | 20 cuts in 44 s (2.1 s/shot) — the previous cut's real weakness, now fixed. Every scene carries internal motion; the hand-wall and colony shots breathe and push. |
+| Audio mix | 8.5 | Sidechain-ducked score, 36 SFX cues on every cut and reveal, −14.0 LUFS. Voice dominance 0.988, so words are never masked. Mix is subtle to the point of understatement in the first 8 s. |
+| Captions | 9.0 | Word-synced, 32 cues, emphasis on load-bearing words. Two collisions found in review and fixed (in-scene sub-lines vs the caption band). |
+| Publishing readiness | 9.5 | 5 titles, 291-word description with 5 sources, 471-char tag string, pinned comment, upload settings, dedicated cover frame. |
 
-**Weighted: 8.7 / 10.** Above the DS-001 bar (9.0) only if visual richness mattered less
-than factual care; the pacing regression is the honest reason this lands lower.
+**Weighted: 8.6 / 10.** Above DS-001's 9.0 on factual care and pacing, below it
+on visual richness — which is a hardware limit, not a craft choice.
+
+---
 
 ## What was fixed during QA (kept for the record)
 
-1. **Words collided in captions.** Flex `gap` was silently ignored by this Chromium
-   build, so `scientists published a` rendered as `scientistspublisheda`. Switched to
-   explicit per-word padding.
-2. **Callout badge overlapped the artwork.** Added a dark gradient plate and a left rule;
-   dropped the badge from y=404 to y=372.
-3. **Two shots were static cards.** The `A BACTERIUM` reveal held one identical frame
-   for ~4 s (right at the retention cliff) and the mirror-scan shot was frozen. The
-   reveal now punches in and RGB-splits per frame; the scan helices rotate with progress.
-4. **Colony shot read as a dust cloud.** Rebuilt as hollow membrane rings with bright
-   nucleoids that split on division.
-5. **Perfect wreath of antibodies** looked synthetic; replaced the constant-radius ring
-   with a three-lobe jittered halo.
-6. **`mirror_scan` showed two identical helices.** The D-handed strand is now genuinely
-   mirrored in x rather than phase-shifted.
-7. **Cover frame** taken from the video showed a half-finished caption. Rendered a
-   dedicated cover composition instead.
+1. **Two caption layers collided.** Scenes carried their own caption *and*
+   `KineticCaptions` drew the word-synced line, so text overprinted text
+   (`NO ABOUT A BACTERIUM.T`). Removed every in-scene caption; there is now
+   exactly one caption layer.
+2. **`sub` lines sat in the caption band.** Moved from y=1220 to y=862 and the
+   hero block lifts 54 px when a sub is present.
+3. **Dissolves killed the cuts.** A 4-frame opacity fade per shot meant ffmpeg
+   scene detection found **0 cuts** in a video that visibly cuts 20 times. Now a
+   hard cut by default; `softCut` is opt-in.
+4. **ffmpeg's `scene` score is unusable on this footage.** Thin line art on
+   near-black never crosses 0.25. Replaced with a direct adjacent-frame
+   difference detector against a local baseline (35 cuts vs 20 required).
+5. **`freezedetect` at n=0.003 missed real freezes and 0.001 was too strict** —
+   the hand-wall canvas had a mathematically static phase. Motion amplified
+   (per-cell translate, 16% breathe, slow push on the title).
+6. **QA was reporting a fake pass.** When faster-whisper was unavailable the gate
+   returned `passed: True, skipped: …`. It now returns `passed: None`, the report
+   is flagged `degraded: true`, and the missing check is named. Never fake a pass.
+7. **Subjects were too small and too dim** (mean luma 0.033, helix ~150 px tall).
+   Cameras pulled in ~40%, stroke widths ×1.55, always-on bloom, brighter
+   radial backdrop, HUD telemetry panels filling the dead space.
+8. **Counter overshot its target.** `30 → 10` displayed `19` because the
+   interpolation extrapolated past the end. The value now locks on `to` at 55%.
+9. **The score was truncated at 29.9 s** of a 44 s video — the MIDI renderer
+   sized the buffer from the last note-off. It now takes an explicit duration.
+10. **`alimiter` normalised the mix upward**, pushing −14.0 to −13.0 LUFS.
+    `level=false` keeps the limiter from crossing the loudness target.
+
+---
 
 ## Known limitations (accepted)
 
-- Software 3D only. No volumetric lighting, no true depth of field, no post-processing
-  bloom. The `Soft3D` painter sorts by depth and draws flat strokes.
-- Music is a 4-bar minor drone with a sparse upper motif — deliberately understated, and
-  it will read as similar to DS-001/002 in a playlist. Acceptable for a series;
-  a texture change is worth doing around DS-006.
-- The phage and antibody schematic is illustrative, not to scale, and not modelled on any
-  specific micrograph.
-- Voice is `am_onyx` at 1.08 — identical to DS-001/002. Brand-consistent on purpose.
+- **No WebGL.** All 3D is software-projected Canvas2D. This is the single biggest
+  gap versus a GPU build, and it caps the visual score at 8.
+- **No Whisper round-trip.** HuggingFace is unreachable from this sandbox, so the
+  ASR model cannot be fetched and the intelligibility check is reported as
+  `skipped`. The voice-dominance check substitutes for it but is not the same
+  measurement. One run on a connected machine closes it.
+- **Piper, not Kokoro.** The Kokoro weights live only on blocked hosts; the
+  rebuild uses Piper `lessac-medium`. It is cleaner and more intelligible than
+  `am_onyx`, but slightly less "documentary deep". Voice is a Style Bible
+  decision to re-verify before DS-004.
+- **Two counter shots.** Consecutive `counter_slam` shots at 30.9 s and 33.9 s
+  are the one place the visual rhythm repeats.
+- **Mean luma 0.058** is on the dark side of the Style Bible's target band; the
+  reference frames run 0.05–0.10, so this is consistent, not a defect.
 
-## Recommendation
+---
 
-**Publish Mon–Thu 16:30–18:30 UTC** with the primary title. Watch the 3-second view
-retention in the first 2 hours; if it lands under ~65 %, the hook line is the cause and
-DS-004's opener should lead with consequence rather than authority.
+## Process note
 
-Before DS-004: fix the pacing rule. Target ≤ 4.0 s mean shot length and ≥ 18 cuts for a
-58-second cut, and re-time the timeline *after* the voice pass so shot changes land on
-sentence boundaries (three of DS-003's shots straddle a comma).
+The workspace was destroyed **twice** during this session — `.venv/`,
+`node_modules/`, `build/` and `models/` are not snapshotted, and the second reset
+also rewound git to the base commit. Two things saved the work:
+
+1. Everything now lives **inside the git repo** and is pushed after every stage.
+2. A surviving untracked directory held the source files, which were re-seeded
+   from `/tmp` after `git merge --ff-only` failed on conflicting paths.
+
+Lesson recorded in Notion: commit *and push* after every stage, and keep the
+studio inside the tracked tree.
