@@ -239,6 +239,77 @@ def shimmer(dur=2.6, sr=SR, seed=11) -> np.ndarray:
 
 
 # --------------------------------------------------------------- build
+def resample(x: np.ndarray, sr_in: int, sr_out: int = SR) -> np.ndarray:
+    if sr_in == sr_out:
+        return x
+    n_out = int(round(len(x) * sr_out / sr_in))
+    xs = np.linspace(0, len(x) - 1, n_out)
+    return np.interp(xs, np.arange(len(x)), x).astype(np.float32)
+
+
+def highpass(x: np.ndarray, cutoff: float = 90.0, sr: int = SR) -> np.ndarray:
+    """One-pole highpass, applied twice for a 12 dB/oct slope."""
+    a = np.exp(-2 * np.pi * cutoff / sr)
+    y = x.astype(np.float32).copy()
+    for _ in range(2):
+        prev_x = 0.0
+        prev_y = 0.0
+        for i in range(len(y)):
+            xi = float(y[i])
+            yi = a * (prev_y + xi - prev_x)
+            y[i] = yi
+            prev_x = xi
+            prev_y = yi
+    return y
+
+
+def compress(x: np.ndarray, thresh_db: float = -20.0, ratio: float = 3.0,
+             attack: float = 0.008, release: float = 0.18, sr: int = SR) -> np.ndarray:
+    """Feed-forward compressor with a smoothed envelope follower."""
+    env = np.abs(x)
+    a_att = np.exp(-1 / (attack * sr))
+    a_rel = np.exp(-1 / (release * sr))
+    sm = np.zeros_like(env)
+    e = 0.0
+    for i in range(len(env)):
+        c = a_att if env[i] > e else a_rel
+        e = c * e + (1 - c) * env[i]
+        sm[i] = e
+    lvl = 20 * np.log10(np.maximum(sm, 1e-6))
+    over = np.maximum(0.0, lvl - thresh_db)
+    gain_db = -over * (1 - 1 / ratio)
+    return (x * (10 ** (gain_db / 20))).astype(np.float32)
+
+
+def reverb(x: np.ndarray, wet: float = 0.10, dur: float = 0.55, sr: int = SR, seed: int = 21) -> np.ndarray:
+    """Short synthetic plate: exponentially decaying noise IR, FFT convolution."""
+    n_ir = int(dur * sr)
+    t = np.linspace(0, dur, n_ir)
+    ir = rng(seed).normal(0, 1, n_ir) * np.exp(-t * 6.5)
+    ir[: int(0.012 * sr)] *= np.linspace(0, 1, int(0.012 * sr))  # soften the onset
+    ir /= np.max(np.abs(ir)) or 1
+    n = len(x) + n_ir
+    size = 1 << (n - 1).bit_length()
+    wet_sig = np.fft.irfft(np.fft.rfft(x, size) * np.fft.rfft(ir, size), size)[: len(x)]
+    wet_sig /= (np.max(np.abs(wet_sig)) or 1) / (np.max(np.abs(x)) or 1)
+    return ((1 - wet) * x + wet * wet_sig).astype(np.float32)
+
+
+def load_vo(path: Path) -> np.ndarray:
+    x, sr = sf.read(str(path), dtype="float32", always_2d=False)
+    if x.ndim > 1:
+        x = x.mean(axis=1)
+    x = resample(x, sr)
+    x = highpass(x, 95.0)
+    x = compress(x, thresh_db=-21.0, ratio=3.2)
+    x = reverb(x, wet=0.085)
+    # normalise each line to a consistent level so the read feels even
+    rms = float(np.sqrt(np.mean(x ** 2))) or 1e-6
+    x *= 0.13 / rms
+    x = np.tanh(x * 1.25) / 1.25  # gentle saturation to sit it in the mix
+    return x.astype(np.float32)
+
+
 def place(buf: np.ndarray, sig: np.ndarray, at: float, gain: float, sr: int = SR) -> None:
     i = int(at * sr)
     if i >= len(buf):
@@ -284,43 +355,81 @@ def main() -> int:
         sfx[:, 0] += m * (1 - max(0, pan))
         sfx[:, 1] += m * (1 + min(0, pan))
 
-    # transitions land on the shot list
+    # transitions land on the shot list -- kept deliberately understated:
+    # the voice is the focus, the design sounds just mark the cuts.
     shots = json.loads(Path(args.shots).read_text())
     for s in shots:
         t = s["from"] / s["fps"]
         if t == 0:
             continue
         if s["name"] in ("hero", "lineup", "water"):
-            put(boom(), max(0, t - 0.02), 0.55)
-            put(whoosh(1.2), t - 0.55, 0.30, -0.2)
+            put(boom(), max(0, t - 0.02), 0.26)
+            put(whoosh(1.2), t - 0.55, 0.12, -0.2)
         elif s["name"] in ("numbers", "pack"):
-            put(boom(), max(0, t - 0.02), 0.45)
-            put(riser(1.8), t - 1.7, 0.22, 0.15)
+            put(boom(), max(0, t - 0.02), 0.22)
+            put(riser(1.8), t - 1.7, 0.075, 0.15)
         else:
-            put(whoosh(0.9), t - 0.45, 0.22, 0.25)
+            put(whoosh(0.9), t - 0.45, 0.085, 0.25)
 
     # data ticks, exactly where the copy lands
     for t in (15.7, 17.0, 18.3):
-        put(tick(), t, 0.16, 0.3)
+        put(tick(), t, 0.055, 0.3)
     for t in (28.9, 29.7, 30.5, 31.3, 32.1):
-        put(tick(f=2100), t, 0.10, -0.25)
+        put(tick(f=2100), t, 0.035, -0.25)
 
-    # a felt-kick pulse carrying the mid-section energy
+    # a felt-kick pulse carrying the mid-section energy (half level, no thump)
     beat = 60.0 / 76.0
     tt = 15.0
     k = 0
     while tt < 42.0:
-        g = 0.19 if k % 4 == 0 else 0.09
+        g = 0.095 if k % 4 == 0 else 0.045
         put(boom(dur=0.42, f0=110, f1=52), tt, g)
         tt += beat
         k += 1
 
-    put(shimmer(), 41.6, 0.26, 0.1)
-    put(boom(dur=2.4, f0=70, f1=30), 42.0, 0.42)
+    put(shimmer(), 41.6, 0.13, 0.1)
+    put(boom(dur=2.4, f0=70, f1=30), 42.0, 0.26)
 
-    # 3. duck the score under nothing (no VO) — just a gentle -3 dB on the bed
-    score *= 0.62
-    mix = score + sfx * 0.9
+    # 3. voice-over: one line per shot, sitting on the bed
+    vo = np.zeros(n, dtype=np.float32)
+    vo_cues: list[tuple[float, float]] = []
+    # let the opening pad breathe before the first word; every other line
+    # comes in just after its cut so the picture and the voice stay married
+    VO_OFFSET = {"orchard": 0.55, "end": 0.20}
+    vo_dir = ROOT / "public" / "audio" / "vo"
+    for s in shots:
+        name = s["name"]
+        f = vo_dir / f"vo_{name}.wav"
+        if not f.exists():
+            print(f"[vo] missing {f.name}")
+            continue
+        x = load_vo(f)
+        shot_start = s["from"] / s["fps"]
+        shot_len = (s["to"] - s["from"]) / s["fps"]
+        # start a hair after the cut, and never let a line overrun its shot
+        at = shot_start + VO_OFFSET.get(name, 0.15)
+        if len(x) / SR > shot_len - 0.30:
+            print(f"[vo] WARNING {name}: {len(x)/SR:.2f}s does not fit {shot_len:.2f}s")
+        place(vo, x, at, 1.0)
+        vo_cues.append((at, at + len(x) / SR))
+
+    # duck the music + design under the voice (soft, 5 dB, smooth edges)
+    duck = np.ones(n, dtype=np.float32)
+    fade = int(0.25 * SR)
+    for a, b in vo_cues:
+        i0 = max(0, int(a * SR) - fade)
+        i1 = min(n, int(b * SR) + fade)
+        seg = np.ones(i1 - i0, dtype=np.float32)
+        ramp = np.linspace(0, 1, fade) if fade else np.array([1.0])
+        n_in = min(fade, len(seg))
+        n_out = min(fade, len(seg))
+        seg[:n_in] = 1 - ramp[:n_in] * 0.44
+        seg[-n_out:] = np.minimum(seg[-n_out:], 1 - ramp[:n_out][::-1] * 0.44)
+        seg[:n_in] = np.minimum(seg[:n_in], np.linspace(1, 0.56, n_in))
+        duck[i0:i1] = np.minimum(duck[i0:i1], seg)
+
+    score *= 0.60
+    mix = score * duck[:, None] + sfx * 0.85 * duck[:, None] + vo[:, None] * 1.0
 
     # 4. two-pass loudnorm to -14 LUFS
     pre = build / "mix_pre.wav"

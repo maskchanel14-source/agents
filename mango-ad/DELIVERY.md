@@ -1,9 +1,10 @@
 # Iklan Palmer — Mangga Brasil (B2B Indonesia)
 
-**Video:** `renders/mango_palmer_final.mp4` · 45.50 s · 1080×1920 · 30 fps · 25,1 MB · h264 CRF 16 + AAC 317 kb/s
+**Video:** `renders/mango_palmer_vo.mp4` · 45.50 s · 1080×1920 · 30 fps · 25,1 MB · h264 CRF 16 + AAC 317 kb/s
 **Drive:** https://drive.google.com/drive/folders/1U2kwMIImUUnhYYaZvMoobC1SEPaLozd8
 
-**Audio:** −14.5 LUFS · −0.87 dBTP · musik orisinal, tanpa lisensi pihak ketiga
+**Audio:** narasi Bahasa Indonesia + musik orisinal · −14.0 LUFS · −0.99 dBTP
+**Versi sebelumnya (tanpa narasi, SFX lebih keras):** `renders/mango_palmer_final.mp4`
 
 ---
 
@@ -21,10 +22,27 @@
 | 39–42 s | Ready | Splash hero | Siap *dikirim.* | Transisi ke CTA |
 | 42–45,5 s | End card | Hero blur, pull-back | Kualitas *yang bisa* dijanjikan. / GROSIR · HORECA · EKSPOR | CTA |
 
-**Tidak ada voice-over.** Iklan korporat premium biasanya justru lebih kuat tanpa narasi —
-musik + tipografi yang membawa pesan, dan untuk B2B pembeli membaca angka lebih cepat
-daripada mendengar klaim. Kalau Anda mau versi ber-VO, ini bisa ditambahkan tanpa
-mengubah visual.
+### Naskah narasi (Bahasa Indonesia, 9 baris, satu baris per shot)
+
+| Shot | Narasi |
+|---|---|
+| Establishing | "Dari Lembah São Francisco. Panen sepanjang tahun." |
+| Hero fruit | "Palmer. Setengah kilo lebih, per buah. Kelas ekspor." |
+| Tekstur | "Daging padat. Nyaris tanpa serat." |
+| Angka | "Tiga puluh ton per hektar. Sembilan puluh persen ekspor Brasil lahir di sini." |
+| Varietas | "Palmer, Tommy Atkins, Keitt, Kent. Empat varietas, satu standar." |
+| Rantai pasok | "Panen, sortir, grading, cold chain, pelabuhan. Satu alur, nol tebak-tebakan." |
+| Brix | "Manis yang konsisten. Dan terukur." |
+| Ready | "Siap dikirim." |
+| End card | "Kualitas yang bisa dijanjikan. Hubungi tim kami." |
+
+Voice: narator pria, Indonesia netral, tempo tenang (bukan gaya iklan hard-sell).
+Tiap baris masuk ~0.15 s setelah cut supaya gambar dan suara tetap sejalan.
+
+**Desain suara dibuat sengaja tipis.** Versi pertama dinilai terlalu ramai — boom
+di setiap cut, kick pulse, tick data, riser. Sekarang boom / whoosh / riser / tick
+diturunkan 45–60%, kick pulse dipotong setengah, dan seluruh bed di-duck −5 dB di
+bawah narasi. Fungsi SFX tinggal menandai cut, bukan ikut bercerita.
 
 ---
 
@@ -85,10 +103,12 @@ daripada render apa pun. Ini versi terbaik yang bisa dibuat tanpa footage.
 | Durasi | 45.50 s (1350 frame + tail) |
 | Video | h264 High, CRF 16, 4.09 Mb/s |
 | Audio | AAC-LC 48 kHz stereo, 317 kb/s |
-| Loudness | −14.5 LUFS integrated |
-| True peak | −0.87 dBTP |
+| Loudness | −14.0 LUFS integrated |
+| True peak | −0.99 dBTP |
+| Narasi | TTS, 48 kHz mono, HPF 95 Hz + kompresor 3.2:1 + plate reverb tipis |
 | Musik | Orisinal, digenerate (MIDI → GM soundfont) |
-| SFX | Disintesis (whoosh, boom, tick, riser, shimmer) |
+| SFX | Disintesis (whoosh, boom, tick, riser, shimmer), level rendah |
+| Ducking | −5 dB pada musik + SFX selama narasi |
 | Teks | Playfair Display, Montserrat, Inter (SIL OFL 1.1) |
 
 ---
