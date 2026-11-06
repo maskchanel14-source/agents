@@ -1,0 +1,12 @@
+.cache/
+.venv/
+.models/
+node_modules/
+.bin/
+.chromium/
+build/bundle/
+build/*/raw_video.mp4
+build/*/*.wav
+renders/*/*.mp4
+*.log
+__pycache__/
