@@ -1,6 +1,8 @@
 # Iklan Palmer — Mangga Brasil (B2B Indonesia)
 
 **Video:** `renders/mango_palmer_final.mp4` · 45.50 s · 1080×1920 · 30 fps · 25,1 MB · h264 CRF 16 + AAC 317 kb/s
+**Drive:** https://drive.google.com/drive/folders/1U2kwMIImUUnhYYaZvMoobC1SEPaLozd8
+
 **Audio:** −14.5 LUFS · −0.87 dBTP · musik orisinal, tanpa lisensi pihak ketiga
 
 ---
