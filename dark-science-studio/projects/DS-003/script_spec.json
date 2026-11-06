@@ -1,0 +1,57 @@
+{
+  "engine": "piper en_US-lessac-medium",
+  "sample_rate": 16000,
+  "duration_s": 44.187,
+  "word_count": 128,
+  "wpm": 173.8,
+  "lines": [
+    {
+      "i": 0,
+      "text": "In December 2024, thirty-eight scientists published a warning. Not about a bomb. About a bacterium."
+    },
+    {
+      "i": 1,
+      "text": "One that does not exist yet."
+    },
+    {
+      "i": 2,
+      "text": "Every living thing on Earth is built the same way. Life has a handedness."
+    },
+    {
+      "i": 3,
+      "text": "Sugars twist right. Proteins twist left. Your immune system reads that shape."
+    },
+    {
+      "i": 4,
+      "text": "Now flip it. Build the same cell in mirror image."
+    },
+    {
+      "i": 5,
+      "text": "Your antibodies would not grip it. Phages would not infect it. Antibiotics would not touch it."
+    },
+    {
+      "i": 6,
+      "text": "It could eat the food you eat, and nothing on this planet could eat it."
+    },
+    {
+      "i": 7,
+      "text": "The report says ten years, with serious funding."
+    },
+    {
+      "i": 8,
+      "text": "Fifteen to thirty on the path we are on now."
+    },
+    {
+      "i": 9,
+      "text": "They are not asking for a ban on knowledge."
+    },
+    {
+      "i": 10,
+      "text": "They are asking us to never build it."
+    },
+    {
+      "i": 11,
+      "text": "Thirty-eight scientists. One warning. Please."
+    }
+  ]
+}

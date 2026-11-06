@@ -15,7 +15,7 @@ import fs from 'fs';
 import path from 'path';
 import * as S from 'spessasynth_core';
 
-const [inMidi, outWav, inSf2] = process.argv.slice(2);
+const [inMidi, outWav, inSf2, secondsArg] = process.argv.slice(2);
 if (!inMidi || !outWav || !inSf2) {
   console.error('usage: render-midi.mjs <in.mid> <out.wav> <soundfont.sf2>');
   process.exit(2);
@@ -58,7 +58,9 @@ const tick2sec = (tick) => {
 };
 
 const lastSec = evs.length ? tick2sec(evs[evs.length - 1].t) : 0;
-const totalSec = lastSec + 3.5; // let the tail ring out
+// Explicit duration wins: the music bed must span the whole video, not just
+// up to the last note-off.
+const totalSec = Number(secondsArg) > 0 ? Number(secondsArg) : lastSec + 3.5;
 const total = Math.ceil(totalSec * SR);
 const L = new Float32Array(total), R = new Float32Array(total);
 
