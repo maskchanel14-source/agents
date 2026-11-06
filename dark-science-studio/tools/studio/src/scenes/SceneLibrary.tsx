@@ -226,22 +226,27 @@ export const MirrorColony: React.FC<
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
-      const n = 13;
+      const n = 11;
       for (let i = 0; i < n; i++) {
         const a = (i / n) * Math.PI * 2 + t * 0.22;
-        const rad = 7.2 + Math.sin(i * 2.1 + t * 0.7) * 1.4;
+        const rad = 8.4 + Math.sin(i * 2.1 + t * 0.7) * 1.3;
         const cx = Math.cos(a) * rad;
         const cz = Math.sin(a) * rad;
         const cy = Math.sin(i * 1.7 + t * 0.5) * 1.6;
-        const size = 2.0 + (i % 3) * 0.34;
+        const size = 1.35 + (i % 3) * 0.24;
         const isMirror = mirror && i % 2 === 1;
         const col = isMirror ? theme.accent : 'rgba(210,240,250,0.92)';
 
         // hollow membrane ring
-        const ring = ringPoints(22, size, size * 0.16, i + 7).map(
-          ([x, y, z]) => [x + cx, y + cy, z + cz] as V3
-        );
-        segs.push(...tubeSegs(ring, col, isMirror ? 2.0 : 1.4, isMirror ? 7 : 0));
+        // 3D membrane: jitter in y as well as radius, plus a slow wobble so the
+        // cell is a blob with depth, never a flat plate.
+        const ring = ringPoints(20, size, size * 0.14, i + 7, 0)
+          .map(([x, y, z], k) => {
+            const a = (k / 20) * Math.PI * 2;
+            const wob = Math.sin(a * 3 + t * 2.2 + i) * size * 0.34;
+            return [x + cx, y + cy + wob, z + cz] as V3;
+          });
+        segs.push(...tubeSegs(ring, col, isMirror ? 1.7 : 1.25, isMirror ? 7 : 0));
 
         // bright nucleoid + a second one when the cell is splitting
         const nucleoids = divide ? [v3.add([cx, cy, cz], [0, 0, 0]), v3.add([cx, cy, cz], [size * 0.9 * Math.sin(a), 0, size * 0.9 * Math.cos(a)])] : [[cx, cy, cz] as V3];
@@ -335,7 +340,7 @@ export const GlitchReveal: React.FC<
           alignItems: 'center',
           justifyContent: 'center',
           gap: 6,
-          transform: `translate(${Math.sin(p * 90) * jitter}px, 0) scale(${punch * scale})`,
+          transform: `translate(${Math.sin(p * 90) * jitter}px, ${sub ? -54 : 0}px) scale(${punch * scale})`,
         }}
       >
         {lines.map((ln, i) => (
@@ -395,7 +400,7 @@ export const GlitchReveal: React.FC<
         <div
           style={{
             position: 'absolute',
-            top: 1220,
+            top: 862,
             left: 64,
             right: 64,
             textAlign: 'center',

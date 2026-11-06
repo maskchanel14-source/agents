@@ -7,20 +7,17 @@
     "audio_codec": "aac",
     "fps": 30.0,
     "passed": true,
-    "size_mb": 22.1
+    "size_mb": 21.41
   },
   "freeze_black": {
-    "frozen_runs": 2,
-    "frozen_at": [
-      "39.166667",
-      "40.733333"
-    ],
+    "frozen_runs": 0,
+    "frozen_at": [],
     "black_frames": 0,
     "black_at": [],
-    "passed": false
+    "passed": true
   },
   "scene_changes": {
-    "cuts": 38,
+    "cuts": 35,
     "cut_times": [
       1.9,
       2.333,
@@ -31,10 +28,8 @@
       5.833,
       6.3,
       7.133,
-      7.733,
       7.867,
       8.433,
-      10.467,
       12.933,
       17.933,
       18.067,
@@ -46,7 +41,6 @@
       26.5,
       26.633,
       27.133,
-      29.1,
       30.867,
       31.733,
       31.867,
@@ -63,7 +57,7 @@
     ],
     "runtime_s": 44.0,
     "required": 14,
-    "mean_diff": 0.00436,
+    "mean_diff": 0.0043,
     "passed": true
   },
   "loudness": {
@@ -72,9 +66,15 @@
     "passed": true
   },
   "whisper": {
-    "passed": true,
-    "skipped": "faster-whisper not installed",
+    "passed": null,
+    "skipped": "model unavailable: Got: ConnectError: TLS/SSL connection has been closed (EOF) (_ssl.c:992)\nAn error happened while trying to locate the files on the Hub, and we cannot find the appropriate snapshot folder for the specified revision on the local disk. Please check your internet connection and try again.",
     "match_pct": null
+  },
+  "voice_dominance": {
+    "speech_windows": 631,
+    "voice_mix_correlation": 0.988,
+    "passed": true,
+    "note": "correlation of speech-window energy, voice stem vs delivered mix"
   },
   "captions": {
     "cues": 32,
@@ -85,9 +85,9 @@
   },
   "luminance": {
     "frames_sampled": 44,
-    "mean_luma": 0.0582,
+    "mean_luma": 0.0581,
     "min_luma": 0.0397,
-    "max_luma": 0.0957,
+    "max_luma": 0.1045,
     "passed": true
   },
   "contact_sheets": [
@@ -100,7 +100,11 @@
     "min_shot_s": 1.23,
     "mean_shot_ok": true
   },
-  "all_passed": false,
+  "skipped_checks": [
+    "whisper"
+  ],
+  "degraded": true,
+  "all_passed": true,
   "video": "/home/user/agents/dark-science-studio/renders/DS-003/final.mp4",
-  "size_mb": 22.1
+  "size_mb": 21.41
 }

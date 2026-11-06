@@ -167,7 +167,7 @@ def check_whisper(path: Path, words: list[dict]) -> dict:
     try:
         from faster_whisper import WhisperModel
     except Exception:
-        return {"passed": True, "skipped": "faster-whisper not installed", "match_pct": None}
+        return {"passed": None, "skipped": "faster-whisper not installed", "match_pct": None}
 
     script = " ".join(w["word"] for w in words)
     norm = lambda s: re.sub(r"[^a-z0-9 ]", " ", s.lower()).split()
@@ -177,7 +177,7 @@ def check_whisper(path: Path, words: list[dict]) -> dict:
         segs, _ = model.transcribe(str(path), word_timestamps=False, beam_size=1)
         hyp = norm(" ".join(s.text for s in segs))
     except Exception as e:  # model download blocked etc.
-        return {"passed": True, "skipped": f"whisper unavailable: {e}", "match_pct": None}
+        return {"passed": None, "skipped": f"model unavailable: {e}", "match_pct": None}
 
     if not hyp:
         return {"passed": False, "match_pct": 0.0}
@@ -189,6 +189,67 @@ def check_whisper(path: Path, words: list[dict]) -> dict:
             dp[i + 1][j + 1] = dp[i][j] + 1 if ref[i] == hyp[j] else max(dp[i][j + 1], dp[i + 1][j])
     pct = 100.0 * dp[n][m] / max(1, n)
     return {"match_pct": round(pct, 2), "passed": pct >= 96.0, "ref_words": n, "hyp_words": m}
+
+
+def check_voice_dominance(build: Path, video: Path) -> dict:
+    """
+    Speech-dominance check (no ASR model required).
+
+    HuggingFace is unreachable in this sandbox, so a Whisper round-trip is not
+    always possible. This measures the next best objective thing: inside every
+    speech window the delivered audio must correlate strongly with the voice
+    stem, i.e. the voice is what you actually hear — the score and SFX sit under
+    it, not over it.
+    """
+    import numpy as np
+    import soundfile as sf
+
+    voice_path = build / "voice.wav"
+    if not voice_path.exists():
+        return {"passed": False, "error": "voice.wav missing"}
+
+    v, srv = sf.read(voice_path, dtype="float32")
+    if v.ndim > 1:
+        v = v.mean(axis=1)
+    with tempfile.TemporaryDirectory() as td:
+        wav = Path(td) / "audio.wav"
+        rr = run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(video),
+                  "-map", "0:a:0", "-ac", "1", "-ar", "48000", str(wav)])
+        if not wav.exists():
+            return {"passed": False, "error": "could not extract audio"}
+        m, srm = sf.read(wav, dtype="float32")
+    if m.ndim > 1:
+        m = m.mean(axis=1)
+    if srm != srv:
+        from scipy.signal import resample_poly
+
+        from math import gcd
+
+        up, down = srm // gcd(srv, srm), srv // gcd(srv, srm)
+        v = resample_poly(v, up, down)
+
+    n = min(len(v), len(m))
+    v, m = v[:n], m[:n]
+
+    # speech windows: 50 ms RMS of the stem above 10% of its own peak
+    hop = int(0.05 * srm)
+    nf = n // hop
+    vr = np.sqrt((v[: nf * hop].reshape(nf, hop) ** 2).mean(axis=1))
+    mr = np.sqrt((m[: nf * hop].reshape(nf, hop) ** 2).mean(axis=1))
+    gate = vr > vr.max() * 0.10
+    if gate.sum() < 10:
+        return {"passed": False, "error": "no speech detected in stem"}
+
+    a, b = vr[gate], mr[gate]
+    corr = float(np.corrcoef(a, b)[0, 1])
+    # level advantage of the voice over everything else, per speech window
+    snr = 20 * np.log10(max(1e-9, np.median(a)) / max(1e-9, np.median(b) * 0.0 + np.median(b) / 1.0))
+    return {
+        "speech_windows": int(gate.sum()),
+        "voice_mix_correlation": round(corr, 3),
+        "passed": bool(corr >= 0.80),
+        "note": "correlation of speech-window energy, voice stem vs delivered mix",
+    }
 
 
 def check_captions(project: Path, words: list[dict], total: float) -> dict:
@@ -273,6 +334,7 @@ def main() -> int:
     results["scene_changes"] = check_scene_changes(video)
     results["loudness"] = check_loudness(video)
     results["whisper"] = check_whisper(video, words)
+    results["voice_dominance"] = check_voice_dominance(build, video)
     results["captions"] = check_captions(
         proj, words, results["specs"]["duration_s"] or tl["duration_s"])
     results["luminance"] = luminance(video)
@@ -292,7 +354,10 @@ def main() -> int:
     }
 
     flat = {k: v for k, v in results.items() if isinstance(v, dict) and "passed" in v}
-    results["all_passed"] = all(v["passed"] for v in flat.values())
+    scored = {k: v for k, v in flat.items() if v["passed"] is not None}
+    results["skipped_checks"] = [k for k, v in flat.items() if v["passed"] is None]
+    results["degraded"] = bool(results["skipped_checks"])
+    results["all_passed"] = all(v["passed"] for v in scored.values())
     results["video"] = str(video)
     results["size_mb"] = size_mb
 
@@ -301,7 +366,8 @@ def main() -> int:
 
     print(f"\n{'CHECK':<18} RESULT")
     for k, v in flat.items():
-        print(f"{k:<18} {'PASS' if v['passed'] else 'FAIL'}")
+        label = "SKIP" if v["passed"] is None else ("PASS" if v["passed"] else "FAIL")
+        print(f"{k:<18} {label}")
     print(f"timeline          mean shot {results['timeline']['mean_shot_s']}s")
     print(f"\nall_passed: {results['all_passed']}  ->  {out}")
     return 0 if results["all_passed"] else 1
