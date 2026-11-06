@@ -19,7 +19,7 @@ from pathlib import Path
 FPS = 30
 
 
-def build_shots() -> list[tuple[float, float, str, dict]]:
+def ds003_shots() -> list[tuple[float, float, str, dict]]:
     return [
         # 1 - cold open: the colony, already moving
         (0.00, 2.35, "mirror_colony", {"label": "DEC 2024 / SCIENCE", "mirror": False}),
@@ -66,6 +66,83 @@ def build_shots() -> list[tuple[float, float, str, dict]]:
     ]
 
 
+def ds004_shots() -> list[tuple[float, float, str, dict]]:
+    """Fatal familial insomnia — 32 shots across ~49 s.
+
+    Beats: Bologna family -> one letter of DNA -> prion protein -> misfolding
+    -> disinfection-proof -> thalamus -> stage-by-stage sleep loss -> autosomal
+    dominance -> 18 months -> 100% fatality -> "it is you".
+    """
+    return [
+        # 1 - cold open: the family that could not sleep
+        (0.00, 1.45, "glitch_reveal", {"kicker": "1765 \u00b7 ITALY", "lines": ["NO SLEEP"], "sub": "ONE FAMILY \u00b7 TWO CENTURIES"}),
+        # 2 - a pedigree, not yet diagnosed
+        (1.45, 3.40, "pedigree", {"found": False, "label": "PEDIGREE / ONE FAMILY"}),
+        # 3 - "traced to a single letter"
+        (3.40, 4.60, "glitch_reveal", {"kicker": "DNA", "lines": ["ONE LETTER"]}),
+        # 4 - the gene itself
+        (4.60, 6.10, "handed_helix", {"label": "PRNP / CHROMOSOME 20", "split": False}),
+        # 5 - "one mutation"
+        (6.10, 7.40, "glitch_reveal", {"kicker": "MISSENSE", "lines": ["ONE MUTATION"], "sub": "D178N + METHIONINE 129"}),
+        # 6 - the native protein
+        (7.40, 9.00, "misfold_chain", {"state": "clear", "label": "PRP / NATIVE FOLD"}),
+        # 7 - "in your brain right now"
+        (9.00, 10.30, "mirror_colony", {"label": "NEURONS / PRP EXPRESSED", "mirror": False, "hud": [["LOCATION", "EVERY CELL"], ["FOLD", "ALPHA HELIX"], ["STATUS", "NORMAL"]]}),
+        (10.30, 11.15, "glitch_reveal", {"lines": ["RIGHT NOW"]}),
+        # 8 - misfolding begins
+        (11.15, 12.55, "misfold_chain", {"state": "seeding", "label": "MISFOLDING / CONTACT"}),
+        (12.55, 13.75, "glitch_reveal", {"kicker": "CONTACT", "lines": ["NEIGHBOURS"]}),
+        # 9 - the stack locks
+        (13.75, 14.90, "misfold_chain", {"state": "locked", "label": "PROPAGATION / LOCKED"}),
+        # 10 - the aggregate inside the neuron
+        (14.90, 16.30, "mirror_colony", {"label": "INTRACELLULAR / AGGREGATE", "mirror": False, "divide": True, "hud": [["AGGREGATE", "INSOLUBLE"], ["PROTEASE", "RESISTANT"], ["CLEARANCE", "NONE"]]}),
+        # 11 - disinfection fails
+        (16.30, 17.60, "glitch_reveal", {"kicker": "DISINFECTION: FAILS", "lines": ["SURVIVES"]}),
+        (17.60, 19.90, "glitch_reveal", {"lines": ["BOILING", "BLEACH"], "sub": "AUTOCLAVE: 134\u00b0C \u00b7 STILL INFECTIOUS"}),
+        # 12 - the thalamus
+        (19.90, 21.45, "thalamus_grid", {"dead": None, "label": "THALAMUS / TARGET"}),
+        # 13 - walnut-sized
+        (21.45, 23.05, "glitch_reveal", {"kicker": "YOUR THALAMUS", "lines": ["WALNUT"], "sub": "ABOUT SIXTY GRAMS"}),
+        (23.05, 25.05, "glitch_reveal", {"kicker": "EVERY NIGHT", "lines": ["WHEN YOU SLEEP"]}),
+        # 14 - stage by stage: spindles
+        (25.05, 26.55, "thalamus_grid", {"dead": "spindles", "label": "SPINDLES / LOST"}),
+        (26.55, 27.80, "glitch_reveal", {"lines": ["DEEP SLEEP"], "sub": "STAGE 3-4 \u00b7 ABSENT"}),
+        # 15 - and REM
+        (27.80, 29.90, "thalamus_grid", {"dead": "rem", "label": "REM / LOST"}),
+        # 16 - "awake for months"
+        (29.90, 31.25, "glitch_reveal", {"kicker": "FOR MONTHS", "lines": ["AWAKE"]}),
+        (31.25, 32.90, "glitch_reveal", {"lines": ["HEART RACING"], "sub": "SWEATING \u00b7 FEVER \u00b7 TACHYCARDIA"}),
+        (32.90, 34.90, "glitch_reveal", {"lines": ["BURNING FUEL"], "sub": "THAT THE BODY CANNOT STORE"}),
+        # 17 - inheritance
+        (34.90, 36.60, "pedigree", {"found": True, "label": "INHERITANCE / 1 IN 2"}),
+        (36.60, 38.10, "glitch_reveal", {"kicker": "BEFORE THE FIRST SYMPTOM", "lines": ["DECADES"]}),
+        (38.10, 39.90, "pedigree", {"found": True, "label": "CARRIERS / KNOWN EARLY"}),
+        # 18 - eighteen months
+        (39.90, 41.25, "counter_slam", {"from": 60, "to": 18, "suffix": "MO", "label": "MEDIAN SURVIVAL", "caption": "eighteen months from onset"}),
+        (41.25, 43.10, "glitch_reveal", {"kicker": "NO APPROVED THERAPY", "lines": ["NO TREATMENT"]}),
+        # 19 - seventy families
+        (43.10, 44.40, "counter_slam", {"from": 300, "to": 70, "suffix": "FAM", "label": "KNOWN KINDREDS", "caption": "about seventy families on earth"}),
+        # 20 - zero survivors
+        (44.40, 46.45, "mortality", {"readout": "100", "caption": "ZERO SURVIVORS"}),
+        # 21 - not infectious
+        (46.45, 47.75, "glitch_reveal", {"kicker": "IT CANNOT SPREAD TO YOU", "lines": ["NOT", "INFECTIOUS"]}),
+        # 22 - "it is you"
+        (47.75, 49.60, "glitch_reveal", {"kicker": "PRNP \u00b7 CHROMOSOME 20", "lines": ["IT IS YOU"]}),
+    ]
+
+
+SHOT_LISTS = {
+    "DS-003": ds003_shots,
+    "DS-004": ds004_shots,
+}
+
+
+def build_shots(project_id: str) -> list[tuple[float, float, str, dict]]:
+    if project_id not in SHOT_LISTS:
+        raise SystemExit(f"no shot list for {project_id}; known: {sorted(SHOT_LISTS)}")
+    return SHOT_LISTS[project_id]()
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--project", required=True)
@@ -75,7 +152,7 @@ def main() -> int:
 
     words = json.loads((build / "words.json").read_text())
     voice_end = words[-1]["end"]
-    shots_raw = build_shots()
+    shots_raw = build_shots(proj.name)
 
     # stretch the tail shot so the video ends exactly with the voice + 0.4 s
     last = shots_raw[-1]
@@ -106,11 +183,19 @@ def main() -> int:
     }
     (proj / "timeline.json").write_text(json.dumps(timeline, indent=2), encoding="utf-8")
 
+    meta_path = proj / "meta.json"
+    meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
+    meta = {
+        "accent": meta.get("accent", "#22D3EE"),
+        "id": meta.get("id", proj.name),
+        "durationS": round(total_frames / FPS, 3),
+    }
     props = {
         "shots": shots,
         "words": words,
         "durationInFrames": total_frames,
         "mixFile": f"projects/{proj.name}/mix.wav",
+        "meta": meta,
     }
     (build / "props.json").write_text(json.dumps(props, indent=2), encoding="utf-8")
 

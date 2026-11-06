@@ -39,7 +39,7 @@ const SceneBackdrop: React.FC<{p: number; rings?: boolean}> = ({p, rings = true}
       style={{
         position: 'absolute',
         inset: 0,
-        background: `radial-gradient(ellipse 78% 52% at 50% 45%, rgba(34,211,238,0.16) 0%, rgba(34,211,238,0.05) 42%, rgba(5,7,10,0) 72%)`,
+        background: `radial-gradient(ellipse 78% 52% at 50% 45%, ${theme.accentSoft} 0%, rgba(5,7,10,0) 72%)`,
       }}
     />
     {rings ? (
@@ -112,7 +112,7 @@ const Starfield: React.FC<{p: number; n?: number; speed?: number}> = ({p, n = 90
 };
 
 /** Top-left telemetry rail — the channel's signature "instrument" frame. */
-export const Ticker: React.FC<{label: string; right?: string}> = ({label, right}) => (
+export const Ticker: React.FC<{label: string; right?: string}> = ({label, right = 'DARK SCIENCE'}) => (
   <div
     style={{
       position: 'absolute',
@@ -129,7 +129,7 @@ export const Ticker: React.FC<{label: string; right?: string}> = ({label, right}
     }}
   >
     <span style={{color: theme.accent}}>{label}</span>
-    <span>{right ?? 'MIRROR / DS-003'}</span>
+    <span>{right}</span>
   </div>
 );
 
@@ -159,8 +159,8 @@ export const HudPanel: React.FC<{
           justifyContent: 'space-between',
           alignItems: 'baseline',
           padding: '9px 12px',
-          background: i % 2 === 0 ? 'rgba(34,211,238,0.09)' : 'rgba(34,211,238,0.04)',
-          borderLeft: `2px solid ${accent && i === 0 ? theme.accent : 'rgba(34,211,238,0.45)'}`,
+          background: i % 2 === 0 ? `rgba(${theme.accentRGB},0.09)` : `rgba(${theme.accentRGB},0.04)`,
+          borderLeft: `2px solid ${accent && i === 0 ? theme.accent : theme.accentGlow}`,
           fontFamily: theme.type.mono,
           fontSize: 19,
           letterSpacing: 1.5,
@@ -284,6 +284,10 @@ export const GlitchReveal: React.FC<
   SceneProps & {lines: string[]; sub?: string; kicker?: string; scale?: number}
 > = ({p, lines, sub, kicker, scale = 1}) => {
   const {fps} = useVideoConfig();
+  // A `sub` line lives at y=862. Reserve the whole band under the shout block
+  // instead of nudging it up 54px — that nudge used to leave the sub sitting
+  // *inside* the type, which read as a ghosted double image.
+  const shoutSize = lines.length > 1 ? 118 : 150;
   const punch = 1 + 0.09 * Math.exp(-((p * 2.6) % 1) * 6);
   const glitch = Math.max(0, 1 - p * 2.2) + (p > 0.62 && p < 0.72 ? 0.7 : 0);
   const jitter = glitch * 14;
@@ -339,8 +343,9 @@ export const GlitchReveal: React.FC<
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          paddingBottom: sub ? 420 : 0,
           gap: 6,
-          transform: `translate(${Math.sin(p * 90) * jitter}px, ${sub ? -54 : 0}px) scale(${punch * scale})`,
+          transform: `translate(${Math.sin(p * 90) * jitter}px, 0px) scale(${punch * scale})`,
         }}
       >
         {lines.map((ln, i) => (
@@ -354,7 +359,7 @@ export const GlitchReveal: React.FC<
                 opacity: glitch * 0.55,
                 transform: `translateX(${-jitter * 0.6}px)`,
                 fontFamily: theme.type.shout,
-                fontSize: 150,
+                fontSize: shoutSize,
                 lineHeight: 0.94,
                 textAlign: 'center',
                 textTransform: 'uppercase',
@@ -366,11 +371,11 @@ export const GlitchReveal: React.FC<
               style={{
                 position: 'absolute',
                 inset: 0,
-                color: '#22D3EE',
+                color: theme.accent,
                 opacity: glitch * 0.55,
                 transform: `translateX(${jitter * 0.6}px)`,
                 fontFamily: theme.type.shout,
-                fontSize: 150,
+                fontSize: shoutSize,
                 lineHeight: 0.94,
                 textAlign: 'center',
                 textTransform: 'uppercase',
@@ -381,12 +386,14 @@ export const GlitchReveal: React.FC<
             <div
               style={{
                 fontFamily: theme.type.shout,
-                fontSize: 150,
+                fontSize: shoutSize,
                 lineHeight: 0.94,
                 textAlign: 'center',
                 textTransform: 'uppercase',
                 color: theme.ink,
-                textShadow: `0 0 70px ${theme.accentGlow}, 0 10px 40px rgba(0,0,0,0.9)`,
+                // a soft trailing echo instead of a solid double image: the
+                // shadow keeps the punch but no longer reads as a typo
+                textShadow: `6px 6px 0 rgba(${theme.accentRGB},0.13), -6px -6px 0 rgba(255,45,106,0.07), 0 0 80px ${theme.accentGlow}, 0 10px 40px rgba(0,0,0,0.95)`,
                 letterSpacing: 2,
               }}
             >
@@ -428,16 +435,19 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
   split = true,
 }) => {
   const sep = split ? interpolate(p, [0, 0.35], [0, 5.4], {extrapolateRight: 'clamp'}) : 0;
-  const cam: Cam = {rot: [0.16 + p * 0.32, -0.5 + p * 2.6, 0], dist: 19 - p * 3.0, fov: 700};
+  const cam: Cam = {rot: [0.16 + p * 0.32, -0.5 + p * 1.7, 0], dist: 19 - p * 2.2, fov: split ? 900 : 720};
   const draw = React.useCallback(
     (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
       const segs: Seg[] = [];
-      const spin = t * 1.15;
-      for (const side of [-1, 1] as const) {
+      const spin = t * 0.85;
+      // when the shot is about a single molecule, draw a single molecule —
+      // overlaying both enantiomers at sep=0 reads as spaghetti
+      const sides: readonly (-1 | 1)[] = split ? ([-1, 1] as const) : ([-1] as const);
+      for (const side of sides) {
         const x = side * sep;
         const handed: 1 | -1 = side === 1 ? -1 : 1; // right side is the mirror (D)
         const col = side === 1 ? theme.accent : 'rgba(215,240,250,0.92)';
-        const h = helixSegs(1.5, 15, 2.6, handed, 150, col);
+        const h = helixSegs(2.05, 15, 2.6, handed, 104, col);
         for (const s of h) {
           segs.push({
             a: v3.add([x, 0, 0], v3.rotY(s.a, spin)),
@@ -448,7 +458,7 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
           });
         }
         // backbone pair runs the opposite way, which is the whole point
-        const back = helixSegs(2.05, 15, 2.6, handed, 120, side === 1 ? theme.accent : 'rgba(215,240,250,0.6)');
+        const back = helixSegs(2.9, 15, 2.6, handed, 76, side === 1 ? theme.accent : 'rgba(215,240,250,0.6)');
         for (const s of back) {
           segs.push({
             a: v3.add([x, 0, 0], v3.rotY(s.a, spin)),
@@ -460,7 +470,7 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
       }
       drawSegs(ctx, segs, cam, W, H, {accent: theme.accent});
     },
-    [cam.dist, cam.rot[1], sep]
+    [cam.dist, cam.rot[1], sep, split]
   );
 
   return (
@@ -469,12 +479,20 @@ export const HandedHelix: React.FC<SceneProps & {label?: string; split?: boolean
       <Starfield p={p} n={60} />
       <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
       {/* axis labels */}
-      <div style={{position: 'absolute', top: 980, left: 90, fontFamily: theme.type.mono, fontSize: 26, letterSpacing: 5, color: theme.inkDim}}>L / LEFT</div>
-      <div style={{position: 'absolute', top: 980, right: 90, fontFamily: theme.type.mono, fontSize: 26, letterSpacing: 5, color: theme.accent}}>D / MIRROR</div>
+      <div style={{position: 'absolute', top: 980, left: 90, fontFamily: theme.type.mono, fontSize: 26, letterSpacing: 5, color: theme.inkDim}}>
+        {split ? 'L / LEFT' : 'PRNP / 253 CODONS'}
+      </div>
+      {split ? (
+        <div style={{position: 'absolute', top: 980, right: 90, fontFamily: theme.type.mono, fontSize: 26, letterSpacing: 5, color: theme.accent}}>D / MIRROR</div>
+      ) : null}
       <Vignette />
       <FrameRules />
       <Ticker label={label} />
-      <HudPanel side="right" rows={[['SENSE', 'L'], ['MIRROR', 'D'], ['Δ PITCH', '2.6 nm']]} />
+      <HudPanel
+        side="right"
+        top={300}
+        rows={split ? [['SENSE', 'L'], ['MIRROR', 'D'], ['Δ PITCH', '2.6 nm']] : [['GENE', 'PRNP'], ['LOCUS', '20p13'], ['CODON 178', 'GAC→AAC']]}
+      />
     </>
   );
 };
@@ -791,3 +809,582 @@ export const HandWall: React.FC<SceneProps & {label?: string; word?: string}> = 
     </>
   );
 };
+
+// ============================================================ 9. misfolding chain
+/**
+ * One misfolded protein recruits its neighbour, which recruits the next.
+ * Drawn as a beta-strand stack: each residue is a strand, native strands are
+ * thin and evenly spaced, converted strands thicken, twist and lock together.
+ * `state`: 'clear' | 'seeding' | 'locked'
+ */
+export const MisfoldChain: React.FC<
+  SceneProps & {
+    label?: string;
+    state?: 'clear' | 'seeding' | 'locked';
+    count?: number;
+    hud?: [string, string][] | null;
+    /** poster mode: tighter framing, no panels */
+    cover?: boolean;
+  }
+> = ({
+  p,
+  label = 'PRION / CONFORMATIONAL',
+  state = 'seeding',
+  count = 15,
+  cover = false,
+  hud = state === 'clear'
+    ? ([
+        ['CONFORMATION', 'NATIVE (PrP-C)'],
+        ['FOLD', 'ALPHA HELIX'],
+        ['TURNOVER', 'NORMAL'],
+      ] as [string, string][])
+    : ([
+        ['CONFORMATION', 'MISFOLDED (PrP-Sc)'],
+        ['SEEDING', 'YES'],
+        ['DISINFECTION', 'INEFFECTIVE'],
+      ] as [string, string][]),
+}) => {
+  const seeded = state !== 'clear';
+  // how far up the stack the corruption has spread this shot
+  const front = state === 'locked' ? 1 : clamp(p * 1.5);
+  const cam: Cam = cover
+    ? {rot: [-0.24 + p * 0.18, -1.5 + p * 0.5, 0], dist: 11.5, fov: 1500}
+    : {rot: [-0.30 + p * 0.22, -0.9 + p * 1.5, 0], dist: 17.5 - p * 1.5, fov: 1500};
+
+  const draw = React.useCallback(
+    (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
+      const segs: Seg[] = [];
+      const RAD = 4.4; // fibre radius
+      const HGT = 11.2; // half-height of the fibre
+      const N = count;
+
+      // every residue = a loop of backbone at one height up the axis
+      for (let i = 0; i < N; i++) {
+        const u = i / (N - 1);
+        const y = (u - 0.5) * HGT * 2;
+        const converted = seeded && u <= front;
+        // converted strands collapse inward and tilt: the beta-stack squeeze
+        const r = converted ? RAD * 0.62 : RAD;
+        const tilt = converted ? 0.34 : 0;
+        const spin = t * 0.5 + i * 0.22 + (converted ? 0.5 : 0);
+
+        const loop: V3[] = Array.from({length: 16}, (_, k) => {
+          const a = (k / 16) * Math.PI * 2;
+          return [
+            Math.cos(a + spin) * r,
+            y + Math.sin(a * 2 + spin) * 0.42 + tilt * Math.cos(a),
+            Math.sin(a + spin) * r,
+          ] as V3;
+        });
+        const col = converted ? theme.accent : 'rgba(200,232,248,0.85)';
+        segs.push(...tubeSegs(loop, col, converted ? 2.5 : 1.3, converted ? 11 : 0));
+
+        // the backbone axis, brighter where it has converted
+        if (i < N - 1) {
+          const y2 = ((i + 1) / (N - 1) - 0.5) * HGT * 2;
+          segs.push({
+            a: [0, y, 0],
+            b: [0, y2, 0],
+            c: converted ? theme.accent : 'rgba(200,232,248,0.30)',
+            w: converted ? 3.0 : 1.2,
+            glow: converted ? 12 : 0,
+          });
+        }
+
+        // side chains sticking out — four per residue, they flatten on conversion
+        for (let k = 0; k < 4; k++) {
+          const a = (k / 4) * Math.PI * 2 + spin * 0.5 + i * 0.4;
+          const len = converted ? 1.05 : 2.1;
+          segs.push({
+            a: [Math.cos(a) * r, y, Math.sin(a) * r],
+            b: [Math.cos(a) * (r + len), y + (converted ? 0.35 : 0), Math.sin(a) * (r + len)],
+            c: converted ? 'rgba(179,107,255,0.9)' : 'rgba(200,232,248,0.55)',
+            w: converted ? 1.7 : 1,
+            glow: converted ? 6 : 0,
+          });
+        }
+      }
+
+      // the seed itself: the first converted residue, pulsing
+      if (seeded) {
+        const y0 = -HGT;
+        const pulse = 1.1 + Math.sin(t * 6) * 0.16;
+        segs.push(...tubeSegs(sphereOutline([0, y0, 0], RAD * 0.9 * pulse), theme.accent, 2.4, 20));
+        for (let k = 0; k < 3; k++) {
+          const rr = RAD * (1.3 + k * 0.55) * pulse;
+          segs.push(...tubeSegs(sphereOutline([0, y0, 0], rr), theme.accent, 1, 6));
+        }
+      }
+
+      // recruitment battens between neighbouring converted strands
+      if (seeded) {
+        for (let i = 1; i < N; i++) {
+          const u = i / (N - 1);
+          if (u > front || i % 2 !== 0) continue;
+          const y = (u - 0.5) * HGT * 2;
+          const y2 = ((i - 1) / (N - 1) - 0.5) * HGT * 2;
+          const a = 0.7 + t * 0.2;
+          segs.push({
+            a: [Math.cos(a) * RAD * 0.62, y, Math.sin(a) * RAD * 0.62],
+            b: [Math.cos(a) * RAD * 0.62, y2, Math.sin(a) * RAD * 0.62],
+            c: 'rgba(255,255,255,0.75)',
+            w: 1.1,
+            glow: 7,
+          });
+        }
+      }
+
+      drawSegs(ctx, segs, cam, W, H, {accent: theme.accent});
+    },
+    [cam.dist, cam.rot[1], count, seeded, front]
+  );
+
+  return (
+    <>
+      <SceneBackdrop p={p} />
+      <Starfield p={p} n={46} speed={0.7} />
+      <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
+      {cover ? null : <div style={{position: 'absolute', top: 452, left: 0, right: 0, textAlign: 'center', fontFamily: theme.type.mono, fontSize: 20, letterSpacing: 7, color: seeded ? theme.accent : 'rgba(210,240,252,0.7)'}}>
+        {state === 'clear' ? 'NATIVE MONOMER' : state === 'locked' ? 'AMYLOID FIBRE / LOCKED' : 'FIBRE GROWING'}
+      </div>}
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right="STRAIN / FFI" />
+      {hud ? <HudPanel rows={hud} top={300} /> : null}
+    </>
+  );
+};
+
+/** Cheap wireframe sphere used as a highlight cap. */
+function sphereOutline(c: V3, r: number): V3[] {
+  return Array.from({length: 12}, (_, i) => {
+    const a = (i / 12) * Math.PI * 2;
+    return [c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r * 0.55, c[2] + Math.sin(a) * r] as V3;
+  });
+}
+
+// ============================================================ 10. thalamus grid
+/**
+ * The thalamus as an instrument: two egg-shaped nuclei, a sleep-wake spindle
+ * running through them, and separate EEG traces for wake / light / deep / REM.
+ * `dead`: 'spindles' | 'deep' | 'rem' | null  — which sleep stage has collapsed.
+ */
+export const ThalamusGrid: React.FC<
+  SceneProps & {
+    label?: string;
+    dead?: 'spindles' | 'deep' | 'rem' | null;
+    hud?: [string, string][];
+  }
+> = ({
+  p,
+  label = 'THALAMUS / SLEEP SWITCH',
+  dead = null,
+  hud = [
+    ['REGION', 'THALAMUS'],
+    ['SPINDLES', dead ? 'ABSENT' : 'PRESENT'],
+    ['DEEP', dead === 'deep' || dead === 'rem' ? 'ABSENT' : 'PRESENT'],
+    ['REM', dead === 'rem' ? 'ABSENT' : 'PRESENT'],
+  ],
+}) => {
+  const cam: Cam = {rot: [-0.42 + p * 0.5, -0.35 + p * 0.7, 0], dist: 16.0 - p * 1.6, fov: 1320};
+
+  const draw = React.useCallback(
+    (ctx: CanvasRenderingContext2D, frame: number, t: number) => {
+      const segs: Seg[] = [];
+      // two thalamic lobes, egg-shaped: a sphere squashed on x and stretched on y
+      for (const side of [-1, 1] as const) {
+        const cx = side * 3.55;
+        const base = sphereSegs(3.0, 6, 9);
+        for (const s of base) {
+          const squash = (q: V3): V3 => [q[0] * 0.74 + cx, q[1] * 1.18 + Math.sin(t * 0.7) * 0.12, q[2] * 0.92];
+          segs.push({a: squash(s.a), b: squash(s.b), c: 'rgba(198,230,246,0.78)', w: 0.9, glow: 2});
+        }
+        // cell bodies inside — small bright nucleoids that dim as they die
+        const alive = dead ? 0.35 : 1;
+        for (let k = 0; k < 26; k++) {
+          const a = (k / 26) * Math.PI * 2 + t * 0.3;
+          const rr = 0.5 + (k % 5) * 0.44;
+          const c: V3 = [
+            cx + Math.cos(a) * rr * 0.62,
+            Math.sin(k * 2.3) * 2.4 + Math.cos(k * 1.1) * 0.6,
+            Math.sin(a) * rr * 0.78,
+          ];
+          const flick = 0.75 + 0.25 * Math.sin(t * 3 + k * 1.7);
+          segs.push(...tubeSegs(sphereOutline(c, 0.21 * alive), alive > 0.5 ? theme.accent : 'rgba(255,90,90,0.85)', 1.6, alive > 0.5 ? 9 * flick : 4));
+        }
+      }
+
+      // midline sleep-wake spindle: a sine that loses its burst when spindles die
+      const burst = dead === 'spindles' ? 0 : 1;
+      for (let i = 0; i < 64; i++) {
+        const u0 = i / 64;
+        const u1 = (i + 1) / 64;
+        const amp = (1.35 * burst + 0.06) * Math.sin(u0 * Math.PI);
+        const y0 = Math.sin(u0 * 26 + t * 5) * amp;
+        const y1 = Math.sin(u1 * 26 + t * 5) * amp;
+        segs.push({a: [(u0 - 0.5) * 16.5, y0, 0], b: [(u1 - 0.5) * 16.5, y1, 0], c: theme.accent, w: 2.6, glow: 16});
+      }
+      // an arrowhead marking the midline axis
+      segs.push({a: [0, -8.4, 0], b: [0, -6.6, 0], c: theme.accent, w: 3.4, glow: 14});
+
+      // lift the anatomy into the upper half so the trace block below it stays clear
+      drawSegs(ctx, segs, cam, W, H, {accent: theme.accent, yOffset: -205});
+    },
+    [cam.dist, cam.rot[1], dead]
+  );
+
+  // four trace lanes; each is real motion, each dies on cue
+  const lanes: {k: string; dead: boolean; f: (x: number) => number}[] = [
+    {k: 'WAKE', dead: false, f: (x) => Math.sin(x * 34) * 0.55 + Math.sin(x * 71) * 0.3},
+    {k: 'SPINDLES', dead: dead === 'spindles', f: (x) => Math.sin(x * 13) * Math.sin(x * 1.4) * 1.5},
+    {k: 'DEEP', dead: dead === 'deep' || dead === 'rem', f: (x) => Math.sin(x * 5.5) * 1.1},
+    {k: 'REM', dead: dead === 'rem', f: (x) => Math.sin(x * 27) * 0.4 + Math.sin(x * 9) * 0.5},
+  ];
+
+  return (
+    <>
+      <SceneBackdrop p={p} rings={false} />
+      <Soft3D width={W} height={H} draw={draw} style={{position: 'absolute', inset: 0}} />
+      {/* trace block sits above the caption band */}
+      <div style={{position: 'absolute', top: 1002, left: 64, right: 64}}>
+        {lanes.map((ln, i) => {
+          const wob = ln.dead ? 0 : 1;
+          const pts = Array.from({length: 90}, (_, k) => {
+            const w = k / 89;
+            const y = ln.dead ? 0 : ln.f(w * 9 + p * 6) * wob;
+            return `${(w * 100).toFixed(2)},${(12 + y * 5).toFixed(2)}`;
+          }).join(' ');
+          return (
+            <div key={ln.k} style={{display: 'flex', alignItems: 'center', height: 36, paddingLeft: 4}}>
+              <div style={{width: 132, fontFamily: theme.type.mono, fontSize: 17, letterSpacing: 2.5, color: ln.dead ? 'rgba(255,80,80,0.9)' : theme.inkDim}}>
+                {ln.k}
+              </div>
+              <svg width={W - 64 - 64 - 150} height={28} style={{overflow: 'visible'}}>
+                <polyline
+                  points={pts}
+                  fill="none"
+                  stroke={ln.dead ? 'rgba(255,70,70,0.75)' : i === 0 ? theme.accent : 'rgba(205,235,248,0.85)'}
+                  strokeWidth={ln.dead ? 1.2 : 2}
+                />
+              </svg>
+              <div style={{width: 96, textAlign: 'right', fontFamily: theme.type.mono, fontSize: 15, letterSpacing: 1.5, color: ln.dead ? 'rgba(255,80,80,0.9)' : theme.accent}}>
+                {ln.dead ? 'FLAT' : 'OK'}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right="PSG / 4 LANES" />
+      <HudPanel rows={hud} top={330} />
+    </>
+  );
+};
+
+// ============================================================ 11. pedigree
+/**
+ * Autosomal dominance, drawn: eight founders, three generations, half of them
+ * carrying the mutation. Carriers fill in one generation at a time.
+ */
+export const PedigreeTree: React.FC<
+  SceneProps & {label?: string; generations?: number; found?: boolean; hud?: [string, string][]}
+> = ({
+  p,
+  label = 'PRNP / D178N',
+  generations = 3,
+  found = true,
+  hud = [
+    ['INHERITANCE', 'DOMINANT'],
+    ['GENE', 'PRNP / CHR 20'],
+    ['MUTATION', 'D178N+129M'],
+    ['PENETRANCE', '100%'],
+  ],
+}) => {
+  const ROW_Y = [700, 940, 1180];
+  const NODES = [8, 4, 2];
+  const CARRIER = [5, 1, 0]; // which sibling carries it, per generation
+  // how far down the tree the reveal has reached
+  const reached = clamp(p * (generations + 0.5));
+
+  const xOf = (g: number, i: number, parentX: number) => {
+    const n = NODES[g];
+    if (g === 0) {
+      const spread = W - 280;
+      return 140 + (spread / (n - 1)) * i;
+    }
+    // children fan evenly around the carrier they descend from
+    const spread = g === 1 ? 560 : 300;
+    const x0 = parentX - spread / 2;
+    return x0 + (spread / (n - 1)) * i;
+  };
+
+  // resolve positions generation by generation so children follow carriers
+  const pos: {x: number; y: number}[] = [];
+  const rows: {x: number; y: number}[][] = [];
+  let parentX = 0;
+  for (let g = 0; g < generations; g++) {
+    const row: {x: number; y: number}[] = [];
+    for (let i = 0; i < NODES[g]; i++) {
+      const x = xOf(g, i, parentX);
+      row.push({x, y: ROW_Y[g]});
+    }
+    rows.push(row);
+    parentX = row[CARRIER[g]].x;
+  }
+  void pos;
+
+  return (
+    <>
+      <SceneBackdrop p={p} rings={false} />
+      <Starfield p={p} n={34} speed={0.4} />
+      <svg width={W} height={H} style={{position: 'absolute', inset: 0}}>
+        {/* descent buses: one carrier above, a fan of children below */}
+        {rows.slice(1).map((row, gi) => {
+          const g = gi + 1;
+          const parent = rows[g - 1][CARRIER[g - 1]];
+          const busY = (ROW_Y[g - 1] + ROW_Y[g]) / 2;
+          const xs = row.map((n) => n.x);
+          if (g > reached) return null;
+          return (
+            <g key={`bus${g}`}>
+              <line x1={parent.x} y1={ROW_Y[g - 1] + 23} x2={parent.x} y2={busY} stroke="rgba(255,255,255,0.30)" strokeWidth={1.6} />
+              <line x1={Math.min(...xs)} y1={busY} x2={Math.max(...xs)} y2={busY} stroke="rgba(255,255,255,0.30)" strokeWidth={1.6} />
+              {xs.map((x, i) => (
+                <line key={i} x1={x} y1={busY} x2={x} y2={ROW_Y[g] - 23} stroke="rgba(255,255,255,0.30)" strokeWidth={1.6} />
+              ))}
+            </g>
+          );
+        })}
+
+        {rows.map((row, g) => {
+          if (g > reached) return null;
+          const lit = g <= reached;
+          return (
+            <g key={g}>
+              <line x1={84} x2={W - 84} y1={ROW_Y[g] - 104} y2={ROW_Y[g] - 104} stroke={theme.accent} strokeWidth={1} opacity={0.14 + 0.12 * (0.5 + 0.5 * Math.sin(p * 12 + g))} />
+              <text x={86} y={ROW_Y[g] - 66} fill={theme.inkDim} fontFamily={theme.type.mono} fontSize={17} letterSpacing={4}>
+                {`G${g + 1}`}
+              </text>
+              {row.map((n, i) => {
+                const carrier = i === CARRIER[g];
+                const on = lit && carrier && found;
+                const spin = 0.5 + 0.5 * Math.sin(p * 8 + i + g);
+                // every node breathes: the tree must never sit still, or the
+                // freeze detector (rightly) flags these long holds
+                const breathe = 1 + 0.06 * Math.sin(p * 26 + i * 1.7 + g * 2.1);
+                return (
+                  <g key={i} transform={`translate(${n.x},${n.y}) scale(${breathe}) translate(${-n.x},${-n.y})`}>
+                    <rect
+                      x={n.x - 23}
+                      y={n.y - 23}
+                      width={46}
+                      height={46}
+                      rx={2}
+                      fill={on ? theme.accent : 'rgba(5,7,10,0.92)'}
+                      stroke={on ? theme.accent : 'rgba(205,235,248,0.66)'}
+                      strokeWidth={2.2}
+                      style={{filter: on ? `drop-shadow(0 0 18px ${theme.accentGlow})` : 'none'}}
+                    />
+                    {on ? (
+                      <circle cx={n.x} cy={n.y} r={33 + spin * 8} fill="none" stroke={theme.accent} strokeWidth={1} opacity={0.42 - spin * 0.2} />
+                    ) : null}
+                  </g>
+                );
+              })}
+            </g>
+          );
+        })}
+
+        {/* a scan band sweeping the tree: continuous motion, reads as sequencing */}
+        <g opacity={0.5}>
+          <rect
+            x={84}
+            y={560 + ((p * 1.15) % 1) * 700}
+            width={W - 168}
+            height={2}
+            fill={theme.accent}
+            opacity={0.5}
+          />
+          <rect
+            x={84}
+            y={560 + ((p * 1.15) % 1) * 700 - 26}
+            width={W - 168}
+            height={26}
+            fill={theme.accent}
+            opacity={0.05}
+          />
+        </g>
+        {/* the 1-in-2 readout, drawn as a bar that splits */}
+        <g opacity={barIn(p)}>
+          <text x={84} y={1392} fill={theme.accent} fontFamily={theme.type.mono} fontSize={19} letterSpacing={4}>
+            50% INHERIT
+          </text>
+          <text x={W - 84} y={1392} textAnchor="end" fill={theme.inkDim} fontFamily={theme.type.mono} fontSize={19} letterSpacing={4}>
+            50% DO NOT
+          </text>
+          <rect x={84} y={1408} width={(W - 168) * 0.5} height={9} fill={theme.accent} />
+          <rect x={84 + (W - 168) * 0.5} y={1408} width={(W - 168) * 0.5} height={9} fill="rgba(205,235,248,0.26)" />
+        </g>
+      </svg>
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right="PEDIGREE / 3 GENS" />
+      <HudPanel rows={hud} top={300} />
+    </>
+  );
+};
+
+const barIn = (p: number) => (p > 0.1 ? 1 : 0);
+
+// ============================================================ 12. mortality
+/**
+ * The last number: 100%, and it never moves. A needle that climbs to full and
+ * locks, a rising bar, and a struck "NO SURVIVORS" plate.
+ */
+export const MortalityPlate: React.FC<
+  SceneProps & {label?: string; readout?: string; caption?: string; hud?: [string, string][]}
+> = ({
+  p,
+  label = 'OUTCOME / FFI',
+  readout = '100',
+  caption = 'OF EVERY DIAGNOSIS',
+  hud = [
+    ['SURVIVORS', '0'],
+    ['TREATMENT', 'NONE'],
+    ['ONSET', 'MEAN AGE 51'],
+  ],
+}) => {
+  // DS-004 holds the dial from the first frame: a fatality readout that is
+  // still climbing when the shot ends reads as a data error, not tension.
+  const climb = 1;
+  const lock = true;
+  const punch = 1 + 0.035 * Math.sin(p * 9);
+  const flash = Math.max(0, 1 - p * 7);
+
+  return (
+    <>
+      <Starfield p={p} n={44} speed={0.5} />
+      {/* dial */}
+      <svg width={W} height={H} style={{position: 'absolute', inset: 0}}>
+        <g transform={`translate(${W / 2}, 700)`}>
+          <circle r={252} fill="none" stroke="rgba(205,235,248,0.16)" strokeWidth={2} />
+          <circle r={286} fill="none" stroke="rgba(205,235,248,0.09)" strokeWidth={1} />
+          <circle r={332} fill="none" stroke="rgba(205,235,248,0.06)" strokeWidth={1} />
+          {/* radial spokes + slow sweep so the plate is never static */}
+          {Array.from({length: 24}, (_, i) => {
+            const a = (i / 24) * Math.PI * 2 + p * 0.5;
+            return (
+              <line
+                key={`sp${i}`}
+                x1={Math.cos(a) * 108}
+                y1={Math.sin(a) * 108}
+                x2={Math.cos(a) * 150}
+                y2={Math.sin(a) * 150}
+                stroke="rgba(205,235,248,0.10)"
+                strokeWidth={1}
+              />
+            );
+          })}
+          <g transform={`rotate(${(p * 360) % 360})`}>
+            <path d={describeArc(0, 0, 318, -90, -58)} fill="none" stroke={theme.accent} strokeWidth={2} opacity={0.45} />
+          </g>
+          {Array.from({length: 60}, (_, i) => {
+            const a = -Math.PI * 0.75 + (i / 59) * Math.PI * 1.5;
+            const on = i / 59 <= climb;
+            return (
+              <line
+                key={i}
+                x1={Math.cos(a) * 214}
+                y1={Math.sin(a) * 214}
+                x2={Math.cos(a) * (i % 5 === 0 ? 190 : 200)}
+                y2={Math.sin(a) * (i % 5 === 0 ? 190 : 200)}
+                stroke={on ? theme.accent : 'rgba(255,255,255,0.22)'}
+                strokeWidth={i % 5 === 0 ? 3 : 1.4}
+              />
+            );
+          })}
+          {/* the arc that fills */}
+          <path
+            d={describeArc(0, 0, 168, -135, -135 + 270 * climb)}
+            fill="none"
+            stroke={theme.accent}
+            strokeWidth={9}
+            strokeLinecap="round"
+            style={{filter: `drop-shadow(0 0 22px ${theme.accentGlow})`}}
+          />
+          {/* needle */}
+          <g transform={`rotate(${-135 + 270 * climb})`}>
+            <line x1={0} y1={0} x2={158} y2={0} stroke={theme.ink} strokeWidth={4} strokeLinecap="round" />
+            <circle r={11} fill={theme.ink} />
+          </g>
+        </g>
+      </svg>
+      <div
+        style={{
+          position: 'absolute',
+          top: 566,
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontFamily: theme.type.shout,
+          fontSize: 230,
+          lineHeight: 1,
+          color: theme.ink,
+          textShadow: `0 0 110px ${theme.accentGlow}`,
+          transform: `scale(${punch})`,
+        }}
+      >
+        {Math.round(climb * 100)}
+        <span style={{fontSize: 116, color: theme.accent}}>%</span>
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: 812,
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontFamily: theme.type.mono,
+          fontSize: 26,
+          letterSpacing: 11,
+          color: theme.accent,
+        }}
+      >
+        {readout === '100' ? 'CASE FATALITY' : label}
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: 890,
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontFamily: theme.type.ui,
+          fontWeight: 700,
+          fontSize: 42,
+          letterSpacing: 6,
+          color: 'rgba(255,255,255,0.72)',
+        }}
+      >
+        {caption}
+      </div>
+      <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: flash * 0.18}} />
+      <Vignette />
+      <FrameRules />
+      <Ticker label={label} right="NO SURVIVORS" />
+      <HudPanel rows={hud} top={1006} />
+    </>
+  );
+};
+
+/** SVG arc path for the dial sweep. */
+function describeArc(cx: number, cy: number, r: number, a0: number, a1: number): string {
+  const rad = (d: number) => (d * Math.PI) / 180;
+  const x0 = cx + r * Math.cos(rad(a0));
+  const y0 = cy + r * Math.sin(rad(a0));
+  const x1 = cx + r * Math.cos(rad(a1));
+  const y1 = cy + r * Math.sin(rad(a1));
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+  return `M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1}`;
+}

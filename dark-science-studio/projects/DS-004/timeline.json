@@ -1,0 +1,372 @@
+{
+  "fps": 30,
+  "duration_s": 49.6,
+  "durationInFrames": 1488,
+  "shot_count": 32,
+  "cuts": 31,
+  "mean_shot_s": 1.55,
+  "min_shot_s": 0.83,
+  "shots": [
+    {
+      "scene": "glitch_reveal",
+      "from": 0,
+      "to": 44,
+      "props": {
+        "kicker": "1765 \u00b7 ITALY",
+        "lines": [
+          "NO SLEEP"
+        ],
+        "sub": "ONE FAMILY \u00b7 TWO CENTURIES"
+      }
+    },
+    {
+      "scene": "pedigree",
+      "from": 44,
+      "to": 102,
+      "props": {
+        "found": false,
+        "label": "PEDIGREE / ONE FAMILY"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 102,
+      "to": 138,
+      "props": {
+        "kicker": "DNA",
+        "lines": [
+          "ONE LETTER"
+        ]
+      }
+    },
+    {
+      "scene": "handed_helix",
+      "from": 138,
+      "to": 183,
+      "props": {
+        "label": "PRNP / CHROMOSOME 20",
+        "split": false
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 183,
+      "to": 222,
+      "props": {
+        "kicker": "MISSENSE",
+        "lines": [
+          "ONE MUTATION"
+        ],
+        "sub": "D178N + METHIONINE 129"
+      }
+    },
+    {
+      "scene": "misfold_chain",
+      "from": 222,
+      "to": 270,
+      "props": {
+        "state": "clear",
+        "label": "PRP / NATIVE FOLD"
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 270,
+      "to": 309,
+      "props": {
+        "label": "NEURONS / PRP EXPRESSED",
+        "mirror": false,
+        "hud": [
+          [
+            "LOCATION",
+            "EVERY CELL"
+          ],
+          [
+            "FOLD",
+            "ALPHA HELIX"
+          ],
+          [
+            "STATUS",
+            "NORMAL"
+          ]
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 309,
+      "to": 334,
+      "props": {
+        "lines": [
+          "RIGHT NOW"
+        ]
+      }
+    },
+    {
+      "scene": "misfold_chain",
+      "from": 334,
+      "to": 376,
+      "props": {
+        "state": "seeding",
+        "label": "MISFOLDING / CONTACT"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 376,
+      "to": 412,
+      "props": {
+        "kicker": "CONTACT",
+        "lines": [
+          "NEIGHBOURS"
+        ]
+      }
+    },
+    {
+      "scene": "misfold_chain",
+      "from": 412,
+      "to": 447,
+      "props": {
+        "state": "locked",
+        "label": "PROPAGATION / LOCKED"
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 447,
+      "to": 489,
+      "props": {
+        "label": "INTRACELLULAR / AGGREGATE",
+        "mirror": false,
+        "divide": true,
+        "hud": [
+          [
+            "AGGREGATE",
+            "INSOLUBLE"
+          ],
+          [
+            "PROTEASE",
+            "RESISTANT"
+          ],
+          [
+            "CLEARANCE",
+            "NONE"
+          ]
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 489,
+      "to": 528,
+      "props": {
+        "kicker": "DISINFECTION: FAILS",
+        "lines": [
+          "SURVIVES"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 528,
+      "to": 597,
+      "props": {
+        "lines": [
+          "BOILING",
+          "BLEACH"
+        ],
+        "sub": "AUTOCLAVE: 134\u00b0C \u00b7 STILL INFECTIOUS"
+      }
+    },
+    {
+      "scene": "thalamus_grid",
+      "from": 597,
+      "to": 644,
+      "props": {
+        "dead": null,
+        "label": "THALAMUS / TARGET"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 644,
+      "to": 692,
+      "props": {
+        "kicker": "YOUR THALAMUS",
+        "lines": [
+          "WALNUT"
+        ],
+        "sub": "ABOUT SIXTY GRAMS"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 692,
+      "to": 752,
+      "props": {
+        "kicker": "EVERY NIGHT",
+        "lines": [
+          "WHEN YOU SLEEP"
+        ]
+      }
+    },
+    {
+      "scene": "thalamus_grid",
+      "from": 752,
+      "to": 796,
+      "props": {
+        "dead": "spindles",
+        "label": "SPINDLES / LOST"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 796,
+      "to": 834,
+      "props": {
+        "lines": [
+          "DEEP SLEEP"
+        ],
+        "sub": "STAGE 3-4 \u00b7 ABSENT"
+      }
+    },
+    {
+      "scene": "thalamus_grid",
+      "from": 834,
+      "to": 897,
+      "props": {
+        "dead": "rem",
+        "label": "REM / LOST"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 897,
+      "to": 938,
+      "props": {
+        "kicker": "FOR MONTHS",
+        "lines": [
+          "AWAKE"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 938,
+      "to": 987,
+      "props": {
+        "lines": [
+          "HEART RACING"
+        ],
+        "sub": "SWEATING \u00b7 FEVER \u00b7 TACHYCARDIA"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 987,
+      "to": 1047,
+      "props": {
+        "lines": [
+          "BURNING FUEL"
+        ],
+        "sub": "THAT THE BODY CANNOT STORE"
+      }
+    },
+    {
+      "scene": "pedigree",
+      "from": 1047,
+      "to": 1098,
+      "props": {
+        "found": true,
+        "label": "INHERITANCE / 1 IN 2"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1098,
+      "to": 1143,
+      "props": {
+        "kicker": "BEFORE THE FIRST SYMPTOM",
+        "lines": [
+          "DECADES"
+        ]
+      }
+    },
+    {
+      "scene": "pedigree",
+      "from": 1143,
+      "to": 1197,
+      "props": {
+        "found": true,
+        "label": "CARRIERS / KNOWN EARLY"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 1197,
+      "to": 1238,
+      "props": {
+        "from": 60,
+        "to": 18,
+        "suffix": "MO",
+        "label": "MEDIAN SURVIVAL",
+        "caption": "eighteen months from onset"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1238,
+      "to": 1293,
+      "props": {
+        "kicker": "NO APPROVED THERAPY",
+        "lines": [
+          "NO TREATMENT"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 1293,
+      "to": 1332,
+      "props": {
+        "from": 300,
+        "to": 70,
+        "suffix": "FAM",
+        "label": "KNOWN KINDREDS",
+        "caption": "about seventy families on earth"
+      }
+    },
+    {
+      "scene": "mortality",
+      "from": 1332,
+      "to": 1394,
+      "props": {
+        "readout": "100",
+        "caption": "ZERO SURVIVORS"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1394,
+      "to": 1432,
+      "props": {
+        "kicker": "IT CANNOT SPREAD TO YOU",
+        "lines": [
+          "NOT",
+          "INFECTIOUS"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1432,
+      "to": 1488,
+      "props": {
+        "kicker": "PRNP \u00b7 CHROMOSOME 20",
+        "lines": [
+          "IT IS YOU"
+        ]
+      }
+    }
+  ]
+}

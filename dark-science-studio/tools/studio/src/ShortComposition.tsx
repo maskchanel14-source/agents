@@ -9,7 +9,7 @@
  */
 import React from 'react';
 import {AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
-import {theme, W, H, FPS} from './brand/theme';
+import {theme, setAccent, W, H, FPS} from './brand/theme';
 import {KineticCaptions, Word} from './captions/KineticCaptions';
 import {
   CounterSlam,
@@ -18,9 +18,13 @@ import {
   HandedHelix,
   ImmuneSiege,
   MirrorColony,
+  MisfoldChain,
+  MortalityPlate,
+  PedigreeTree,
   PhageStorm,
   Ribosome,
   SceneProps,
+  ThalamusGrid,
 } from './scenes/SceneLibrary';
 
 export type Shot = {
@@ -35,6 +39,8 @@ export type TimelineProps = {
   words: Word[];
   durationInFrames: number;
   mixFile?: string;
+  /** per-video identity: accent colour, episode id, duration for the rail */
+  meta?: {accent?: string; id?: string; durationS?: number};
 };
 
 /** Wraps a scene and injects {p, frame, dur}. */
@@ -61,6 +67,14 @@ const ShotRenderer: React.FC<{shot: Shot}> = ({shot}) => {
       return <CounterSlam {...(sceneProps as any)} />;
     case 'hand_wall':
       return <HandWall {...(sceneProps as any)} />;
+    case 'misfold_chain':
+      return <MisfoldChain {...(sceneProps as any)} />;
+    case 'thalamus_grid':
+      return <ThalamusGrid {...(sceneProps as any)} />;
+    case 'pedigree':
+      return <PedigreeTree {...(sceneProps as any)} />;
+    case 'mortality':
+      return <MortalityPlate {...(sceneProps as any)} />;
     default:
       return <MirrorColony {...(sceneProps as any)} />;
   }
@@ -78,7 +92,11 @@ const ShotFade: React.FC<{shot: Shot; children: React.ReactNode}> = ({shot, chil
   return <AbsoluteFill style={{opacity: a}}>{children}</AbsoluteFill>;
 };
 
-export const ShortComposition: React.FC<TimelineProps> = ({shots, words, mixFile}) => {
+export const ShortComposition: React.FC<TimelineProps> = ({shots, words, mixFile, meta}) => {
+  // Apply the poster's accent before any scene renders. Rendering is
+  // synchronous and single-pass per frame, so a module-level set is safe here.
+  if (meta?.accent) setAccent(meta.accent);
+
   return (
     <AbsoluteFill style={{backgroundColor: theme.bg}}>
       {/* film grain, always on top of scenes but under captions */}
@@ -94,14 +112,15 @@ export const ShortComposition: React.FC<TimelineProps> = ({shots, words, mixFile
       <KineticCaptions words={words} from={0} to={1e9} />
 
       {/* progress rail */}
-      <ProgressRail />
+      <ProgressRail meta={meta} />
       {mixFile ? <Audio src={staticFile(mixFile)} /> : null}
     </AbsoluteFill>
   );
 };
 
-const ProgressRail: React.FC = () => {
+const ProgressRail: React.FC<{meta?: TimelineProps['meta']}> = ({meta}) => {
   const frame = useCurrentFrame();
+  const totalS = meta?.durationS ?? 58.8;
   return (
     <>
       <div style={{position: 'absolute', bottom: 372, left: 64, right: 64, height: 2, background: 'rgba(255,255,255,0.14)'}} />
@@ -110,7 +129,7 @@ const ProgressRail: React.FC = () => {
           position: 'absolute',
           bottom: 372,
           left: 64,
-          width: `${(frame / (58.8 * FPS)) * (W - 128)}px`,
+          width: `${Math.min(1, frame / (totalS * FPS)) * (W - 128)}px`,
           height: 2,
           background: theme.accent,
           boxShadow: `0 0 12px ${theme.accentGlow}`,
@@ -127,7 +146,7 @@ const ProgressRail: React.FC = () => {
           color: 'rgba(255,255,255,0.35)',
         }}
       >
-        DARK SCIENCE · DS-003
+        DARK SCIENCE · {meta?.id ?? 'DS-003'}
       </div>
     </>
   );

@@ -10,6 +10,7 @@
  */
 import React, {useLayoutEffect, useRef} from 'react';
 import {useCurrentFrame, useVideoConfig} from 'remotion';
+import {theme} from '../brand/theme';
 
 export type V3 = [number, number, number];
 
@@ -47,14 +48,14 @@ export const v3 = {
 export type Cam = {rot: V3; dist: number; fov: number};
 
 /** Project a world point to screen space. Returns null when behind the camera. */
-export function project(p: V3, cam: Cam, w: number, h: number) {
+export function project(p: V3, cam: Cam, w: number, h: number, yOffset = 0) {
   let q = v3.rotZ(p, cam.rot[2]);
   q = v3.rotX(q, cam.rot[0]);
   q = v3.rotY(q, cam.rot[1]);
   const z = q[2] + cam.dist;
   if (z <= 0.05) return null;
   const f = cam.fov / z;
-  return {x: w / 2 + q[0] * f, y: h / 2 - q[1] * f, z, scale: f};
+  return {x: w / 2 + q[0] * f, y: h / 2 - q[1] * f + yOffset, z, scale: f};
 }
 
 export type Seg = {a: V3; b: V3; c?: string; w?: number; glow?: number};
@@ -65,11 +66,12 @@ export const drawSegs = (
   cam: Cam,
   w: number,
   h: number,
-  opts: {accent?: string; baseAlpha?: number} = {}
+  opts: {accent?: string; baseAlpha?: number; yOffset?: number} = {}
 ) => {
-  const accent = opts.accent ?? '#22D3EE';
+  const yOffset = opts.yOffset ?? 0;
+  const accent = opts.accent ?? theme.accent;
   const projected = segs
-    .map((s) => ({s, a: project(s.a, cam, w, h), b: project(s.b, cam, w, h)}))
+    .map((s) => ({s, a: project(s.a, cam, w, h, yOffset), b: project(s.b, cam, w, h, yOffset)}))
     .filter((p) => p.a && p.b) as {s: Seg; a: {x: number; y: number; z: number}; b: any}[];
 
   projected.sort((p, q) => q.a.z - p.a.z); // far first
