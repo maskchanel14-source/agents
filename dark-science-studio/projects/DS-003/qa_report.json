@@ -1,0 +1,110 @@
+{
+  "specs": {
+    "duration_s": 44.0,
+    "video_codec": "h264",
+    "width": 1080,
+    "height": 1920,
+    "audio_codec": "aac",
+    "fps": 30.0,
+    "passed": true,
+    "size_mb": 21.41
+  },
+  "freeze_black": {
+    "frozen_runs": 0,
+    "frozen_at": [],
+    "black_frames": 0,
+    "black_at": [],
+    "passed": true
+  },
+  "scene_changes": {
+    "cuts": 35,
+    "cut_times": [
+      1.9,
+      2.333,
+      3.267,
+      3.967,
+      4.167,
+      4.7,
+      5.833,
+      6.3,
+      7.133,
+      7.867,
+      8.433,
+      12.933,
+      17.933,
+      18.067,
+      19.6,
+      21.367,
+      23.6,
+      25.4,
+      26.067,
+      26.5,
+      26.633,
+      27.133,
+      30.867,
+      31.733,
+      31.867,
+      32.5,
+      33.9,
+      36.333,
+      37.267,
+      37.833,
+      38.0,
+      38.167,
+      38.7,
+      40.5,
+      41.733
+    ],
+    "runtime_s": 44.0,
+    "required": 14,
+    "mean_diff": 0.0043,
+    "passed": true
+  },
+  "loudness": {
+    "integrated_lufs": -14.0,
+    "true_peak_dbtp": -1.1,
+    "passed": true
+  },
+  "whisper": {
+    "passed": null,
+    "skipped": "model unavailable: Got: ConnectError: TLS/SSL connection has been closed (EOF) (_ssl.c:992)\nAn error happened while trying to locate the files on the Hub, and we cannot find the appropriate snapshot folder for the specified revision on the local disk. Please check your internet connection and try again.",
+    "match_pct": null
+  },
+  "voice_dominance": {
+    "speech_windows": 631,
+    "voice_mix_correlation": 0.988,
+    "passed": true,
+    "note": "correlation of speech-window energy, voice stem vs delivered mix"
+  },
+  "captions": {
+    "cues": 32,
+    "monotonic": true,
+    "max_gap_s": 0.24,
+    "last_end_s": 43.652,
+    "passed": true
+  },
+  "luminance": {
+    "frames_sampled": 44,
+    "mean_luma": 0.0581,
+    "min_luma": 0.0397,
+    "max_luma": 0.1045,
+    "passed": true
+  },
+  "contact_sheets": [
+    "build/DS-003/qa_frames/contact_01.png"
+  ],
+  "timeline": {
+    "shots": 21,
+    "cuts": 20,
+    "mean_shot_s": 2.1,
+    "min_shot_s": 1.23,
+    "mean_shot_ok": true
+  },
+  "skipped_checks": [
+    "whisper"
+  ],
+  "degraded": true,
+  "all_passed": true,
+  "video": "/home/user/agents/dark-science-studio/renders/DS-003/final.mp4",
+  "size_mb": 21.41
+}

@@ -1,0 +1,61 @@
+{
+  "engine": "piper en_US-lessac-medium",
+  "sample_rate": 16000,
+  "duration_s": 49.172,
+  "word_count": 144,
+  "wpm": 175.7,
+  "lines": [
+    {
+      "i": 0,
+      "text": "For two hundred years, one Italian family could not sleep."
+    },
+    {
+      "i": 1,
+      "text": "The cause was traced to a single letter of DNA."
+    },
+    {
+      "i": 2,
+      "text": "One mutation in the gene for a prion protein."
+    },
+    {
+      "i": 3,
+      "text": "That protein is in your brain right now."
+    },
+    {
+      "i": 4,
+      "text": "When it misfolds, it grabs its neighbours and folds them too."
+    },
+    {
+      "i": 5,
+      "text": "Your neurons end up holding a clump of protein that survives boiling water and bleach."
+    },
+    {
+      "i": 6,
+      "text": "It gathers in the thalamus. A switchboard the size of a walnut that decides when you sleep."
+    },
+    {
+      "i": 7,
+      "text": "Sleep spindles vanish first. Then deep sleep. Then the stage where you dream."
+    },
+    {
+      "i": 8,
+      "text": "Patients stay awake for months. Heart racing, sweating, burning fuel they cannot store."
+    },
+    {
+      "i": 9,
+      "text": "Half of every generation inherits it. And knows for decades before the first symptom."
+    },
+    {
+      "i": 10,
+      "text": "Average survival: eighteen months. There is no treatment."
+    },
+    {
+      "i": 11,
+      "text": "Only about seventy families on Earth. Zero survivors."
+    },
+    {
+      "i": 12,
+      "text": "And it is not infectious. It is you."
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "fps": 30,
+  "duration_s": 48.467,
+  "durationInFrames": 1454,
+  "shot_count": 29,
+  "cuts": 28,
+  "mean_shot_s": 1.67,
+  "min_shot_s": 1.27,
+  "shots": [
+    {
+      "scene": "star_wake",
+      "from": 0,
+      "to": 66,
+      "props": {
+        "sep": 0.95
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 66,
+      "to": 104,
+      "props": {
+        "kicker": "BETELGEUSE \u00b7 642 LY",
+        "lines": [
+          "NOT",
+          "NEXT TO IT"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 104,
+      "to": 146,
+      "props": {
+        "kicker": "ORBIT: INSIDE",
+        "lines": [
+          "IN",
+          "THE ATMOSPHERE"
+        ]
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 146,
+      "to": 190,
+      "props": {
+        "sep": 0.15,
+        "r": 8.8,
+        "label": "RED SUPERGIANT"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 190,
+      "to": 237,
+      "props": {
+        "from": 12,
+        "to": 700,
+        "suffix": "R\u2609",
+        "label": "STELLAR RADIUS",
+        "caption": "seven hundred times the width of the sun"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 237,
+      "to": 284,
+      "props": {
+        "sep": 0.55,
+        "label": "ORBIT OF MARS"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 284,
+      "to": 326,
+      "props": {
+        "kicker": "SUN REPLACED",
+        "lines": [
+          "SWALLOWS",
+          "MARS"
+        ]
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 326,
+      "to": 372,
+      "props": {
+        "sep": 0.8,
+        "r": 8.0,
+        "label": "PHOTOSPHERE \u00b7 3,500 K"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 372,
+      "to": 412,
+      "props": {
+        "lines": [
+          "BARELY"
+        ],
+        "sub": "A SURFACE AT ALL"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 412,
+      "to": 466,
+      "props": {
+        "sep": 0.3,
+        "label": "OUTER ENVELOPE"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 466,
+      "to": 506,
+      "props": {
+        "sep": 0.72,
+        "label": "PASSAGE / 2021-2026"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 506,
+      "to": 546,
+      "props": {
+        "kicker": "SOMETHING ORBITS",
+        "lines": [
+          "THROUGH IT"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 546,
+      "to": 597,
+      "props": {
+        "kicker": "VLA + ALMA",
+        "lines": [
+          "RADIO"
+        ],
+        "sub": "22 \u2192 485 GHz \u00b7 SEVEN BANDS"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 597,
+      "to": 648,
+      "props": {
+        "from": 1,
+        "to": 7,
+        "suffix": "BAND",
+        "label": "RADIO FREQUENCIES",
+        "caption": "twenty two to four hundred eighty five gigahertz"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 648,
+      "to": 696,
+      "props": {
+        "sep": 0.45,
+        "label": "SIX YEARS OF EPOCHS"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 696,
+      "to": 744,
+      "props": {
+        "sep": 0.98,
+        "label": "MAXIMUM SEPARATION"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 744,
+      "to": 789,
+      "props": {
+        "kicker": "THE DISC",
+        "lines": [
+          "OUT OF ROUND"
+        ]
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 789,
+      "to": 828,
+      "props": {
+        "sep": 0.05,
+        "label": "BACK IN ROUND"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 828,
+      "to": 888,
+      "props": {
+        "sep": 0.6,
+        "label": "SEPARATION \u2248 2 R\u2609"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 888,
+      "to": 930,
+      "props": {
+        "from": 20,
+        "to": 2,
+        "suffix": "R\u2609",
+        "label": "ORBITAL DISTANCE",
+        "caption": "two stellar radii from the core"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 930,
+      "to": 978,
+      "props": {
+        "sep": 0.88,
+        "label": "GAS IT ORBITS IN"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 978,
+      "to": 1026,
+      "props": {
+        "kicker": "UNRESOLVED",
+        "lines": [
+          "TOO FAINT"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 1026,
+      "to": 1074,
+      "props": {
+        "from": 100,
+        "to": 10,
+        "suffix": "x",
+        "label": "BELOW MAP LIMIT",
+        "caption": "ten to a hundred times too faint for the maps"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 1074,
+      "to": 1119,
+      "props": {
+        "sep": 0.25,
+        "label": "NO DIRECT IMAGE"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1119,
+      "to": 1170,
+      "props": {
+        "kicker": "WHY WE KNOW IT IS THERE",
+        "lines": [
+          "IT BREATHES",
+          "UNEVENLY"
+        ]
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 1170,
+      "to": 1236,
+      "props": {
+        "from": 300,
+        "to": 2100,
+        "suffix": "D",
+        "label": "WOBBLE CYCLE",
+        "caption": "two thousand one hundred days"
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 1236,
+      "to": 1296,
+      "props": {
+        "sep": 0.7,
+        "label": "CYCLE / REPEATING"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1296,
+      "to": 1350,
+      "props": {
+        "kicker": "ONE DAY IT EXPLODES",
+        "lines": [
+          "A PASSENGER"
+        ]
+      }
+    },
+    {
+      "scene": "star_wake",
+      "from": 1350,
+      "to": 1454,
+      "props": {
+        "sep": 0.95
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "DS-004",
+  "accent": "#B36BFF",
+  "accent_name": "iris violet",
+  "accent_rationale": "Cyan is the channel default but reads as 'instrument/space'. FFI is a body horror story, so DS-004 shifts to violet — still cold, still clinical, but softer and more anatomical. Keeping it in the same luminance band as cyan preserves the HUD look.",
+  "working_title": "Prions & Fatal Familial Insomnia: The Zero-DNA Protein That Survives Boiling Steel",
+  "score_key": "D minor",
+  "score_tempo_bpm": 92
+}

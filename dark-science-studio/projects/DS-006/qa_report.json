@@ -1,0 +1,115 @@
+{
+  "specs": {
+    "duration_s": 49.6,
+    "video_codec": "h264",
+    "width": 1080,
+    "height": 1920,
+    "audio_codec": "aac",
+    "fps": 30.0,
+    "passed": true,
+    "size_mb": 26.21
+  },
+  "freeze_black": {
+    "frozen_runs": 0,
+    "frozen_at": [],
+    "black_frames": 0,
+    "black_at": [],
+    "passed": true
+  },
+  "scene_changes": {
+    "cuts": 49,
+    "cut_times": [
+      2.4,
+      4.667,
+      6.3,
+      6.433,
+      6.567,
+      6.967,
+      8.0,
+      9.3,
+      9.5,
+      10.733,
+      12.133,
+      12.3,
+      13.267,
+      13.433,
+      13.733,
+      15.4,
+      18.933,
+      20.8,
+      20.967,
+      21.1,
+      21.8,
+      22.7,
+      24.3,
+      24.5,
+      26.467,
+      28.0,
+      29.067,
+      29.333,
+      29.5,
+      30.2,
+      30.333,
+      31.1,
+      32.7,
+      32.867,
+      33.733,
+      34.1,
+      35.3,
+      36.8,
+      37.167,
+      37.933
+    ],
+    "runtime_s": 49.6,
+    "required": 16,
+    "mean_diff": 0.00488,
+    "passed": true
+  },
+  "loudness": {
+    "integrated_lufs": -14.0,
+    "true_peak_dbtp": -1.4,
+    "passed": true
+  },
+  "whisper": {
+    "passed": null,
+    "skipped": "faster-whisper not installed",
+    "match_pct": null
+  },
+  "voice_dominance": {
+    "speech_windows": 708,
+    "voice_mix_correlation": 0.983,
+    "passed": true,
+    "note": "correlation of speech-window energy, voice stem vs delivered mix"
+  },
+  "captions": {
+    "cues": 34,
+    "monotonic": true,
+    "max_gap_s": 0.208,
+    "last_end_s": 49.261,
+    "passed": true
+  },
+  "luminance": {
+    "frames_sampled": 50,
+    "mean_luma": 0.0642,
+    "min_luma": 0.0444,
+    "max_luma": 0.1515,
+    "passed": true
+  },
+  "contact_sheets": [
+    "/home/user/agents/dark-science-studio/build/DS-006/qa_frames/contact_01.png"
+  ],
+  "timeline": {
+    "shots": 29,
+    "cuts": 28,
+    "mean_shot_s": 1.71,
+    "min_shot_s": 1.2,
+    "mean_shot_ok": true
+  },
+  "skipped_checks": [
+    "whisper"
+  ],
+  "degraded": true,
+  "all_passed": true,
+  "video": "/home/user/agents/dark-science-studio/renders/DS-006/final.mp4",
+  "size_mb": 26.21
+}

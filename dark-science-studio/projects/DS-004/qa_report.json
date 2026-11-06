@@ -1,0 +1,112 @@
+{
+  "specs": {
+    "duration_s": 49.6,
+    "video_codec": "h264",
+    "width": 1080,
+    "height": 1920,
+    "audio_codec": "aac",
+    "fps": 30.0,
+    "passed": true,
+    "size_mb": 19.64
+  },
+  "freeze_black": {
+    "frozen_runs": 0,
+    "frozen_at": [],
+    "black_frames": 0,
+    "black_at": [],
+    "passed": true
+  },
+  "scene_changes": {
+    "cuts": 68,
+    "cut_times": [
+      1.133,
+      1.467,
+      3.4,
+      3.533,
+      4.333,
+      4.6,
+      6.1,
+      6.3,
+      6.6,
+      7.033,
+      7.4,
+      10.3,
+      10.9,
+      11.133,
+      12.533,
+      13.467,
+      13.733,
+      14.9,
+      16.3,
+      17.3,
+      17.6,
+      18.5,
+      19.4,
+      19.9,
+      21.467,
+      21.767,
+      22.5,
+      22.7,
+      23.067,
+      23.233,
+      23.867,
+      24.4,
+      24.533,
+      24.7,
+      25.067,
+      26.533,
+      27.433,
+      27.8,
+      29.9,
+      31.267
+    ],
+    "runtime_s": 49.6,
+    "required": 16,
+    "mean_diff": 0.00566,
+    "passed": true
+  },
+  "loudness": {
+    "integrated_lufs": -14.0,
+    "true_peak_dbtp": -1.0,
+    "passed": true
+  },
+  "whisper": {
+    "passed": null,
+    "skipped": "model unavailable: Got: ConnectError: TLS/SSL connection has been closed (EOF) (_ssl.c:992)\nAn error happened while trying to locate the files on the Hub, and we cannot find the appropriate snapshot folder for the specified revision on the local disk. Please check your internet connection and try again.",
+    "match_pct": null
+  },
+  "voice_dominance": {
+    "speech_windows": 699,
+    "voice_mix_correlation": 0.985,
+    "passed": true,
+    "note": "correlation of speech-window energy, voice stem vs delivered mix"
+  },
+  "captions": {
+    "cues": 36,
+    "monotonic": true,
+    "max_gap_s": 0.208,
+    "last_end_s": 48.514,
+    "passed": true
+  },
+  "luminance": {
+    "frames_sampled": 50,
+    "mean_luma": 0.0641,
+    "min_luma": 0.0453,
+    "max_luma": 0.1516,
+    "passed": true
+  },
+  "timeline": {
+    "shots": 32,
+    "cuts": 31,
+    "mean_shot_s": 1.55,
+    "min_shot_s": 0.83,
+    "mean_shot_ok": true
+  },
+  "skipped_checks": [
+    "whisper"
+  ],
+  "degraded": true,
+  "all_passed": true,
+  "video": "renders/DS-004/final.mp4",
+  "size_mb": 19.64
+}

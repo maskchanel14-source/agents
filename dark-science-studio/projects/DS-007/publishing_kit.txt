@@ -1,0 +1,122 @@
+DS-007 — Publishing Kit
+
+Video ID: DS-007 · Delivered: 2026-11-07
+File: renders/DS-007/final.mp4 — 46.70 s · 1080×1920 · 30 fps · h264 + AAC
+Cover: projects/DS-007/cover_frame.png — 1080×1920
+Series: Your Body Is Lying To You · Part 1
+
+---
+
+1. Titles (pick one)
+
+Primary rationale: the numbers are the hook and they are exact per CDC. Nothing is
+invented, nothing is a promise, and "4 survivors" is the retention engine.
+
+---
+
+2. Description (copy-paste)
+
+> *Naegleria fowleri* is a free-living amoeba that lives in warm fresh water — lakes, rivers, hot springs, above 30 °C. You cannot get it by drinking: stomach acid destroys it. It has to go up the nose, along the olfactory nerve, through a plate of bone in the skull, and into the brain.
+>
+> Then it multiplies, and the brain swells. From first symptom to death: 5.3 days on average. The CDC has recorded 167 US cases since 1962. Four people survived — a fatality rate above 97 %.
+>
+> In 2016, a 16-year-old in Florida became one of the four. He lived because the treatment started within hours.
+>
+> Salt water kills the amoeba. The ocean is safe. The lake is not. And it begins as a headache.
+>
+> Sources: CDC "About Naegleria fowleri" · CDC surveillance summary 1962–2024 · NCBI Bookshelf chapter on *N. fowleri* (5.3-day symptom-to-death, 9.9-day exposure-to-death, treatment protocol). Full claim table and every deliberate omission in sources_and_licenses.md.
+>
+> This is science education, not medical advice.
+>
+> Narration is synthetic (Piper TTS, offline). All visuals procedurally generated — no stock footage, no micrographs.
+
+---
+
+3. Tags (copy-paste)
+
+naegleria fowleri,brain eating amoeba,amoeba,pam,primary amoebic meningoencephalitis,parasite,cdc,brain infection,meningitis,warm water,summer,lake safety,biology,microbiology,dark science,science shorts,medical mystery,survivor,disease,public health,neuroscience,infection,water safety,rare disease,science
+
+---
+
+4. Hashtags (3 max)
+
+#shorts #darkscience #biology
+
+---
+
+5. Pinned comment
+
+> The number that gets lost: 4 survivors out of 167 cases. In 2016 a 16-year-old in Florida became one of them, and the reason he lived is almost uncomfortable — the diagnosis came fast enough that the experimental drug protocol started within hours, and his body was cooled to protect the brain. Most cases are diagnosed after the window has closed.
+>
+> Important accuracy notes: (1) The CDC figure is "above 97 %", not 99 % — this video uses the real number. (2) You cannot get it from drinking water, and it is not spread person-to-person. (3) The ocean is safe; the amoeba does not survive salt water. (4) The 5.3-day figure is symptom-onset to death; the exposure-to-death figure is 9.9 days and is labelled separately on screen, because conflating them is the most common error in videos on this topic.
+>
+> Numbers are scary enough on their own. We didn't need to exaggerate. 👇
+>
+> Have you ever been told a "fact" about this amoeba that turned out to be wrong?
+
+---
+
+6. Reply comments (first hour)
+
+1. *"Is it in every lake??"* → "The amoeba is common in warm fresh water; the disease is extremely rare — 167 US cases in 62 years, against hundreds of millions of swims. It is rare because it needs a specific route: forced water up the nose, usually from diving or jumping. There is no honest per-swim risk number, which is why this video doesn't quote one."
+2. *"Why is it still 97 % fatal if there's a treatment?"* → "Because the early symptoms — headache, fever, nausea — look like a hundred other things, and by the time the diagnosis is suspected the swelling is already severe. The survivors were treated before that point."
+3. *"Can you get it from a neti pot or tap water?"* → "Yes — that's a real route, and it's why health agencies say to use distilled, sterile, or boiled-and-cooled water for nasal rinsing. It is the one route where you can fully control the risk."
+
+---
+
+7. Related video to link
+
+DS-004 — "The Family That Couldn't Sleep." Both are "your own body has a mechanism that can kill you, and the timeline is the horror." Link DS-004.
+
+---
+
+8. Series & playlist
+
+Series: *Your Body Is Lying To You* — Part 1.
+Playlist: "Your Body Is Lying To You" (DS-007 first, DS-010 to follow).
+Next-part tease: *"There is a second organism that does this, and it's in tap water."*
+
+---
+
+9. Two follow-up Shorts this can spawn
+
+1. "The neti pot warning" — the tap-water route, three documented cases, and the 60-second fix.
+2. "Why do four people survive when 163 don't?" — the miltefosine + cooling protocol, and what the survivors have in common.
+
+---
+
+10. Posting window
+
+Tue–Thu, 16:30–18:30 UTC (23:30–01:30 WIB). Do not post this one on a Friday
+or Saturday — the topic's comment section attracts health-anxiety replies and the
+channel is not staffed to moderate at weekends.
+
+---
+
+11. Platform settings
+
+---
+
+12. Disclosure
+
+Synthetic narration: yes (Piper en_US-lessac-medium, offline, no key).
+Synthetic visuals: all (Remotion/Canvas2D procedural).
+Third-party footage or imagery: none.
+Music: original, synthesised for this episode.
+Health disclaimer: in the description above ("science education, not medical advice").
+
+---
+
+13. Pre-publish checklist
+
+- [x] 1080×1920, 30 fps, h264 + AAC
+- [x] Duration 46.70 s (under the 58 s cap)
+- [x] Audio −14.0 LUFS integrated, ≤ −1.0 dBTP true peak
+- [x] Burned-in captions, monotonic
+- [x] Whisper check skipped (weights unreachable) — captions are authored timings
+- [x] Fact table + every deliberate omission in sources_and_licenses.md
+- [x] Cover frame exported + 320 px legibility check
+- [x] Synthetic-content disclosure set
+- [x] Health disclaimer in description
+- [ ] Upload + schedule in the posting window
+- [ ] Pin the comment, then check replies for 2 h

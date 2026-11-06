@@ -1,0 +1,217 @@
+{
+  "fps": 30,
+  "duration_s": 44.0,
+  "durationInFrames": 1320,
+  "shot_count": 21,
+  "cuts": 20,
+  "mean_shot_s": 2.1,
+  "min_shot_s": 1.23,
+  "shots": [
+    {
+      "scene": "mirror_colony",
+      "from": 0,
+      "to": 70,
+      "props": {
+        "label": "DEC 2024 / SCIENCE",
+        "mirror": false
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 70,
+      "to": 141,
+      "props": {
+        "kicker": "38 SIGNATORIES",
+        "lines": [
+          "A WARNING"
+        ]
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 141,
+      "to": 189,
+      "props": {
+        "lines": [
+          "NOT A BOMB"
+        ],
+        "sub": "NOT A WEAPON \u00b7 NOT AN ACCIDENT"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 189,
+      "to": 253,
+      "props": {
+        "lines": [
+          "A BACTERIUM"
+        ],
+        "sub": "IT DOES NOT EXIST YET"
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 253,
+      "to": 314,
+      "props": {
+        "label": "ALL LIFE / ONE HANDEDNESS",
+        "mirror": false
+      }
+    },
+    {
+      "scene": "handed_helix",
+      "from": 314,
+      "to": 388,
+      "props": {
+        "label": "LIFE / CHIRAL",
+        "split": false
+      }
+    },
+    {
+      "scene": "handed_helix",
+      "from": 388,
+      "to": 459,
+      "props": {
+        "label": "SUGARS \u2192 / PROTEINS \u2190",
+        "split": true
+      }
+    },
+    {
+      "scene": "immune_siege",
+      "from": 459,
+      "to": 538,
+      "props": {
+        "label": "SHAPE RECOGNITION"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 538,
+      "to": 588,
+      "props": {
+        "kicker": "INVERT EVERY BOND",
+        "lines": [
+          "FLIP IT"
+        ]
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 588,
+      "to": 642,
+      "props": {
+        "label": "MIRROR CELL / D-CHIRAL",
+        "mirror": true
+      }
+    },
+    {
+      "scene": "immune_siege",
+      "from": 642,
+      "to": 708,
+      "props": {
+        "label": "ANTIBODY BINDING"
+      }
+    },
+    {
+      "scene": "phage_storm",
+      "from": 708,
+      "to": 762,
+      "props": {
+        "label": "PHAGE ASSAY"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 762,
+      "to": 814,
+      "props": {
+        "kicker": "NO TARGET TO HIT",
+        "lines": [
+          "NOTHING",
+          "TOUCHES IT"
+        ]
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 814,
+      "to": 873,
+      "props": {
+        "label": "NUTRIENT UPTAKE",
+        "mirror": true,
+        "divide": true
+      }
+    },
+    {
+      "scene": "phage_storm",
+      "from": 873,
+      "to": 926,
+      "props": {
+        "label": "NO PREDATOR",
+        "noFade": false
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 926,
+      "to": 1017,
+      "props": {
+        "from": 30,
+        "to": 10,
+        "suffix": "YRS",
+        "label": "CONCERTED FUNDING",
+        "caption": "ten years if we funded it"
+      }
+    },
+    {
+      "scene": "counter_slam",
+      "from": 1017,
+      "to": 1090,
+      "props": {
+        "from": 15,
+        "to": 30,
+        "label": "CURRENT TRAJECTORY",
+        "caption": "fifteen to thirty on this path"
+      }
+    },
+    {
+      "scene": "glitch_reveal",
+      "from": 1090,
+      "to": 1161,
+      "props": {
+        "kicker": "OR: A BAN ON QUESTIONS",
+        "lines": [
+          "NOT",
+          "KNOWLEDGE"
+        ]
+      }
+    },
+    {
+      "scene": "hand_wall",
+      "from": 1161,
+      "to": 1215,
+      "props": {
+        "label": "THE ASK",
+        "word": "NEVER"
+      }
+    },
+    {
+      "scene": "hand_wall",
+      "from": 1215,
+      "to": 1252,
+      "props": {
+        "label": "38 SIGNATORIES",
+        "word": "38"
+      }
+    },
+    {
+      "scene": "mirror_colony",
+      "from": 1252,
+      "to": 1320,
+      "props": {
+        "label": "STILL NOT BUILT",
+        "mirror": true
+      }
+    }
+  ]
+}
