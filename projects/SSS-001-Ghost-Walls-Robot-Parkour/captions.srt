@@ -1,0 +1,83 @@
+1
+00:00:00,080 --> 00:00:02,255
+Nobody taught this robot how to jump.
+
+2
+00:00:02,395 --> 00:00:03,523
+No motion capture.
+
+3
+00:00:03,663 --> 00:00:04,973
+Just one nose camera.
+
+4
+00:00:05,133 --> 00:00:08,325
+Yet it vaults concrete walls taller than its body,
+
+5
+00:00:08,445 --> 00:00:09,994
+even in pitch darkness.
+
+6
+00:00:10,174 --> 00:00:13,053
+It crawls flat under twenty-centimeter gaps,
+
+7
+00:00:13,173 --> 00:00:17,124
+and tilts onto two legs through slits narrower than its shoulders.
+
+8
+00:00:17,324 --> 00:00:19,913
+Most robots learning stunts like this crash thousands of times,
+
+9
+00:00:20,033 --> 00:00:22,748
+stopped cold by solid walls.
+
+10
+00:00:22,908 --> 00:00:26,360
+So Stanford and Carnegie Mellon engineers broke physics first.
+
+11
+00:00:26,559 --> 00:00:30,932
+For twelve hours in simulation, they turned walls into ghosts.
+
+12
+00:00:31,092 --> 00:00:32,935
+It walked straight through barriers,
+
+13
+00:00:33,055 --> 00:00:36,059
+but paid a penalty for every millimeter of overlap.
+
+14
+00:00:36,259 --> 00:00:41,177
+To escape it, the AI invented climbing, crawling, and tilting on its own,
+
+15
+00:00:41,317 --> 00:00:44,841
+before six hours of real physics locked those instincts in.
+
+16
+00:00:45,061 --> 00:00:47,780
+Outdoors, something eerie emerged.
+
+17
+00:00:47,930 --> 00:00:50,053
+When a brick wall stops it cold...
+
+18
+00:00:50,633 --> 00:00:52,290
+Nobody coded a retry,
+
+19
+00:00:52,410 --> 00:00:55,006
+yet it shoves off the stone for run-up space,
+
+20
+00:00:55,126 --> 00:00:57,170
+and clears the ledge on the second charge.
+
+21
+00:00:57,390 --> 00:00:57,966
+Remember...
