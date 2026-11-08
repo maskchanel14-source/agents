@@ -202,30 +202,6 @@ def render_caption_box(cap_text: str, progress: float, is_alert: bool = False) -
             x += ww+gap;word_index+=1
     return rgba_to_u16(img)
 
-# Artistic pseudo-depth: small smooth differential displacement and drifting
-# particles over AI stills. This does not represent actual astronomical motion.
-_motion_grids = {}
-def add_cosmic_motion(frame: np.ndarray, t: float, progress: float, shot_id: int) -> np.ndarray:
-    h,w=frame.shape[:2]; key=(w,h)
-    if key not in _motion_grids:
-        yy,xx=np.mgrid[0:h,0:w].astype(np.float32)
-        depth=np.exp(-(((xx-w*.52)/(w*.34))**2+((yy-h*.50)/(h*.40))**2)).astype(np.float32)
-        _motion_grids[key]=(xx,yy,depth)
-    xx,yy,depth=_motion_grids[key]
-    dx=np.float32(5.0*np.sin(progress*np.pi*1.3 + shot_id*.43))
-    dy=np.float32(3.0*np.sin(progress*np.pi*1.1 + shot_id*.71))
-    warped=cv2.remap(frame,xx+depth*dx,yy+depth*dy,cv2.INTER_LINEAR,borderMode=cv2.BORDER_REFLECT_101)
-    # Tiny low-opacity particles move continuously, without fast flashes.
-    overlay=warped.copy()
-    rng=np.random.default_rng(shot_id)
-    for _ in range(20):
-        bx=float(rng.uniform(.04,.96))*w;by=float(rng.uniform(.05,.95))*h
-        velocity=float(rng.uniform(3.,9.));phase=float(rng.uniform(0.,6.28))
-        px=int((bx+velocity*progress+2*np.sin(t*.5+phase))%w)
-        py=int((by-velocity*.35*progress)%h)
-        cv2.circle(overlay,(px,py),1,(160,210,235),-1,cv2.LINE_AA)
-    return cv2.addWeighted(overlay,.22,warped,.78,0)
-
 def render_silence_banner() -> tuple:
     strip_h = 210
     img = Image.new("RGBA", (W, strip_h), (0, 0, 0, 0))
@@ -281,7 +257,7 @@ def main():
     cover_bgr = cv2.imread("/home/user/deliverables/SSS-005/SSS-005_Cover_9x16.jpg")
     assert cover_bgr is not None and cover_bgr.shape == (H, W, 3), "Invalid 9:16 cover!"
 
-    out_mp4 = "/home/user/deliverables/SSS-005/SSS-005_Smooth_Motion.mp4"
+    out_mp4 = "/home/user/deliverables/SSS-005/SSS-005_Parallax_Cinematic.mp4"
     audio_wav = "/tmp/sss005_build/master_mix.wav"
     ff_log = open("/tmp/sss005_build/ffmpeg_render.log", "w")
 
@@ -351,18 +327,21 @@ def main():
             y_off = (rh - target_rh) // 2
             crop = raw[y_off:y_off + target_rh, :]
         else:
-            # Gentle 4.0% cinema push-in directly on 1920x1080 native pixels (1.78x supersampled!)
-            zoom = 1.0 + 0.040 * prog_shot
-            cw = int(round(rw / zoom))
-            ch = int(round(rh / zoom))
-            cx0 = (rw - cw) // 2
-            cy0 = (rh - ch) // 2
-            crop = raw[cy0:cy0 + ch, cx0:cx0 + cw]
+            # Smooth sub-pixel camera move: ease in/out instead of rounding
+            # crop boundaries to whole pixels (which causes visible judder).
+            eased = prog_shot * prog_shot * (3.0 - 2.0 * prog_shot)
+            zoom = (1.035 + .035 * eased) if cur_shot_idx % 2 else (1.070 - .035 * eased)
+            sx = STAGE_W * zoom / rw
+            sy = stage_h * zoom / rh
+            tx = (STAGE_W - rw * sx) * .5
+            ty = (stage_h - rh * sy) * .5
+            M = np.array([[sx, 0, tx], [0, sy, ty]], dtype=np.float32)
+            stage_bgr = cv2.warpAffine(raw, M, (STAGE_W, stage_h),
+                                      flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
 
-        stage_bgr = cv2.resize(crop, (STAGE_W, stage_h), interpolation=cv2.INTER_AREA)
+        if rw <= 1120:
+            stage_bgr = cv2.resize(crop, (STAGE_W, stage_h), interpolation=cv2.INTER_AREA)
         stage_bgr = unsharp_luma(stage_bgr, sigma=0.88, amount=0.25)
-        if rel.startswith("scene"):
-            stage_bgr = add_cosmic_motion(stage_bgr, t, prog_shot, cur_shot_idx)
 
         tiny = cv2.resize(stage_bgr, (27, 48), interpolation=cv2.INTER_AREA)
         amb = cv2.GaussianBlur(tiny, (15, 15), 6.0)

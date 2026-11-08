@@ -20,3 +20,13 @@ The edit has 11 distinct visual sources (10 illustrations and one scientific sim
 - Run `python3 projects/SSS-005-Cosmic-Radio-Mystery/build_audio.py`, which creates narration, original procedural music/SFX, captions, timings and master audio. The continuous score uses the corrected SSS-004 envelope and must still be auditioned.
 - Run `python3 projects/SSS-005-Cosmic-Radio-Mystery/render_ultrahd.py`; it validates the 11 sources and outputs the vertical 1080x1920/60fps master to `/home/user/deliverables/SSS-005/`.
 - `publishing-kit.txt` includes source and attribution, draft description and manually posted pinned comment.
+
+## Parallax3D CPU experiment (separate silent sample)
+
+`parallax3d_demo.py` uses segmentation, feathered layers, Telea inpainting, motion transforms and compositing from [Parallax3D](https://github.com/Shruti2005dwivedi/Parallax3d), MIT license, commit `31b877791e3e52e7b3f270c0242ff098d9e8adf4`. Clone that revision to `/tmp/parallax3d`, have OpenCV, NumPy and imageio-ffmpeg installed, and run the script. It produces a 5-second, 688×384, 60fps silent test from scene00; it does not modify the full master. The scene-specific ellipse depth map is manually authored, not a neural prediction or measured depth. Layers create 2.5D parallax, not object-level 3D animation. This is an experiment and needs visual review before use in the full film.
+
+## Parallax cinematic revision
+
+`make_parallax_clips.py` applies Parallax3D's MIT-licensed layer segmentation, feathering, inpainting and per-layer motion code at 1376×768 and 60fps to all ten AI illustrations. Hand-authored approximate depth masks are an artistic device, not model-estimated or measured depths; inpainting and depth layer boundaries can produce artifacts. Frame-level subpixel eased zoom in/out is applied in `render_ultrahd.py`. The credited simulation remains a single frame with smooth camera movement, not fabricated depth. Narration, subtitles and audio mix are unchanged; approximate subtitle timing and audio still need creator review.
+
+To reproduce: clone https://github.com/Shruti2005dwivedi/Parallax3d to `/tmp/parallax3d` at commit `31b877791e3e52e7b3f270c0242ff098d9e8adf4`, make sure the source images and the prior simulation clip are available, run `make_parallax_clips.py`, then `render_ultrahd.py`. Inputs, source footage and output are not committed.
