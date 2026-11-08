@@ -21,10 +21,10 @@ full-resolution encoded frames and measured loudness.
 
 3. **Script 8 High-Retention Beats (`128–136` Words, Zero Verbal Begging)**
    - Consult the `dark-science-shorts` skill and `references/voluntary-conversion-playbook.md`.
-   - Include an immediate visceral hook, exact physical numbers, one honest failure limit (epistemic trust), a `0.60s` total-silence cliffhanger before Beat 8, and an open loop word (`"Remember..."`) bridging back to Beat 1.
+   - Include an immediate visceral hook, exact physical numbers, one honest failure limit (epistemic trust), an optional pause before Beat 8, and an open loop word (`"Remember..."`) bridging back to Beat 1.
 
 4. **Synthesize `voice-00` Audio & Master to `-14.0 LUFS`**
-   - Synthesize Beats 1–8 with `voice_id="voice-00"`, mix with custom Dark Science procedural ambient audio (`-21 dB`), enforce complete silence during the `0.60s` dropout, and two-pass normalize to `-14.0 LUFS` (`<= -1.0 dBTP`).
+   - Synthesize Beats 1–8 with `voice_id="voice-00"`, mix audible dark-science music and tone-matched SFX, referencing the creator-approved SSS-003 Music Loud mix and the music SOP in `references/cinema-engine-v5-and-audio.md`. Check phone-speaker audibility and intelligibility; creator approval is the listening gate. A silence dropout is optional.
 
 5. **Design & Inspect Covers (`9:16` + `16:9`)**
    - Composite honest-clickbait `1080x1920` Shorts Cover (embedded at Frame 0) and `1920x1080` YouTube Thumbnail, inspecting both before video rendering.

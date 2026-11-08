@@ -42,9 +42,21 @@ Most vertical science channels ruin research footage in one of three ways:
   -c:a aac -b:a 256k -ar 48000 -movflags +faststart -shortest
   ```
 
-## 4. `-14.0 LUFS` EBU R128 Audio & `captions.srt` Pipeline (`build_audio.py`)
+## 4. Legacy Audio & `captions.srt` Pipeline (`build_audio.py`)
+
+The following describes the original pipeline, not a guarantee of audible music. Section 5 supersedes its fixed music level and mandatory silence.
 
 1. **Trim & Pace Beats**: Trim leading/trailing TTS silence (`-42 dB`) from `b1.wav`–`b8.wav`, resample to `48 kHz`, and apply `atempo=1.032` for brisk documentary authority without pitch distortion.
 2. **Pause-Valley Subtitle Split**: Split each beat into 2-card (`<= 42` chars/line, max 2 lines) chunks by locating the lowest RMS energy valley between `36%` and `64%` of the beat duration so subtitle transitions land on natural breath/phrase boundaries.
 3. **Dramatic `0.60s` Silence Cliffhanger**: Between Beat 7 and Beat 8 (`~85%` mark), insert a `0.64s` gap and zero **both** voice and music across the inner `0.600s` (`0.02s` cosine fade-out/in to prevent clicks), preceded by a `62 Hz` sub-drop thud (`0.42s`) at the start of Beat 8.
 4. **Two-Pass EBU R128 Loudness Normalization**: Measure `raw_mix.wav` via `ebur128=peak=true`, then run `loudnorm=I=-14.0:TP=-1.2:LRA=7:linear=true` with exact measured `I`, `TP`, `LRA`, and `thresh` values so the final muxed MP4 measures **`-14.0 LUFS`** (`±0.1 LU`).
+
+## 5. Audible Music & SFX SOP
+
+The creator approved the louder SSS-003 mix on 2026-11-08 after reporting that the two earlier mixes had inaudible music. Use [SSS-003 Music Loud](https://drive.google.com/file/d/1Lw6lvGHKXwJTXfFZXqYOJXjTnCe0c0FV/view) as a **listening reference**, not a universal loudness preset. The reproducible arrangement/mix is in [`revise_video.py`](../../../../../projects/SSS-003-Seeing-World-Through-Your-Eyes/revise_video.py); the original and intermediate mixes are not the approved reference.
+
+1. Compose or license music appropriate to the story's dark-science tone, with a recognizable midrange melody or pulse as well as a low pad; sub-bass alone may disappear on phone speakers. Add restrained, thematically matched transition SFX; do not obscure key words. Verify rights rather than assuming a revenue share.
+2. Keep separate voice, music and SFX stems. Bring the music **clearly into the mix**, not merely a faint drone, and use gentle ducking only when necessary. The approved example uses an approximately 12x score multiplier before peak normalization, versus 4.2x in the rejected mix; these are script-specific gains, **not** transferable dB or target levels. Adjust to the actual stems and creator preference.
+3. Reserve headroom, avoid clipping and inspect the **encoded final MP4** for audio stream, loudness and true peak. Integrated LUFS or the presence of an audio track alone cannot prove the music is audible, intelligible or suitable. Do not enforce silence when the creator wants continuous music.
+4. Listen to the final encode on a phone/small speaker and headphones, including a dialogue-heavy section, a transition and a pause. Check that both music and narrator are discernible and SFX are appropriate. If the agent cannot listen, explicitly say so and ask the creator to audition the file; do not claim an auditory check was completed.
+5. If the creator cannot hear the music, increase its level substantially, check its midrange content and remix from stems; do not just normalize the whole mix. Deliver the revised file and obtain explicit listening approval. Preserve prior versions for comparison.

@@ -42,28 +42,28 @@ Target **`55.0s–58.5s`** (`< 60.0s` Shorts ceiling; avoid the `30s–45s` dead
 4. **Beat 4 (`23–31s`, Blockers)**: Two physical/mathematical blockers that stopped prior work.
 5. **Beat 5 (`31–37s`, Breakthrough)**: How the algorithm solves both blockers cleanly.
 6. **Beat 6 (`37–45s`, Proof + Honest Limit)**: Reconstructions plus **one honest failure boundary** (epistemic trust).
-7. **Beat 7 (`45–49.5s`, Twist + `0.60s` Silence)**: Unexpected test leading into a **`0.60s` complete audio dropout** (`-inf dB`).
+7. **Beat 7 (`45–49.5s`, Twist + `0.60s` Silence)**: Unexpected test leading into an optional short pause when compatible with the requested music.
 8. **Beat 8 (`49.5–58s`, Payoff + Loop)**: Reveal what emerged and end on an open bridge word (`"Remember..."`) completing on Beat 1.
 
 Never speak *"Like and subscribe"* in narration. Apply `references/voluntary-conversion-playbook.md`.
 
 ### 4. Synthesize Narration (`voice-00`) & Master `-14.0 LUFS` Audio
-- Synthesize Beats 1–8 via speech generation with `voice_id="voice-00"` (`1.032x` `atempo`, `48 kHz` mono -> stereo). If a container reset ever invalidates `voice-00`, follow the voice recovery procedure in `references/sandbox-and-drive-ops.md`.
-- Score an original procedural Dark Science ambient bed (C#-minor sub-bass drone + subtle optical/sonar pulse, `-21 dB`, zero copyrighted samples -> `100%` Shorts revenue pool).
-- Run two-pass `ebur128` + `loudnorm` mastering to hit **`-14.0 LUFS` integrated (`±0.2 LU`)** and **`<= -1.0 dBTP` true peak**, with complete digital silence across the `0.60s` cliffhanger window.
+- Synthesize Beats 1–8 in the approved voice; follow voice recovery in `references/sandbox-and-drive-ops.md` if needed.
+- Follow the music & SFX SOP in `references/cinema-engine-v5-and-audio.md`: use the approved SSS-003 Music Loud reference, audible midrange melody, and tone-matched SFX.
+- Measure final loudness and true peak; check music and narration on phone speakers and headphones, and request creator listening approval. A silence beat is optional, not mandatory when continuous music is requested.
 
 ### 5. Generate & Inspect Honest-Clickbait Covers (`9:16` + `16:9`)
-Generate dark photorealistic artwork (`offer_options=false` inside multi-asset episode builds), composite bold 2–4 word gold/white/crimson typography via `make_covers.py`, and inspect both `SSS-00X_Viral_Cover_9x16.jpg` (`1080x1920`, embedded at **Frame 0**) and `SSS-00X_Viral_Thumbnail_16x9.png` (`1920x1080`) before rendering.
+Generate dark photorealistic artwork, composite 2–4 word typography via `make_covers.py`, and inspect both the 9:16 cover (Frame 0) and 16:9 thumbnail before rendering.
 
 ### 6. Validate 34–36 Non-Repeating Shots & Render Cinema Engine v5
 Follow `references/cinema-engine-v5-and-audio.md`:
 - `validate_shotlist()` must enforce **zero scene/interval overlap**, `height == 1080` on every source clip, `0.95s–2.30s` cut pacing, and **physical motion continuity** between Shot `N` (pull-back) and Shot `1` (zoom-in).
 - Place widescreen `1920x1080` clips inside the **`1036x583` supersampled stage** (`1.85x` native pixel density) and `1080x1080` clips inside the **`1036x720` stage** (`1.04x` native density) — never center-crop `9:16` from `16:9` and never run `minterpolate`.
-- Fade in the silent **Peak-End Voluntary Dossier Toast** (`ARCHIVE #00X • LIKE TO SAVE PAPER • + SUBSCRIBE FOR #00(X+1)`) for `~4.5s` right after the `0.60s` silence reveal.
+- Fade in the silent **Peak-End Voluntary Dossier Toast** (`ARCHIVE #00X • LIKE TO SAVE PAPER • + SUBSCRIBE FOR #00(X+1)`) for `~4.5s` near the payoff.
 
 ### 7. Forensic Pixel & Loudness Verification Gate
 Before claiming completion:
-1. Run `ffmpeg -filter_complex ebur128=peak=true` on the MP4 and confirm **`-14.0 LUFS`** (`±0.2`) and **`<= -1.0 dBTP`**.
+1. Run `ffmpeg -filter_complex ebur128=peak=true` on the MP4 and check loudness and true peak; avoid clipping and confirm music audibility with the creator.
 2. Extract and visually inspect **5+ full-size `1080x1920` frames** from the encoded MP4 (hook, 3D stage, square stage, silence banner, and Peak-End toast).
 
 ### 8. Deliver to Google Drive, Prune Snapshot Size, & Sync Git
