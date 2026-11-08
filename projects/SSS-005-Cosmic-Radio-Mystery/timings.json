@@ -1,0 +1,148 @@
+{
+  "total_frames_60fps": 3371,
+  "total_duration": 56.1833,
+  "silence_window": [
+    -1,
+    -1
+  ],
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0.15,
+      "end": 5.372
+    },
+    {
+      "beat": 2,
+      "start": 5.552,
+      "end": 13.648
+    },
+    {
+      "beat": 3,
+      "start": 13.828,
+      "end": 21.703
+    },
+    {
+      "beat": 4,
+      "start": 21.883,
+      "end": 30.262
+    },
+    {
+      "beat": 5,
+      "start": 30.442,
+      "end": 35.56
+    },
+    {
+      "beat": 6,
+      "start": 35.74,
+      "end": 42.931
+    },
+    {
+      "beat": 7,
+      "start": 43.111,
+      "end": 49.58
+    },
+    {
+      "beat": 8,
+      "start": 49.76,
+      "end": 55.841
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.15,
+      "end": 2.108,
+      "text": "A signal crosses the universe,",
+      "beat": 1
+    },
+    {
+      "start": 2.108,
+      "end": 5.372,
+      "text": "then vanishes in milliseconds.\nWhat could make it?",
+      "beat": 1
+    },
+    {
+      "start": 5.552,
+      "end": 8.273,
+      "text": "Astronomers call these\nfast radio bursts.",
+      "beat": 2
+    },
+    {
+      "start": 8.273,
+      "end": 13.648,
+      "text": "Brief radio flashes, some from galaxies\nmillions or billions of light-years away.",
+      "beat": 2
+    },
+    {
+      "start": 13.828,
+      "end": 16.398,
+      "text": "The first was reported in 2007.",
+      "beat": 3
+    },
+    {
+      "start": 16.398,
+      "end": 21.703,
+      "text": "CHIME has detected thousands;\na small number are seen to repeat.",
+      "beat": 3
+    },
+    {
+      "start": 21.883,
+      "end": 26.24,
+      "text": "In 2020, a burst from a magnetar\nin our galaxy gave a vital clue.",
+      "beat": 4
+    },
+    {
+      "start": 26.24,
+      "end": 30.262,
+      "text": "A magnetar is a neutron star with\nan extreme magnetic field.",
+      "beat": 4
+    },
+    {
+      "start": 30.442,
+      "end": 32.013,
+      "text": "Another burst studied in Nature",
+      "beat": 5
+    },
+    {
+      "start": 32.013,
+      "end": 35.56,
+      "text": "appears to have come from the magnetic\nregion close to a neutron star.",
+      "beat": 5
+    },
+    {
+      "start": 35.74,
+      "end": 37.897,
+      "text": "But the mystery is not solved.",
+      "beat": 6
+    },
+    {
+      "start": 37.897,
+      "end": 42.931,
+      "text": "How are these flashes generated?\nDo all share the same kind of source?",
+      "beat": 6
+    },
+    {
+      "start": 43.111,
+      "end": 46.052,
+      "text": "Some repeat. Others have only\nbeen seen once.",
+      "beat": 7
+    },
+    {
+      "start": 46.052,
+      "end": 49.58,
+      "text": "Are they different \u2014 or are we\nmissing the next flash?",
+      "beat": 7
+    },
+    {
+      "start": 49.76,
+      "end": 52.192,
+      "text": "For now, the universe\nkeeps sending clues.",
+      "beat": 8
+    },
+    {
+      "start": 52.192,
+      "end": 55.841,
+      "text": "Save this video, and subscribe\nfor the next unsolved discovery.",
+      "beat": 8
+    }
+  ]
+}

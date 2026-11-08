@@ -1,0 +1,18 @@
+SMALL SIGNAL STUDIO — SSS-005: FAST RADIO BURSTS
+
+Suggested title: The Cosmic Signal That Disappears in Milliseconds
+
+Description:
+Fast radio bursts are fleeting flashes of radio waves, and some come from galaxies far beyond the Milky Way. A 2020 radio burst from a Galactic magnetar helped connect at least some FRB-like events to magnetars. For FRB 20221022A, a 2025 Nature study found evidence of a compact emission region near a neutron star. What creates the radio flashes in detail, and whether all bursts share the same type of source, remain open questions.
+
+Main paper: Kenzie Nimmo et al., “Magnetospheric origin of a fast radio burst constrained using scintillation”, Nature 637, 48–51 (2025). https://doi.org/10.1038/s41586-024-08297-w
+Context: https://news.mit.edu/2025/astronomers-detect-all-time-brightest-fast-radio-burst-0821
+
+Simulation credit: Ralf M. Konietzka, “Ray-tracing Fast Radio Bursts Through IllustrisTNG: Animation Showing the Evolution of Dispersion Measures on the Full Sky,” 2026, https://doi.org/10.5281/zenodo.21431049, CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ ; rescaled and excerpted. Related article: R. M. Konietzka et al., “Ray-tracing Fast Radio Bursts Through IllustrisTNG: Cosmological Dispersion Measures from Redshift 0 to 5.5,” The Astrophysical Journal 1010, 122 (2026), https://doi.org/10.3847/1538-4357/ae99e8.
+
+Visuals other than the credited simulation are AI-generated artist illustrations with camera moves, not actual astronomical footage or physics-based 3D animation.
+
+#Space #Astrophysics #FastRadioBursts #Science #Shorts
+
+Suggested pinned comment (post manually):
+Some FRBs repeat and others have only been detected once. Do you think they share a common origin — and what observation might settle it? There is no confirmed universal answer yet.
