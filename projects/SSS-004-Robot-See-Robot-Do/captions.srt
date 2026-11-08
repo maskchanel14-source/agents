@@ -1,0 +1,75 @@
+1
+00:00:00,150 --> 00:00:02,008
+A robot watches a video.
+
+2
+00:00:02,008 --> 00:00:07,426
+It tries to copy a human. But can it learn
+what the camera never sees?
+
+3
+00:00:07,606 --> 00:00:09,639
+A single camera records flat images.
+
+4
+00:00:09,639 --> 00:00:13,648
+A robot needs the motion of real 3D parts,
+even when a hand hides them.
+
+5
+00:00:13,828 --> 00:00:16,831
+UC Berkeley researchers built
+Robot See Robot Do,
+
+6
+00:00:16,831 --> 00:00:20,140
+presented at the Conference on Robot
+Learning in 2024.
+
+7
+00:00:20,320 --> 00:00:22,087
+First, they scan the object.
+
+8
+00:00:22,087 --> 00:00:27,073
+From one demonstration video, the model
+estimates how the parts move over time.
+
+9
+00:00:27,253 --> 00:00:29,891
+That reconstructed motion
+guides a robot planner.
+
+10
+00:00:29,891 --> 00:00:33,768
+The robot can attempt the movement,
+even from a different starting pose.
+
+11
+00:00:33,948 --> 00:00:38,167
+But here's the catch: a bad scan, hidden
+parts, or the wrong camera angle
+
+12
+00:00:38,167 --> 00:00:41,982
+can break the reconstruction.
+One video is not a universal lesson.
+
+13
+00:00:42,162 --> 00:00:45,589
+Their experiments include hinged objects
+and a moving toy.
+
+14
+00:00:45,589 --> 00:00:47,775
+So what exactly is the robot copying?
+
+15
+00:00:47,955 --> 00:00:50,826
+Not the human hand,
+but the object's movement.
+
+16
+00:00:50,826 --> 00:00:55,631
+Save this video if you found it useful,
+and subscribe for the next discovery.

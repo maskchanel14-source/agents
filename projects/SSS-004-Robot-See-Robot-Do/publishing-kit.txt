@@ -1,0 +1,18 @@
+SMALL SIGNAL STUDIO — SSS-004: ROBOT SEE ROBOT DO
+
+Suggested title: This Robot Copies What It Sees — But There's a Catch
+
+Description:
+A UC Berkeley team showed how a robot can imitate articulated object motion from a single demonstration video — with an important extra input: a multi-view scan of the object. Their method reconstructs part motion and uses it to plan a robot's actions. It is sensitive to camera viewpoint, occlusion, scan quality, and segmentation; it is not a universal robot trained from arbitrary videos.
+
+Paper: Justin Kerr et al., Robot See Robot Do: Imitating Articulated Object Manipulation with Monocular 4D Reconstruction, CoRL 2024.
+https://openreview.net/forum?id=2LLu3gavF1
+Project and research footage: https://robot-see-robot-do.github.io/
+Project source: https://github.com/robot-see-robot-do/robot-see-robot-do.github.io
+
+#Robotics #AI #RobotLearning #Science #Shorts
+
+Suggested pinned comment (post manually):
+The surprising part: it needs a scan of the object as well as one demonstration video. Which everyday object would you test — and what would be hardest for the camera to see?
+
+BEFORE PUBLISHING: Research project footage is used for commentary and credited, but the project-page repository does not declare a footage license. Obtain permission or independently assess rights and platform requirements; public availability and attribution alone do not grant commercial reuse rights. The cover artwork is AI-generated illustration, not a photo of the experiment.

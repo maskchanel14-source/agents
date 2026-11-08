@@ -1,0 +1,148 @@
+{
+  "total_frames_60fps": 3358,
+  "total_duration": 55.9667,
+  "silence_window": [
+    -1,
+    -1
+  ],
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0.15,
+      "end": 7.426
+    },
+    {
+      "beat": 2,
+      "start": 7.606,
+      "end": 13.648
+    },
+    {
+      "beat": 3,
+      "start": 13.828,
+      "end": 20.14
+    },
+    {
+      "beat": 4,
+      "start": 20.32,
+      "end": 27.073
+    },
+    {
+      "beat": 5,
+      "start": 27.253,
+      "end": 33.768
+    },
+    {
+      "beat": 6,
+      "start": 33.948,
+      "end": 41.982
+    },
+    {
+      "beat": 7,
+      "start": 42.162,
+      "end": 47.775
+    },
+    {
+      "beat": 8,
+      "start": 47.955,
+      "end": 55.631
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.15,
+      "end": 2.008,
+      "text": "A robot watches a video.",
+      "beat": 1
+    },
+    {
+      "start": 2.008,
+      "end": 7.426,
+      "text": "It tries to copy a human. But can it learn\nwhat the camera never sees?",
+      "beat": 1
+    },
+    {
+      "start": 7.606,
+      "end": 9.639,
+      "text": "A single camera records flat images.",
+      "beat": 2
+    },
+    {
+      "start": 9.639,
+      "end": 13.648,
+      "text": "A robot needs the motion of real 3D parts,\neven when a hand hides them.",
+      "beat": 2
+    },
+    {
+      "start": 13.828,
+      "end": 16.831,
+      "text": "UC Berkeley researchers built\nRobot See Robot Do,",
+      "beat": 3
+    },
+    {
+      "start": 16.831,
+      "end": 20.14,
+      "text": "presented at the Conference on Robot\nLearning in 2024.",
+      "beat": 3
+    },
+    {
+      "start": 20.32,
+      "end": 22.087,
+      "text": "First, they scan the object.",
+      "beat": 4
+    },
+    {
+      "start": 22.087,
+      "end": 27.073,
+      "text": "From one demonstration video, the model\nestimates how the parts move over time.",
+      "beat": 4
+    },
+    {
+      "start": 27.253,
+      "end": 29.891,
+      "text": "That reconstructed motion\nguides a robot planner.",
+      "beat": 5
+    },
+    {
+      "start": 29.891,
+      "end": 33.768,
+      "text": "The robot can attempt the movement,\neven from a different starting pose.",
+      "beat": 5
+    },
+    {
+      "start": 33.948,
+      "end": 38.167,
+      "text": "But here's the catch: a bad scan, hidden\nparts, or the wrong camera angle",
+      "beat": 6
+    },
+    {
+      "start": 38.167,
+      "end": 41.982,
+      "text": "can break the reconstruction.\nOne video is not a universal lesson.",
+      "beat": 6
+    },
+    {
+      "start": 42.162,
+      "end": 45.589,
+      "text": "Their experiments include hinged objects\nand a moving toy.",
+      "beat": 7
+    },
+    {
+      "start": 45.589,
+      "end": 47.775,
+      "text": "So what exactly is the robot copying?",
+      "beat": 7
+    },
+    {
+      "start": 47.955,
+      "end": 50.826,
+      "text": "Not the human hand,\nbut the object's movement.",
+      "beat": 8
+    },
+    {
+      "start": 50.826,
+      "end": 55.631,
+      "text": "Save this video if you found it useful,\nand subscribe for the next discovery.",
+      "beat": 8
+    }
+  ]
+}
