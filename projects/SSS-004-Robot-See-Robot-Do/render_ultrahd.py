@@ -113,7 +113,7 @@ def build_hud_strips(shot_tuple, stage_y: int, stage_h: int) -> dict:
     bar_y = stage_y - 44
     d.rounded_rectangle([STAGE_X, bar_y, STAGE_X + STAGE_W, stage_y + 6], radius=12,
                         fill=(9, 14, 24, 240), outline=(52, 68, 92, 215), width=2)
-    left_tag = f"SHOT {idx:02d}/24  •  1080P STAGE"
+    left_tag = f"SHOT {idx:02d}/22  •  1080P STAGE"
     d.text((STAGE_X + 18, bar_y + 10), left_tag, font=F_TELEM, fill=(201, 162, 91, 245))
     tbb = d.textbbox((0, 0), telem_tag, font=F_TELEM)
     tw = tbb[2] - tbb[0]
@@ -259,7 +259,7 @@ def main():
     cover_bgr = cv2.imread("/home/user/deliverables/SSS-004/SSS-004_Cover_9x16.jpg")
     assert cover_bgr is not None and cover_bgr.shape == (H, W, 3), "Invalid 9:16 cover!"
 
-    out_mp4 = "/home/user/deliverables/SSS-004/SSS-004_Robot_See_Robot_Do_Revision.mp4"
+    out_mp4 = "/home/user/deliverables/SSS-004/SSS-004_Cinematic_Revision.mp4"
     audio_wav = "/tmp/sss004_build/master_mix.wav"
     ff_log = open("/tmp/sss004_build/ffmpeg_render.log", "w")
 

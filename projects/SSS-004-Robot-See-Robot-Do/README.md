@@ -4,7 +4,7 @@ An English narrated Short about Kerr et al., *Robot See Robot Do: Imitating Arti
 
 ## Footage and rights
 
-Research clips are sourced from <https://github.com/robot-see-robot-do/robot-see-robot-do.github.io>. No explicit footage license was found in that repository: clear permission or independently assess rights before publishing. AI-generated cover is an illustration, not research imagery. The original clips are not in Git. The revised cut uses 24 distinct sources: 12 separate research clips (including simulated visualizations) and 12 custom diagrams, each used once. Some research clips depict the same objects or lab; source uniqueness does not prove scene uniqueness. Original 2160p and larger square sources are downsampled or cropped to 1080p; lower-resolution research clips are not used. Unlike the 36-cut SOP template, this revision uses 24 cuts to avoid repeating footage. The physical-loop requirement was not verified.
+Research clips are sourced from <https://github.com/robot-see-robot-do/robot-see-robot-do.github.io>. No explicit footage license was found in that repository: clear permission or independently assess rights before publishing. AI-generated cover is an illustration, not research imagery. The original clips are not in Git. The cinematic revision uses 22 distinct sources: 12 separate research clips (including simulated visualizations) and 10 AI-generated illustrative stills, each used once. Some research clips depict the same objects or lab; source uniqueness does not prove scene uniqueness. Original 2160p and larger square research sources are downsampled or cropped to 1080p; lower-resolution research clips are not used. The generated stills are 1376x768 and downsampled into the 1036-pixel display stage. This revision uses 22 cuts instead of the 36-cut SOP template to reduce repetition. The physical-loop requirement was not verified.
 
 File mapping under `data/` in the source repository, to `.cache/library/footage/rsrd/clipNN.mp4`:
 
@@ -29,7 +29,7 @@ File mapping under `data/` in the source repository, to `.cache/library/footage/
 17 scissors_posevary.mp4
 ```
 
-The `diagram00` through `diagram11` visuals are clearly labeled explanatory illustrations, not research footage; regenerate them with `python3 projects/SSS-004-Robot-See-Robot-Do/make_diagrams.py`.
+The prior `diagram00` through `diagram11` illustrations are no longer used. The ten new cinematic images are AI-generated illustrations, not research footage: an on-screen label identifies them. `make_cinematic_visuals.py` adds a camera pan/zoom to each still; this is **not** true 3D geometry or object animation. Input stills live in `/home/user/sss004/visuals/` and are separately archived on Drive; they are not committed to Git.
 
 ## Production
 

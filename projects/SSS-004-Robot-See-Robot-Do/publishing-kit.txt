@@ -15,4 +15,4 @@ Project source: https://github.com/robot-see-robot-do/robot-see-robot-do.github.
 Suggested pinned comment (post manually):
 The surprising part: it needs a scan of the object as well as one demonstration video. Which everyday object would you test — and what would be hardest for the camera to see?
 
-BEFORE PUBLISHING: Research project footage is used for commentary and credited, but the project-page repository does not declare a footage license. Obtain permission or independently assess rights and platform requirements; public availability and attribution alone do not grant commercial reuse rights. The cover artwork is AI-generated illustration, not a photo of the experiment.
+BEFORE PUBLISHING: Research project footage is used for commentary and credited, but the project-page repository does not declare a footage license. Obtain permission or independently assess rights and platform requirements; public availability and attribution alone do not grant commercial reuse rights. The cover artwork and the on-screen illustrations labeled AI are generated artwork with camera moves, not photos or video of the experiment.
