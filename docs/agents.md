@@ -231,6 +231,7 @@ Reference for 202 local AI agents organized by category. The model column lists 
 | [context-manager](../plugins/agent-orchestration/agents/context-manager.md)             | haiku  | Multi-agent context management                          |
 | [pptx-deck-creation-builder](../plugins/pptx-deck-creation/agents/pptx-deck-creation-builder.md) | inherit | Production-ready editable PPTX decks from briefs or reference decks |
 | [photo-realism-director](../plugins/photo-realism/agents/photo-realism-director.md) | inherit | Directs image generation toward photographic realism and verifies pixels before claiming success |
+| [small-signal-director](../plugins/small-signal-studio/agents/small-signal-director.md) | inherit | Directs Dark Science & Frontier Tech YouTube Shorts from primary paper scouting to verified 1080p60 Cinema Engine v5 master and Google Drive archival |
 
 ## Model Configuration
 
@@ -244,7 +245,7 @@ Source agents specify Claude Code model aliases. Other tools use the [adapter mo
 | Opus    | 54          | Critical architecture, security, code review, production coding |
 | Sonnet  | 71          | Complex tasks, support with intelligence                        |
 | Haiku   | 24          | Fast operational tasks                                          |
-| Inherit | 51          | Complex tasks where the user chooses the model at runtime       |
+| Inherit | 52          | Complex tasks where the user chooses the model at runtime       |
 
 ### Model Selection Criteria
 

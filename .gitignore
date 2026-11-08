@@ -106,3 +106,8 @@ projects/SHORTS-2026-024-Binance-63B/stills/
 media-production/public/shorts024/scenes/
 projects/SHORTS-2026-024-Binance-63B/audio/_tts/
 projects/SHORTS-2026-024-Binance-63B/audio/_tmp3/
+
+# SSS-001 (Small Signal Studio): keep reproducible code, manifest, captions, cover, and docs in Git;
+# large source footage and rendered Ultra-HD MP4 binaries are delivered in Google Drive.
+.cache/
+projects/SSS-001-Ghost-Walls-Robot-Parkour/out/

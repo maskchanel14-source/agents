@@ -326,11 +326,12 @@ After installation, configure a Shopify Dev Dashboard app and credentials outsid
 | ---------------------------- | ---------------------------------- | ------------------------------------------ |
 | **accessibility-compliance** | WCAG auditing and inclusive design | `/plugin install accessibility-compliance` |
 
-### 🎨 Creative (4 plugins)
+### 🎨 Creative (5 plugins)
 
 | Plugin               | Description                                                              | Install                            |
 | -------------------- | ------------------------------------------------------------------------ | ---------------------------------- |
 | **photo-realism** | Make generated images read as real photographs: device-and-shooting-logic prompting, failure-mode substitutions, versioned visual briefs | `/plugin install photo-realism` |
+| **small-signal-studio** | Dark Science & Frontier Tech YouTube Shorts pipeline: native-1080p Cinema Engine v5, -14.0 LUFS audio, covers, Drive sync, and voluntary conversion | `/plugin install small-signal-studio` |
 | **meigen-ai-design** | AI image generation with creative workflow orchestration and prompt MCPs | `/plugin install meigen-ai-design` |
 | **brand-landingpage** | Brand discovery through deployment-ready landing page HTML              | `/plugin install brand-landingpage` |
 | **pptx-deck-creation** | Production-ready editable PowerPoint decks via spec-first, coordinate-explicit workflow | `/plugin install pptx-deck-creation` |

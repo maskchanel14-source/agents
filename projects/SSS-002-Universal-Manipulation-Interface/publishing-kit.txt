@@ -1,0 +1,58 @@
+================================================================================
+SMALL SIGNAL STUDIO — EPISODE #002 (SSS-002) PUBLISHING KIT
+================================================================================
+
+EPISODE ID:       SSS-002
+TOPIC:            Universal Manipulation Interface (UMI) — Teaching Robots Human
+                  Dexterity in the Wild with a $73 3D-Printed Claw & GoPro
+MASTER FILE:      SSS-002_Universal_Manipulation_Interface_UltraHD_1080p60.mp4
+SHORTS COVER:     SSS-002_Viral_Cover_9x16.jpg (1080x1920, also embedded Frame 0)
+YT THUMBNAIL:     SSS-002_Viral_Thumbnail_16x9.png (1920x1080)
+VOICEOVER TRACK:  SSS-002_Voiceover_Only.mp3 (voice-00, 48 kHz stereo)
+CAPTIONS:         captions.srt (16 frame-synced 2-line cards)
+SPECS:            1080x1920 (9:16) | 60.00 fps | H.264 High@L4.2 | 58.08s
+                  AAC 256 kbps 48 kHz Stereo | -14.0 LUFS (-1.1 dBTP)
+                  36 non-repeating native-1080p shots | 0 upscaled clips
+
+--------------------------------------------------------------------------------
+1. YOUTUBE SHORTS TITLES (20-40 CHARS, FRONT-LOADED, ZERO HASHTAGS IN TITLE)
+--------------------------------------------------------------------------------
+Primary (34 chars):    A $73 Claw Taught This Robot Hands
+Alternate A (38 chars): How a $73 GoPro Claw Beat $40K Robots
+Alternate B (36 chars): 1 GoPro + 2 Mirrors = Robot Hands?!
+
+--------------------------------------------------------------------------------
+2. YOUTUBE DESCRIPTION (FIRST 2 LINES HOOK + CITATIONS + 4 HASHTAGS)
+--------------------------------------------------------------------------------
+Nobody programmed this industrial robot arm to throw apples or scrub mustard off plates. It learned directly from a $73 3D-printed plastic claw strapped to a GoPro.
+
+Normally, teaching a robot arm requires bolting a $40,000 machine to a single lab table and inching it around with a joystick at 35 demos per hour. Researchers at Stanford, Columbia, MIT, and Toyota Research Institute flipped the pipeline with UMI (Universal Manipulation Interface):
+
+• Hardware: $73 3D-printed parallel-jaw claw (780 g, 80 mm continuous finger stroke) + $298 GoPro & mount ($371 total).
+• Implicit Stereo Vision: Two tiny angled side mirrors beside a 155-degree GoPro fisheye lens split one camera into virtual stereo eyes for 3D depth, while the built-in IMU gyroscope tracks rapid wrist snaps via visual-inertial SLAM.
+• Speed: 111 demonstrations per hour in real kitchens, dorms, and outdoor cafes (3.2x faster than SpaceMouse teleoperation) with zero robots present during data collection.
+• Zero-Shot Transfer: Mounting the exact same claw onto different arms (6-DoF UR5e and 7-DoF Franka) with millisecond inference-time latency matching unlocks dynamic mid-air tossing, bimanual sweater folding, 7-step dishwashing (even when humans squirt extra mustard mid-wash or turn off the lights), and 70% zero-shot success in unseen environments—including a flowing outdoor water fountain.
+
+Primary Source:
+Cheng Chi*, Zhenjia Xu*, Chuer Pan, Eric Cousineau, Benjamin Burchfiel, Siyuan Feng, Russ Tedrake, and Shuran Song.
+"Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots."
+Robotics: Science and Systems (RSS) 2024 — Best Systems Paper Award Finalist.
+Paper: https://arxiv.org/abs/2402.10329
+Project: https://umi-gripper.github.io/
+
+#robotics #engineering #stanford #mit
+
+--------------------------------------------------------------------------------
+3. YOUTUBE TAGS (<500 CHARS)
+--------------------------------------------------------------------------------
+universal manipulation interface, umi robot gripper, stanford robotics, mit robotics, columbia robotics, gopro robot training, diffusion policy, shuran song, russ tedrake, cheng chi, robot learning, zero shot robot, 3d printed robot gripper, small signal studio
+
+--------------------------------------------------------------------------------
+4. PINNED COMMENT (ENGAGEMENT HOOK)
+--------------------------------------------------------------------------------
+The wildest detail in the paper (arXiv:2402.10329): nobody wrote an "if dirty, scrub again" rule. Because UMI's vision policy only moves to the drying-rack step once the porcelain visually looks clean, squirting extra mustard mid-wash automatically makes the robot keep scrubbing. What household chore would you train with a $73 claw first?
+
+--------------------------------------------------------------------------------
+5. FULL SPOKEN SCRIPT (121 WORDS — VOICE-00)
+--------------------------------------------------------------------------------
+Nobody trained this factory robot to throw. It learned from a seventy-three-dollar plastic claw and a GoPro. Normally, teaching a robot arm means bolting a forty-thousand-dollar machine to one lab table. Move it to a kitchen, and it fails. So Stanford, Columbia, and MIT engineers ditched the robot during training, carrying this 3D-printed claw anywhere. Beside its fisheye lens, two tiny mirrors create stereo 3D depth, while the GoPro's gyroscope tracks fast wrist snaps. Mount that claw on any robot arm, match millisecond lag, and skills transfer zero-shot. Two arms fold a sweater. One hurls apples into bins. Another turns on a tap to scrub ketchup. When researchers squirt extra mustard mid-wash... [0.60s silence] Nobody coded a retry, yet it scrubs until the plate shines, works in blackouts, and serves espresso on a water fountain. Remember...

@@ -939,6 +939,18 @@
       "license": "MIT"
     },
     {
+      "name": "small-signal-studio",
+      "source": "./plugins/small-signal-studio",
+      "version": "1.0.0",
+      "description": "End-to-end Dark Science & Frontier Technology YouTube Shorts production system: peer-reviewed GitHub paper scouting, native-1080p Cinema Engine v5 rendering, -14.0 LUFS EBU R128 mastering, honest-clickbait covers, Google Drive archival, and non-begging voluntary Like/Subscribe psychology.",
+      "author": {
+        "name": "maskchanel14-source",
+        "email": ""
+      },
+      "license": "MIT",
+      "category": "creative"
+    },
+    {
       "name": "social-publishing",
       "source": "./plugins/social-publishing",
       "version": "1.0.0",

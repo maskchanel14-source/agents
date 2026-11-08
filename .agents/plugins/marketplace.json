@@ -613,6 +613,19 @@
       "category": "Coding"
     },
     {
+      "name": "small-signal-studio",
+      "description": "End-to-end Dark Science & Frontier Technology YouTube Shorts production system: peer-reviewed GitHub paper scouting, native-1080p Cinema Engine v5 rendering, -14.0 LUFS EBU R128 mastering, honest-clickbait covers, Google Drive archival, and non-begging voluntary Like/Subscribe psychology.",
+      "source": {
+        "source": "local",
+        "path": "./plugins/small-signal-studio"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "creative"
+    },
+    {
       "name": "social-publishing",
       "description": "Schedule and publish social media posts across 13 platforms (X, LinkedIn Profile + Page, Instagram Business + Standalone, Facebook Pages, TikTok, Discord, Telegram, YouTube, Reddit, WordPress, Pinterest) via SocialClaw \u2014 one workspace API key covers everything",
       "source": {

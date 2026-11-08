@@ -2,7 +2,7 @@
 
 <a id="claude-agents--multi-harness-agentic-plugin-marketplace"></a>
 
-The repository provides 95 plugins (93 local + 2 external), 202 agents, 187 skills, and 107 commands for seven coding tools: Claude Code, OpenAI Codex CLI, Cursor, OpenCode, Google Antigravity CLI (`agy`), GitHub Copilot, and Pi. Shared source files use the Claude Code format, and adapters provide the formats used by other tools. External entries have their own tool support.
+The repository provides 96 plugins (94 local + 2 external), 203 agents, 188 skills, and 108 commands for seven coding tools: Claude Code, OpenAI Codex CLI, Cursor, OpenCode, Google Antigravity CLI (`agy`), GitHub Copilot, and Pi. Shared source files use the Claude Code format, and adapters provide the formats used by other tools. External entries have their own tool support.
 
 AGENTS.md is the canonical context file. Codex, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi read it directly. Claude Code reads it via `CLAUDE.md`, a symlink to this file.
 
@@ -12,8 +12,8 @@ AGENTS.md is the canonical context file. Codex, Cursor, OpenCode, Antigravity CL
 
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** — top-level architectural overview (adapter framework, source-of-truth invariant, capability matrix summary)
 - **[docs/architecture.md](docs/architecture.md)** — detailed design principles
-- **[docs/plugins.md](docs/plugins.md)** — full plugin catalog (95 plugins by category)
-- **[docs/agents.md](docs/agents.md)** — agent reference (202 agents, model tiers)
+- **[docs/plugins.md](docs/plugins.md)** — full plugin catalog (96 plugins by category)
+- **[docs/agents.md](docs/agents.md)** — agent reference (203 agents, model tiers)
 - **[docs/agent-skills.md](docs/agent-skills.md)** — skill reference (progressive disclosure model)
 - **[docs/usage.md](docs/usage.md)** — commands, workflows, examples
 - **[docs/authoring.md](docs/authoring.md)** — portable-content style guide (read before adding plugins)
@@ -22,6 +22,7 @@ AGENTS.md is the canonical context file. Codex, Cursor, OpenCode, Antigravity CL
 - **[docs/round-trip-results.md](docs/round-trip-results.md)** — real-CLI verification recipes
 - **[docs/mlops.md](docs/mlops.md)** — MLOps lab pipeline (W&B, Hugging Face, model release)
 - **[plugins/photo-realism](plugins/photo-realism/README.md)** — photographic realism for generated images: device/shooting-logic prompting, the damage-prior finding, identity locking across generations, versioned visual briefs, prompt reconstruction from reference images
+- **[docs/small-signal-studio.md](docs/small-signal-studio.md)** & **[plugins/small-signal-studio](plugins/small-signal-studio/README.md)** — Small Signal Studio Dark Science & Frontier Tech YouTube Shorts pipeline (`1080p60` Cinema Engine v5, `scripts/bootstrap_media_env.sh`, `-14.0 LUFS` audio, Google Drive sync, voluntary Like/Subscribe psychology)
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** — how to contribute
 
 ## Working in this repo
@@ -61,7 +62,7 @@ Small native-install registries are committed for tools that support that route.
 > **WAJIB — ANTI-MALAS:** Sebelum jawab apapun, kamu WAJIB: 1) Jika `skills-lock.json` ada tapi `.agents/skills/` kosong, jalankan `npx skills experimental_install` dulu untuk restore 256 paket skill berbobot; 2) Pilih skills otomatis: jalankan `python3 tools/skill_router.py plan "<deskripsi tugas>"`. Output berisi skill per kapabilitas (riset, berpikir mendalam, brainstorming, perencanaan, implementasi, debugging, verifikasi) dan `gaps` jika tidak ada skill domain khusus. Untuk tugas domain spesifik, tambahkan `search "<istilah domain>"`. Jangan load semua skill;
 3) Load `SKILL.md` yang terpilih dan ikuti step-nya persis. Kalau request masih ambigu, WAJIB pakai `interview-me` atau `brainstorming` dulu. Cukup bilang "gunakan skills yang kamu butuhkan" maka kamu harus buktikan sudah cek skills.
 
-187 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
+188 skills under `plugins/*/skills/<n>/SKILL.md` — discoverable by every harness:
 
 - **Claude Code**: auto-discovery via Anthropic's SKILL.md spec
 - **Codex CLI**: mirrored to `.codex/skills/<plugin>__<skill>/` (8 KB body cap; detail in `references/details.md`)
@@ -74,7 +75,7 @@ Small native-install registries are committed for tools that support that route.
 
 ## Subagents (cross-harness)
 
-202 subagents under `plugins/*/agents/<name>.md`. Per-harness transpilation:
+203 subagents under `plugins/*/agents/<name>.md`. Per-harness transpilation:
 
 - **Codex**: `.codex/agents/<plugin>__<agent>.toml` (drop `tools:`, map model alias to the GPT-5.x family, infer `sandbox_mode`)
 - **OpenCode**: `.opencode/agents/<plugin>__<agent>.md` with `mode: subagent` + `permission:` block (locked agents — those with source `tools: []` — get deny-everything except base `skill`/`task`)

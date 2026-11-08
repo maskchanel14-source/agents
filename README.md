@@ -5,7 +5,7 @@
 
 Use one collection of plugins, agents, skills, and commands across Claude Code, OpenAI Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi. A harness is the coding tool that loads and runs the components. Plugins cover Python and JavaScript development, code review, testing, infrastructure, security, and other work.
 
-The catalog contains 95 plugins, including 93 local plugins and 2 external entries. The local source contains 202 agents, 187 skills, and 107 commands. The components share a Markdown source, with installation and capabilities adapted to each harness.
+The catalog contains 96 plugins, including 94 local plugins and 2 external entries. The local source contains 203 agents, 188 skills, and 108 commands. The components share a Markdown source, with installation and capabilities adapted to each harness.
 
 ## Multi-harness support
 
@@ -37,7 +37,7 @@ Choose a plugin for the work you do:
 | [security-scanning](plugins/security-scanning/) | Security review, dependency checks, and code scanning |
 | [shopify-product-management](plugins/shopify-product-management/) | Chat-controlled Shopify catalog, inventory, media, and publication operations |
 
-See the [plugin catalog](docs/plugins.md) for all 95 plugins and the [usage guide](docs/usage.md) for commands and examples.
+See the [plugin catalog](docs/plugins.md) for all 96 plugins and the [usage guide](docs/usage.md) for commands and examples.
 
 ### Claude Code
 

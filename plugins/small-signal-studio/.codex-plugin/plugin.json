@@ -1,0 +1,21 @@
+{
+  "name": "small-signal-studio",
+  "version": "1.0.0",
+  "description": "End-to-end Dark Science & Frontier Technology YouTube Shorts production system: peer-reviewed GitHub paper scouting, native-1080p Cinema Engine v5 rendering, -14.0 LUFS EBU R128 mastering, honest-clickbait covers, Google Drive archival, and non-begging voluntary Like/Subscribe psychology.",
+  "skills": "./skills/",
+  "author": {
+    "name": "maskchanel14-source",
+    "url": "https://github.com/maskchanel14-source"
+  },
+  "homepage": "https://github.com/wshobson/agents/tree/main/plugins/small-signal-studio",
+  "repository": "https://github.com/wshobson/agents",
+  "license": "MIT",
+  "keywords": [
+    "dark-science-shorts"
+  ],
+  "interface": {
+    "displayName": "Small Signal Studio",
+    "shortDescription": "End-to-end Dark Science & Frontier Technology YouTube Shorts production system: peer-reviewed GitHub paper scouting\u2026",
+    "category": "creative"
+  }
+}
