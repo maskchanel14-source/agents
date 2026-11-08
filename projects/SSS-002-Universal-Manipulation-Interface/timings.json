@@ -1,0 +1,156 @@
+{
+  "total_duration": 58.0833,
+  "total_frames_60fps": 3485,
+  "silence_window": [
+    47.98,
+    48.58
+  ],
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0.22,
+      "end": 7.006,
+      "duration": 6.787
+    },
+    {
+      "beat": 2,
+      "start": 7.167,
+      "end": 15.075,
+      "duration": 7.908
+    },
+    {
+      "beat": 3,
+      "start": 15.235,
+      "end": 22.843,
+      "duration": 7.608
+    },
+    {
+      "beat": 4,
+      "start": 23.003,
+      "end": 31.72,
+      "duration": 8.717
+    },
+    {
+      "beat": 5,
+      "start": 31.88,
+      "end": 37.803,
+      "duration": 5.923
+    },
+    {
+      "beat": 6,
+      "start": 37.963,
+      "end": 44.886,
+      "duration": 6.923
+    },
+    {
+      "beat": 7,
+      "start": 45.036,
+      "end": 47.96,
+      "duration": 2.924
+    },
+    {
+      "beat": 8,
+      "start": 48.6,
+      "end": 57.727,
+      "duration": 9.127
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.22,
+      "end": 3.09,
+      "text": "Nobody trained this factory robot\nto throw.",
+      "beat": 1
+    },
+    {
+      "start": 3.09,
+      "end": 7.006,
+      "text": "It learned from a $73 plastic claw\nand a GoPro.",
+      "beat": 1
+    },
+    {
+      "start": 7.167,
+      "end": 12.947,
+      "text": "Normally, teaching a robot arm means\nbolting a $40,000 machine to one table.",
+      "beat": 2
+    },
+    {
+      "start": 12.947,
+      "end": 15.075,
+      "text": "Move it to a real kitchen,\nand it fails.",
+      "beat": 2
+    },
+    {
+      "start": 15.235,
+      "end": 20.235,
+      "text": "So Stanford, Columbia & MIT engineers\nditched the robot during training,",
+      "beat": 3
+    },
+    {
+      "start": 20.235,
+      "end": 22.843,
+      "text": "carrying this 3D-printed claw\nanywhere.",
+      "beat": 3
+    },
+    {
+      "start": 23.003,
+      "end": 28.333,
+      "text": "Beside its fisheye lens, two tiny mirrors\ncreate stereo 3D depth,",
+      "beat": 4
+    },
+    {
+      "start": 28.333,
+      "end": 31.72,
+      "text": "while the GoPro's gyroscope tracks\nfast wrist snaps.",
+      "beat": 4
+    },
+    {
+      "start": 31.88,
+      "end": 35.87,
+      "text": "Mount that claw on any robot arm,\nmatch millisecond lag,",
+      "beat": 5
+    },
+    {
+      "start": 35.87,
+      "end": 37.803,
+      "text": "and skills transfer zero-shot.",
+      "beat": 5
+    },
+    {
+      "start": 37.963,
+      "end": 42.333,
+      "text": "Two arms fold a sweater.\nOne hurls apples into bins.",
+      "beat": 6
+    },
+    {
+      "start": 42.333,
+      "end": 44.886,
+      "text": "Another turns on a tap\nto scrub ketchup.",
+      "beat": 6
+    },
+    {
+      "start": 45.036,
+      "end": 47.96,
+      "text": "When researchers squirt extra mustard\nmid-wash...",
+      "beat": 7
+    },
+    {
+      "start": 48.6,
+      "end": 53.17,
+      "text": "Nobody coded a retry, yet it scrubs\nuntil the plate shines,",
+      "beat": 8
+    },
+    {
+      "start": 53.17,
+      "end": 57.05,
+      "text": "works in blackouts, and serves espresso\non a water fountain.",
+      "beat": 8
+    },
+    {
+      "start": 57.05,
+      "end": 57.727,
+      "text": "Remember...",
+      "beat": 8
+    }
+  ]
+}
