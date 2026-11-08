@@ -40,7 +40,7 @@ score=np.zeros((n,2),np.float32)
 for j,chord in enumerate(chords):
  env=np.zeros(n,np.float32)
  for k in range(j,int(dur/8)+1,4):
-  a=int(k*8*sr);z=min(n,int((k+8.6)*sr));q=np.arange(z-a,dtype=np.float32)/sr
+  a=int(k*8*sr);z=min(n,int((k*8+8.6)*sr));q=np.arange(z-a,dtype=np.float32)/sr
   env[a:z]=np.maximum(env[a:z],np.minimum(1,q)*np.minimum(1,(z-a)/sr-q))
  for h,f in enumerate(chord):
   score[:,0] += (.035/(h+1)**.5)*env*np.sin(2*np.pi*f*t+h*.6)
@@ -56,12 +56,13 @@ for beat in beats[1:]:
  hit=.027*np.exp(-q*8)*np.sin(2*np.pi*(72*q-28*q*q));sfx[a:z,0]+=hit;sfx[a:z,1]+=hit*.88
 fade=np.minimum(1,t/.8)*np.minimum(1,np.maximum(0,(dur-t)/.5));score*=fade[:,None]
 window=int(.12*sr); padded=np.pad(np.abs(voice),(window//2,window-window//2),mode='edge'); c=np.concatenate(([0.0],np.cumsum(padded,dtype=np.float64)));activity=((c[window:]-c[:-window])/window)[:n]
-score*=((1-.10*np.clip(activity/.08,0,1))*12)[:,None];sfx*=12
+score*=((1-.10*np.clip(activity/.08,0,1))*5.0)[:,None];sfx*=4
 mix=np.stack([voice,voice],axis=1)*.78+score+sfx
 peak=np.max(np.abs(mix)); scale=min(1,.86/peak);mix*=scale
 def write(path,x,ch):
  with wave.open(str(path),'wb') as w: w.setnchannels(ch);w.setsampwidth(2);w.setframerate(sr);w.writeframes((np.clip(x,-1,1)*32767).astype('<i2').tobytes())
 write(work/'master_mix.wav',mix,2);write(work/'voice.wav',voice,1);write(work/'music.wav',score*scale,2);write(work/'sfx.wav',sfx*scale,2)
+subprocess.run([ff,'-y','-v','error','-i',str(work/'music.wav'),'-c:a','libmp3lame','-b:a','192k',str(out/'SSS-004_Music_Only.mp3')],check=True)
 subprocess.run([ff,'-y','-v','error','-i',str(work/'voice.wav'),'-c:a','libmp3lame','-b:a','192k',str(out/'SSS-004_Voiceover.mp3')],check=True)
 def timestamp(t):
  ms=round(t*1000);return f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}'
