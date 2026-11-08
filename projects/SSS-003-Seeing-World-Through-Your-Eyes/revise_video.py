@@ -79,8 +79,8 @@ window=int(.12*SR)
 padded=np.pad(np.abs(voice), (window//2, window-window//2), mode='edge')
 cumulative=np.concatenate(([0.0], np.cumsum(padded, dtype=np.float64)))
 activity=((cumulative[window:]-cumulative[:-window])/window)[:N]
-duck=1-.22*np.clip(activity/.08,0,1)
-score*=duck[:,None] * 4.2
+duck=1-.10*np.clip(activity/.08,0,1)
+score*=duck[:,None] * 12.0
 mix=np.stack([voice,voice],axis=1)*.78 + score
 # Keep headroom rather than hard-clipping peaks; final limiter follows muxing.
 peak=np.max(np.abs(mix))
@@ -116,7 +116,7 @@ entries.append(f"file '{(tmp/'cap8_1.png').resolve()}'")
 (out/'SSS-003_Revised_Captions.srt').write_text('\n'.join(srt))
 output=out/'SSS-003_Revised_Dark_Science.mp4'
 if os.environ.get('SSS_AUDIO_REMIX_ONLY'):
-    output=out/'SSS-003_Music_Forward.mp4'
+    output=out/'SSS-003_Music_Loud.mp4'
     subprocess.run([FFMPEG,'-y','-v','warning','-i',original,'-i',str(tmp/'mix.wav'),
                     '-filter_complex','[1:a]alimiter=limit=0.88:level=0[a]',
                     '-map','0:v:0','-map','[a]','-c:v','copy','-c:a','aac','-b:a','256k',
