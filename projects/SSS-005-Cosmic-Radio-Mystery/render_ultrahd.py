@@ -167,42 +167,64 @@ def render_voluntary_dossier_toast() -> tuple:
     return rgba_to_u16(img)
 
 def render_caption_box(cap_text: str, progress: float, is_alert: bool = False) -> tuple:
-    strip_h = 210
-    img = Image.new("RGBA", (W, strip_h), (0, 0, 0, 0))
+    """High-contrast, responsive two-line card with approximate word emphasis."""
+    img = Image.new("RGBA", (W, 210), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    bx0, bx1 = 40, W - 40
-    by0, by1 = 8, 196
-    outline_col = (235, 59, 90, 235) if is_alert else (201, 162, 91, 210)
-    d.rounded_rectangle([bx0, by0, bx1, by1], radius=22, fill=(8, 12, 22, 234), outline=outline_col, width=2)
-
     lines = cap_text.split("\n")
-    line_h = 54
-    total_th = len(lines) * line_h
-    start_y = by0 + (by1 - by0 - 12 - total_th) // 2
-
-    for l_i, line in enumerate(lines):
-        words = line.split(" ")
-        space_w = d.textbbox((0, 0), " ", font=F_CAP)[2]
-        w_widths = [d.textbbox((0, 0), w, font=F_CAP)[2] for w in words]
-        line_w = sum(w_widths) + space_w * max(0, len(words) - 1)
-        cur_x = (W - line_w) // 2
-        cur_y = start_y + l_i * line_h
-        for w_str, ww in zip(words, w_widths):
-            clean = w_str.strip(",.?!:")
-            if w_str in HIGHLIGHT_TOKENS or clean in ("7.8", "mm", "cornea", "3D", "2D", "iris", "Miley", "Cyrus", "Lady", "Gaga", "phantom", "silhouettes", "Remember"):
-                w_col = (255, 216, 68, 255) if clean in ("7.8", "mm", "Miley", "Cyrus", "Lady", "Gaga", "Remember") else (86, 226, 255, 255)
+    size = 48
+    font = fnt(FONT_BOLD, size)
+    while size > 36 and max(d.textlength(line, font=font) for line in lines) > 890:
+        size -= 1
+        font = fnt(FONT_BOLD, size)
+    widths = [d.textlength(line, font=font) for line in lines]
+    box_w = int(min(1000, max(550, max(widths) + 110)))
+    x0 = (W-box_w)//2; x1 = x0+box_w
+    d.rounded_rectangle((x0+4,13,x1+4,199),radius=24,fill=(0,0,0,100))
+    d.rounded_rectangle((x0,7,x1,193),radius=24,fill=(7,14,25,242),outline=(72,162,177,225),width=2)
+    d.rounded_rectangle((x0+22,26,x0+29,171),radius=3,fill=(82,220,236,255))
+    words_total = sum(len(line.split()) for line in lines)
+    active = min(words_total-1, max(0, int(progress * words_total)))
+    word_index=0
+    line_height=56
+    y0 = 58 if len(lines)==2 else 83
+    for j,line in enumerate(lines):
+        words=line.split(); gap=d.textlength(' ',font=font)
+        widths_words=[d.textlength(word,font=font) for word in words]
+        full=sum(widths_words)+gap*(len(words)-1)
+        x=(W-full)/2; y=y0+j*line_height
+        for word,ww in zip(words,widths_words):
+            if word_index == active:
+                d.rounded_rectangle((x-7,y-3,x+ww+7,y+50),radius=9,fill=(248,208,86,255))
+                color=(12,18,26,255)
             else:
-                w_col = (248, 250, 252, 255)
-            d.text((cur_x + 2, cur_y + 3), w_str, font=F_CAP, fill=(0, 0, 0, 220))
-            d.text((cur_x, cur_y), w_str, font=F_CAP, fill=w_col)
-            cur_x += ww + space_w
-
-    p_x0, p_x1 = bx0 + 24, bx1 - 24
-    p_w = int((p_x1 - p_x0) * np.clip(progress, 0.02, 1.0))
-    d.rounded_rectangle([p_x0, by1 - 12, p_x1, by1 - 6], radius=3, fill=(38, 48, 66, 200))
-    bar_col = (235, 59, 90, 255) if is_alert else (201, 162, 91, 255)
-    d.rounded_rectangle([p_x0, by1 - 12, p_x0 + max(8, p_w), by1 - 6], radius=3, fill=bar_col)
+                color=(247,250,252,255)
+            d.text((x,y),word,font=font,fill=color,stroke_width=0)
+            x += ww+gap;word_index+=1
     return rgba_to_u16(img)
+
+# Artistic pseudo-depth: small smooth differential displacement and drifting
+# particles over AI stills. This does not represent actual astronomical motion.
+_motion_grids = {}
+def add_cosmic_motion(frame: np.ndarray, t: float, progress: float, shot_id: int) -> np.ndarray:
+    h,w=frame.shape[:2]; key=(w,h)
+    if key not in _motion_grids:
+        yy,xx=np.mgrid[0:h,0:w].astype(np.float32)
+        depth=np.exp(-(((xx-w*.52)/(w*.34))**2+((yy-h*.50)/(h*.40))**2)).astype(np.float32)
+        _motion_grids[key]=(xx,yy,depth)
+    xx,yy,depth=_motion_grids[key]
+    dx=np.float32(5.0*np.sin(progress*np.pi*1.3 + shot_id*.43))
+    dy=np.float32(3.0*np.sin(progress*np.pi*1.1 + shot_id*.71))
+    warped=cv2.remap(frame,xx+depth*dx,yy+depth*dy,cv2.INTER_LINEAR,borderMode=cv2.BORDER_REFLECT_101)
+    # Tiny low-opacity particles move continuously, without fast flashes.
+    overlay=warped.copy()
+    rng=np.random.default_rng(shot_id)
+    for _ in range(20):
+        bx=float(rng.uniform(.04,.96))*w;by=float(rng.uniform(.05,.95))*h
+        velocity=float(rng.uniform(3.,9.));phase=float(rng.uniform(0.,6.28))
+        px=int((bx+velocity*progress+2*np.sin(t*.5+phase))%w)
+        py=int((by-velocity*.35*progress)%h)
+        cv2.circle(overlay,(px,py),1,(160,210,235),-1,cv2.LINE_AA)
+    return cv2.addWeighted(overlay,.22,warped,.78,0)
 
 def render_silence_banner() -> tuple:
     strip_h = 210
@@ -259,7 +281,7 @@ def main():
     cover_bgr = cv2.imread("/home/user/deliverables/SSS-005/SSS-005_Cover_9x16.jpg")
     assert cover_bgr is not None and cover_bgr.shape == (H, W, 3), "Invalid 9:16 cover!"
 
-    out_mp4 = "/home/user/deliverables/SSS-005/SSS-005_Fast_Radio_Burst.mp4"
+    out_mp4 = "/home/user/deliverables/SSS-005/SSS-005_Smooth_Motion.mp4"
     audio_wav = "/tmp/sss005_build/master_mix.wav"
     ff_log = open("/tmp/sss005_build/ffmpeg_render.log", "w")
 
@@ -339,6 +361,8 @@ def main():
 
         stage_bgr = cv2.resize(crop, (STAGE_W, stage_h), interpolation=cv2.INTER_AREA)
         stage_bgr = unsharp_luma(stage_bgr, sigma=0.88, amount=0.25)
+        if rel.startswith("scene"):
+            stage_bgr = add_cosmic_motion(stage_bgr, t, prog_shot, cur_shot_idx)
 
         tiny = cv2.resize(stage_bgr, (27, 48), interpolation=cv2.INTER_AREA)
         amb = cv2.GaussianBlur(tiny, (15, 15), 6.0)
@@ -370,12 +394,12 @@ def main():
                     break
             if active_c is not None:
                 c_prog = (t - active_c["start"]) / max(0.1, active_c["end"] - active_c["start"])
-                bucket = int(np.clip(round(c_prog * 20), 0, 20))
+                bucket = int(np.clip(round(c_prog * 80), 0, 80))
                 key = (active_idx, bucket)
                 if key not in cap_cache:
-                    if len(cap_cache) > 45:
+                    if len(cap_cache) > 180:
                         cap_cache.clear()
-                    cap_cache[key] = render_caption_box(active_c["text"], bucket / 20.0, is_alert=(active_c["beat"] == 7))
+                    cap_cache[key] = render_caption_box(active_c["text"], bucket / 80.0, is_alert=(active_c["beat"] == 7))
                 c_bgr, c_alpha = cap_cache[key]
                 blend_roi_inplace(frame, cap_y, c_bgr, c_alpha)
 
