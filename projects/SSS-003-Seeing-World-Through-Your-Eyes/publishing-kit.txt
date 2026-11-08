@@ -1,0 +1,59 @@
+================================================================================
+SMALL SIGNAL STUDIO — EPISODE #003 (SSS-003) PUBLISHING KIT
+================================================================================
+
+EPISODE ID:       SSS-003 (Dark Science Archive #003)
+TOPIC:            Seeing the World Through Your Eyes — Reconstructing Hidden 3D
+                  Rooms & Bystanders Behind the Camera from Cornea Reflections
+MASTER FILE:      SSS-003_Seeing_World_Through_Your_Eyes_UltraHD_1080p60.mp4
+SHORTS COVER:     SSS-003_Viral_Cover_9x16.jpg (1080x1920, also embedded Frame 0)
+YT THUMBNAIL:     SSS-003_Viral_Thumbnail_16x9.png (1920x1080)
+VOICEOVER TRACK:  SSS-003_Voiceover_Only.mp3 (voice-00, 48 kHz stereo)
+CAPTIONS:         captions.srt (16 frame-synced 2-line cards)
+SPECS:            1080x1920 (9:16) | 60.00 fps | H.264 High@L4.2 | 57.78s
+                  AAC 256 kbps 48 kHz Stereo | -14.0 LUFS (-1.2 dBTP)
+                  36 non-repeating native-1080p shots | Cinema Engine v5
+
+--------------------------------------------------------------------------------
+1. YOUTUBE SHORTS TITLES (20-40 CHARS, FRONT-LOADED, ZERO HASHTAGS IN TITLE)
+--------------------------------------------------------------------------------
+Primary (36 chars):    AI Rebuilds Hidden Rooms From Eyes?!
+Alternate A (38 chars): What Your Cornea Hides in Every Selfie
+Alternate B (34 chars): Zoom Into Any Eye, See Behind You?
+
+--------------------------------------------------------------------------------
+2. YOUTUBE DESCRIPTION (FIRST 2 LINES HOOK + CITATIONS + 4 HASHTAGS)
+--------------------------------------------------------------------------------
+Every portrait video or selfie hides a sub-millimeter reflection on your wet cornea. Researchers at the University of Maryland trained a 3D Neural Radiance Field (NeRF) to step inside your eye and reconstruct the room in front of you.
+
+Across healthy adults, the human cornea curves with a remarkably consistent ~7.8 mm radius dome (eccentricity e = 0.50), turning every eye into a tiny wide-angle curved mirror:
+
+• Cornea Pose Optimization: Locks onto sub-millimeter eyeball rotation across portrait frames via SE(3) ray reflection geometry.
+• 2D Iris Texture Decomposition: Simultaneously learns and peels away your colored iris pigment map so faint off-camera reflections (<5% of pixel energy) emerge in 3D.
+• Scientific Reality & Limits: Reconstructs 3D rooms, toys, and off-camera objects when given sufficient resolution and head motion (4 or fewer frames or near-zero motion still causes geometry holes).
+• Archival Music Video Test: Applied to existing close-up music videos of Miley Cyrus and Lady Gaga, recovering 3D silhouettes of studio softbox rigs and camera operators standing behind the lens years earlier.
+
+Primary Source:
+Hadi Alzayer*, Kevin Zhang*, Brandon Y. Feng, Christopher Metzler, and Jia-Bin Huang.
+"Seeing the World through Your Eyes."
+IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2024 — Oral Presentation.
+Paper: https://arxiv.org/abs/2306.09348
+Project: https://world-from-eyes.github.io/
+Code: https://github.com/HadiZayer/eyenerf
+
+#darkscience #technology #ai #physics
+
+--------------------------------------------------------------------------------
+3. YOUTUBE TAGS (<500 CHARS)
+--------------------------------------------------------------------------------
+seeing the world through your eyes, cornea reflection nerf, university of maryland ai, eyenerf, cvpr 2024 oral, jia bin huang, neural radiance field, dark science, hidden camera physics, computer vision breakthrough, optical surveillance tech, small signal studio
+
+--------------------------------------------------------------------------------
+4. PINNED COMMENT (VOLUNTARY LIKE/SUBSCRIBE + ZEIGARNIK COMMENT TRIGGER)
+--------------------------------------------------------------------------------
+Wild detail in the University of Maryland code (arXiv:2306.09348): healthy adult corneas are so geometrically consistent (R = 7.8 mm) that simply counting the pixel width of your iris tells the AI your exact distance from the lens—no depth sensor needed. Be honest: did this make you rethink posting high-res close-up selfies? (Tap Like to bookmark the paper for later — Archive #004 drops next.)
+
+--------------------------------------------------------------------------------
+5. FULL SPOKEN SCRIPT (130 WORDS — VOICE-00, ZERO VERBAL BEGGING)
+--------------------------------------------------------------------------------
+Every selfie you post hides a reflection. Now AI can step inside your eye and look around. Across healthy adults, the human cornea curves like a seven-point-eight-millimeter dome, acting as a tiny wide-angle security mirror. At the University of Maryland, researchers fed ordinary portrait clips into a 3D neural radiance field. Previously, two things blocked this: micro-shifts as eyeballs rotate, and your colored iris overpowering faint room reflections. Their algorithm locks onto cornea pose while peeling away a 2D map of your iris texture. Suddenly, hidden rooms, plush toys, and bystanders behind the camera appear in 3D, given enough head motion. Then they tested public music videos of Miley Cyrus and Lady Gaga... [0.60s silence] Zooming into single eyes, phantom silhouettes of studio lights and camera crews emerged years later. Remember...

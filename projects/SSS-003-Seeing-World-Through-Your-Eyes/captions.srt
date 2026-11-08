@@ -1,0 +1,74 @@
+1
+00:00:00,220 --> 00:00:03,980
+Every selfie you post hides
+a reflection.
+
+2
+00:00:03,980 --> 00:00:07,345
+Now AI can step inside your eye
+and look around.
+
+3
+00:00:07,505 --> 00:00:13,185
+Across healthy adults, the human cornea
+curves like a 7.8 mm dome,
+
+4
+00:00:13,185 --> 00:00:15,821
+acting as a tiny wide-angle
+security mirror.
+
+5
+00:00:15,981 --> 00:00:20,141
+At the University of Maryland,
+researchers fed portrait clips
+
+6
+00:00:20,141 --> 00:00:22,481
+into a 3D neural radiance field.
+
+7
+00:00:22,641 --> 00:00:27,651
+Previously, two things blocked this:
+micro-shifts as eyeballs rotate,
+
+8
+00:00:27,651 --> 00:00:31,239
+and your colored iris overpowering
+faint room reflections.
+
+9
+00:00:31,399 --> 00:00:35,159
+Their algorithm locks onto cornea pose
+while peeling away
+
+10
+00:00:35,159 --> 00:00:37,272
+a 2D map of your iris texture.
+
+11
+00:00:37,432 --> 00:00:42,302
+Suddenly, hidden rooms, plush toys,
+and bystanders appear in 3D,
+
+12
+00:00:42,302 --> 00:00:44,793
+given enough head motion.
+
+13
+00:00:44,953 --> 00:00:49,165
+Then they tested public music videos
+of Miley Cyrus and Lady Gaga...
+
+14
+00:00:49,805 --> 00:00:54,185
+Zooming into single eyes, phantom
+silhouettes of studio lights
+
+15
+00:00:54,185 --> 00:00:56,855
+and camera crews emerged years later.
+
+16
+00:00:56,855 --> 00:00:57,436
+Remember...

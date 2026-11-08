@@ -1,0 +1,156 @@
+{
+  "total_duration": 57.7833,
+  "total_frames_60fps": 3467,
+  "silence_window": [
+    49.185,
+    49.785
+  ],
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0.22,
+      "end": 7.345,
+      "duration": 7.125
+    },
+    {
+      "beat": 2,
+      "start": 7.505,
+      "end": 15.821,
+      "duration": 8.316
+    },
+    {
+      "beat": 3,
+      "start": 15.981,
+      "end": 22.481,
+      "duration": 6.5
+    },
+    {
+      "beat": 4,
+      "start": 22.641,
+      "end": 31.239,
+      "duration": 8.598
+    },
+    {
+      "beat": 5,
+      "start": 31.399,
+      "end": 37.272,
+      "duration": 5.873
+    },
+    {
+      "beat": 6,
+      "start": 37.432,
+      "end": 44.793,
+      "duration": 7.361
+    },
+    {
+      "beat": 7,
+      "start": 44.953,
+      "end": 49.165,
+      "duration": 4.212
+    },
+    {
+      "beat": 8,
+      "start": 49.805,
+      "end": 57.436,
+      "duration": 7.631
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.22,
+      "end": 3.98,
+      "text": "Every selfie you post hides\na reflection.",
+      "beat": 1
+    },
+    {
+      "start": 3.98,
+      "end": 7.345,
+      "text": "Now AI can step inside your eye\nand look around.",
+      "beat": 1
+    },
+    {
+      "start": 7.505,
+      "end": 13.185,
+      "text": "Across healthy adults, the human cornea\ncurves like a 7.8 mm dome,",
+      "beat": 2
+    },
+    {
+      "start": 13.185,
+      "end": 15.821,
+      "text": "acting as a tiny wide-angle\nsecurity mirror.",
+      "beat": 2
+    },
+    {
+      "start": 15.981,
+      "end": 20.141,
+      "text": "At the University of Maryland,\nresearchers fed portrait clips",
+      "beat": 3
+    },
+    {
+      "start": 20.141,
+      "end": 22.481,
+      "text": "into a 3D neural radiance field.",
+      "beat": 3
+    },
+    {
+      "start": 22.641,
+      "end": 27.651,
+      "text": "Previously, two things blocked this:\nmicro-shifts as eyeballs rotate,",
+      "beat": 4
+    },
+    {
+      "start": 27.651,
+      "end": 31.239,
+      "text": "and your colored iris overpowering\nfaint room reflections.",
+      "beat": 4
+    },
+    {
+      "start": 31.399,
+      "end": 35.159,
+      "text": "Their algorithm locks onto cornea pose\nwhile peeling away",
+      "beat": 5
+    },
+    {
+      "start": 35.159,
+      "end": 37.272,
+      "text": "a 2D map of your iris texture.",
+      "beat": 5
+    },
+    {
+      "start": 37.432,
+      "end": 42.302,
+      "text": "Suddenly, hidden rooms, plush toys,\nand bystanders appear in 3D,",
+      "beat": 6
+    },
+    {
+      "start": 42.302,
+      "end": 44.793,
+      "text": "given enough head motion.",
+      "beat": 6
+    },
+    {
+      "start": 44.953,
+      "end": 49.165,
+      "text": "Then they tested public music videos\nof Miley Cyrus and Lady Gaga...",
+      "beat": 7
+    },
+    {
+      "start": 49.805,
+      "end": 54.185,
+      "text": "Zooming into single eyes, phantom\nsilhouettes of studio lights",
+      "beat": 8
+    },
+    {
+      "start": 54.185,
+      "end": 56.855,
+      "text": "and camera crews emerged years later.",
+      "beat": 8
+    },
+    {
+      "start": 56.855,
+      "end": 57.436,
+      "text": "Remember...",
+      "beat": 8
+    }
+  ]
+}
