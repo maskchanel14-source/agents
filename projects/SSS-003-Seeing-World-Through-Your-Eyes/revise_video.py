@@ -58,6 +58,14 @@ for j in range(4):
 pulse=(np.maximum(0,np.sin(2*np.pi*0.5*t))**12)
 score[:,0] += .008*pulse*np.sin(2*np.pi*277.18*t)
 score[:,1] += .008*pulse*np.sin(2*np.pi*277.5*t+.8)
+# Midrange repeating tones survive small phone speakers better than a sub-bass pad.
+notes = [277.18, 329.63, 415.30, 329.63, 220.00, 277.18, 329.63, 277.18]
+step = (t * 2).astype(np.int32)
+freq = np.take(notes, step % len(notes))
+phase = np.cumsum(freq, dtype=np.float64) * (2*np.pi/SR)
+pluck = np.exp(-4.2 * ((t * 2) % 1))
+score[:,0] += .018 * pluck * np.sin(phase)
+score[:,1] += .018 * pluck * np.sin(phase + .25)
 # Short restrained risers and low impacts on story transitions.
 for b in beats[1:]:
     p=int(b['start']*SR); length=int(.55*SR); a=max(0,p-int(.28*SR)); z=min(N,a+length)
@@ -71,10 +79,12 @@ window=int(.12*SR)
 padded=np.pad(np.abs(voice), (window//2, window-window//2), mode='edge')
 cumulative=np.concatenate(([0.0], np.cumsum(padded, dtype=np.float64)))
 activity=((cumulative[window:]-cumulative[:-window])/window)[:N]
-duck=1-.40*np.clip(activity/.08,0,1)
-score*=duck[:,None]
-mix=np.stack([voice,voice],axis=1)*.91 + score
-mix=np.clip(mix,-.96,.96)
+duck=1-.22*np.clip(activity/.08,0,1)
+score*=duck[:,None] * 4.2
+mix=np.stack([voice,voice],axis=1)*.78 + score
+# Keep headroom rather than hard-clipping peaks; final limiter follows muxing.
+peak=np.max(np.abs(mix))
+if peak > .92: mix *= .92/peak
 def wav(path,data,channels):
     with wave.open(str(path),'wb') as w:
         w.setnchannels(channels); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.clip(data,-1,1)*32767).astype('<i2').tobytes())
@@ -105,6 +115,14 @@ entries.append(f"file '{(tmp/'cap8_1.png').resolve()}'")
 (tmp/'caps.txt').write_text('\n'.join(entries)+'\n')
 (out/'SSS-003_Revised_Captions.srt').write_text('\n'.join(srt))
 output=out/'SSS-003_Revised_Dark_Science.mp4'
+if os.environ.get('SSS_AUDIO_REMIX_ONLY'):
+    output=out/'SSS-003_Music_Forward.mp4'
+    subprocess.run([FFMPEG,'-y','-v','warning','-i',original,'-i',str(tmp/'mix.wav'),
+                    '-filter_complex','[1:a]alimiter=limit=0.88:level=0[a]',
+                    '-map','0:v:0','-map','[a]','-c:v','copy','-c:a','aac','-b:a','256k',
+                    '-movflags','+faststart','-shortest',str(output)],check=True)
+    print('Wrote',output,flush=True)
+    raise SystemExit(0)
 subprocess.run([FFMPEG,'-y','-v','warning','-i',original,'-f','concat','-safe','0','-i',str(tmp/'caps.txt'),'-i',str(tmp/'mix.wav'),
  '-filter_complex','[0:v][1:v]overlay=0:1218:shortest=1:format=auto,format=yuv420p[v];[2:a]alimiter=limit=0.88:level=0[a]',
  '-map','[v]','-map','[a]','-c:v','libx264','-preset','veryfast','-crf','18','-threads','4','-r','60','-c:a','aac','-b:a','256k','-movflags','+faststart','-shortest',str(output)],check=True)
