@@ -5,7 +5,7 @@ Production package for **Small Signal Studio — Episode #001 (`SSS-001`)**, a `
 ## Google Drive Delivery Links
 
 - **Episode Folder (`SSS-001`)**: <https://drive.google.com/drive/folders/1ujnjm9ZNKMxzWqzduV1BwPiVubl1SYdA>
-- **Ultra-HD 1080p60 Master (`SSS-001_Ghost_Walls_Robot_Parkour_UltraHD_1080p60.mp4`, 93.36 MiB)**: <https://drive.google.com/file/d/1dsBh_MWF9jkYEdMAPntyrB5CFZjv40SE/view?usp=drivesdk>
+- **Ultra-HD 1080p60 Master (`SSS-001_Ghost_Walls_Robot_Parkour_UltraHD_1080p60.mp4`, 93.35 MiB)**: <https://drive.google.com/file/d/1GTx2b5eeyoPb6vbrfLX35tXszi-AkyKe/view?usp=drivesdk>
 - **9:16 Viral Shorts Cover (`SSS-001_Viral_Cover_9x16.jpg`, also embedded at Frame 0 `0:00.00`)**: <https://drive.google.com/file/d/1ScdbjLPCcUWbjkZsmTiq87KOAl4VKryx/view?usp=drivesdk>
 - **16:9 YouTube Studio Thumbnail (`SSS-001_Viral_Thumbnail_16x9.png`)**: <https://drive.google.com/file/d/1GG__JbiTl75j8SWz8x05QPskTOnTcROu/view?usp=drivesdk>
 - **Standalone Voiceover (`SSS-001_Voiceover_Only.mp3`, `voice-00`)**: <https://drive.google.com/file/d/1EuuJEeNOUGL1JFOd1uBVw0OyMDK2mF16/view?usp=drivesdk>
