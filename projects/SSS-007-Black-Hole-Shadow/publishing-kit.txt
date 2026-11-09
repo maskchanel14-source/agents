@@ -1,0 +1,17 @@
+SSS-007 — The Black Hole Picture Isn't What You Think
+
+Suggested title: The Black Hole Picture Isn't What You Think
+Description: That dark center in the first image of M87* is its shadow—not a direct picture of the event horizon. Here's what the Event Horizon Telescope actually showed.
+
+Sources: https://www.nsf.gov/news/media-toolkits/event-horizon-telescope ; https://www.nasa.gov/missions/spitzer/the-giant-galaxy-around-the-giant-black-hole/ ; https://doi.org/10.3847/2041-8213/ab0ec7 ; https://doi.org/10.1051/0004-6361/202347932
+
+VISUAL CREDITS (include with publication):
+• EHT Collaboration, first M87* image (2017 observations, released 2019), CC BY 4.0 https://www.eso.org/public/images/eso1907a/ https://creativecommons.org/licenses/by/4.0/ — cropped, enlarged and held as a still. Source file via https://github.com/Sara-Managed-Projects/space-radar
+• EHT Collaboration, M87* 2018 observations, CC BY 4.0 https://doi.org/10.1051/0004-6361/202347932 https://creativecommons.org/licenses/by/4.0/ — cropped, enlarged and held as a still; source file via space-radar, previously cropped and scaled.
+• NASA, ESA and the Hubble team, Flight through Orion Nebula (visualization), CC BY 4.0 https://commons.wikimedia.org/wiki/File:Flight_through_Orion_Nebula_in_visible_light_(Hubblecast_106b_excerpt).webm https://creativecommons.org/licenses/by/4.0/ — trimmed, cropped and re-encoded. Illustrative, not M87.
+• NASA, ISS Crew Earth Observations, public domain https://commons.wikimedia.org/wiki/File:ISS_4K_Crew_Earth_Observations.webm — trimmed, cropped and re-encoded; illustrative.
+• National Park Service / Hannah Schwalbe, Stars in Joshua Tree National Park, public domain https://commons.wikimedia.org/wiki/File:Stars_in_Joshua_Tree_National_Park.webm — trimmed, cropped and re-encoded; illustrative.
+• ESO / M. Kornmesser, 3D data visualisation of the Pillars of Creation, CC BY 4.0 https://commons.wikimedia.org/wiki/File:3D_data_visualisation_of_the_Pillars_of_Creation_(eso1518a).webm https://creativecommons.org/licenses/by/4.0/ — trimmed, cropped and re-encoded; illustrative, not M87.
+Footage files via https://github.com/itsaligadimi/Vesper, commit ec230c9ead2be84178652688c4e7dd31d8aa6e72.
+
+Limitations: 2 scientific images are still frames, not live video; Orion and Pillars are labeled visualizations and other scenery is illustrative, not an actual black hole recording. Images and landscape videos are upscaled and center-cropped to fill 9:16. 6 distinct assets across 8 beats; repeated EHT stills. Subtitles and word highlights are estimated, not force-aligned. Narration is synthesized. Music and SFX are original procedural audio; final mix needs listening review before publication. Native source frame rates are lower than the 60 fps output. Never imply real M87 footage or native 4K.

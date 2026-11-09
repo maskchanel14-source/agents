@@ -1,0 +1,63 @@
+1
+00:00:00,150 --> 00:00:01,947
+That famous black hole image?
+
+2
+00:00:01,947 --> 00:00:04,735
+The dark circle is not the black hole itself.
+
+3
+00:00:04,915 --> 00:00:05,876
+It is a shadow,
+
+4
+00:00:05,876 --> 00:00:10,679
+created by gravity bending the paths of light around an invisible boundary.
+
+5
+00:00:10,859 --> 00:00:13,731
+In 2019, scientists revealed the first image:
+
+6
+00:00:13,731 --> 00:00:19,667
+a monster at the heart of galaxy M eighty seven, roughly fifty five million light years away.
+
+7
+00:00:19,847 --> 00:00:22,626
+Its mass is about six and a half billion Suns.
+
+8
+00:00:22,626 --> 00:00:27,278
+The bright ring comes from hot gas around it, not from the black hole itself.
+
+9
+00:00:27,458 --> 00:00:31,159
+To see it, astronomers linked radio observatories across Earth,
+
+10
+00:00:31,159 --> 00:00:34,626
+creating a virtual telescope nearly the size of our planet.
+
+11
+00:00:34,806 --> 00:00:37,417
+This is not a regular camera photograph.
+
+12
+00:00:37,417 --> 00:00:42,118
+Computers reconstructed the image from radio observations taken in 2017.
+
+13
+00:00:42,298 --> 00:00:44,957
+Beyond the event horizon, light cannot escape.
+
+14
+00:00:44,957 --> 00:00:48,542
+But the dark region in the image is larger than that boundary.
+
+15
+00:00:48,722 --> 00:00:53,118
+We cannot see the black hole directly. We see what it does to light.
+
+16
+00:00:53,118 --> 00:00:56,092
+Save this and subscribe for more real science.

@@ -1,0 +1,5 @@
+# SSS-007 — Black hole shadow
+
+A short on the first EHT M87* image. Strong hook from frame zero; English synthesized narration and spoken CTA. See publishing-kit.txt for scientific sources, attribution and limitations. 6 visual assets over 8 beats; two EHT still images recur and other shots are explicitly illustrative. Not the SOP's 12–30 unique sources / 34–36 shots. Portrait footage is center-cropped and upscaled, not native portrait; stills are not video. Subtitles use proportional timing and must be reviewed with audio.
+
+Reproduce: bootstrap media environment; obtain Vesper `ec230c9ead2be84178652688c4e7dd31d8aa6e72` in /tmp/vesper and space-radar `adddb10bdd91322f91c7489579b056e1367d8d52` in /tmp/radar; place eight narration wavs in /home/user/sss007/audio. Use ffmpeg to loop the two EHT images into /tmp/sss007_build/eht.mp4 and eht2018.mp4 (12 seconds each, 24fps). Run build_audio.py then render.py. Audio clips are generated using a session-scoped voice selection and are not committed.

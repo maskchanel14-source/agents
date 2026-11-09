@@ -1,0 +1,148 @@
+{
+  "total_frames_60fps": 3386,
+  "total_duration": 56.4333,
+  "silence_window": [
+    -1,
+    -1
+  ],
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0.15,
+      "end": 4.735
+    },
+    {
+      "beat": 2,
+      "start": 4.915,
+      "end": 10.679
+    },
+    {
+      "beat": 3,
+      "start": 10.859,
+      "end": 19.667
+    },
+    {
+      "beat": 4,
+      "start": 19.847,
+      "end": 27.278
+    },
+    {
+      "beat": 5,
+      "start": 27.458,
+      "end": 34.626
+    },
+    {
+      "beat": 6,
+      "start": 34.806,
+      "end": 42.118
+    },
+    {
+      "beat": 7,
+      "start": 42.298,
+      "end": 48.542
+    },
+    {
+      "beat": 8,
+      "start": 48.722,
+      "end": 56.092
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.15,
+      "end": 1.947,
+      "text": "That famous black hole image?",
+      "beat": 1
+    },
+    {
+      "start": 1.947,
+      "end": 4.735,
+      "text": "The dark circle is not the black hole itself.",
+      "beat": 1
+    },
+    {
+      "start": 4.915,
+      "end": 5.876,
+      "text": "It is a shadow,",
+      "beat": 2
+    },
+    {
+      "start": 5.876,
+      "end": 10.679,
+      "text": "created by gravity bending the paths of light around an invisible boundary.",
+      "beat": 2
+    },
+    {
+      "start": 10.859,
+      "end": 13.731,
+      "text": "In 2019, scientists revealed the first image:",
+      "beat": 3
+    },
+    {
+      "start": 13.731,
+      "end": 19.667,
+      "text": "a monster at the heart of galaxy M eighty seven, roughly fifty five million light years away.",
+      "beat": 3
+    },
+    {
+      "start": 19.847,
+      "end": 22.626,
+      "text": "Its mass is about six and a half billion Suns.",
+      "beat": 4
+    },
+    {
+      "start": 22.626,
+      "end": 27.278,
+      "text": "The bright ring comes from hot gas around it, not from the black hole itself.",
+      "beat": 4
+    },
+    {
+      "start": 27.458,
+      "end": 31.159,
+      "text": "To see it, astronomers linked radio observatories across Earth,",
+      "beat": 5
+    },
+    {
+      "start": 31.159,
+      "end": 34.626,
+      "text": "creating a virtual telescope nearly the size of our planet.",
+      "beat": 5
+    },
+    {
+      "start": 34.806,
+      "end": 37.417,
+      "text": "This is not a regular camera photograph.",
+      "beat": 6
+    },
+    {
+      "start": 37.417,
+      "end": 42.118,
+      "text": "Computers reconstructed the image from radio observations taken in 2017.",
+      "beat": 6
+    },
+    {
+      "start": 42.298,
+      "end": 44.957,
+      "text": "Beyond the event horizon, light cannot escape.",
+      "beat": 7
+    },
+    {
+      "start": 44.957,
+      "end": 48.542,
+      "text": "But the dark region in the image is larger than that boundary.",
+      "beat": 7
+    },
+    {
+      "start": 48.722,
+      "end": 53.118,
+      "text": "We cannot see the black hole directly. We see what it does to light.",
+      "beat": 8
+    },
+    {
+      "start": 53.118,
+      "end": 56.092,
+      "text": "Save this and subscribe for more real science.",
+      "beat": 8
+    }
+  ]
+}
