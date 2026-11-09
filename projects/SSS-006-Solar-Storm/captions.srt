@@ -1,0 +1,63 @@
+1
+00:00:00,150 --> 00:00:03,606
+In 1989, the Sun helped shut down an entire power grid.
+
+2
+00:00:03,606 --> 00:00:07,438
+Millions of people in Quebec lost electricity for nine hours.
+
+3
+00:00:07,618 --> 00:00:09,112
+The culprit wasn't sunlight.
+
+4
+00:00:09,112 --> 00:00:13,913
+It was a cloud of magnetized plasma thrown into space by the Sun: a coronal mass ejection.
+
+5
+00:00:14,093 --> 00:00:17,110
+When it reached Earth, it disturbed our planet's magnetic field.
+
+6
+00:00:17,110 --> 00:00:21,070
+That changing field drove electric currents through the ground and long power lines.
+
+7
+00:00:21,250 --> 00:00:24,567
+Protective equipment tripped, and Quebec's grid collapsed.
+
+8
+00:00:24,567 --> 00:00:27,770
+The same storm also produced auroras far from the poles.
+
+9
+00:00:27,950 --> 00:00:29,628
+This wasn't the first warning.
+
+10
+00:00:29,628 --> 00:00:34,888
+In 1859, the Carrington storm disrupted telegraph systems, and some operators reported sparks.
+
+11
+00:00:35,068 --> 00:00:38,498
+Today, satellites monitor the Sun, and grid operators can prepare.
+
+12
+00:00:38,498 --> 00:00:42,706
+But forecasting exactly how a storm will affect infrastructure remains difficult.
+
+13
+00:00:42,886 --> 00:00:44,984
+Not every solar storm causes a blackout.
+
+14
+00:00:44,984 --> 00:00:49,180
+The danger depends on the storm, Earth's magnetic response, and the grid itself.
+
+15
+00:00:49,360 --> 00:00:52,485
+The lights in the sky are beautiful. They are also a reminder:
+
+16
+00:00:52,485 --> 00:00:56,971
+Our technology lives inside space weather. Save this and subscribe for more real science.

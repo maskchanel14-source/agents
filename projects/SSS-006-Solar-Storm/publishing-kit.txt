@@ -1,0 +1,27 @@
+SSS-006 — WHEN THE SUN BLACKED OUT A GRID
+
+Suggested title: The Solar Storm That Shut Down a Power Grid
+
+Description:
+On March 13, 1989, a geomagnetic storm contributed to the collapse of the Hydro-Québec power grid, leaving millions without power for around nine hours. Why can a disturbance from the Sun affect infrastructure on Earth? This Short explains the mechanism and its limits. Not every solar storm causes a blackout.
+
+The footage is illustrative, not footage of the 1989 blackout: solar images show other dates and auroras show other locations. NASA SDO views are colourized extreme ultraviolet observations shown in accelerated time. The solar-cycle mosaic is a science time-lapse, not a real-time movie. No artificially generated visuals were used. Editing includes trimming, colour and scale changes, defocused background extensions, typography and new sound. Narration is synthesized; subtitles are approximately timed and require a final listening review. NASA does not endorse this video.
+
+Sources:
+NOAA: https://www.noaa.gov/explainers/space-weather-storms-from-sun
+NASA: https://science.nasa.gov/science-research/heliophysics/how-nasa-tracked-the-most-intense-solar-storm-in-decades/
+
+Footage credits (all sources modified as described above; archival footage not the event):
+- City at night by Editor, San Francisco: https://commons.wikimedia.org/wiki/File:City_at_night.webm — CC BY 3.0 https://creativecommons.org/licenses/by/3.0/ . Re-encoded, trimmed and scaled.
+- NASA/SDO and the AIA science team via Helioviewer.org, AIA 171 Å and 304 Å 24-hour observation timelapse, with brightness adjustment from https://github.com/beeswaxpat/lumara-sun-movie (snapshot afac92e918141e370a5a97c18b029001681bbc19; shown portions from 2026-11-08 UTC). The footage shows a different date, not the 1989 storm. Trimmed and scaled.
+- NASA, ISS 4K Crew Earth Observations, https://commons.wikimedia.org/wiki/File:ISS_4K_Crew_Earth_Observations.webm — U.S. public domain. Re-encoded, trimmed and scaled.
+- Aurora borealis timelapse by Harriniva Hotels&Safaris, Swedish/Finnish Lapland, https://commons.wikimedia.org/wiki/File:Aurora_borealis_timelapse.webm — CC BY 3.0 https://creativecommons.org/licenses/by/3.0/ . Re-encoded, trimmed and scaled.
+- Nordlys i Kjærfjorden by WarningBrothers Studios, Norway, https://commons.wikimedia.org/wiki/File:Nordlys_i_Kj%C3%A6rfjorden.webm — CC BY 3.0 https://creativecommons.org/licenses/by/3.0/ . Re-encoded, trimmed and scaled.
+- HelioField Movies by Soumyaranjan Dash, https://github.com/sr-dash/heliofield-movies . Observations: NASA/SDO and AIA/HMI teams; NASA STEREO/SECCHI. Sunspot numbers: WDC-SILSO, Royal Observatory of Belgium. HelioField imagery https://doi.org/10.5281/zenodo.23935774 and HelioField https://doi.org/10.5281/zenodo.23487231 . Timelapse sampled once per Carrington rotation, 6 fps, 2010–2026; excerpted. The original requests credit and allows free use for teaching/outreach.
+- Stars in Joshua Tree National Park: National Park Service / Hannah Schwalbe, https://commons.wikimedia.org/wiki/File:Stars_in_Joshua_Tree_National_Park.webm — U.S. public domain. Re-encoded, trimmed and scaled.
+- The CC and NASA clips above were accessed via the Vesper catalog: https://github.com/itsaligadimi/Vesper/tree/ec230c9ead2be84178652688c4e7dd31d8aa6e72/catalog ; footage retains original individual rights. No NASA or other endorsement is implied.
+
+Suggested pinned comment:
+Solar storms do not all cause blackouts. Which modern system do you think is most important to protect from space weather? The NOAA source explains why impacts vary.
+
+Tags: #SpaceWeather #SolarStorm #DarkScience #ScienceShorts #Technology

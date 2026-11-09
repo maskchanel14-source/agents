@@ -1,0 +1,148 @@
+{
+  "total_frames_60fps": 3439,
+  "total_duration": 57.3167,
+  "silence_window": [
+    -1,
+    -1
+  ],
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0.15,
+      "end": 7.438
+    },
+    {
+      "beat": 2,
+      "start": 7.618,
+      "end": 13.913
+    },
+    {
+      "beat": 3,
+      "start": 14.093,
+      "end": 21.07
+    },
+    {
+      "beat": 4,
+      "start": 21.25,
+      "end": 27.77
+    },
+    {
+      "beat": 5,
+      "start": 27.95,
+      "end": 34.888
+    },
+    {
+      "beat": 6,
+      "start": 35.068,
+      "end": 42.706
+    },
+    {
+      "beat": 7,
+      "start": 42.886,
+      "end": 49.18
+    },
+    {
+      "beat": 8,
+      "start": 49.36,
+      "end": 56.971
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.15,
+      "end": 3.606,
+      "text": "In 1989, the Sun helped shut down an entire power grid.",
+      "beat": 1
+    },
+    {
+      "start": 3.606,
+      "end": 7.438,
+      "text": "Millions of people in Quebec lost electricity for nine hours.",
+      "beat": 1
+    },
+    {
+      "start": 7.618,
+      "end": 9.112,
+      "text": "The culprit wasn't sunlight.",
+      "beat": 2
+    },
+    {
+      "start": 9.112,
+      "end": 13.913,
+      "text": "It was a cloud of magnetized plasma thrown into space by the Sun: a coronal mass ejection.",
+      "beat": 2
+    },
+    {
+      "start": 14.093,
+      "end": 17.11,
+      "text": "When it reached Earth, it disturbed our planet's magnetic field.",
+      "beat": 3
+    },
+    {
+      "start": 17.11,
+      "end": 21.07,
+      "text": "That changing field drove electric currents through the ground and long power lines.",
+      "beat": 3
+    },
+    {
+      "start": 21.25,
+      "end": 24.567,
+      "text": "Protective equipment tripped, and Quebec's grid collapsed.",
+      "beat": 4
+    },
+    {
+      "start": 24.567,
+      "end": 27.77,
+      "text": "The same storm also produced auroras far from the poles.",
+      "beat": 4
+    },
+    {
+      "start": 27.95,
+      "end": 29.628,
+      "text": "This wasn't the first warning.",
+      "beat": 5
+    },
+    {
+      "start": 29.628,
+      "end": 34.888,
+      "text": "In 1859, the Carrington storm disrupted telegraph systems, and some operators reported sparks.",
+      "beat": 5
+    },
+    {
+      "start": 35.068,
+      "end": 38.498,
+      "text": "Today, satellites monitor the Sun, and grid operators can prepare.",
+      "beat": 6
+    },
+    {
+      "start": 38.498,
+      "end": 42.706,
+      "text": "But forecasting exactly how a storm will affect infrastructure remains difficult.",
+      "beat": 6
+    },
+    {
+      "start": 42.886,
+      "end": 44.984,
+      "text": "Not every solar storm causes a blackout.",
+      "beat": 7
+    },
+    {
+      "start": 44.984,
+      "end": 49.18,
+      "text": "The danger depends on the storm, Earth's magnetic response, and the grid itself.",
+      "beat": 7
+    },
+    {
+      "start": 49.36,
+      "end": 52.485,
+      "text": "The lights in the sky are beautiful. They are also a reminder:",
+      "beat": 8
+    },
+    {
+      "start": 52.485,
+      "end": 56.971,
+      "text": "Our technology lives inside space weather. Save this and subscribe for more real science.",
+      "beat": 8
+    }
+  ]
+}
